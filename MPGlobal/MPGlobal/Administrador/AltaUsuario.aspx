@@ -1,144 +1,181 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.master" AutoEventWireup="true" CodeFile="AltaUsuario.aspx.cs" Inherits="AltaUsuario" %>
- 
-<asp:Content ID="Content1" ContentPlaceHolderID="head" Runat="Server">
 
-
-
-
+<asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
 </asp:Content>
-<asp:Content ID="Content2" ContentPlaceHolderID="FeaturedContent" Runat="Server">
+<asp:Content ID="Content2" ContentPlaceHolderID="FeaturedContent" runat="Server">
 </asp:Content>
-<asp:Content ID="Content3" ContentPlaceHolderID="MainContent" Runat="Server">
-    
-     <div class="container">
+<asp:Content ID="Content3" ContentPlaceHolderID="MainContent" runat="Server">
 
-        <form class="well form-horizontal" method="post" id="contact_form">
-            <fieldset>
-
-                <!-- Form Name -->
-                <legend>
-                    <center><h2><b>Alta Usuario</b></h2></center>
-                </legend>
-                <br>
-
-                <!-- Text input-->
-
+    <div id="formularioAltaCliente" class="container formulario_container">
+        <div class="row">
+            <div class="col-sm-12 text-center">
+                <h2><b>Alta Usuario</b></h2>
+                <hr />
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-4 text-right">
+                <label class="control-label">Nombre(s)</label>
+            </div>
+            <div class="col-sm-8">
                 <div class="form-group">
-                    <label class="col-md-4 control-label">Nombre(s)</label>
-                    <div class="col-md-4 inputGroupContainer">
+                    <div class="inputGroupContainer">
                         <div class="input-group">
                             <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-                            <input name="first_name" placeholder="First Name" class="form-control" type="text">
+                            <asp:TextBox ID="txtFirstName" runat="server" placeholder="Nombre(s)" CssClass="form-control campo_obligatorio"></asp:TextBox>
                         </div>
                     </div>
                 </div>
-
-                <!-- Text input-->
-
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-4 text-right">
+                <label class="control-label">Apellido Paterno</label>
+            </div>
+            <div class="col-sm-8">
                 <div class="form-group">
-                    <label class="col-md-4 control-label">Apellido</label>
-                    <div class="col-md-4 inputGroupContainer">
+                    <div class="inputGroupContainer">
                         <div class="input-group">
                             <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-                            <input name="last_name" placeholder="Last Name" class="form-control" type="text">
+                            <asp:TextBox ID="txtApPaterno" runat="server" placeholder="Apellido Paterno" CssClass="form-control campo_obligatorio"></asp:TextBox>
                         </div>
                     </div>
                 </div>
-
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-4 text-right">
+                <label class="control-label">Apellido Materno</label>
+            </div>
+            <div class="col-sm-8">
                 <div class="form-group">
-                    <label class="col-md-4 control-label">Estado</label>
-                    <div class="col-md-4 selectContainer">
+                    <div class="inputGroupContainer">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                            <asp:TextBox ID="txtApMaterno" runat="server" placeholder="Apellido Materno" CssClass="form-control campo_obligatorio"></asp:TextBox>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-4 text-right">
+                <label class="control-label">Estado</label>
+            </div>
+            <div class="col-sm-8">
+                <div class="form-group">
+                    <div class="inputGroupContainer">
                         <div class="input-group">
                             <span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
-                            <select name="department" class="form-control selectpicker">
-                                <option value="">Selecciona Estado</option>
-                                <option>Nuevo Leon</option>
-                                <option>Coahuila</option>
-                                <option>Tamaulipas</option>
-                                <option>Sonora</option>
-                                <option>Chihuahua</option>
-                            </select>
+                            <asp:DropDownList ID="ddlEstado" runat="server" CssClass="form-control selectpicker campo_obligatorio"></asp:DropDownList>
                         </div>
                     </div>
                 </div>
-
-                <!-- Text input-->
-
+            </div>
+        </div>
+         <div class="row">
+            <div class="col-sm-4 text-right">
+                <label class="control-label">Municipio</label>
+            </div>
+            <div class="col-sm-8">
                 <div class="form-group">
-                    <label class="col-md-4 control-label">Usuario</label>
-                    <div class="col-md-4 inputGroupContainer">
+                    <div class="inputGroupContainer">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
+                            <asp:DropDownList ID="ddlMunicipio" runat="server" CssClass="form-control selectpicker campo_obligatorio"></asp:DropDownList>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-4 text-right">
+                <label class="control-label">Usuario</label>
+            </div>
+            <div class="col-sm-8">
+                <div class="form-group">
+                    <div class="inputGroupContainer">
                         <div class="input-group">
                             <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-                            <input name="user_name" placeholder="Username" class="form-control" type="text">
+                            <asp:TextBox ID="txtUserName" runat="server" CssClass="form-control campo_obligatorio" placeholder="Username"></asp:TextBox>
                         </div>
                     </div>
                 </div>
-
-                <!-- Text input-->
-
+            </div>
+        </div>
+        
+        <div class="row">
+            <div class="col-sm-4 text-right">
+                <label class="control-label">Contraseña</label>
+            </div>
+            <div class="col-sm-8">
                 <div class="form-group">
-                    <label class="col-md-4 control-label">Contraseña</label>
-                    <div class="col-md-4 inputGroupContainer">
+                    <div class="inputGroupContainer">
                         <div class="input-group">
                             <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-                            <input name="user_password" placeholder="Password" class="form-control" type="password">
+                            <asp:TextBox ID="txtContrasenia" runat="server" CssClass="form-control campo_obligatorio" TextMode="Password" placeholder="Contraseña"></asp:TextBox>
                         </div>
                     </div>
                 </div>
-
-                <!-- Text input-->
-
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-4 text-right">
+                <label class="control-label">Confirma Contraseña</label>
+            </div>
+            <div class="col-sm-8">
                 <div class="form-group">
-                    <label class="col-md-4 control-label">Confirma Contraseña</label>
-                    <div class="col-md-4 inputGroupContainer">
+                    <div class="inputGroupContainer">
                         <div class="input-group">
                             <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-                            <input name="confirm_password" placeholder="Confirm Password" class="form-control" type="password">
+                            <asp:TextBox ID="txtConfirmContrasenia" runat="server" CssClass="form-control campo_obligatorio" TextMode="Password" placeholder="Confirmar contraseña"></asp:TextBox>
                         </div>
                     </div>
                 </div>
-
-                <!-- Text input-->
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-4 text-right">
+                <label class="control-label">E-Mail</label>
+            </div>
+            <div class="col-sm-8">
                 <div class="form-group">
-                    <label class="col-md-4 control-label">E-Mail</label>
-                    <div class="col-md-4 inputGroupContainer">
+
+                    <div class="inputGroupContainer">
                         <div class="input-group">
                             <span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
-                            <input name="email" placeholder="E-Mail Address" class="form-control" type="text">
+                            <asp:TextBox ID="txtEmail" runat="server" onblur="javascript:validateEmail(this.value);" CssClass="form-control campo_obligatorio" placeholder="e-mail"></asp:TextBox>
                         </div>
                     </div>
                 </div>
-
-
-                <!-- Text input-->
-
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-4 text-right">
+                <label class="control-label">Teléfono</label>
+            </div>
+            <div class="col-sm-8">
                 <div class="form-group">
-                    <label class="col-md-4 control-label">Telefono Contacto</label>
-                    <div class="col-md-4 inputGroupContainer">
+
+                    <div class="inputGroupContainer">
                         <div class="input-group">
-                            <span class="input-group-addon"><i class="glyphicon glyphicon-earphone"></i></span>
-                            <input name="contact_no" placeholder="(639)" class="form-control" type="text">
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
+                            <asp:TextBox ID="txtTelefono" runat="server" CssClass="form-control campo_obligatorio" placeholder="Teléfono"></asp:TextBox>
                         </div>
                     </div>
                 </div>
-
-                <!-- Select Basic -->
-
-                <!-- Success message -->
-                <div class="alert alert-success" role="alert" id="success_message">Success <i class="glyphicon glyphicon-thumbs-up"></i>Success!.</div>
-
-                <!-- Button -->
-                <div class="form-group">
-                    <label class="col-md-4 control-label"></label>
-                    <div class="col-md-4">
-                        <br>
-                        <button type="submit" class="btn btn-warning">Guardar <span class="glyphicon glyphicon-send"></span></button>
-                    </div>
-                </div>
-
-            </fieldset>
-        </form>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-4"></div>
+            <div class="col-sm-8">
+                <asp:LinkButton ID="lnkGuardar" runat="server" CssClass="btn btn-warning" data-target="#formularioAltaCliente" OnClientClick="javascript:validaCampos(this,event);">
+                    Guardar <span class="glyphicon glyphicon-send"></span>
+                </asp:LinkButton>
+            </div>
+        </div>
     </div>
+    >
     <style lang="cs">
         #success_message {
             display: none;
