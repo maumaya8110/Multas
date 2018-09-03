@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Data.SqlClient;
 using System.Data;
+using System.Configuration;
 
 /// <summary>
 /// Descripción breve de DataBase
@@ -25,9 +26,9 @@ public class DataBase: IDisposable
     }
 
     private SqlConnection conn { get; set; }
-    public DataBase(string conn)
+    public DataBase()
     {
-        this.conn = new SqlConnection(conn);
+        this.conn = new SqlConnection(ConfigurationManager.ConnectionStrings["DefaultConnection"].ToString());
     }
 
     /// <summary>
@@ -43,9 +44,10 @@ public class DataBase: IDisposable
         {
             DataSet ds = new DataSet();
             SqlCommand command = new SqlCommand(sp, conn);
+            command.CommandType = CommandType.StoredProcedure;
+            command.Parameters.Add(new SqlParameter("@TipoMovimiento", (int)tipo));
             if (parametros != null)
             {
-                command.Parameters.Add(new SqlParameter("@TipoMovimiento", (int)tipo));
                 foreach (SqlParameter p in parametros)
                     command.Parameters.Add(p);
             }
