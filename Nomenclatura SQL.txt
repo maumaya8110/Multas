@@ -1,0 +1,6 @@
+Store Procedure
+-Catalogos
+Sp_Cat_<%Nombre%>
+
+Todos los demás
+-Sp_<%Nombre%>

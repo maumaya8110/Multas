@@ -11,4 +11,10 @@ public partial class MasterPage : System.Web.UI.MasterPage
     {
 
     }
+    
+    public void setTitle(string title)
+    {
+        titleHeader.InnerText = title;
+    }
+
 }
