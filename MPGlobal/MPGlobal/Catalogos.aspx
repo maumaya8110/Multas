@@ -7,22 +7,7 @@
             text-align: center;
         }
 
-        .textTab {
-            border: solid 1px #E5E5E5;
-            background: -webkit-gradient( linear, left top, left 25, from(#FFFFFF), color-stop(2%, #f4f4f478), to(#FFFFFF) );
-            margin: 5px 30px 0px 30px;
-            width: 40%;
-            padding: 3px;
-            display: block;
-            font-size: 16px;
-        }
-
-        .labelTab {
-            display: block;
-            padding: 10px 30px 0px 30px;
-            margin: 10px,0px 0 px 0px;
-            font-size: 18px;
-        }
+        
     </style>
 
 </asp:Content>
@@ -46,7 +31,7 @@
                         <div class="col-md-4 selectContainer" style="width: 80%;">
                             <div class="input-group">
                                 <span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
-                                <asp:DropDownList ID="DropDownList2" runat="server" name="department" class="form-control selectpicker">
+                                <asp:DropDownList ID="DropCatalogos" AutoPostBack="true" runat="server" name="department" class="form-control selectpicker" OnSelectedIndexChanged="DropCatalogos_SelectedIndexChanged">
                                     <asp:ListItem>Selecciona el catalogo</asp:ListItem>
                                     <asp:ListItem>Estados</asp:ListItem>
 
@@ -56,17 +41,17 @@
                     </div>
                     <div class="col-md-6">
                         <div class="col-md-2 selectContainer">
-                            <asp:LinkButton ID="LinkButton2" runat="server" type="button" class="btn btn-default btn-LG">
+                            <asp:LinkButton ID="BtnNuevo" runat="server" type="button" class="btn btn-default btn-LG">
                             <span class="glyphicon glyphicon-plus"></span>NUEVO
                             </asp:LinkButton>
                         </div>
                         <div class="col-md-2 selectContainer">
-                            <asp:LinkButton ID="LinkButton1" runat="server" type="button" class="btn btn-default btn-LG">
+                            <asp:LinkButton ID="BtnEditar" runat="server" type="button" class="btn btn-default btn-LG" >
                             <span class="glyphicon glyphicon-pencil"></span>EDITAR
                             </asp:LinkButton>
                         </div>
                         <div class="col-md-2 selectContainer">
-                            <asp:LinkButton ID="LinkButton3" runat="server" type="button" class="btn btn-default btn-LG">
+                            <asp:LinkButton ID="BtnEliminar" runat="server" type="button" class="btn btn-default btn-LG" >
                             <span class="glyphicon glyphicon-trash"></span>ELIMINAR
                             </asp:LinkButton>
                         </div>
