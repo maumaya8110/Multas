@@ -6,8 +6,6 @@
         .Titulo {
             text-align: center;
         }
-
-        
     </style>
 
 </asp:Content>
@@ -41,37 +39,58 @@
                     </div>
                     <div class="col-md-6">
                         <div class="col-md-2 selectContainer">
-                            <asp:LinkButton ID="BtnNuevo" runat="server" type="button" class="btn btn-default btn-LG">
-                            <span class="glyphicon glyphicon-plus"></span>NUEVO
-                            </asp:LinkButton>
                         </div>
                         <div class="col-md-2 selectContainer">
-                            <asp:LinkButton ID="BtnEditar" runat="server" type="button" class="btn btn-default btn-LG" >
-                            <span class="glyphicon glyphicon-pencil"></span>EDITAR
-                            </asp:LinkButton>
                         </div>
                         <div class="col-md-2 selectContainer">
-                            <asp:LinkButton ID="BtnEliminar" runat="server" type="button" class="btn btn-default btn-LG" >
-                            <span class="glyphicon glyphicon-trash"></span>ELIMINAR
-                            </asp:LinkButton>
                         </div>
 
                     </div>
 
                     <div class="row">
-                        <div class="col-md-6"  style="width: 100%;">
-                            <asp:GridView ID="GridView1" runat="server" CellPadding="4" ForeColor="#333333" GridLines="None">
-                                <AlternatingRowStyle BackColor="White" ForeColor="#284775" />
-                                <EditRowStyle BackColor="#999999" />
-                                <FooterStyle BackColor="#5D7B9D" Font-Bold="True" ForeColor="White" />
-                                <HeaderStyle BackColor="#5D7B9D" Font-Bold="True" ForeColor="White" />
-                                <PagerStyle BackColor="#284775" ForeColor="White" HorizontalAlign="Center" />
-                                <RowStyle BackColor="#F7F6F3" ForeColor="#333333" />
-                                <SelectedRowStyle BackColor="#E2DED6" Font-Bold="True" ForeColor="#333333" />
-                                <SortedAscendingCellStyle BackColor="#E9E7E2" />
-                                <SortedAscendingHeaderStyle BackColor="#506C8C" />
-                                <SortedDescendingCellStyle BackColor="#FFFDF8" />
-                                <SortedDescendingHeaderStyle BackColor="#6F8DAE" />
+                        <div class="col-md-6" style="width: 100%;">
+                            <asp:GridView ID="GridView1" runat="server" ClientIDMode="Static" CssClass="table table-bordered bs-table" OnRowDeleting="GridView1_RowDeleting">
+
+                                <Columns>
+                                    <%--CheckBox para seleccionar varios registros...--%>
+                                    <asp:TemplateField ItemStyle-HorizontalAlign="Center" HeaderStyle-Width="100%">
+                                        <ItemTemplate>
+
+                                            <%--Botones de eliminar y editar cliente...--%>
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <div class="col-md-2 selectContainer">
+                                                        <asp:LinkButton ID="BtnNuevo" runat="server" type="button" class="btn btn-default btn-sm" CommandName="NUEVO" OnClientClick="return confirm('¿Eliminar cliente?');">
+                                            <span class="glyphicon glyphicon-plus"></span>NUEVO
+                                                        </asp:LinkButton>
+                                                    </div>
+                                                    <div class="col-md-2 selectContainer">
+                                                        <asp:LinkButton ID="BtnEditar" runat="server" type="button" class="btn btn-default btn-sm" CommandName="Editar">
+                                            <span class="glyphicon glyphicon-pencil"></span>EDITAR
+                                                        </asp:LinkButton>
+                                                    </div>
+                                                    <div class="col-md-2 selectContainer">
+                                                        <asp:LinkButton ID="BtnEliminar" runat="server" type="button" class="btn btn-default btn-sm" CommandName="Eliminar">
+                                            <span class="glyphicon glyphicon-trash"></span>ELIMINAR
+                                                        </asp:LinkButton>
+                                                    </div>
+
+                                                </div>
+
+
+
+
+
+                                            </div>
+                                        </ItemTemplate>
+                                        <EditItemTemplate>
+                                            <%--Botones de grabar y cancelar la edición de registro...--%>
+                                            <asp:Button ID="btnUpdate" runat="server" Text="Grabar" CssClass="btn btn-success" CommandName="Update" OnClientClick="return confirm('¿Seguro que quiere modificar los datos del cliente?');" />
+                                            <asp:Button ID="btnCancel" runat="server" Text="Cancelar" CssClass="btn btn-default" CommandName="Cancel" />
+                                        </EditItemTemplate>
+                                    </asp:TemplateField>
+
+                                </Columns>
                             </asp:GridView>
                         </div>
                         <div class="col-md-6">
@@ -80,6 +99,42 @@
             </fieldset>
         </form>
     </div>
+
+
+    <!-- jQuery 3 -->
+    <%-- <script src="../bower_components/jquery/dist/jquery.min.js"></script>
+   
+
+    <!-- Bootstrap 3.3.7 -->
+    <script src="../bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <!-- DataTables -->--%>
+    <%--<script src="../bower_components/datatables.net/js/jquery.dataTables.min.js"></script>--%>
+
+    <%-- <script src="../bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+    <!-- SlimScroll -->
+    <script src="../bower_components/jquery-slimscroll/jquery.slimscroll.min.js"></script>
+    <!-- FastClick -->
+    <script src="../bower_components/fastclick/lib/fastclick.js"></script>--%>
+    <%-- <!-- AdminLTE App -->
+    <script src="../dist/js/adminlte.min.js"></script>
+    <!-- AdminLTE for demo purposes -->
+    <script src="../dist/js/demo.js"></script>--%>
+
+
+    <!-- page script -->
+    <script>
+        $(function () {
+            $('#GridView1').DataTable()
+            $('#GridView1').DataTable({
+                'paging': true,
+                'lengthChange': false,
+                'searching': false,
+                'ordering': true,
+                'info': true,
+                'autoWidth': false
+            })
+        })
+</script>
 
 
 </asp:Content>
