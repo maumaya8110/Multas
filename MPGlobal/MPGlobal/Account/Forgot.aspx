@@ -1,19 +1,17 @@
-﻿<%@ Page Title="Iniciar sesión" Language="C#" AutoEventWireup="true" CodeFile="Login.aspx.cs" Inherits="Account_Login" Async="true" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="Forgot.aspx.cs" Inherits="Account_Forgot" %>
 
 <!DOCTYPE html>
 
-<html lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title><%: Page.Title %> - Mi aplicación ASP.NET</title>
-
+    <title></title>
     <asp:PlaceHolder runat="server">
         <%: Scripts.Render("~/bundles/modernizr") %>
     </asp:PlaceHolder>
     <webopt:BundleReference runat="server" Path="~/Content/css" />
-    <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
     <link rel="stylesheet" href="../dist/css/AdminLTE.min.css">
     <link rel="stylesheet" href="../bower_components/bootstrap/dist/css/bootstrap.min.css">
     <link href="../Content/login.min.css" rel="stylesheet" />
@@ -60,70 +58,71 @@
             </div>
             <div id="box-inbox" class="container">
                 <div class="row">
-                    <div class="col-md-12">
-                        <section id="loginForm">
-                            <div class="form-horizontal">
-                                <br />
-                                <h5 class="text-center">Usa tu cuenta para iniciar sesión.</h5>
-                                <br />
-                                <asp:PlaceHolder runat="server" ID="ErrorMessage" Visible="false">
-                                    <p class="text-danger">
-                                        <asp:Literal runat="server" ID="FailureText" />
-                                    </p>
-                                </asp:PlaceHolder>
-                                <div class="col-md-12">
-                                    <div class="form-group">
-                                        <div class="inputGroupContainer">
-                                            <div class="input-group">
-                                                <span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
-                                                <asp:TextBox ID="UserName" runat="server" placeholder="Usuario" CssClass="form-control"></asp:TextBox>
+                    <asp:PlaceHolder ID="loginForm" runat="server">
+                        <div class="col-md-12">
+                            <section id="loginForm_2">
+                                <div class="form-horizontal">
+                                    <br />
+                                    <h5 class="text-center">Proporciona tu usuario (correo) y te enviaremos un email para que puedas restablecerla.</h5>
+                                    <br />
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <div class="inputGroupContainer">
+                                                <div class="input-group">
+                                                    <span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
+                                                    <asp:TextBox ID="txtEmail" runat="server" placeholder="Usuario" CssClass="form-control"></asp:TextBox>
 
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <asp:RequiredFieldValidator runat="server" ControlToValidate="UserName"
-                                        CssClass="text-danger" ErrorMessage="El campo de nombre de usuario es obligatorio." />
-                                </div>
-                                <div class="col-md-12">
-                                    <div class="form-group">
-                                        <div class="col-md-12">
-                                            <div class="form-group">
-                                                <div class="inputGroupContainer">
-                                                    <div class="input-group">
-                                                        <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
-                                                        <asp:TextBox runat="server" ID="Password" TextMode="Password" CssClass="form-control" placeholder="Contraseña" />
-                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
+                                        <asp:RequiredFieldValidator runat="server" ControlToValidate="txtEmail"
+                                            CssClass="text-danger" ErrorMessage="El campo de nombre de usuario es obligatorio." />
                                     </div>
-                                    <asp:RequiredFieldValidator runat="server" ControlToValidate="Password" CssClass="text-danger" ErrorMessage="El campo de contraseña es obligatorio." />
-                                </div>
-
-                                <div class="row">
-                                    <div class="col-sm-7">
-                                        <div class="checkbox">
-                                            <asp:CheckBox runat="server" ID="RememberMe" />
-                                            <asp:Label runat="server" AssociatedControlID="RememberMe">¿Recordar cuenta?</asp:Label>
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <asp:PlaceHolder runat="server" ID="ErrorMessage" Visible="false">
+                                                <p class="text-danger">
+                                                    <asp:Literal runat="server" ID="FailureText" />
+                                                </p>
+                                            </asp:PlaceHolder>
                                         </div>
                                     </div>
-                                    <div class="col-sm-5 text-right">
-                                        <asp:Button runat="server" OnClick="LogIn" Text="Iniciar sesión" CssClass="btn btn-primary" />
+                                    <div class="row">
+                                        <div class="col-sm-12 text-right">
+                                            <br />
+                                            <p>
+                                                <asp:Button ID="btnEnviarEmail" runat="server" CssClass="btn btn-primary" Text="Validar correo" OnClick="btnEnviarEmail_Click" />
+                                            </p>
+                                        </div>
                                     </div>
+
                                 </div>
-                                <div class="row">
-                                    <div class="col-sm-12">
+                            </section>
+                        </div>
+                    </asp:PlaceHolder>
+                    <asp:PlaceHolder runat="server" ID="DisplayEmail" Visible="false">
+
+                        <div class="container-full">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <section class="confirmForgot" style="padding:15px;">
+                                        <div class="form-horizontal">
+                                            <br />
+                                            <h4 class="text-info">Por favor valida tu correo para recuperar tu contraseña
+                        
+                                            </h4>
+                                            <br />
+                                            <div class="col-sm-12 text-right">
+                                                <asp:HyperLink ID="lnkIniciarSesion" runat="server" NavigateUrl="~/Account/Login.aspx" Text="Iniciar sesión" CssClass="btn btn-primary" style="margin-bottom:15px;"></asp:HyperLink>
+                                                <br />
+                                            </div>
+                                        </div>
                                         <br />
-                                        <p>
-                                            <asp:HyperLink ID="hyperForgot" runat="server" NavigateUrl="~/Account/Forgot.aspx">Olvide mi contraseña</asp:HyperLink>
-                                        </p>
-                                    </div>
+                                    </section>
                                 </div>
-
                             </div>
-                        </section>
-                    </div>
-
+                        </div>
+                    </asp:PlaceHolder>
                 </div>
             </div>
 

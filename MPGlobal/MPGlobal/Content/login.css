@@ -1,0 +1,25 @@
+﻿body {
+    background: #d2d6de;
+}
+
+
+#box-inbox {
+    width: 360px;
+    border: 1px solid #EEE;
+    background-color: #FFF;
+    margin-top: 8%;
+}
+
+.checkbox input[type="checkbox"] {
+    margin-left: 0px !important;
+}
+
+
+#box-inbox .btn {
+    border-radius: 0px;
+}
+
+
+.confirmForgot{
+    padding:15px;
+}

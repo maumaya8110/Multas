@@ -66,7 +66,10 @@ public partial class SiteMaster : MasterPage
 
     protected void Page_Load(object sender, EventArgs e)
     {
-
+        if (!HttpContext.Current.User.Identity.IsAuthenticated)
+        {
+            Response.Redirect("~/Account/Login.aspx");
+        }
     }
 
     protected void Unnamed_LoggingOut(object sender, LoginCancelEventArgs e)

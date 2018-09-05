@@ -9,13 +9,13 @@ public partial class Account_Login : Page
 {
         protected void Page_Load(object sender, EventArgs e)
         {
-            RegisterHyperLink.NavigateUrl = "Register";
-            OpenAuthLogin.ReturnUrl = Request.QueryString["ReturnUrl"];
-            var returnUrl = HttpUtility.UrlEncode(Request.QueryString["ReturnUrl"]);
-            if (!String.IsNullOrEmpty(returnUrl))
-            {
-                RegisterHyperLink.NavigateUrl += "?ReturnUrl=" + returnUrl;
-            }
+            //RegisterHyperLink.NavigateUrl = "Register";
+            //OpenAuthLogin.ReturnUrl = Request.QueryString["ReturnUrl"];
+            //var returnUrl = HttpUtility.UrlEncode(Request.QueryString["ReturnUrl"]);
+            //if (!String.IsNullOrEmpty(returnUrl))
+            //{
+            //    RegisterHyperLink.NavigateUrl += "?ReturnUrl=" + returnUrl;
+            //}
         }
 
         protected void LogIn(object sender, EventArgs e)
@@ -32,7 +32,7 @@ public partial class Account_Login : Page
                 }
                 else
                 {
-                    FailureText.Text = "Invalid username or password.";
+                    FailureText.Text = "Usuario o contraseña incorrectos.";
                     ErrorMessage.Visible = true;
                 }
             }

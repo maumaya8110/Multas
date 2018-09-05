@@ -10,5 +10,11 @@
     "inputFiles": [
       "Scripts/master.js"
     ]
+  },
+  {
+    "outputFileName": "Content/login.min.css",
+    "inputFiles": [
+      "Content/login.css"
+    ]
   }
 ]
