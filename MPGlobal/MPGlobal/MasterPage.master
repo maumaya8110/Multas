@@ -526,9 +526,9 @@
             <div class="content-wrapper">
                 <!-- Content Header (Page header) -->
                 <section class="content-header">
-                    <h1 id="titleHeader" runat="server">Dashboard
+                    <h1 id="titleHeader" runat="server">Administrador
        
-                        <small>Control panel</small>
+                        <small>Catálogos</small>
                     </h1>
                     <ol class="breadcrumb">
                         <%--  <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>

@@ -68,17 +68,147 @@ public partial class Catalogos : System.Web.UI.Page
 
     }
 
-    
+    //protected void GridView1_RowCommand(object sender, GridViewCommandEventArgs e)
+    //{
+    //    int index = Convert.ToInt32(e.CommandArgument);
+    //    if (e.CommandName.Equals("Edit"))
+    //    {
 
-    protected void GridView1_RowDeleting(object sender, GridViewDeleteEventArgs e)
+    //        GridViewRow gvrow = GridView1.Rows[index];
+    //        //HfUpdateID.Value = HttpUtility.HtmlDecode(gvrow.Cells[3].Text).ToString();
+    //        //txtNameUpdate.Text = HttpUtility.HtmlDecode(gvrow.Cells[4].Text);
+    //        //txtEmailIDUpdate.Text = HttpUtility.HtmlDecode(gvrow.Cells[5].Text);
+    //        //txtAddressUpdate.Text = HttpUtility.HtmlDecode(gvrow.Cells[6].Text);
+    //        //txtContactUpdate.Text = HttpUtility.HtmlDecode(gvrow.Cells[7].Text);
+    //        //lblResult.Visible = false;
+    //        System.Text.StringBuilder sb = new System.Text.StringBuilder();
+    //        sb.Append(@"<script type='text/javascript'>");
+    //        sb.Append("$('#editModal').modal('show');");
+    //        sb.Append(@"</script>");
+    //        ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "EditModalScript", sb.ToString(), false);
+
+    //    }
+    //}
+
+    //    protected void GridView1_RowDeleting(object sender, GridViewDeleteEventArgs e)
+    //{
+    //    //////GridView1.DataBind();
+    //    //if ( == "Delete")
+    //    //{
+
+    //    ScriptManager.RegisterStartupScript(this.Page, this.Page.GetType(), "Mostrar Modal", "Success();", true);
+
+    //    //}
+
+    //}
+
+    //protected void GridView1_RowEditing(object sender, GridViewEditEventArgs e)
+    //{
+
+    //    GridView1.EditIndex = e.NewEditIndex;
+
+    //}
+
+    //protected void GridView1_RowCancelingEdit(object sender, GridViewCancelEditEventArgs e)
+    //{
+
+    //    GridView1.EditIndex = -1;
+
+    //}
+
+    //protected void GridView1_Rowupdating(object sender, GridViewUpdateEventArgs e)
+    //{
+
+    //    GridViewRow row = GridView1.Rows[e.RowIndex];
+    //    string NomEstado = ((TextBox)(row.Cells[2].Controls[0])).Text;
+    //    string SiglasEstado = ((TextBox)(row.Cells[2].Controls[0])).Text;
+    //    string Contacto = ((TextBox)(row.Cells[2].Controls[0])).Text;
+    //    string Telefono = ((TextBox)(row.Cells[2].Controls[0])).Text;
+    //    string Correo = ((TextBox)(row.Cells[2].Controls[0])).Text;
+    //    string Licencia = ((TextBox)(row.Cells[2].Controls[0])).Text;
+    //    string Estatus = ((TextBox)(row.Cells[2].Controls[0])).Text;
+
+    //}
+
+    protected void GridView1_PageIndexChanging(object sender, GridViewPageEventArgs e)
     {
-        ////GridView1.DataBind();
+        GridView1.PageIndex = e.NewPageIndex;
+        LlenaGrid();
+    }
+
+
+    protected void Gridview1_RowDeleting(object sender, GridViewDeleteEventArgs e)
+    {
+
+        //GridView1.DataBind();
         //if (e.CommandName == "Delete")
         //{
 
-            ScriptManager.RegisterStartupScript(this.Page, this.Page.GetType(), "Mostrar Modal", "success();", true);
+        //ScriptManager.RegisterStartupScript(this.Page, this.Page.GetType(), "Mostrar Modal", "Success();", true);
 
         //}
 
     }
+
+    protected void GridView1_RowCommand(object sender, GridViewCommandEventArgs e)
+    {
+        int index = Convert.ToInt32(e.CommandArgument);
+        if (e.CommandName.Equals("Edit"))
+        {
+
+            GridViewRow gvrow = GridView1.Rows[index];
+            string t = HttpUtility.HtmlDecode(gvrow.Cells[3].Text).ToString();
+            string t2 = HttpUtility.HtmlDecode(gvrow.Cells[4].Text);
+            string t3 = HttpUtility.HtmlDecode(gvrow.Cells[5].Text);
+            System.Text.StringBuilder sb = new System.Text.StringBuilder();
+            sb.Append(@"<script type='text/javascript'>");
+            sb.Append("$('#editModal').modal('show');");
+            sb.Append(@"</script>");
+            ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "EditModalScript", sb.ToString(), false);
+
+        }
+
+        if (e.CommandName == "Delete")
+        {
+
+            //ScriptManager.RegisterStartupScript(this.Page, this.Page.GetType(), "Mostrar Modal", "Success();", true);
+
+        }
+
+
+    }
+
+    protected void GridView1_RowEditing(object sender, GridViewEditEventArgs e)
+    {
+
+        GridView1.EditIndex = e.NewEditIndex;
+        LlenaGrid();
+
+
+
+    }
+    
+
+    protected void GridView1_RowCancelingEdit(object sender, GridViewCancelEditEventArgs e)
+    {
+
+        GridView1.EditIndex = -1;
+        LlenaGrid();
+
+
+    }
+
+    protected void GridView1_Rowupdating(object sender, GridViewUpdateEventArgs e)
+    {
+
+        GridViewRow row = GridView1.Rows[e.RowIndex];
+        string NomEstado = ((TextBox)(row.Cells[2].Controls[1])).Text;
+        string SiglasEstado = ((TextBox)(row.Cells[2].Controls[1])).Text;
+        string IdLicencia = ((TextBox)(row.Cells[2].Controls[1])).Text;
+
+
+
+    }
+
+
 }

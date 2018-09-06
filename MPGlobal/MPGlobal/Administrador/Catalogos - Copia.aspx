@@ -7,6 +7,33 @@
             text-align: center;
         }
     </style>
+    <script src="../Scripts/sweetalert2.all.min.js"></script>
+    <script type="text/javascript">
+        function QuestionDelete() {
+            swal({
+                title: "Estas seguro de eliminar el registro?",
+                text: "No podrás recuperarlo!",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonClass: "btn-danger",
+                confirmButtonText: "Si, eliminarlo!",
+                closeOnConfirm: false
+            },
+                function () {
+                    swal("Eliminado!", "El registro ha sido eliminado.", "success");
+                })
+        }
+        function Success() {
+
+            swal({
+                position: 'top-end',
+                type: 'success',
+                title: 'La modificación ha sido exitosa',
+                showConfirmButton: false,
+                timer: 1500
+            })
+        }
+    </script>
 
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="FeaturedContent" runat="Server">
@@ -17,6 +44,8 @@
         Sys.WebForms.PageRequestManager.getInstance().add_endRequest(endReq);
 
         function beginReq(sender, args) {
+
+
         }
 
         function endReq(sender, args) {
@@ -33,7 +62,14 @@
                 })
             })
 
+
+
         }
+
+
+
+
+
     </script>
 
     <asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager>
@@ -44,19 +80,30 @@
                     <%--<h3 class="box-title">Administrador de Catálogos</h3>--%>
                     <br />
                     <div class="row">
-                        <div class="col-md-6">
-                            <label class="col-md-1 control-label" style="width: 15%;">Catalogos</label>
-                            <div class="col-md-4 selectContainer" style="width: 80%;">
-                                <div class="input-group">
-                                    <span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
-                                    <asp:DropDownList ID="DropCatalogos" AutoPostBack="true" runat="server" name="department" class="form-control selectpicker" OnSelectedIndexChanged="DropCatalogos_SelectedIndexChanged">
-                                        <asp:ListItem>Selecciona el catalogo</asp:ListItem>
-                                        <asp:ListItem>Estados</asp:ListItem>
 
-                                    </asp:DropDownList>
-                                </div>
+                        <label class="col-md-1 control-label" style="width: 7%;">Catalogos</label>
+                        <div class="col-md-4 selectContainer" style="width: 31%;">
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
+                                <asp:DropDownList ID="DropCatalogos" AutoPostBack="true" runat="server" name="department" class="form-control selectpicker" OnSelectedIndexChanged="DropCatalogos_SelectedIndexChanged">
+                                    <asp:ListItem>Selecciona el catalogo</asp:ListItem>
+                                    <asp:ListItem>Estados</asp:ListItem>
+                                    <asp:ListItem>Municipios</asp:ListItem>
+                                    <asp:ListItem>Oficinas</asp:ListItem>
+
+                                </asp:DropDownList>
+
+
                             </div>
+
                         </div>
+                        <div class="col-md-1 selectContainer">
+                            <asp:LinkButton ID="btnNew" runat="server" type="button" class="btn btn-default btn-sm" CommandName="NUEVO">
+                                            <span class="glyphicon glyphicon-plus"></span>AGREGAR
+                            </asp:LinkButton>
+                        </div>
+
+
                     </div>
 
                 </div>
@@ -64,100 +111,150 @@
 
                 <!-- /.box-header -->
                 <div class="box-body">
-                   
 
 
-                    <asp:GridView ID="GridView1" runat="server" ClientIDMode="Static" AutoGenerateColumns="false" CssClass="table table-bordered table-striped" OnRowDeleting="GridView1_RowDeleting">
 
+                    <asp:GridView ID="GridView1" runat="server" AllowPaging="true" PageSize="8" ClientIDMode="Static" AutoGenerateColumns="false" CssClass="table table-bordered table-striped" OnRowDeleting="Gridview1_RowDeleting" OnRowEditing="GridView1_RowEditing" OnRowCancelingEdit="GridView1_RowCancelingEdit" OnRowUpdating="GridView1_Rowupdating" OnPageIndexChanging="GridView1_PageIndexChanging">
+                        <%--Paginador...--%>
+                      <%--  <PagerTemplate>
+                            <div class="row" style="margin-top: 20px;">
+                                <div class="col-lg-1" style="text-align: right;">
+                                    <h5>
+                                        <asp:Label ID="MessageLabel" Text="Ir a la pág." runat="server" /></h5>
+                                </div>
+                                 <div class="col-lg-1" style="text-align: left;">
+                                    <asp:DropDownList ID="PageDropDownList" Width="50px" AutoPostBack="true" OnSelectedIndexChanged="PageDropDownList_SelectedIndexChanged" runat="server" CssClass="form-control" /></h3>
+                                </div>
+                                <div class="col-lg-10" style="text-align: right;">
+                                    <h3>
+                                        <asp:Label ID="CurrentPageLabel" runat="server" CssClass="label label-warning" /></h3>
+                                </div>
+                            </div>
+                        </PagerTemplate>--%>
                         <Columns>
                             <%--CheckBox para seleccionar varios registros...--%>
-                            <asp:TemplateField >
-                                <HeaderTemplate>
-                                    <thead>
-                                        <tr>
-                                            <th>ACCION</th>
-                                            <th>ID ESTADO</th>
-                                            <th>ESTADO</th>
-                                            <th>ABREVIATURA</th>
-                                            <th>CONTACTO</th>
-                                            <th>TELEFONO</th>
-                                            <th>CORREO</th>
-                                            <th>LICENCIA</th>
-                                            <th>ESTATUS</th>
-                                        </tr>
-                                    </thead>
+                            <%--   <asp:TemplateField ItemStyle-HorizontalAlign="Center" HeaderStyle-Width="70px">
+                <ItemTemplate>
+                    <asp:CheckBox ID="chkEliminar" runat="server" AutoPostBack="true" OnCheckedChanged="chk_OnCheckedChanged" />
+                </ItemTemplate>
+            </asp:TemplateField>   --%>
 
-                                </HeaderTemplate>
+                            <%--botones de acción sobre los registros...--%>
+                            <asp:TemplateField ItemStyle-HorizontalAlign="Center" HeaderStyle-Width="17%">
                                 <ItemTemplate>
-                                    <tbody>
-                                        <tr>
-                                            <td><%--Botones de eliminar y editar cliente...--%>
-
-                                                <asp:LinkButton ID="BtnNuevo" runat="server" type="button" class="btn btn-default btn-sm" CommandName="NUEVO">
-                                            <span class="glyphicon glyphicon-plus"></span>NUEVO
-                                                </asp:LinkButton>
-
-                                                <asp:LinkButton ID="BtnEditar" runat="server" type="button" class="btn btn-default btn-sm" CommandName="Editar">
-                                            <span class="glyphicon glyphicon-pencil"></span>EDITAR
-                                                </asp:LinkButton>
-
-                                                <asp:LinkButton ID="BtnEliminar" runat="server" type="button" class="btn btn-default btn-sm" CommandName="Eliminar" OnClientClick="return confirm('¿Eliminar cliente?');">
-                                            <span class="glyphicon glyphicon-trash"></span>ELIMINAR
-                                                </asp:LinkButton>
-
-                                            </td>
-                                            <td>
-                                                <asp:Label ID="lblIdEstado" runat="server" Text='<%# Eval("IdEstado") %>'></asp:Label>
-                                            </td>
-                                            <td>
-                                                <asp:Label ID="lblNomEstado" runat="server" Text='<%# Eval("NomEstado") %>'></asp:Label>
-                                            </td>
-                                            <td>
-                                                <asp:Label ID="lblSiglasEstado" runat="server" Text='<%# Eval("SiglasEstado") %>'></asp:Label>
-                                            </td>
-                                            <td>
-                                                <asp:Label ID="lblContacto" runat="server" Text='<%# Eval("Contacto") %>'></asp:Label>
-                                            </td>
-                                            <td>
-                                                <asp:Label ID="lblTelefono" runat="server" Text='<%# Eval("Telefono") %>'></asp:Label>
-                                            </td>
-                                            <td>
-                                                <asp:Label ID="lblCorreo" runat="server" Text='<%# Eval("Correo") %>'></asp:Label>
-                                            </td>
-                                            <td>
-                                                <asp:Label ID="lblIdLicencia" runat="server" Text='<%# Eval("IdLicencia") %>'></asp:Label>
-                                            </td>
-                                            <td>
-                                                <asp:Label ID="lblEstatusEstado" runat="server" Text='<%# Eval("EstatusEstado") %>'></asp:Label>
-                                            </td>
-                                        </tr>
-                                    </tbody>
+                                    <%--Botones de eliminar y editar cliente...--%>
 
 
+
+                                    <asp:LinkButton ID="btnEdit" runat="server" ToolTip="EDITAR" type="button" class="btn btn-default btn-xs" CommandName="Edit">
+                                            <span class="glyphicon glyphicon-pencil"></span>
+                                    </asp:LinkButton>
+
+                                    <asp:LinkButton ID="btnDelete" runat="server" ToolTip="ELIMINAR" type="button" class="btn btn-default btn-xs" CommandName="Delete" OnClientClick="QuestionDelete();" AutoPostBack="false">
+                                            <span class="glyphicon glyphicon-trash"></span>
+                                    </asp:LinkButton>
+
+                                    <%--  <asp:Button ID="btnDelete" runat="server" Text="Quitar" CssClass="btn btn-danger" CommandName="Delete" OnClientClick="return confirm('¿Eliminar cliente?');" />
+                                    <asp:Button ID="btnEdit" runat="server" Text="Editar" CssClass="btn btn-info" CommandName="Edit" />--%>
                                 </ItemTemplate>
-                                <FooterTemplate>
-                                    <tfoot>
-                                         <tr>
-                                            <th>ACCION</th>
-                                            <th>ID ESTADO</th>
-                                            <th>ESTADO</th>
-                                            <th>ABREVIATURA</th>
-                                            <th>CONTACTO</th>
-                                            <th>TELEFONO</th>
-                                            <th>CORREO</th>
-                                            <th>LICENCIA</th>
-                                            <th>ESTATUS</th>
-                                        </tr>
-                                    </tfoot>
-                                </FooterTemplate>
                                 <EditItemTemplate>
                                     <%--Botones de grabar y cancelar la edición de registro...--%>
-                                    <asp:Button ID="btnUpdate" runat="server" Text="Grabar" CssClass="btn btn-success" CommandName="Update" OnClientClick="return confirm('¿Seguro que quiere modificar los datos del cliente?');" />
-                                    <asp:Button ID="btnCancel" runat="server" Text="Cancelar" CssClass="btn btn-default" CommandName="Cancel" />
+                                    <asp:LinkButton ID="btnUpdate" runat="server" type="button" class="btn btn-default btn-xs" CommandName="Update" OnClientClick="Success();">
+                                            <span class="glyphicon glyphicon-floppy-disk"></span> GRABAR
+                                    </asp:LinkButton>
+
+                                    <asp:LinkButton ID="btnCancel" runat="server" type="button" class="btn btn-default btn-xs" CommandName="Cancel">
+                                            <span class="glyphicon glyphicon-remove-circle"></span> CANCELAR
+                                    </asp:LinkButton>
+
+                                    <%-- <asp:Button ID="btnUpdate" runat="server" Text="Grabar" CssClass="btn btn-success" CommandName="Update" OnClientClick="return confirm('¿Seguro que quiere modificar los datos del cliente?');" />
+                                    <asp:Button ID="btnCancel" runat="server" Text="Cancelar" CssClass="btn btn-default" CommandName="Cancel" />--%>
                                 </EditItemTemplate>
                             </asp:TemplateField>
 
+                            <%--campos no editables...--%>
+                            <%--     <asp:BoundField DataField="ClienteID" HeaderText="Nº" InsertVisible="False" ReadOnly="True" SortExpression="CustomerID" ControlStyle-Width="70px" />
+            <asp:BoundField DataField="CustomerID" HeaderText="Cód." InsertVisible="False" ReadOnly="True" SortExpression="CustomerID" ControlStyle-Width="70px" />
+            <asp:BoundField DataField="CompanyName" HeaderText="Compañía" ReadOnly="True" SortExpression="CompanyName" ControlStyle-Width="300px" />
+            <asp:BoundField DataField="Country" HeaderText="Pais" ReadOnly="True" SortExpression="Country" />--%>
+
+                            <%--campos editables...--%>
+                            <asp:TemplateField HeaderStyle-Width="300px" HeaderText="ID">
+                                <ItemTemplate>
+                                    <asp:Label ID="lblIdEstado" runat="server"><%# Eval("IdEstado")%></asp:Label>
+                                </ItemTemplate>
+                                <EditItemTemplate>
+                                    <asp:TextBox ID="TxtIdEstado" runat="server" Text='<%# Eval("IdEstado")%>' CssClass="form-control"></asp:TextBox>
+                                </EditItemTemplate>
+                            </asp:TemplateField>
+                            <asp:TemplateField HeaderStyle-Width="150px" HeaderText="ESTADO">
+                                <ItemTemplate>
+                                    <asp:Label ID="lblNomEstado" runat="server"><%# Eval("NomEstado")%></asp:Label>
+                                </ItemTemplate>
+                                <EditItemTemplate>
+                                    <asp:TextBox ID="TxtNomEstado" runat="server" Text='<%# Bind("NomEstado")%>' CssClass="form-control"></asp:TextBox>
+                                </EditItemTemplate>
+                            </asp:TemplateField>
+
+                            <asp:TemplateField HeaderStyle-Width="150px" HeaderText="ABREVIATURA">
+                                <ItemTemplate>
+                                    <asp:Label ID="lblSiglasEstado" runat="server"><%# Eval("SiglasEstado")%></asp:Label>
+                                </ItemTemplate>
+                                <EditItemTemplate>
+                                    <asp:TextBox ID="TxtSiglasEstado" runat="server" Text='<%# Bind("SiglasEstado")%>' CssClass="form-control"></asp:TextBox>
+                                </EditItemTemplate>
+                            </asp:TemplateField>
+
+                            <asp:TemplateField HeaderStyle-Width="150px" HeaderText="CONTACTO">
+                                <ItemTemplate>
+                                    <asp:Label ID="lblCONTACTO" runat="server"><%# Eval("CONTACTO")%></asp:Label>
+                                </ItemTemplate>
+                                <EditItemTemplate>
+                                    <asp:TextBox ID="TxtCONTACTO" runat="server" Text='<%# Bind("CONTACTO")%>' CssClass="form-control"></asp:TextBox>
+                                </EditItemTemplate>
+                            </asp:TemplateField>
+
+                            <asp:TemplateField HeaderStyle-Width="150px" HeaderText="TELEFONO">
+                                <ItemTemplate>
+                                    <asp:Label ID="lblTELEFONO" runat="server"><%# Eval("TELEFONO")%></asp:Label>
+                                </ItemTemplate>
+                                <EditItemTemplate>
+                                    <asp:TextBox ID="TxtTELEFONO" runat="server" Text='<%# Bind("TELEFONO")%>' CssClass="form-control"></asp:TextBox>
+                                </EditItemTemplate>
+                            </asp:TemplateField>
+
+                            <asp:TemplateField HeaderStyle-Width="150px" HeaderText="CORREO">
+                                <ItemTemplate>
+                                    <asp:Label ID="lblCORREO" runat="server"><%# Eval("CORREO")%></asp:Label>
+                                </ItemTemplate>
+                                <EditItemTemplate>
+                                    <asp:TextBox ID="TxtCORREO" runat="server" Text='<%# Bind("CORREO")%>' CssClass="form-control"></asp:TextBox>
+                                </EditItemTemplate>
+                            </asp:TemplateField>
+
+                            <asp:TemplateField HeaderStyle-Width="150px" HeaderText="LICENCIA">
+                                <ItemTemplate>
+                                    <asp:Label ID="lblIdLicencia" runat="server"><%# Eval("IdLicencia")%></asp:Label>
+                                </ItemTemplate>
+                                <EditItemTemplate>
+                                    <asp:TextBox ID="TxtIdLicencia" runat="server" Text='<%# Bind("IdLicencia")%>' CssClass="form-control"></asp:TextBox>
+                                </EditItemTemplate>
+                            </asp:TemplateField>
+
+                            <asp:TemplateField HeaderStyle-Width="150px" HeaderText="ESTATUS">
+                                <ItemTemplate>
+                                    <asp:Label ID="lblEstatusEstado" runat="server"><%# Eval("EstatusEstado")%></asp:Label>
+                                </ItemTemplate>
+                                <EditItemTemplate>
+                                    <asp:TextBox ID="TxtEstatusEstado" runat="server" Text='<%# Bind("EstatusEstado")%>' CssClass="form-control"></asp:TextBox>
+                                </EditItemTemplate>
+                            </asp:TemplateField>
+
+
+
+
                         </Columns>
+
                     </asp:GridView>
 
 
@@ -600,7 +697,7 @@
 
 
     <!-- jQuery 3 -->
-    <script src="../bower_components/jquery/dist/jquery.min.js"></script>
+    <%--<script src="../bower_components/jquery/dist/jquery.min.js"></script>--%>
     <!-- Bootstrap 3.3.7 -->
     <script src="../bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
     <!-- DataTables -->
@@ -611,24 +708,11 @@
     <!-- FastClick -->
     <script src="../bower_components/fastclick/lib/fastclick.js"></script>
     <!-- AdminLTE App -->
-    <script src="../dist/js/adminlte.min.js"></script>
+    <%--<script src="../dist/js/adminlte.min.js"></script>--%>
     <!-- AdminLTE for demo purposes -->
-    <script src="../dist/js/demo.js"></script>
+    <%--<script src="../dist/js/demo.js"></script>--%>
     <!-- page script -->
-    <script>
-        $(function () {
-            $('#example1').DataTable()
-            $('#GridView1').DataTable()
-            $('#example2').DataTable({
-                'paging': true,
-                'lengthChange': false,
-                'searching': false,
-                'ordering': true,
-                'info': true,
-                'autoWidth': false
-            })
-        })
-</script>
+
 
 
     <!-- Mirrored from adminlte.io/themes/AdminLTE/pages/tables/data.html by HTTrack Website Copier/3.x [XR&CO'2010], Mon, 27 Aug 2018 16:46:30 GMT -->
