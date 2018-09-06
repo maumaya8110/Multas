@@ -116,7 +116,7 @@
 
                     <asp:GridView ID="GridView1" runat="server" AllowPaging="true" PageSize="8" ClientIDMode="Static" AutoGenerateColumns="false" CssClass="table table-bordered table-striped" OnRowDeleting="Gridview1_RowDeleting" OnRowEditing="GridView1_RowEditing" OnRowCancelingEdit="GridView1_RowCancelingEdit" OnRowUpdating="GridView1_Rowupdating" OnPageIndexChanging="GridView1_PageIndexChanging">
                         <%--Paginador...--%>
-                      <%--  <PagerTemplate>
+                       <%-- <PagerTemplate>
                             <div class="row" style="margin-top: 20px;">
                                 <div class="col-lg-1" style="text-align: right;">
                                     <h5>
