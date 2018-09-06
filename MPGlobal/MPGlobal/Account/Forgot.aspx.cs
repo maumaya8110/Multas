@@ -7,6 +7,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
+using System.IO;
 
 public partial class Account_Forgot : System.Web.UI.Page
 {
@@ -32,7 +33,22 @@ public partial class Account_Forgot : System.Web.UI.Page
             // Send email with the code and the redirect to reset password page
             string code = manager.GeneratePasswordResetToken(user.Id);
             string callbackUrl = IdentityHelper.GetResetPasswordRedirectUrl(code, Request);
-            //Helper.SendMail(Email.Text, "Administración de Usuarios Wazte", "Por favor resetea tu contraseña dando clic <a href=\"" + callbackUrl + "\">aquí</a>.", "");
+
+            #region obtiene el formato 
+
+            StreamReader fil = File.OpenText(HttpContext.Current.Server.MapPath("~/formatos/formatoOlvideContrasenia.html"));
+            String body = fil.ReadToEnd();
+            string urlDefault = HttpContext.Current.Request.Url.Scheme + "://" + HttpContext.Current.Request.Url.Authority + HttpContext.Current.Request.ApplicationPath.TrimEnd('/') + "/";
+            string urlImage = urlDefault + "Images/header-formato.png";
+            body = body.Replace("<%URLIMAGE%>", urlImage);
+            body = body.Replace("<%NOMBRE%>", Helper.GetNombreByEmail(txtEmail.Text));
+            body = body.Replace("<%USERNAME%>", txtEmail.Text);
+            body = body.Replace("<%URL%>", callbackUrl);
+
+            #endregion
+
+            Helper.EnviaEmail(txtEmail.Text, "Administración de Usuarios MPGlobal", body, null);
+
             loginForm.Visible = false;
             DisplayEmail.Visible = true;
         }

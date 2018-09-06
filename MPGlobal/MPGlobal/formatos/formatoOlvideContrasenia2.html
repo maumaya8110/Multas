@@ -1,0 +1,69 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <style type="text/css">
+        #content-body{
+            width:500px;
+            max-width:100%;
+            margin:0px auto;
+        }
+
+        p{
+            font-size:14px;
+            text-align:center;
+        }
+
+        h2, h3, b  {
+            color: #00b0ad;
+        }
+
+        hr {
+            color: #00b0ad;
+            background-color: #00b0ad;
+        }
+    </style>
+</head>
+<body>
+    <table id="content-body">
+        <tr>
+            <td class="header" colspan="2">
+                <img id="imgHeader" src="<%URLIMAGE%>" />
+            </td>
+        </tr>
+        <tr>
+            <td style="text-align:center;">
+                <h2>HOLA <%NOMBRE%></h2>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <hr  style="width:40px;margin:0px auto;"/>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <br />
+                <p>
+                    A petición tuya hemos restablecido tu contraseña para ingresar a <b>Mi cuenta</b>. Estas son tus credenciales para poder acceder:
+                </p>
+                <br />
+                <p>
+                    Nombre de usuario: <b><%USERNAME%></b>
+                </p>
+                <p>
+                    Para restablecer tu contraseña da clic en el siguiente <a href="<%URL%>" >link</a>
+                </p>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <h3 style="text-align:center;">
+                    MPGlobal
+                </h3>
+            </td>
+        </tr>
+    </table>
+</body>
+</html>

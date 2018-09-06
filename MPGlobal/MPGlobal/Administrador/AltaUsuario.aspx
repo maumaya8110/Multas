@@ -13,7 +13,7 @@
                 <hr />
             </div>
         </div>
-         <div class="row">
+        <div class="row">
             <div class="col-sm-4 text-right">
                 <label class="control-label">Estado</label>
             </div>
@@ -22,13 +22,17 @@
                     <div class="inputGroupContainer">
                         <div class="input-group">
                             <span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
-                            <asp:DropDownList ID="ddlEstado" runat="server" CssClass="form-control selectpicker campo_obligatorio"></asp:DropDownList>
+                            <asp:DropDownList ID="ddlEstado" runat="server" CssClass="form-control selectpicker campo_obligatorio">
+                                <asp:ListItem Text="" Value="0"></asp:ListItem>
+                                <asp:ListItem Text="Nuevo León" Value="1"></asp:ListItem>
+                                <asp:ListItem Text="México" Value="2"></asp:ListItem>
+                            </asp:DropDownList>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-         <div class="row">
+        <div class="row">
             <div class="col-sm-4 text-right">
                 <label class="control-label">Municipio</label>
             </div>
@@ -37,13 +41,17 @@
                     <div class="inputGroupContainer">
                         <div class="input-group">
                             <span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
-                            <asp:DropDownList ID="ddlMunicipio" runat="server" CssClass="form-control selectpicker campo_obligatorio"></asp:DropDownList>
+                            <asp:DropDownList ID="ddlMunicipio" runat="server" CssClass="form-control selectpicker campo_obligatorio">
+                                <asp:ListItem Text="" Value="0"></asp:ListItem>
+                                <asp:ListItem Text="San Nicolas" Value="1"></asp:ListItem>
+                                <asp:ListItem Text="Santa Catarina" Value="2"></asp:ListItem>
+                            </asp:DropDownList>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-         <div class="row">
+        <div class="row">
             <div class="col-sm-4 text-right">
                 <label class="control-label">Rol</label>
             </div>
@@ -119,7 +127,7 @@
                 </div>
             </div>
         </div>
-        
+
         <div class="row">
             <div class="col-sm-4 text-right">
                 <label class="control-label">Contraseña</label>
@@ -183,15 +191,21 @@
             </div>
         </div>
         <div class="row">
+            <div class="col-sm-12">
+                <asp:Label ID="lblError" runat="server" CssClass="danger"></asp:Label>
+                <br />
+            </div>
+        </div>
+        <div class="row">
             <div class="col-sm-4"></div>
             <div class="col-sm-8">
-                <asp:LinkButton ID="lnkGuardar" runat="server" CssClass="btn btn-warning" data-target="#formularioAltaCliente" OnClientClick="javascript:validaCampos(this,event);">
+                <asp:LinkButton ID="lnkGuardar" runat="server" CssClass="btn btn-warning" data-target="#formularioAltaCliente" OnClick="lnkGuardar_Click" OnClientClick="javascript:validaCampos(this,event);">
                     Guardar <span class="glyphicon glyphicon-send"></span>
                 </asp:LinkButton>
             </div>
         </div>
     </div>
-    
+
     <style lang="cs">
         #success_message {
             display: none;

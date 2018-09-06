@@ -5,6 +5,7 @@ using System.Web;
 using System.Data.SqlClient;
 using System.Data;
 using System.Configuration;
+using System.Reflection;
 
 /// <summary>
 /// Descripción breve de DataBase
@@ -109,7 +110,9 @@ public class DataBase: IDisposable
     {
         try
         {
+            conn.Open();
             SqlCommand command = new SqlCommand(sp, conn);
+            command.CommandType = CommandType.StoredProcedure;
             if (parametros != null)
                 foreach (SqlParameter p in parametros)
                     command.Parameters.Add(p);
@@ -123,6 +126,10 @@ public class DataBase: IDisposable
         catch(Exception x)
         {
             throw x;
+        }
+        finally
+        {
+            conn.Close();
         }
     }
 
