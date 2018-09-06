@@ -4,7 +4,10 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using Microsoft.AspNet.Identity;
 using MPGlobal;
+using Microsoft.AspNet.Identity.Owin;
+using System.Data.SqlClient;
 
 public partial class AltaUsuario : System.Web.UI.Page
 {
@@ -37,34 +40,24 @@ public partial class AltaUsuario : System.Web.UI.Page
 
             if (Session["UserIdModificar"] == null)
             {
-                usuarioID = UserControlCarnico.GetUserID();
+                usuarioID = Helper.GetUserID();
                 if (txtContrasenia.Text.Trim() == "" || txtConfirmContrasenia.Text == "")
                 {
                     lblError.Text = "La contraseña es obligatoria.";
                     return;
                 }
-                List<GetUsuarioInactivoByUserNameResult> userExisst = ctx.GetUsuarioInactivoByUserName(txtCorreo.Text).ToList();
-                if (userExisst.Count == 0)
+
+                var manager = Context.GetOwinContext().GetUserManager<ApplicationUserManager>();
+                var signInManager = Context.GetOwinContext().Get<ApplicationSignInManager>();
+                var user = new ApplicationUser() { UserName = txtUserName.Text, Email = txtUserName.Text };
+                IdentityResult result = manager.Create(user, txtContrasenia.Text);
+                if (result.Succeeded)
                 {
-                    var manager = Context.GetOwinContext().GetUserManager<ApplicationUserManager>();
-                    var signInManager = Context.GetOwinContext().Get<ApplicationSignInManager>();
-                    var user = new ApplicationUser() { UserName = txtCorreo.Text, Email = txtCorreo.Text };
-                    IdentityResult result = manager.Create(user, txtContrasenia.Text);
-                    if (result.Succeeded)
-                    {
-                        completaInformacion(user.Id);
-                    }
-                    else
-                    {
-                        ScriptManager.RegisterStartupScript(updNuevoUsuario, updNuevoUsuario.GetType(), "mensaje_warning", String.Format("muestraMensajeUsuario('{0}');", result.Errors.FirstOrDefault().Replace("'", "").Replace("\r\n", "<br />")), true);
-                    }
+                    completaInformacion(user.Id);
                 }
                 else
                 {
-                    if (actualizaContrasenia(userExisst[0].userIdOwner, txtContrasenia.Text))
-                        completaInformacion(userExisst[0].userIdOwner);
-                    else
-                        ScriptManager.RegisterStartupScript(updNuevoUsuario, updNuevoUsuario.GetType(), "mensaje_warning", String.Format("muestraMensajeUsuario('{0}');", "Ocurrio un error al intentar agreagr al nuevo usuario, por favor intentarlo nuevamente."), true);
+                    //ScriptManager.RegisterStartupScript(updNuevoUsuario, updNuevoUsuario.GetType(), "mensaje_warning", String.Format("muestraMensajeUsuario('{0}');", result.Errors.FirstOrDefault().Replace("'", "").Replace("\r\n", "<br />")), true);
                 }
             }
             else
@@ -75,7 +68,39 @@ public partial class AltaUsuario : System.Web.UI.Page
         }
         catch(Exception x)
         {
-
+            ScriptManager.RegisterStartupScript(this.Page, this.Page.GetType(), "mensaje_correcto", "muestraMensaje('error', 'Ocurrio un error', '" + x.Message + "')", true);
         }
     }
+
+    private void completaInformacion(string id)
+    {
+        List<SqlParameter> parametros = new List<SqlParameter>();
+        parametros.Add(new SqlParameter("@idEstado", int.Parse(ddlEstado.SelectedValue)));
+        parametros.Add(new SqlParameter("@idMunicipio", int.Parse(ddlMunicipio.SelectedValue)));
+        parametros.Add(new SqlParameter("@idRol", ddlRol.SelectedValue));
+        parametros.Add(new SqlParameter("@nombre", txtFirstName.Text));
+        parametros.Add(new SqlParameter("@aPaterno", txtApPaterno.Text));
+        parametros.Add(new SqlParameter("@aMaterno", txtApMaterno.Text));
+        parametros.Add(new SqlParameter("@usuario", txtUserName.Text));
+        parametros.Add(new SqlParameter("@email", txtEmail.Text));
+        parametros.Add(new SqlParameter("@telefono", txtTelefono.Text));
+        parametros.Add(new SqlParameter("@userId", id));
+        using(DataBase db = new DataBase())
+        {
+            db.EjecutaSPCatalogos(DataBase.TipoAccion.Insertar, "Sp_Cat_Usuarios", parametros.ToArray());
+        }
+        ddlEstado.SelectedIndex = 0;
+        ddlMunicipio.SelectedIndex = 0;
+        ddlRol.SelectedIndex = 0;
+        txtFirstName.Text = "";
+        txtApPaterno.Text = "";
+        txtApMaterno.Text = "";
+        txtUserName.Text = "";
+        txtContrasenia.Text = "";
+        txtConfirmContrasenia.Text = "";
+        txtEmail.Text = "";
+        txtTelefono.Text = "";
+        ScriptManager.RegisterStartupScript(this.Page, this.Page.GetType(), "mensaje_correcto", "muestraMensaje('success', 'Proceso terminado', 'Se ha registrado correctamente el usuario')", true);
+    }
+
 }

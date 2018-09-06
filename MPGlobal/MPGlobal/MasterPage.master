@@ -812,8 +812,21 @@
           <script src='<%= ResolveUrl("~/bower_components/jquery-slimscroll/jquery.slimscroll.min.js") %>'></script>
           
           <script src='<%= ResolveUrl("~/bower_components/fastclick/lib/fastclick.js") %>'></script>
+
+        <script src='<%= ResolveUrl("~/Scripts/sweetalert2.all.min.js") %>'></script>
           
-        
+<script type="text/javascript">
+    function muestraMensaje(tipo, titulo, mensaje) {
+    swal({
+        type: tipo,
+        title: titulo,
+        text: mensaje,
+        confirmButtonText: 'Aceptar'
+    }, function () {
+        $(window).scrollTop(0);
+    });
+}
+</script>        
 
     </form>
 </body>

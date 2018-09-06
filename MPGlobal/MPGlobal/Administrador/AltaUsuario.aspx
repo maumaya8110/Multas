@@ -60,7 +60,7 @@
                     <div class="inputGroupContainer">
                         <div class="input-group">
                             <span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
-                            <asp:DropDownList ID="ddlRol" runat="server" CssClass="form-control selectpicker campo_obligatorio"></asp:DropDownList>
+                            <asp:DropDownList ID="ddlRol" runat="server" CssClass="form-control selectpicker"></asp:DropDownList>
                         </div>
                     </div>
                 </div>
@@ -212,6 +212,9 @@
         }
     </style>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js" type="text/javascript"></script>
+    <script type="text/javascript">
+        
+    </script>
 </asp:Content>
 
 
