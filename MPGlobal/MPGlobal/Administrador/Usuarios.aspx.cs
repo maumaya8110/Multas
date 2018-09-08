@@ -11,4 +11,14 @@ public partial class Administrador_Usuarios : System.Web.UI.Page
     {
 
     }
+
+    protected void ddlEstado_SelectedIndexChanged(object sender, EventArgs e)
+    {
+
+    }
+
+    protected void ddlMunicipio_SelectedIndexChanged(object sender, EventArgs e)
+    {
+
+    }
 }

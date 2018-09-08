@@ -29,6 +29,23 @@
 <asp:Content ID="Content3" ContentPlaceHolderID="MainContent" runat="Server">
     <div class="well form-horizontal" id="contact_form">
         <div class="container well form-horizontal">
+            <div class="row">
+                <div class="col-sm-4">
+                    <p>Estado</p>
+                    <asp:DropDownList ID="ddlEstado" runat="server" CssClass="form-control" AutoPostBack="true" OnSelectedIndexChanged="ddlEstado_SelectedIndexChanged" Width="100%"></asp:DropDownList>
+                </div>
+                <div class="col-sm-4">
+                    <p>Municipio</p>
+                    <asp:DropDownList ID="ddlMunicipio" runat="server" CssClass="form-control" OnSelectedIndexChanged="ddlMunicipio_SelectedIndexChanged" Width="100%"></asp:DropDownList>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <asp:GridView ID="grdUsuarios" runat="server">
+
+            </asp:GridView>
+                </div>
+            </div>
         </div>
     </div>
 
