@@ -13,17 +13,27 @@ public partial class Catalogos : System.Web.UI.Page
     public string TipoCatalogo = "";
     public string TipoMovimiento = "";
 
-    protected void Page_Load(object sender, EventArgs e)
-    {
-
-    }
+    //protected void Page_Load(object sender, EventArgs e)
+    //{
+    //    //btnConfirmacion2.Attributes["onclick"] = "return Confirmacion();";
+    //}
 
     protected void DropCatalogos_SelectedIndexChanged(object sender, EventArgs e)
     {
+        if (DropCatalogos.SelectedValue == "Selecciona el catalogo")
+        {
+            btnNew.Visible = false;
+            GridView1.DataBind();
+            UpdtAgregarEdo.Visible = false;
+        }
+        else
+        {
 
-        TipoMovimiento = "CONSULTAR";
-        LlenaGrid();
+            btnNew.Visible = true;
+            TipoMovimiento = "CONSULTAR";
+            LlenaGrid();
 
+        }
     }
 
     public void LlenaGrid()
@@ -43,31 +53,7 @@ public partial class Catalogos : System.Web.UI.Page
 
     }
 
-    protected void BtnNuevo_Click(object sender, EventArgs e)
-    {
-        TipoCatalogo = "Sp_Cat_Estados";
-
-        //DropCatalogos.SelectedItem.ToString()
-        using (DataBase db = new DataBase())
-        {
-
-            //Para cuando agregas muchos parametros
-            List<SqlParameter> parametros = new List<SqlParameter>();
-            parametros.Add(new SqlParameter("@idEstado", 1));
-            parametros.Add(new SqlParameter("@nomEstado", 1));
-            parametros.Add(new SqlParameter("@siglasEstado", 1));
-            parametros.Add(new SqlParameter("@Contacto", 1));
-            parametros.Add(new SqlParameter("@Telefono", 1));
-            parametros.Add(new SqlParameter("@Correo", 1));
-            parametros.Add(new SqlParameter("@idLicencia", 1));
-            parametros.Add(new SqlParameter("@estatusEstado", 1));
-            db.EjecutaSPCatalogos(DataBase.TipoAccion.Insertar, TipoCatalogo, parametros.ToArray());
-
-
-        }
-
-    }
-
+   
     protected void GridView1_PageIndexChanging(object sender, GridViewPageEventArgs e)
     {
         GridView1.PageIndex = e.NewPageIndex;
@@ -77,14 +63,41 @@ public partial class Catalogos : System.Web.UI.Page
 
     protected void Gridview1_RowDeleting(object sender, GridViewDeleteEventArgs e)
     {
+        //ScriptManager.RegisterStartupScript(this.Page, this.Page.GetType(), "Mostrar Modal", "QuestionDelete();", true);
 
-        //GridView1.DataBind();
-        //if (e.CommandName == "Delete")
+        //TipoMovimiento = "Modificar";
+
+        //TipoCatalogo = "Sp_Cat_Estados";
+
+
+        
+        //GridViewRow row = GridView1.Rows[e.RowIndex];
+
+     
+
+        //using (DataBase db = new DataBase())
         //{
 
-        //ScriptManager.RegisterStartupScript(this.Page, this.Page.GetType(), "Mostrar Modal", "Success();", true);
+        //    //Para cuando agregas muchos parametros
+        //    List<SqlParameter> parametros = new List<SqlParameter>();
+            
+        //    parametros.Add(new SqlParameter("@idEstado", ((Label)row.FindControl("lblIdEstado")).Text));
+
+           
+        //    db.EjecutaSPCatalogos(DataBase.TipoAccion.Eliminar, TipoCatalogo, parametros.ToArray());
+
 
         //}
+
+
+
+        //ScriptManager.RegisterStartupScript(this.Page, this.Page.GetType(), "Mostrar Modal", "DeleteSuccess();", true);
+
+        ////Despues de Eliminar se refresca el grid
+        
+        //LlenaGrid();
+        ////-----
+
 
     }
 
@@ -97,10 +110,12 @@ public partial class Catalogos : System.Web.UI.Page
 
     protected void GridView1_RowCancelingEdit(object sender, GridViewCancelEditEventArgs e)
     {
-        GridView1.EditIndex = -1;
-        LlenaGrid();
-    }
+         GridView1.EditIndex = -1;
 
+       
+            LlenaGrid();
+        
+    }
     protected void GridView1_Rowupdating(object sender, GridViewUpdateEventArgs e)
     {
 
@@ -130,20 +145,53 @@ public partial class Catalogos : System.Web.UI.Page
         }
         ScriptManager.RegisterStartupScript(this.Page, this.Page.GetType(), "Mostrar Modal", "EditSuccess();", true);
 
-        //string NomEstado = ((TextBox)(row.Cells[2].Controls[1])).Text;
-        //string SiglasEstado = ((TextBox)(row.Cells[2].Controls[1])).Text;
-        //string IdLicencia = ((TextBox)(row.Cells[2].Controls[1])).Text;
-
-
-
+        //Despues de updetear se quitan los textbox y se refresca el grid
+        GridView1.EditIndex = -1;
+        LlenaGrid();
+        //-----
     }
 
 
 
     protected void BtnElimina_Click(object sender, EventArgs e)
     {
-        GridViewRow row = GridView1.SelectedRow;
-        string IdEstado = ((TextBox)(row.Cells[2].Controls[1])).Text;
+
+        string IdEstado = HiddenField1AutEli.Value;
+
+
+        TipoMovimiento = "Modificar";
+
+        TipoCatalogo = "Sp_Cat_Estados";
+
+
+
+        //GridViewRow row = GridView1.Rows[e.RowIndex];
+
+
+
+        using (DataBase db = new DataBase())
+        {
+
+            //Para cuando agregas muchos parametros
+            List<SqlParameter> parametros = new List<SqlParameter>();
+
+            parametros.Add(new SqlParameter("@idEstado", HiddenField1AutEli.Value));
+
+
+            db.EjecutaSPCatalogos(DataBase.TipoAccion.Eliminar, TipoCatalogo, parametros.ToArray());
+
+
+        }
+
+
+
+        ScriptManager.RegisterStartupScript(this.Page, this.Page.GetType(), "Mostrar Modal", "DeleteSuccess();", true);
+
+        //Despues de Eliminar se refresca el grid
+
+        LlenaGrid();
+        //-----
+
 
 
     }
@@ -193,6 +241,11 @@ public partial class Catalogos : System.Web.UI.Page
         btnCancelarN.Visible = false;
         btnNew.Visible = true;
 
+        LimpiaCampos();
+    }
+
+    protected void LimpiaCampos()
+    {
         //Limpia textbox
         txtEstado.Text = "";
         txtAbreviatura.Text = "";
@@ -224,8 +277,25 @@ public partial class Catalogos : System.Web.UI.Page
 
             ScriptManager.RegisterStartupScript(this.Page, this.Page.GetType(), "Mostrar Modal", "AltaSuccess();", true);
 
-
+            UpdtAgregarEdo.Visible = false;
+            btnCancelarN.Visible = false;
+            btnNew.Visible = true;
+            LimpiaCampos();
+            LlenaGrid();
         }
 
     }
+
+    //protected void btnDelete_Click(object sender, EventArgs e)
+    //{
+    //    //ScriptManager.RegisterStartupScript(this.Page, this.Page.GetType(), "Mostrar Modal", "QuestionDelete();", true);
+
+
+    //}
+
+
+
+
+
+
 }
