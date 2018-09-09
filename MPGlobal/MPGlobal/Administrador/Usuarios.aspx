@@ -32,11 +32,14 @@
             <div class="row">
                 <div class="col-sm-4">
                     <p>Estado</p>
-                    <asp:DropDownList ID="ddlEstado" runat="server" CssClass="form-control" AutoPostBack="true" OnSelectedIndexChanged="ddlEstado_SelectedIndexChanged" Width="100%"></asp:DropDownList>
+                    <asp:DropDownList ID="ddlEstado" runat="server" CssClass="form-control" AutoPostBack="true" Width="100%"></asp:DropDownList>
                 </div>
                 <div class="col-sm-4">
                     <p>Municipio</p>
-                    <asp:DropDownList ID="ddlMunicipio" runat="server" CssClass="form-control" OnSelectedIndexChanged="ddlMunicipio_SelectedIndexChanged" Width="100%"></asp:DropDownList>
+                    <asp:DropDownList ID="ddlMunicipio" runat="server" CssClass="form-control" Width="100%"></asp:DropDownList>
+                </div>
+                <div class="col-sm-4">
+                    <asp:Button ID="btnBuscar" runat="server" OnClick="btnBuscar_Click" Text="Buscar" />
                 </div>
             </div>
             <div class="row">
