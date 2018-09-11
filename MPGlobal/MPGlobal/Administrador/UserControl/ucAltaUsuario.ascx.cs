@@ -8,20 +8,25 @@ using Microsoft.AspNet.Identity;
 using MPGlobal;
 using Microsoft.AspNet.Identity.Owin;
 using System.Data.SqlClient;
+using System.Data;
 
-public partial class AltaUsuario : System.Web.UI.Page
+public partial class Administrador_UserControl_ucAltaUsuario : System.Web.UI.UserControl
 {
+    public event OnAgregaUsuario OnUsuarioAgregado;
+    public delegate void OnAgregaUsuario(string id);
+
     protected void Page_Load(object sender, EventArgs e)
     {
         if (!IsPostBack)
         {
             ////Asigna los titulos de la pagina
-            //MasterPage master = (MasterPage)this.Master;
+            //MPMasterPage master = (MPMasterPage)this.Page.Master;
             //master.setTitle("Administrador");
-
-            using (DataBase db = new DataBase())
+            using(DataBase db = new DataBase())
             {
-                Helper.cargaCatalogoGenericCombo(ddlRol, db.ObtieneDatos("Sp_CargaRoles", null).Tables[0].DataTableToList<CatalogoGenerico>());
+                Helper.cargaCatalogoGenericCombo(ddlEstado, db.EjecutaSPCatalogos(DataBase.TipoAccion.Consulta, "sp_Cat_Estados", null).Tables[0].DataTableToList<Estado>(), "idEstado", "nomEstado");
+
+                Helper.cargaCatalogoGenericReporteSimple(ddlRol, db.ObtieneDatos("Sp_CargaRoles", null).Tables[0].DataTableToList<CatalogoGenerico>());
             }
         }
     }
@@ -57,7 +62,7 @@ public partial class AltaUsuario : System.Web.UI.Page
                 }
                 else
                 {
-                    //ScriptManager.RegisterStartupScript(updNuevoUsuario, updNuevoUsuario.GetType(), "mensaje_warning", String.Format("muestraMensajeUsuario('{0}');", result.Errors.FirstOrDefault().Replace("'", "").Replace("\r\n", "<br />")), true);
+                    ScriptManager.RegisterStartupScript(updAltaUsuario, updAltaUsuario.GetType(), "mensaje_warning", String.Format("muestraMensaje('warning','Favor de validar','{0}');", result.Errors.FirstOrDefault().Replace("'", "").Replace("\r\n", "<br />")), true);
                 }
             }
             else
@@ -66,9 +71,9 @@ public partial class AltaUsuario : System.Web.UI.Page
                 completaInformacion(Session["UserIdModificar"].ToString());
             }
         }
-        catch(Exception x)
+        catch (Exception x)
         {
-            ScriptManager.RegisterStartupScript(this.Page, this.Page.GetType(), "mensaje_correcto", "muestraMensaje('error', 'Ocurrio un error', '" + x.Message + "')", true);
+            ScriptManager.RegisterStartupScript(updAltaUsuario, updAltaUsuario.GetType(), "mensaje_correcto", "muestraMensaje('error', 'Ocurrio un error', '" + x.Message + "')", true);
         }
     }
 
@@ -85,7 +90,7 @@ public partial class AltaUsuario : System.Web.UI.Page
         parametros.Add(new SqlParameter("@email", txtEmail.Text));
         parametros.Add(new SqlParameter("@telefono", txtTelefono.Text));
         parametros.Add(new SqlParameter("@userId", id));
-        using(DataBase db = new DataBase())
+        using (DataBase db = new DataBase())
         {
             db.EjecutaSPCatalogos(DataBase.TipoAccion.Insertar, "Sp_Cat_Usuarios", parametros.ToArray());
         }
@@ -100,7 +105,42 @@ public partial class AltaUsuario : System.Web.UI.Page
         txtConfirmContrasenia.Text = "";
         txtEmail.Text = "";
         txtTelefono.Text = "";
-        ScriptManager.RegisterStartupScript(this.Page, this.Page.GetType(), "mensaje_correcto", "muestraMensaje('success', 'Proceso terminado', 'Se ha registrado correctamente el usuario')", true);
+        ScriptManager.RegisterStartupScript(this.Page, this.Page.GetType(), "mensaje_correcto", "terminaAltaUsuario();", true);
+        this.OnUsuarioAgregado?.Invoke(id);
     }
 
+    protected void ddlEstado_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        using(DataBase db = new DataBase())
+        {
+            List<SqlParameter> parametros = new List<SqlParameter>();
+            parametros.Add(new SqlParameter("@idEstado", ddlEstado.SelectedValue));
+            Helper.cargaCatalogoGenericCombo(ddlMunicipio, db.EjecutaSPCatalogos(DataBase.TipoAccion.Consulta, "sp_Cat_Municipios", parametros.ToArray()).Tables[0].DataTableToList<Municipio>(), "idMunicipio", "NomMunicipio");
+        }
+    }
+
+    public void cargaInfoUsuario(int id)
+    {
+        using (DataBase db = new DataBase())
+        {
+            List<SqlParameter> parametros = new List<SqlParameter>();
+            parametros.Add(new SqlParameter("@idEstado", ddlEstado.SelectedValue));
+            parametros.Add(new SqlParameter("@idMunicipio", ddlMunicipio.SelectedValue));
+
+            DataTable dt = db.EjecutaSPCatalogos(DataBase.TipoAccion.Consulta, "Sp_Cat_Usuarios", parametros.ToArray()).Tables[0];
+            DataRow dr = dt.Select(String.Format("idusuario={0}", id.ToString()))[0];
+
+            ddlEstado.SelectedValue = dr["idEstado"].ToString();
+            ddlMunicipio.SelectedValue = dr["idMunicipio"].ToString();
+            ddlRol.SelectedValue = dr["RoleId"].ToString();
+            txtFirstName.Text = dr["Nombre"].ToString();
+            txtApPaterno.Text = dr["Apaterno"].ToString();
+            txtApMaterno.Text = dr["Amaterno"].ToString();
+            txtUserName.Text = dr["Email"].ToString();
+            txtEmail.Text = dr["Email"].ToString();
+            txtTelefono.Text = dr["Telefono"].ToString();
+
+            ScriptManager.RegisterStartupScript(updAltaUsuario, updAltaUsuario.GetType(), "muestraModal", "muestraModalUsuarios();", true);
+        }
+    }
 }

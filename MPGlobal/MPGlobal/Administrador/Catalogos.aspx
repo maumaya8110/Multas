@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.master" AutoEventWireup="true" CodeFile="Catalogos.aspx.cs" Inherits="Catalogos" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MPMasterPage.master" AutoEventWireup="true" CodeFile="Catalogos.aspx.cs" Inherits="Catalogos" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
 
@@ -18,21 +18,22 @@
                 showCancelButton: true,
                 confirmButtonClass: "btn-danger",
                 confirmButtonText: "Si, eliminarlo!",
-                closeOnConfirm:false
+                closeOnConfirm: false
             },
                 function (isConfirm) {
-                    if (isConfirm)
+                    if (isConfirm) {
                         swal("Eliminado!", "El registro ha sido eliminado.", "success");
 
-                   document.getElementById('<%= HiddenField1AutEli.ClientID %>').value = IdEstado;
+                        document.getElementById('<%= HiddenField1AutEli.ClientID %>').value = IdEstado;
                         //return true;
-                       document.getElementById('<%= BtnElimina.ClientID %>').click();
-
-                    
-                    //return true;
+                        document.getElementById('<%= BtnElimina.ClientID %>').click();
 
 
-                })
+                        //return true;
+
+                    }
+
+                });
         }
 
 
@@ -124,7 +125,7 @@
 
 
     </script>
-    
+
     <asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager>
     <asp:UpdatePanel ID="UpdatePanel1" runat="server">
         <ContentTemplate>
@@ -143,13 +144,8 @@
                                 <asp:ListItem>Estados</asp:ListItem>
                                 <asp:ListItem>Municipios</asp:ListItem>
                                 <asp:ListItem>Oficinas</asp:ListItem>
-
                             </asp:DropDownList>
-
-
                         </div>
-
-
 
                         <asp:LinkButton ID="btnNew" runat="server" type="button" class="btn btn-default btn-sm" OnClick="btnNew_Click" CommandName="NUEVO" Visible="false">
                                             <span class="glyphicon glyphicon-plus"></span>AGREGAR
@@ -158,11 +154,11 @@
                                             <span class="glyphicon glyphicon-remove"></span>CANCELAR
                         </asp:LinkButton>
 
-                         <asp:Button ID="BtnElimina" runat="server" style=" visibility:hidden;" OnClick="BtnElimina_Click" Text="btnElimina" />
-                    <asp:Button ID="BtnEdita" runat="server" style=" visibility:hidden;"   OnClick="BtnEdita_Click" Text="btnEdita" />
+                        <asp:Button ID="BtnElimina" runat="server" Style="visibility: hidden;" OnClick="BtnElimina_Click" Text="btnElimina" />
+                        <asp:Button ID="BtnEdita" runat="server" Style="visibility: hidden;" OnClick="BtnEdita_Click" Text="btnEdita" />
 
                     </div>
-                   
+
                 </div>
 
 
@@ -181,11 +177,11 @@
 
                                         <asp:TextBox ID="txtContacto" runat="server" placeholder="Contacto" CssClass="form-control campo_obligatorio"></asp:TextBox>
 
-                                        <asp:TextBox ID="txtTelefono" runat="server" placeholder="Telefono" CssClass="form-control campo_obligatorio"></asp:TextBox>
+                                        <asp:TextBox ID="txtTelefono" runat="server" placeholder="Telefono" CssClass="form-control campo_obligatorio" onkeypress="javascript:validaNumeros(this, event);"></asp:TextBox>
 
                                         <asp:TextBox ID="txtCorreo" runat="server" placeholder="Correo" CssClass="form-control campo_obligatorio"></asp:TextBox>
 
-                                        <asp:TextBox ID="txtLicencia" runat="server" placeholder="Licencia" CssClass="form-control campo_obligatorio"></asp:TextBox>
+                                        <asp:TextBox ID="txtLicencia" runat="server" placeholder="Licencia" CssClass="form-control campo_obligatorio" onkeypress="javascript:validaNumeros(this, event);"></asp:TextBox>
 
                                         <asp:LinkButton ID="LinkBtnAlta" runat="server" type="button" class="btn btn-default btn-sm" CommandName="LinkBtnAlta" OnClick="LinkBtnAlta_Click" data-target="#AddEstado" OnClientClick="javascript:validaCampos(this,event);">
                                             <span class="glyphicon glyphicon-plus"></span>
@@ -229,7 +225,7 @@
             </asp:TemplateField>   --%>
 
                             <%--botones de acción sobre los registros...--%>
-                            <asp:TemplateField ItemStyle-HorizontalAlign="Center" HeaderStyle-Width="17%">
+                            <asp:TemplateField ItemStyle-HorizontalAlign="Center" HeaderStyle-Width="10%">
                                 <ItemTemplate>
                                     <%--Botones de eliminar y editar cliente...--%>
 
@@ -242,7 +238,7 @@
                                     <%--<asp:LinkButton ID="btnDelete" runat="server" ToolTip="ELIMINAR" type="button" class="btn btn-default btn-xs" CommandName="Delete">
                                             <span class="glyphicon glyphicon-trash"></span>
                                     </asp:LinkButton>--%>
-                                    <a   class="btn btn-default btn-xs" onclick="QuestionDelete('<%# Eval("IdEstado")%>');" tooltip="ELIMINAR"  > <span class="glyphicon glyphicon-trash"></span></a>
+                                    <a class="btn btn-default btn-xs" onclick="QuestionDelete('<%# Eval("IdEstado")%>');" tooltip="ELIMINAR"><span class="glyphicon glyphicon-trash"></span></a>
 
 
 
@@ -271,13 +267,10 @@
             <asp:BoundField DataField="Country" HeaderText="Pais" ReadOnly="True" SortExpression="Country" />--%>
 
                             <%--campos editables...--%>
-                            <asp:TemplateField HeaderStyle-Width="300px" HeaderText="ID">
+                            <asp:TemplateField HeaderStyle-Width="100px" HeaderText="ID">
                                 <ItemTemplate>
                                     <asp:Label ID="lblIdEstado" runat="server"><%# Eval("IdEstado")%></asp:Label>
                                 </ItemTemplate>
-                                <EditItemTemplate>
-                                    <asp:TextBox ID="TxtIdEstado" runat="server" Text='<%# Eval("IdEstado")%>' CssClass="form-control"></asp:TextBox>
-                                </EditItemTemplate>
                             </asp:TemplateField>
                             <asp:TemplateField HeaderStyle-Width="150px" HeaderText="ESTADO">
                                 <ItemTemplate>
@@ -333,13 +326,12 @@
                                 </EditItemTemplate>
                             </asp:TemplateField>
 
-                            <asp:TemplateField HeaderStyle-Width="150px" HeaderText="ESTATUS">
+                            <asp:TemplateField HeaderStyle-Width="150px" HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Center" HeaderText="ESTATUS">
                                 <ItemTemplate>
-                                    <asp:Label ID="lblEstatusEstado" runat="server"><%# Eval("EstatusEstado")%></asp:Label>
-
+                                    <asp:CheckBox ID="chkEstatusEstado" runat="server" Checked='<%# bool.Parse(Eval("EstatusEstado").ToString()) %>' Enabled="false" />
                                 </ItemTemplate>
                                 <EditItemTemplate>
-                                    <asp:TextBox ID="TxtEstatusEstado" runat="server" Text='<%# Bind("EstatusEstado")%>' CssClass="form-control"></asp:TextBox>
+                                    <asp:CheckBox ID="chkEstatusEstado" runat="server" Checked='<%# bool.Parse(Eval("EstatusEstado").ToString()) %>' />
                                 </EditItemTemplate>
                             </asp:TemplateField>
 

@@ -8,6 +8,6 @@ using System.Web;
 /// </summary>
 public class CatalogoGenerico
 {
-    public int id { get; set; }
+    public string id { get; set; }
     public string nombre { get; set; }
 }

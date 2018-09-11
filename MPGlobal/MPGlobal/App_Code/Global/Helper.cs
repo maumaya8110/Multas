@@ -217,12 +217,15 @@ public class Helper
         if (agregaPrimero)
             ddl.Items.Add(new ListItem(" ", "-1"));
 
-        foreach (T item in lista)
+        if(lista != null)
         {
-            Type t = item.GetType();
-            PropertyInfo propId = t.GetProperty("id");
-            PropertyInfo propNom = t.GetProperty("nombre");
-            ddl.Items.Add(new ListItem(propNom.GetValue(item).ToString().Trim(), propId.GetValue(item).ToString().Trim()));
+            foreach (T item in lista)
+            {
+                Type t = item.GetType();
+                PropertyInfo propId = t.GetProperty("id");
+                PropertyInfo propNom = t.GetProperty("nombre");
+                ddl.Items.Add(new ListItem(propNom.GetValue(item).ToString().Trim(), propId.GetValue(item).ToString().Trim()));
+            }
         }
     }
 
@@ -295,14 +298,15 @@ public class Helper
     public static void cargaCatalogoGenericReporte<T>(DropDownList ddl, List<T> lista, string value, string text)
     {
         ddl.Items.Clear();
-        ddl.Items.Add(new ListItem("Todos", "0"));
-        foreach (T item in lista)
-        {
-            Type t = item.GetType();
-            PropertyInfo propId = t.GetProperty(value);
-            PropertyInfo propNom = t.GetProperty(text);
-            ddl.Items.Add(new ListItem(propNom.GetValue(item).ToString().Trim(), propId.GetValue(item).ToString().Trim()));
-        }
+        ddl.Items.Add(new ListItem("Todos", "-1"));
+        if(lista != null)
+            foreach (T item in lista)
+            {
+                Type t = item.GetType();
+                PropertyInfo propId = t.GetProperty(value);
+                PropertyInfo propNom = t.GetProperty(text);
+                ddl.Items.Add(new ListItem(propNom.GetValue(item).ToString().Trim(), propId.GetValue(item).ToString().Trim()));
+            }
     }
 }
 

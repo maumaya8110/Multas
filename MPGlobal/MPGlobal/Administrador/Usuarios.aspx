@@ -1,5 +1,6 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.master" AutoEventWireup="true" CodeFile="Usuarios.aspx.cs" Inherits="Administrador_Usuarios" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MPMasterPage.master" AutoEventWireup="true" CodeFile="Usuarios.aspx.cs" Inherits="Administrador_Usuarios" %>
 
+<%@ Register Src="~/Administrador/UserControl/ucAltaUsuario.ascx" TagName="ucAlta" TagPrefix="uc1" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
     <style type="text/css">
         .Titulo {
@@ -27,30 +28,91 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="FeaturedContent" runat="Server">
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="MainContent" runat="Server">
-    <div class="well form-horizontal" id="contact_form">
-        <div class="container well form-horizontal">
-            <div class="row">
-                <div class="col-sm-4">
-                    <p>Estado</p>
-                    <asp:DropDownList ID="ddlEstado" runat="server" CssClass="form-control" AutoPostBack="true" Width="100%"></asp:DropDownList>
-                </div>
-                <div class="col-sm-4">
-                    <p>Municipio</p>
-                    <asp:DropDownList ID="ddlMunicipio" runat="server" CssClass="form-control" Width="100%"></asp:DropDownList>
-                </div>
-                <div class="col-sm-4">
-                    <asp:Button ID="btnBuscar" runat="server" OnClick="btnBuscar_Click" Text="Buscar" />
+    <asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager>
+    <asp:UpdatePanel ID="updUsuarios" runat="server">
+        <ContentTemplate>
+            <div class="box">
+                <div class="box-header">
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <p>Estado</p>
+                            <asp:DropDownList ID="ddlEstado" runat="server" CssClass="form-control" AutoPostBack="true" Width="100%" OnSelectedIndexChanged="ddlEstado_SelectedIndexChanged" ></asp:DropDownList>
+                        </div>
+                        <div class="col-sm-3">
+                            <p>Municipio</p>
+                            <asp:DropDownList ID="ddlMunicipio" runat="server" CssClass="form-control" Width="100%"></asp:DropDownList>
+                        </div>
+                        <div class="col-sm-2">
+                            <p style="visibility: hidden;">Municipio</p>
+                            <div>
+                                <asp:LinkButton ID="lnkBuscar" runat="server" CssClass="btn btn-default" OnClick="btnBuscar_Click">
+                        <span class="glyphicon glyphicon-search"></span> Consultar
+                                </asp:LinkButton>
+                                <asp:LinkButton ID="lnkAddUsuario" runat="server" OnClick="lnkAddUsuario_Click" CssClass="btn btn-default">
+                                    <span class="glyphicon glyphicon-plus"></span>Agregar
+                                </asp:LinkButton>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-9"></div>
+                        <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3">
+                            <div class="inputGroupContainer">
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="glyphicon glyphicon-search"></i></span>
+                                    <asp:TextBox ID="txtSearch" runat="server" placeholder="Busqueda rápida..." CssClass="form-control" Width="100%" Style="height: 40px;"></asp:TextBox>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <br />
+                            <asp:GridView ID="grdUsuarios" runat="server" Width="100%" AllowPaging="true" PageSize="8" ClientIDMode="Static" AutoGenerateColumns="false" CssClass="table table-hover table-bordered table-striped">
+                                <Columns>
+                                    <asp:CommandField HeaderText="" ShowEditButton="true" EditText="Editar" />
+                                    <asp:TemplateField>
+                                        <ItemTemplate>
+                                            <asp:LinkButton ID="lnkEditar" runat="server" Text="Editar" OnCommand="lnkEditar_Command" CommandArgument='<%# Eval("idusuario") %>'></asp:LinkButton>
+                                        </ItemTemplate>
+                                    </asp:TemplateField>
+                                    <asp:BoundField HeaderText="Estado" DataField="nomEstado" />
+                                    <asp:BoundField HeaderText="Municipio" DataField="NomMunicipio" />
+                                    <asp:BoundField HeaderText="Nombre" DataField="nombreFull" />
+                                    <asp:BoundField HeaderText="Rol" DataField="Rol" />
+                                    <asp:BoundField HeaderText="Referencia" DataField="Referencia" />
+                                    <asp:BoundField HeaderText="Departamento" DataField="Departamento" />
+                                    <asp:BoundField HeaderText="Area" DataField="Area" />
+                                    <asp:BoundField HeaderText="Email" DataField="Email" />
+                                    <asp:BoundField HeaderText="Teléfono" DataField="Telefono" />
+                                </Columns>
+                            </asp:GridView>
+                        </div>
+                    </div>
+
                 </div>
             </div>
-            <div class="row">
-                <div class="col-sm-12">
-                    <asp:GridView ID="grdUsuarios" runat="server">
 
-            </asp:GridView>
+        </ContentTemplate>
+    </asp:UpdatePanel>
+
+    <div id="modalAddUsuario" class="modal fade modal-medium" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                     <h4 class="modal-title">Alta usuario</h4>
+                </div>
+                <div class="modal-body">
+                    <uc1:ucAlta ID="ucAltaUsuario" runat="server" />
                 </div>
             </div>
         </div>
     </div>
-
+<script type="text/javascript">
+    function muestraModalUsuarios() {
+        $('#modalAddUsuario').modal('show');
+    }
+</script>
 </asp:Content>
 
