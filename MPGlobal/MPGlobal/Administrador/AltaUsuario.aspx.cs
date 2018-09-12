@@ -87,7 +87,7 @@ public partial class AltaUsuario : System.Web.UI.Page
         parametros.Add(new SqlParameter("@userId", id));
         using(DataBase db = new DataBase())
         {
-            db.EjecutaSPCatalogos(DataBase.TipoAccion.Insertar, "Sp_Cat_Usuarios", parametros.ToArray());
+            db.EjecutaSPCatalogos(DataBase.TipoAccion.Insertar, DataBase.TipoCatalogo.Usuarios, parametros.ToArray());
         }
         ddlEstado.SelectedIndex = 0;
         ddlMunicipio.SelectedIndex = 0;

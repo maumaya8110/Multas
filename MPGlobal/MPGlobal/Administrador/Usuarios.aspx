@@ -70,7 +70,6 @@
                             <br />
                             <asp:GridView ID="grdUsuarios" runat="server" Width="100%" AllowPaging="true" PageSize="8" ClientIDMode="Static" AutoGenerateColumns="false" CssClass="table table-hover table-bordered table-striped">
                                 <Columns>
-                                    <asp:CommandField HeaderText="" ShowEditButton="true" EditText="Editar" />
                                     <asp:TemplateField>
                                         <ItemTemplate>
                                             <asp:LinkButton ID="lnkEditar" runat="server" Text="Editar" OnCommand="lnkEditar_Command" CommandArgument='<%# Eval("idusuario") %>'></asp:LinkButton>

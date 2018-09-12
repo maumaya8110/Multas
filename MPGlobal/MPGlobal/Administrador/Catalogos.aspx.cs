@@ -46,7 +46,7 @@ public partial class Catalogos : System.Web.UI.Page
         using (DataBase db = new DataBase())
         {
 
-            GridView1.DataSource = db.EjecutaSPCatalogos(DataBase.TipoAccion.Consulta, TipoCatalogo, null);
+            GridView1.DataSource = db.EjecutaSPCatalogos(DataBase.TipoAccion.Consulta,  DataBase.TipoCatalogo.Estados, null);
             GridView1.DataBind();
         }
 
@@ -139,7 +139,7 @@ public partial class Catalogos : System.Web.UI.Page
             parametros.Add(new SqlParameter("@idLicencia", ((TextBox)(row.Cells[7].Controls[1])).Text));
             parametros.Add(new SqlParameter("@estatusEstado", ((TextBox)(row.Cells[8].Controls[1])).Text));
 
-            db.EjecutaSPCatalogos(DataBase.TipoAccion.Modificar, TipoCatalogo, parametros.ToArray());
+            db.EjecutaSPCatalogos(DataBase.TipoAccion.Modificar, DataBase.TipoCatalogo.Estados, parametros.ToArray());
 
 
         }
@@ -178,7 +178,7 @@ public partial class Catalogos : System.Web.UI.Page
             parametros.Add(new SqlParameter("@idEstado", HiddenField1AutEli.Value));
 
 
-            db.EjecutaSPCatalogos(DataBase.TipoAccion.Eliminar, TipoCatalogo, parametros.ToArray());
+            db.EjecutaSPCatalogos(DataBase.TipoAccion.Eliminar, DataBase.TipoCatalogo.Estados, parametros.ToArray());
 
 
         }
@@ -272,7 +272,7 @@ public partial class Catalogos : System.Web.UI.Page
             parametros.Add(new SqlParameter("@Correo", txtCorreo.Text));
             parametros.Add(new SqlParameter("@idLicencia", txtLicencia.Text));
             parametros.Add(new SqlParameter("@estatusEstado", 1));
-            db.EjecutaSPCatalogos(DataBase.TipoAccion.Insertar, TipoCatalogo, parametros.ToArray());
+            db.EjecutaSPCatalogos(DataBase.TipoAccion.Insertar, DataBase.TipoCatalogo.Estados, parametros.ToArray());
 
 
             ScriptManager.RegisterStartupScript(this.Page, this.Page.GetType(), "Mostrar Modal", "AltaSuccess();", true);

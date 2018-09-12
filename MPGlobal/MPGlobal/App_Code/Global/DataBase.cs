@@ -7,17 +7,37 @@ using System.Data;
 using System.Configuration;
 using System.Reflection;
 
+
 /// <summary>
 /// Descripción breve de DataBase
 /// </summary>
-public class DataBase: IDisposable
+public class DataBase : IDisposable
 {
+
+    /// <summary>
+    /// Identifica la acción que realizara el SP del Catálogo
+    /// </summary>
     public enum TipoAccion
     {
         Consulta = 1,
         Insertar = 2,
         Eliminar = 3,
         Modificar = 4
+    }
+
+    /// <summary>
+    /// Identifica el tipo de catálogo que se esta afectando
+    /// </summary>
+    public enum TipoCatalogo
+    {
+        [StringEnum.StringValue("Sp_Cat_Estados")]
+        Estados = 1,
+        [StringEnum.StringValue("Sp_Cat_Municipios")]
+        Municipios = 2,
+        [StringEnum.StringValue("Sp_Cat_Usuarios")]
+        Usuarios = 3,
+        [StringEnum.StringValue("Sp_Cat_BitacoraCatalogos")]
+        BitacoraCatalogos = 4
     }
 
     public enum TipoError
@@ -39,12 +59,12 @@ public class DataBase: IDisposable
     /// <param name="sp"></param>
     /// <param name="parametros"></param>
     /// <returns></returns>
-    public DataSet EjecutaSPCatalogos(TipoAccion tipo, string sp, SqlParameter[] parametros)
+    public DataSet EjecutaSPCatalogos(TipoAccion tipo, TipoCatalogo catalogo, SqlParameter[] parametros, bool guardaBitacora = true)
     {
         try
         {
             DataSet ds = new DataSet();
-            SqlCommand command = new SqlCommand(sp, conn);
+            SqlCommand command = new SqlCommand(StringEnum.GetStringValue(catalogo), conn);
             command.CommandType = CommandType.StoredProcedure;
             command.Parameters.Add(new SqlParameter("@TipoMovimiento", (int)tipo));
             if (parametros != null)
@@ -56,13 +76,32 @@ public class DataBase: IDisposable
             SqlDataAdapter adapter = new SqlDataAdapter(command);
             adapter.Fill(ds);
 
+            if (guardaBitacora && tipo != TipoAccion.Consulta)
+                guardaBitacoraCatalogo(tipo, catalogo);
+
             return ds;
         }
-        catch(SqlException x)
+        catch (SqlException x)
         {
             throw x;
         }
-        catch(Exception x)
+        catch (Exception x)
+        {
+            throw x;
+        }
+    }
+
+    private void guardaBitacoraCatalogo(TipoAccion accion, TipoCatalogo catalogo)
+    {
+        try
+        {
+            List<SqlParameter> parametros = new List<SqlParameter>();
+            parametros.Add(new SqlParameter("@idMovimiento", (int)accion));
+            parametros.Add(new SqlParameter("@idCatalogo", (int)catalogo));
+            parametros.Add(new SqlParameter("@usuario", Helper.GetUserID()));
+            EjecutaSPCatalogos(TipoAccion.Insertar, TipoCatalogo.BitacoraCatalogos, parametros.ToArray(), false);
+        }
+        catch (Exception x)
         {
             throw x;
         }
@@ -80,8 +119,9 @@ public class DataBase: IDisposable
         {
             DataSet ds = new DataSet();
             SqlCommand command = new SqlCommand(sp, conn);
-            if(parametros != null)
-                foreach(SqlParameter p in parametros)
+            command.CommandType = CommandType.StoredProcedure;
+            if (parametros != null)
+                foreach (SqlParameter p in parametros)
                     command.Parameters.Add(p);
 
             SqlDataAdapter adapter = new SqlDataAdapter(command);
@@ -89,14 +129,14 @@ public class DataBase: IDisposable
 
             return ds;
         }
-        catch(SqlException x)
+        catch (SqlException x)
         {
             int error = x.ErrorCode;
             throw x;
         }
-        catch(Exception x)
+        catch (Exception x)
         {
-            throw x;    
+            throw x;
         }
     }
 
@@ -119,11 +159,11 @@ public class DataBase: IDisposable
 
             return command.ExecuteScalar();
         }
-        catch(SqlException x)
+        catch (SqlException x)
         {
             throw x;
         }
-        catch(Exception x)
+        catch (Exception x)
         {
             throw x;
         }
