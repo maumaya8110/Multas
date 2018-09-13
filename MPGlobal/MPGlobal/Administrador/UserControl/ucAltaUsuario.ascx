@@ -212,4 +212,5 @@
         $('#modalAddUsuario').modal('hide');
         muestraMensaje('success', 'Proceso terminado', 'Se ha terminado el proceso correctamente.');
     }
+
 </script>

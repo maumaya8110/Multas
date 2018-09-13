@@ -68,11 +68,18 @@
                     <div class="row">
                         <div class="col-sm-12">
                             <br />
+                            <asp:HiddenField ID="hdnEliminar" runat="server" />
+                            <asp:Button ID="btnEliminar" runat="server" OnClick="btnEliminar_Click" style="visibility:hidden;" />
                             <asp:GridView ID="grdUsuarios" runat="server" Width="100%" AllowPaging="true" PageSize="8" ClientIDMode="Static" AutoGenerateColumns="false" CssClass="table table-hover table-bordered table-striped">
                                 <Columns>
                                     <asp:TemplateField>
                                         <ItemTemplate>
                                             <asp:LinkButton ID="lnkEditar" runat="server" Text="Editar" OnCommand="lnkEditar_Command" CommandArgument='<%# Eval("idusuario") %>'></asp:LinkButton>
+                                        </ItemTemplate>
+                                    </asp:TemplateField>
+                                    <asp:TemplateField>
+                                        <ItemTemplate>
+                                            <a onclick="javascript:confirmaEliminaUsuario('<%# Eval("userId") %>');">Eliminar</a>
                                         </ItemTemplate>
                                     </asp:TemplateField>
                                     <asp:BoundField HeaderText="Estado" DataField="nomEstado" />
@@ -111,6 +118,37 @@
 <script type="text/javascript">
     function muestraModalUsuarios() {
         $('#modalAddUsuario').modal('show');
+    }
+
+    function confirmaEliminaUsuario(userId) {
+        swal({
+            title: "Estas seguro de eliminar el registro?",
+            text: "No podrás recuperarlo!",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonClass: "btn-danger",
+            confirmButtonText: "Si, eliminarlo!",
+            closeOnConfirm: false,
+            cancelButtonText:'Cancelar'
+        }, function (isConfirm) {
+            if (isConfirm) {
+                document.getElementById('<%= hdnEliminar.ClientID %>').value = userId;
+                document.getElementById('<%= btnEliminar.ClientID %>').click();
+            }
+        });
+         
+    }
+    
+    function mensajeUsuarioEliminado() {
+        $('#modalAddUsuario').modal('hide');
+        swal({
+            title: "Proceso terminado",
+            text: "EL usuario se eliminó correctamente",
+            type: "info",
+            showCancelButton: false,
+            confirmButtonText: "Aceptar",
+            closeOnConfirm:true
+        });
     }
 </script>
 </asp:Content>

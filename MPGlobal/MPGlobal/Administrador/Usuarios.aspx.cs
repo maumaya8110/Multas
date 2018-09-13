@@ -88,4 +88,24 @@ public partial class Administrador_Usuarios : System.Web.UI.Page
     {
         ucAltaUsuario.nuevoUsuario();
     }
+
+    protected void btnEliminar_Click(object sender, EventArgs e)
+    {
+        try
+        {
+            using(DataBase db = new DataBase())
+            {
+                List<SqlParameter> parametros = new List<SqlParameter>();
+                parametros.Add(new SqlParameter("@userId", hdnEliminar.Value));
+                db.EjecutaSPCatalogos(DataBase.TipoAccion.Eliminar, DataBase.TipoCatalogo.Usuarios, parametros.ToArray(), true);
+            }
+
+            cargaUsuarios();
+            ScriptManager.RegisterStartupScript(this.Page, this.Page.GetType(), "mensaje_correcto", "mensajeUsuarioEliminado();", true);
+        }
+        catch(Exception x)
+        {
+
+        }
+    }
 }

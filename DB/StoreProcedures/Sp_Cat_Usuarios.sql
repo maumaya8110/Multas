@@ -61,6 +61,16 @@ AS
 		SELECT 1 resulado
 
 	end
+	ELSE IF @TipoMovimiento = 3
+	BEGIN
+		
+		UPDATE	Usuarios
+		SET		estatus =0
+		where	userId = @userId
+
+		select 1 resultado
+
+	END
 	ELSE IF @TipoMovimiento = 4
 	BEGIN
 		
@@ -77,6 +87,11 @@ AS
 				Telefono = @telefono,
 				estatus = 1
 		WHERE	userId = @userId
+
+		--ACTUALIZA ROL
+		UPDATE	AspNetUserRoles
+		SET		RoleId = @idRol
+		WHERE	UserId = @userId
 
 		SELECT 1 resulado
 

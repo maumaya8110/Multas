@@ -3,7 +3,10 @@ CREATE TABLE BitacoraCatalogos
 (
 	id					INT IDENTITY PRIMARY KEY,
 	idTipoMovimiento	INT,
-	movimiento			VARCHAR(max),
+	idCatalogo			INT,
 	idUsuario			INT,
 	fecha				DATETIME
 )
+
+
+SELECT * FROM BitacoraCatalogos

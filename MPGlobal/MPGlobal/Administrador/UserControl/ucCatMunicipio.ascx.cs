@@ -30,7 +30,7 @@ public partial class Administrador_UserControl_ucCatMunicipio : System.Web.UI.Us
         //TipoCatalogo = "Sp_Cat_Municipios";
         using (DataBase db = new DataBase())
         {
-            GridView1.DataSource = db.EjecutaSPCatalogos(DataBase.TipoAccion.Consulta, Session["TipoCatalogo"].ToString(), null);
+            GridView1.DataSource = db.EjecutaSPCatalogos(DataBase.TipoAccion.Consulta, (DataBase.TipoCatalogo)Session["TipoCatalogo"], null);
             GridView1.DataBind();
         }
     }
@@ -84,7 +84,7 @@ public partial class Administrador_UserControl_ucCatMunicipio : System.Web.UI.Us
             parametros.Add(new SqlParameter("@idLicencia", ((TextBox)(row.Cells[7].Controls[1])).Text));
             parametros.Add(new SqlParameter("@estatusMunicipio", ((CheckBox)(row.Cells[8].Controls[1])).Checked));
 
-            db.EjecutaSPCatalogos(DataBase.TipoAccion.Modificar, Session["TipoCatalogo"].ToString(), parametros.ToArray());
+            db.EjecutaSPCatalogos(DataBase.TipoAccion.Modificar, (DataBase.TipoCatalogo)Session["TipoCatalogo"], parametros.ToArray());
 
 
         }
@@ -112,7 +112,7 @@ public partial class Administrador_UserControl_ucCatMunicipio : System.Web.UI.Us
             parametros.Add(new SqlParameter("@idMunicipio", HiddenField1AutEli.Value));
 
 
-            db.EjecutaSPCatalogos(DataBase.TipoAccion.Eliminar, Session["TipoCatalogo"].ToString(), parametros.ToArray());
+            db.EjecutaSPCatalogos(DataBase.TipoAccion.Eliminar, (DataBase.TipoCatalogo)Session["TipoCatalogo"], parametros.ToArray());
 
 
         }
@@ -158,7 +158,7 @@ public partial class Administrador_UserControl_ucCatMunicipio : System.Web.UI.Us
             parametros.Add(new SqlParameter("@Correo", txtCorreo.Text));
             parametros.Add(new SqlParameter("@idLicencia", txtLicencia.Text));
             parametros.Add(new SqlParameter("@estatusMunicipio", 1));
-            db.EjecutaSPCatalogos(DataBase.TipoAccion.Insertar, Session["TipoCatalogo"].ToString(), parametros.ToArray());
+            db.EjecutaSPCatalogos(DataBase.TipoAccion.Insertar, (DataBase.TipoCatalogo)Session["TipoCatalogo"], parametros.ToArray());
 
 
             ScriptManager.RegisterStartupScript(this.Page, this.Page.GetType(), "Mostrar Modal", "AltaSuccess();", true);
