@@ -104,3 +104,7 @@ h4.profile, h5.profile {
 .sweet-overlay {
     z-index: 1050 !important;
 }
+
+.alert{
+    margin-bottom:7px !important;
+}

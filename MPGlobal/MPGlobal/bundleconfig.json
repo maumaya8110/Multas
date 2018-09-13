@@ -16,5 +16,11 @@
     "inputFiles": [
       "Content/login.css"
     ]
+  },
+  {
+    "outputFileName": "dist/css/AdminLTE.min.min.css",
+    "inputFiles": [
+      "dist/css/AdminLTE.min.css"
+    ]
   }
 ]

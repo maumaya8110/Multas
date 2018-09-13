@@ -9,6 +9,7 @@ using MPGlobal;
 using Microsoft.AspNet.Identity.Owin;
 using System.Data.SqlClient;
 using System.Data;
+using System.Web.Security;
 
 public partial class Administrador_UserControl_ucAltaUsuario : System.Web.UI.UserControl
 {
@@ -45,6 +46,37 @@ public partial class Administrador_UserControl_ucAltaUsuario : System.Web.UI.Use
 
             if (Session["UserIdModificar"] == null)
             {
+                var manager = Context.GetOwinContext().GetUserManager<ApplicationUserManager>();
+                var signInManager = Context.GetOwinContext().Get<ApplicationSignInManager>();
+
+                //valida el usuario
+                using (DataBase db = new DataBase())
+                {
+                    //valida si el usuario fue eliminado anteriormente
+                    var usuarioEliminado = db.ObtieneDatos("Sp_ValidaUsuarioEliminado", new SqlParameter[] { new SqlParameter("@username", txtUserName.Text), new SqlParameter("@email", txtEmail.Text) });
+                    if (usuarioEliminado.Tables[0].Rows.Count > 0)
+                    {
+                        completaInformacion(DataBase.TipoAccion.Modificar, usuarioEliminado.Tables[0].Rows[0]["Id"].ToString());
+                        return;
+                    }
+
+                    //valida si el usuario ya fue registrado
+                        var usuarioExiste = db.ObtieneDatos("Sp_ObtieneUsuarioByUserName", new SqlParameter[] {new SqlParameter("@username", txtUserName.Text) });
+                    if (usuarioExiste.Tables[0].Rows.Count > 0)
+                    {
+                        pnlUsuarioExiste.Visible = usuarioExiste != null;
+                        return;
+                    }
+                    
+                    //valida si el email ya fue registrado
+                    var emailExiste = db.ObtieneDatos("Sp_ObtieneUsuarioByEmail", new SqlParameter[] { new SqlParameter("@email", txtEmail.Text) });
+                    if(emailExiste.Tables[0].Rows.Count > 0)
+                    {
+                        pnlEmailExiste.Visible = emailExiste != null;
+                        return;
+                    }
+                }
+
                 usuarioID = Helper.GetUserID();
                 if (txtContrasenia.Text.Trim() == "" || txtConfirmContrasenia.Text == "")
                 {
@@ -52,9 +84,8 @@ public partial class Administrador_UserControl_ucAltaUsuario : System.Web.UI.Use
                     return;
                 }
 
-                var manager = Context.GetOwinContext().GetUserManager<ApplicationUserManager>();
-                var signInManager = Context.GetOwinContext().Get<ApplicationSignInManager>();
-                var user = new ApplicationUser() { UserName = txtUserName.Text, Email = txtUserName.Text };
+                
+                var user = new ApplicationUser() { UserName = txtUserName.Text, Email = txtEmail.Text };
                 IdentityResult result = manager.Create(user, txtContrasenia.Text);
                 if (result.Succeeded)
                 {

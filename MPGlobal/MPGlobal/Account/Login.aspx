@@ -75,7 +75,7 @@
                                     <div class="form-group">
                                         <div class="inputGroupContainer">
                                             <div class="input-group">
-                                                <span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
+                                                <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
                                                 <asp:TextBox ID="UserName" runat="server" placeholder="Usuario" CssClass="form-control"></asp:TextBox>
 
                                             </div>

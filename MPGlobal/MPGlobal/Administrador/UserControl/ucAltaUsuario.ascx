@@ -102,6 +102,14 @@
                 </div>
             </div>
             <div class="row">
+                <div class="col-sm-4"></div>
+                <div class="col-sm-8">
+                    <asp:Panel ID="pnlUsuarioExiste" runat="server" CssClass="alert alert-danger" Visible="false">
+                        <strong>Usuario no disponible!</strong> Intenta con otro diferente.
+                    </asp:Panel>
+                </div>
+            </div>
+            <div class="row">
                 <div class="col-sm-4 text-right">
                     <label class="control-label">Usuario</label>
                 </div>
@@ -114,6 +122,7 @@
                             </div>
                         </div>
                     </div>
+
                 </div>
             </div>
             <asp:Panel ID="pnlContrasenias" runat="server">
@@ -148,6 +157,14 @@
                     </div>
                 </div>
             </asp:Panel>
+            <div class="row">
+                <div class="col-sm-4"></div>
+                <div class="col-sm-8">
+                    <asp:Panel ID="pnlEmailExiste" runat="server" CssClass="alert alert-danger" Visible="false">
+                        <strong>Email registrado!</strong> El email ya se encuentra registrado.
+                    </asp:Panel>
+                </div>
+            </div>
             <div class="row">
                 <div class="col-sm-4 text-right">
                     <label class="control-label">E-Mail</label>
@@ -199,13 +216,6 @@
     </ContentTemplate>
 </asp:UpdatePanel>
 
-
-
-<style lang="cs">
-    #success_message {
-        display: none;
-    }
-</style>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js" type="text/javascript"></script>
 <script type="text/javascript">
     function terminaAltaUsuario() {
