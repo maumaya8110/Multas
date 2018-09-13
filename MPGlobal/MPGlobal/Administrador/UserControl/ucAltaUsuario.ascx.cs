@@ -24,7 +24,7 @@ public partial class Administrador_UserControl_ucAltaUsuario : System.Web.UI.Use
             //master.setTitle("Administrador");
             using(DataBase db = new DataBase())
             {
-                Helper.cargaCatalogoGenericCombo(ddlEstado, db.EjecutaSPCatalogos(DataBase.TipoAccion.Consulta, "sp_Cat_Estados", null).Tables[0].DataTableToList<Estado>(), "idEstado", "nomEstado");
+                Helper.cargaCatalogoGenericCombo(ddlEstado, db.EjecutaSPCatalogos(DataBase.TipoAccion.Consulta, DataBase.TipoCatalogo.Estados, null).Tables[0].DataTableToList<Estado>(), "idEstado", "nomEstado");
 
                 Helper.cargaCatalogoGenericReporteSimple(ddlRol, db.ObtieneDatos("Sp_CargaRoles", null).Tables[0].DataTableToList<CatalogoGenerico>());
             }
@@ -58,7 +58,7 @@ public partial class Administrador_UserControl_ucAltaUsuario : System.Web.UI.Use
                 IdentityResult result = manager.Create(user, txtContrasenia.Text);
                 if (result.Succeeded)
                 {
-                    completaInformacion(user.Id);
+                    completaInformacion(DataBase.TipoAccion.Insertar, user.Id);
                 }
                 else
                 {
@@ -68,7 +68,7 @@ public partial class Administrador_UserControl_ucAltaUsuario : System.Web.UI.Use
             else
             {
                 usuarioID = Session["UserIdModificar"].ToString();
-                completaInformacion(Session["UserIdModificar"].ToString());
+                completaInformacion(DataBase.TipoAccion.Modificar, Session["UserIdModificar"].ToString());
             }
         }
         catch (Exception x)
@@ -77,7 +77,7 @@ public partial class Administrador_UserControl_ucAltaUsuario : System.Web.UI.Use
         }
     }
 
-    private void completaInformacion(string id)
+    private void completaInformacion(DataBase.TipoAccion tipo, string id)
     {
         List<SqlParameter> parametros = new List<SqlParameter>();
         parametros.Add(new SqlParameter("@idEstado", int.Parse(ddlEstado.SelectedValue)));
@@ -92,7 +92,7 @@ public partial class Administrador_UserControl_ucAltaUsuario : System.Web.UI.Use
         parametros.Add(new SqlParameter("@userId", id));
         using (DataBase db = new DataBase())
         {
-            db.EjecutaSPCatalogos(DataBase.TipoAccion.Insertar, "Sp_Cat_Usuarios", parametros.ToArray());
+            db.EjecutaSPCatalogos(tipo, DataBase.TipoCatalogo.Usuarios, parametros.ToArray());
         }
         ddlEstado.SelectedIndex = 0;
         ddlMunicipio.SelectedIndex = 0;
@@ -115,22 +115,28 @@ public partial class Administrador_UserControl_ucAltaUsuario : System.Web.UI.Use
         {
             List<SqlParameter> parametros = new List<SqlParameter>();
             parametros.Add(new SqlParameter("@idEstado", ddlEstado.SelectedValue));
-            Helper.cargaCatalogoGenericCombo(ddlMunicipio, db.EjecutaSPCatalogos(DataBase.TipoAccion.Consulta, "sp_Cat_Municipios", parametros.ToArray()).Tables[0].DataTableToList<Municipio>(), "idMunicipio", "NomMunicipio");
+            Helper.cargaCatalogoGenericCombo(ddlMunicipio, db.EjecutaSPCatalogos(DataBase.TipoAccion.Consulta, DataBase.TipoCatalogo.Municipios, parametros.ToArray()).Tables[0].DataTableToList<Municipio>(), "idMunicipio", "NomMunicipio");
         }
     }
 
     public void cargaInfoUsuario(int id)
     {
+        pnlContrasenias.Visible = false;
         using (DataBase db = new DataBase())
         {
             List<SqlParameter> parametros = new List<SqlParameter>();
             parametros.Add(new SqlParameter("@idEstado", ddlEstado.SelectedValue));
-            parametros.Add(new SqlParameter("@idMunicipio", ddlMunicipio.SelectedValue));
+            string idMunicipio = "-1";
+            if (ddlMunicipio.SelectedValue != "")
+                idMunicipio = ddlMunicipio.SelectedValue;
+            parametros.Add(new SqlParameter("@idMunicipio", idMunicipio));
 
-            DataTable dt = db.EjecutaSPCatalogos(DataBase.TipoAccion.Consulta, "Sp_Cat_Usuarios", parametros.ToArray()).Tables[0];
+            DataTable dt = db.EjecutaSPCatalogos(DataBase.TipoAccion.Consulta, DataBase.TipoCatalogo.Usuarios, parametros.ToArray()).Tables[0];
             DataRow dr = dt.Select(String.Format("idusuario={0}", id.ToString()))[0];
 
             ddlEstado.SelectedValue = dr["idEstado"].ToString();
+            ddlEstado_SelectedIndexChanged(null, null);
+
             ddlMunicipio.SelectedValue = dr["idMunicipio"].ToString();
             ddlRol.SelectedValue = dr["RoleId"].ToString();
             txtFirstName.Text = dr["Nombre"].ToString();
@@ -140,7 +146,24 @@ public partial class Administrador_UserControl_ucAltaUsuario : System.Web.UI.Use
             txtEmail.Text = dr["Email"].ToString();
             txtTelefono.Text = dr["Telefono"].ToString();
 
+            Session["UserIdModificar"] = dr["userId"].ToString();
+
             ScriptManager.RegisterStartupScript(updAltaUsuario, updAltaUsuario.GetType(), "muestraModal", "muestraModalUsuarios();", true);
         }
+    }
+
+    public void nuevoUsuario()
+    {
+        pnlContrasenias.Visible = true;
+        ddlEstado.SelectedIndex = 0;
+        ddlMunicipio.SelectedIndex = 0;
+        ddlRol.SelectedIndex = 0;
+        txtFirstName.Text = "";
+        txtApPaterno.Text = "";
+        txtApMaterno.Text = "";
+        txtUserName.Text = "";
+        txtEmail.Text = "";
+        txtTelefono.Text = "";
+        ScriptManager.RegisterStartupScript(updAltaUsuario, updAltaUsuario.GetType(), "muestraModal", "muestraModalUsuarios();", true);
     }
 }

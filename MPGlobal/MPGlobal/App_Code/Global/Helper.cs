@@ -22,6 +22,13 @@ public class Helper
     }
 
 
+    public static int GetIdUsuario(string id)
+    {
+        using (DataBase db = new DataBase())
+        {
+            return int.Parse(db.ObtieneDatos("Sp_ObtieneNombre", new System.Data.SqlClient.SqlParameter[] { new System.Data.SqlClient.SqlParameter("@id", id) }).Tables[0].Rows[0]["idusuario"].ToString());
+        }
+    }
 
     /// <summary>
     /// Regresa el User ID de Membership Provider del usuario logueado

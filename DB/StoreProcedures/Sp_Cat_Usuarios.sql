@@ -9,7 +9,10 @@ ALTER PROCEDURE Sp_Cat_Usuarios
 	@usuario		varchar(200) = '',	
 	@email			varchar(200) = '',
 	@telefono		varchar(200) = '',
-	@userId			varchar(200) = ''
+	@userId			varchar(200) = '',
+	@referencia		varchar(500) = '',
+	@departament	INT = 1,
+	@area			VARCHAR(100) = ''
 AS
 		
 	if @TipoMovimiento = 1
@@ -17,21 +20,22 @@ AS
 		
 		SELECT		u.idusuario,
 					u.idEstado,
-					e.nomEstado,
+					RTRIM(e.nomEstado) nomEstado,
 					u.idMunicipio,
-					m.NomMunicipio,
-					u.Referencia,
-					u.Nombre,
-					u.Apaterno,
-					u.Amaterno,
-					u.Nombre + ' ' + u.Apaterno + ' ' +u.Amaterno nombreFull,
+					RTRIM(m.NomMunicipio) NomMunicipio,
+					RTRIM(u.Referencia) Referencia,
+					RTRIM(u.Nombre) Nombre,
+					RTRIM(u.Apaterno) Apaterno,
+					RTRIM(u.Amaterno) Amaterno,
+					RTRIM(u.Nombre + ' ' + u.Apaterno + ' ' +u.Amaterno) nombreFull,
 					u.Departamento,
-					u.Area,
-					u.Email,
-					u.Telefono,
+					RTRIM(u.Area) Area,
+					RTRIM(u.Email) Email,
+					RTRIM(u.Telefono) Telefono,
 					u.estatus,
 					ur.RoleId,
-					r.Name 
+					RTRIM(r.Name) Rol ,
+					u.userId
 		FROM		Usuarios u (NOLOCK)
 		INNER JOIN	Estados e (NOLOCK) ON u.idEstado = e.idEstado
 		INNER JOIN	Municipios m (NOLOCK) ON e.idEstado = m.idEstado and u.idMunicipio = u.idMunicipio
@@ -49,7 +53,7 @@ AS
 		
 		--Inserta Informacion del Profile
 		INSERT INTO Usuarios (idEstado, idMunicipio, Referencia, Nombre, Apaterno, Amaterno, Departamento, Area, Email, Telefono, estatus, userId)
-		VALUES(@idEstado, @idMunicipio, '', @nombre, @aPaterno, @aMaterno, 1, '', @email, @telefono, 1, @userId)
+		VALUES(@idEstado, @idMunicipio, @referencia, @nombre, @aPaterno, @aMaterno, @departament, @area, @email, @telefono, 1, @userId)
 
 		INSERT INTO AspNetUserRoles
 		values (@userId, @idRol)
@@ -57,5 +61,40 @@ AS
 		SELECT 1 resulado
 
 	end
+	ELSE IF @TipoMovimiento = 3
+	BEGIN
+		
+		UPDATE	Usuarios
+		SET		estatus =0
+		where	userId = @userId
 
+		select 1 resultado
+
+	END
+	ELSE IF @TipoMovimiento = 4
+	BEGIN
+		
+		UPDATE	Usuarios
+		SET		idEstado = @idEstado,
+				idMunicipio = @idMunicipio,
+				Referencia = @referencia,
+				Nombre = @nombre,
+				Apaterno = @aPaterno,
+				Amaterno = @aMaterno,
+				Departamento = @departament,
+				Area = @area,
+				Email = @email,
+				Telefono = @telefono,
+				estatus = 1
+		WHERE	userId = @userId
+
+		--ACTUALIZA ROL
+		UPDATE	AspNetUserRoles
+		SET		RoleId = @idRol
+		WHERE	UserId = @userId
+
+		SELECT 1 resulado
+
+	END
 	
+

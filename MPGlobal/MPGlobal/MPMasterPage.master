@@ -278,47 +278,30 @@
             </ul>
           </li>--%>
                             <!-- User Account: style can be found in dropdown.less -->
-                            <%-- <li class="dropdown user user-menu">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-              <img src="dist/img/user2-160x160.jpg" class="user-image" alt="User Image">
-              <span class="hidden-xs">Alexander Pierce</span>
-            </a>
-            <ul class="dropdown-menu">
-              <!-- User image -->
-              <li class="user-header">
-                <img src="dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
-
-                <p>
-                  Alexander Pierce - Web Developer
-                  <small>Member since Nov. 2012</small>
-                </p>
-              </li>
-              <!-- Menu Body -->
-              <li class="user-body">
-                <div class="row">
-                  <div class="col-xs-4 text-center">
-                    <a href="#">Followers</a>
-                  </div>
-                  <div class="col-xs-4 text-center">
-                    <a href="#">Sales</a>
-                  </div>
-                  <div class="col-xs-4 text-center">
-                    <a href="#">Friends</a>
-                  </div>
-                </div>
-                <!-- /.row -->
-              </li>
-              <!-- Menu Footer-->
-              <li class="user-footer">
-                <div class="pull-left">
-                  <a href="#" class="btn btn-default btn-flat">Profile</a>
-                </div>
-                <div class="pull-right">
-                  <a href="#" class="btn btn-default btn-flat">Sign out</a>
-                </div>
-              </li>
-            </ul>
-          </li>--%>
+                            <li class="dropdown user user-menu">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                    <asp:Image ID="imgHeader" runat="server" ImageUrl="~/Images/profile.png" Style="border: none; width: 30px; height: 30px; margin-right: 4px;" />
+                                    <asp:Label ID="lblInfoUsuarioHeader" runat="server"></asp:Label>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <!-- User image -->
+                                    <li class="user-header">
+                                        <asp:Image ID="imgProfile" runat="server" ImageUrl="~/Images/profile.png" Style="border: none; width: 100px; height: 100px;" />
+                                        <h4 class="profile">
+                                            <asp:Label ID="lblInfoUsuario" runat="server"></asp:Label>
+                                        </h4>
+                                    </li>
+                                    <!-- Menu Footer-->
+                                    <li class="user-footer">
+                                        <div class="pull-left">
+                                            <a class="btn btn-default">Perfil</a>
+                                        </div>
+                                        <div class="pull-right">
+                                            <asp:Button ID="btnSingOut" runat="server" Text="Cerrar sesión" CssClass="btn btn-default" OnClick="btnSingOut_Click" />
+                                        </div>
+                                    </li>
+                                </ul>
+                            </li>
                             <!-- Control Sidebar Toggle Button -->
                             <%-- <li>
             <a href="#" data-toggle="control-sidebar"><i class="fa fa-gears"></i></a>
@@ -803,30 +786,30 @@
 
         <%--tab--%>
 
-       
+
         <script src='<%= ResolveUrl("~/bower_components/datatables.net/js/jquery.dataTables.min.js") %>'></script>
-          
-         
-          <script src='<%= ResolveUrl("~/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js") %>'></script>
-          
-          <script src='<%= ResolveUrl("~/bower_components/jquery-slimscroll/jquery.slimscroll.min.js") %>'></script>
-          
-          <script src='<%= ResolveUrl("~/bower_components/fastclick/lib/fastclick.js") %>'></script>
+
+
+        <script src='<%= ResolveUrl("~/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js") %>'></script>
+
+        <script src='<%= ResolveUrl("~/bower_components/jquery-slimscroll/jquery.slimscroll.min.js") %>'></script>
+
+        <script src='<%= ResolveUrl("~/bower_components/fastclick/lib/fastclick.js") %>'></script>
 
         <script src='<%= ResolveUrl("~/Scripts/sweetalert2.all.min.js") %>'></script>
-          
-<script type="text/javascript">
-    function muestraMensaje(tipo, titulo, mensaje) {
-    swal({
-        type: tipo,
-        title: titulo,
-        text: mensaje,
-        confirmButtonText: 'Aceptar'
-    }, function () {
-        $(window).scrollTop(0);
-    });
-}
-</script>        
+
+        <script type="text/javascript">
+            function muestraMensaje(tipo, titulo, mensaje) {
+                swal({
+                    type: tipo,
+                    title: titulo,
+                    text: mensaje,
+                    confirmButtonText: 'Aceptar'
+                }, function () {
+                    $(window).scrollTop(0);
+                });
+            }
+        </script>
 
     </form>
 </body>

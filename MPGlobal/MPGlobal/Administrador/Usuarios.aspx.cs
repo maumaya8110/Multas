@@ -26,10 +26,10 @@ public partial class Administrador_Usuarios : System.Web.UI.Page
             using(DataBase db = new DataBase())
             {
                 //cargar catalogo estados
-                Helper.cargaCatalogoGenericReporte(ddlEstado, db.EjecutaSPCatalogos(DataBase.TipoAccion.Consulta, "sp_Cat_Estados", null).Tables[0].DataTableToList<Estado>(), "idEstado", "nomEstado");
+                Helper.cargaCatalogoGenericReporte(ddlEstado, db.EjecutaSPCatalogos(DataBase.TipoAccion.Consulta, DataBase.TipoCatalogo.Estados, null).Tables[0].DataTableToList<Estado>(), "idEstado", "nomEstado");
 
                 //carga municipios
-                Helper.cargaCatalogoGenericReporte(ddlMunicipio, db.EjecutaSPCatalogos(DataBase.TipoAccion.Consulta, "sp_Cat_Municipios", null).Tables[0].DataTableToList<Municipio>(), "idMunicipio", "NomMunicipio");
+                Helper.cargaCatalogoGenericReporte(ddlMunicipio, db.EjecutaSPCatalogos(DataBase.TipoAccion.Consulta, DataBase.TipoCatalogo.Municipios, null).Tables[0].DataTableToList<Municipio>(), "idMunicipio", "NomMunicipio");
 
                 //carga usuarios
                 cargaUsuarios();
@@ -47,7 +47,7 @@ public partial class Administrador_Usuarios : System.Web.UI.Page
                 parametros.Add(new SqlParameter("@idEstado", ddlEstado.SelectedValue));
                 parametros.Add(new SqlParameter("@idMunicipio", ddlMunicipio.SelectedValue));
 
-                grdUsuarios.DataSource = db.EjecutaSPCatalogos(DataBase.TipoAccion.Consulta, "Sp_Cat_Usuarios", parametros.ToArray());
+                grdUsuarios.DataSource = db.EjecutaSPCatalogos(DataBase.TipoAccion.Consulta, DataBase.TipoCatalogo.Usuarios, parametros.ToArray());
                 grdUsuarios.DataBind();
             }
         }
@@ -75,7 +75,7 @@ public partial class Administrador_Usuarios : System.Web.UI.Page
             //carga catalogo de municipios
             List<SqlParameter> parametros = new List<SqlParameter>();
             parametros.Add(new SqlParameter("@idEstado", ddlEstado.SelectedValue));
-            Helper.cargaCatalogoGenericReporte(ddlMunicipio, db.EjecutaSPCatalogos(DataBase.TipoAccion.Consulta, "sp_Cat_Municipios", parametros.ToArray()).Tables[0].DataTableToList<Municipio>(), "idMunicipio", "NomMunicipio");
+            Helper.cargaCatalogoGenericReporte(ddlMunicipio, db.EjecutaSPCatalogos(DataBase.TipoAccion.Consulta, DataBase.TipoCatalogo.Municipios, parametros.ToArray()).Tables[0].DataTableToList<Municipio>(), "idMunicipio", "NomMunicipio");
         }
     }
 
@@ -86,6 +86,26 @@ public partial class Administrador_Usuarios : System.Web.UI.Page
 
     protected void lnkAddUsuario_Click(object sender, EventArgs e)
     {
-        ScriptManager.RegisterStartupScript(updUsuarios, updUsuarios.GetType(), "muestraModal", "muestraModalUsuarios();", true);
+        ucAltaUsuario.nuevoUsuario();
+    }
+
+    protected void btnEliminar_Click(object sender, EventArgs e)
+    {
+        try
+        {
+            using(DataBase db = new DataBase())
+            {
+                List<SqlParameter> parametros = new List<SqlParameter>();
+                parametros.Add(new SqlParameter("@userId", hdnEliminar.Value));
+                db.EjecutaSPCatalogos(DataBase.TipoAccion.Eliminar, DataBase.TipoCatalogo.Usuarios, parametros.ToArray(), true);
+            }
+
+            cargaUsuarios();
+            ScriptManager.RegisterStartupScript(this.Page, this.Page.GetType(), "mensaje_correcto", "mensajeUsuarioEliminado();", true);
+        }
+        catch(Exception x)
+        {
+
+        }
     }
 }

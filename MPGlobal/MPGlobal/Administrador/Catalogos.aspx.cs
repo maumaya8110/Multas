@@ -45,7 +45,7 @@ public partial class Catalogos : System.Web.UI.Page
             case "Estados":
                 btnNew.Visible = true;
                 Session["TipoMovimiento"] = "CONSULTAR";
-                Session["TipoCatalogo"] = "Sp_Cat_Estados";
+                Session["TipoCatalogo"] = DataBase.TipoCatalogo.Estados;
 
                 //HacerVisible el UserControl
                 ucCatEstado.Visible = true;
@@ -58,7 +58,7 @@ public partial class Catalogos : System.Web.UI.Page
             case "Municipios":
                 btnNew.Visible = true;
                 Session["TipoMovimiento"] = "CONSULTAR";
-                Session["TipoCatalogo"] = "Sp_Cat_Municipios";
+                Session["TipoCatalogo"] = DataBase.TipoCatalogo.Municipios;// "Sp_Cat_Municipios";
 
                 //HacerVisible el UserControl
                 ucCatMunicipio.Visible = true;
