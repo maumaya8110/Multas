@@ -130,6 +130,16 @@
                         <div class="panel-body">
                             <div class="form-inline col-auto">
                                 <div class="form-group">
+                                    <div class="form-group">
+                                        <div class="inputGroupContainer">
+                                            <div class="input-group">
+                                                <span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
+                                                <asp:DropDownList ID="DropEstados" runat="server" CssClass="form-control selectpicker campo_obligatorio">
+                                                    
+                                                </asp:DropDownList>
+                                            </div>
+                                        </div>
+                                    </div>
                                     <asp:TextBox ID="txtMunicipio" runat="server" placeholder="Municipio" CssClass="form-control campo_obligatorio"></asp:TextBox>
 
                                     <asp:TextBox ID="txtAbreviatura" runat="server" placeholder="Abreviatura" CssClass="form-control campo_obligatorio"></asp:TextBox>

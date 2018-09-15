@@ -12,7 +12,7 @@ public partial class Administrador_UserControl_ucCatMunicipio : System.Web.UI.Us
     
     protected void Page_Load(object sender, EventArgs e)
     {
-
+        if (!IsPostBack) { LlenaDrop(); }
 
     }
 
@@ -33,6 +33,22 @@ public partial class Administrador_UserControl_ucCatMunicipio : System.Web.UI.Us
             GridView1.DataSource = db.EjecutaSPCatalogos(DataBase.TipoAccion.Consulta, (DataBase.TipoCatalogo)Session["TipoCatalogo"], null);
             GridView1.DataBind();
         }
+    }
+
+    public void LlenaDrop()
+    {
+        //using (DataBase db = new DataBase())
+        //{
+
+        //    DropEstados.DataSource = db.EjecutaSPCatalogos(DataBase.TipoAccion.Consulta, DataBase.TipoCatalogo.Estados, null);
+
+        //}
+
+        using (DataBase db = new DataBase())
+        {
+            Helper.cargaCatalogoGenericCombo(DropEstados, db.ObtieneDatos("Sp_Cat_Estados", null).Tables[0].DataTableToList<CatalogoGenerico>());
+        }
+
     }
 
 
