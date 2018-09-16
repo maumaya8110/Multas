@@ -83,6 +83,8 @@
 
         });
     }
+
+  
 </script>
 
 <asp:HiddenField ID="HiddenField1AutEli" runat="server" />
@@ -166,7 +168,17 @@
 
             <!-- /.box-header -->
             <div class="box-body">
-
+                <div class="row">
+                        <div class="col-sm-9"></div>
+                        <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3">
+                            <div class="inputGroupContainer">
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="glyphicon glyphicon-search"></i></span>
+                                    <asp:TextBox ID="txtSearch" runat="server" placeholder="Busqueda rápida..." AutoPostBack="true" CssClass="form-control search" Width="100%" Style="height: 40px;" OnTextChanged="txtSearch_TextChanged"></asp:TextBox>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 <asp:GridView ID="GridView1" runat="server" AllowPaging="true" PageSize="8" ClientIDMode="Static" AutoGenerateColumns="false" CssClass="table table-bordered table-striped" OnRowEditing="GridView1_RowEditing" OnRowCancelingEdit="GridView1_RowCancelingEdit" OnRowUpdating="GridView1_Rowupdating" OnPageIndexChanging="GridView1_PageIndexChanging">
                     <%--Paginador...--%>
                     <%-- <PagerTemplate>

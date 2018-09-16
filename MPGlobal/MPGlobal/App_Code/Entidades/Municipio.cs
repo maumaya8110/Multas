@@ -9,12 +9,13 @@ using System.Web;
 public class Municipio
 {
     public int idEstado { get; set; }
+    public string nomEstado { get; set; }
     public int idMunicipio { get; set; }
     public string NomMunicipio { get; set; }
     public string SiglasMunicipio { get; set; }
     public string Contacto { get; set; }
     public string Telefono { get; set; }
     public string Correo { get; set; }
-    public int idLicencia { get; set; }
+    public string  idLicencia { get; set; }
     public bool EstatusMunicipio { get; set; }
 }

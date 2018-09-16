@@ -11,6 +11,7 @@ public class MPGlobalSessiones
     private MPGlobalSessiones()
     {
         UsuariosAdministrador = new List<Usuario>();
+        CatMunicipios = new List<Municipio>();
     }
 
     public static MPGlobalSessiones Current
@@ -30,4 +31,5 @@ public class MPGlobalSessiones
     }
 
     public List<Usuario> UsuariosAdministrador;
+    public List<Municipio> CatMunicipios;
 }
