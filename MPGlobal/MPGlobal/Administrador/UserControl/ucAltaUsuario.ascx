@@ -40,7 +40,7 @@
                     </div>
                 </div>
             </div>
-            <div class="row">
+            <div class="row hidden">
                 <div class="col-sm-4 text-right">
                     <label class="control-label">Rol</label>
                 </div>

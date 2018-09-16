@@ -237,7 +237,7 @@ public class Helper
     }
 
     /// <summary>
-    /// Carga un drop con la informacion de una lista para Reportes
+    /// Carga un drop con la informacion de una lista para Reportes agregando la opción Todos = -1
     /// </summary>
     /// <typeparam name="T"></typeparam>
     /// <param name="ddl"></param>
@@ -256,7 +256,7 @@ public class Helper
     }
 
     /// <summary>
-    /// Carga un drop con la ifnormacion de una Lista 
+    /// Carga un drop con la ifnormacion de una Lista
     /// </summary>
     /// <typeparam name="T"></typeparam>
     /// <param name="ddl"></param>

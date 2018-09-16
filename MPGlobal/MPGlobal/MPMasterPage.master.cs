@@ -26,6 +26,14 @@ public partial class MPMasterPage : System.Web.UI.MasterPage
                 DataTable dt = db.ObtieneDatos("Sp_ObtieneNombre", param.ToArray()).Tables[0];
                 lblInfoUsuario.Text = String.Format("{0} - {1}", dt.Rows[0]["nombre"].ToString(), dt.Rows[0]["rol"].ToString()); 
                 lblInfoUsuarioHeader.Text = dt.Rows[0]["nombre"].ToString();
+
+                //carga el menu
+                List<Ventana> ventanas = db.EjecutaSPCatalogos(DataBase.TipoAccion.Consulta, DataBase.TipoCatalogo.Ventana, null, false).Tables[0].DataTableToList<Ventana>();
+
+                //Obtiene la info del usuario
+                Usuario usuario = db.EjecutaSPCatalogos(DataBase.TipoAccion.Consulta, DataBase.TipoCatalogo.Usuarios, null, false).Tables[0].DataTableToList<Usuario>().Find(x => x.userId == Helper.GetUserID());
+                rptMenu.DataSource = ventanas.Where(x => x.idEstado == usuario.idEstado && x.IdMunicipio == usuario.idMunicipio);
+                rptMenu.DataBind();
             }
         }
     }

@@ -148,7 +148,7 @@ public class DataBase : IDisposable
     }
 
     /// <summary>
-    /// Ejecuta el SP y regresa el primer valor de la columna que se regresa 
+    /// Ejecuta el SP y regresa el primer valor de la columna que se regresa
     /// </summary>
     /// <param name="sp"></param>
     /// <param name="parametros"></param>
