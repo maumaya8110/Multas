@@ -31,6 +31,8 @@ public partial class Administrador_Usuarios : System.Web.UI.Page
                 //carga municipios
                 Helper.cargaCatalogoGenericReporte(ddlMunicipio, db.EjecutaSPCatalogos(DataBase.TipoAccion.Consulta, DataBase.TipoCatalogo.Municipios, null).Tables[0].DataTableToList<Municipio>(), "idMunicipio", "NomMunicipio");
 
+                MPGlobalSessiones.Current.UsuariosAdministrador = db.EjecutaSPCatalogos(DataBase.TipoAccion.Consulta, DataBase.TipoCatalogo.Usuarios, null).Tables[0].DataTableToList<Usuario>();
+
                 //carga usuarios
                 cargaUsuarios();
             }
@@ -46,7 +48,7 @@ public partial class Administrador_Usuarios : System.Web.UI.Page
                 int idEstado = int.Parse(ddlEstado.SelectedValue);
                 int idMunicipio = int.Parse(ddlMunicipio.SelectedValue);
                 //
-                MPGlobalSessiones.Current.UsuariosAdministrador = db.EjecutaSPCatalogos(DataBase.TipoAccion.Consulta, DataBase.TipoCatalogo.Usuarios, null).Tables[0].DataTableToList<Usuario>();//.Where(x => x.idEstado == idEstado && x.idMunicipio == idMunicipio);
+                //MPGlobalSessiones.Current.UsuariosAdministrador = db.EjecutaSPCatalogos(DataBase.TipoAccion.Consulta, DataBase.TipoCatalogo.Usuarios, null).Tables[0].DataTableToList<Usuario>();//.Where(x => x.idEstado == idEstado && x.idMunicipio == idMunicipio);
                 IEnumerable<Usuario> query = MPGlobalSessiones.Current.UsuariosAdministrador;
                 if (idEstado > 0)
                     query = query.Where(x => x.idEstado == idEstado);
