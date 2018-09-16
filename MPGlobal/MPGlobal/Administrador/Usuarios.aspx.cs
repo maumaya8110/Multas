@@ -46,8 +46,8 @@ public partial class Administrador_Usuarios : System.Web.UI.Page
                 int idEstado = int.Parse(ddlEstado.SelectedValue);
                 int idMunicipio = int.Parse(ddlMunicipio.SelectedValue);
                 //
-                List<Usuario> usuarios = db.EjecutaSPCatalogos(DataBase.TipoAccion.Consulta, DataBase.TipoCatalogo.Usuarios, null).Tables[0].DataTableToList<Usuario>();//.Where(x => x.idEstado == idEstado && x.idMunicipio == idMunicipio);
-                IEnumerable<Usuario> query = usuarios;
+                MPGlobalSessiones.Current.UsuariosAdministrador = db.EjecutaSPCatalogos(DataBase.TipoAccion.Consulta, DataBase.TipoCatalogo.Usuarios, null).Tables[0].DataTableToList<Usuario>();//.Where(x => x.idEstado == idEstado && x.idMunicipio == idMunicipio);
+                IEnumerable<Usuario> query = MPGlobalSessiones.Current.UsuariosAdministrador;
                 if (idEstado > 0)
                     query = query.Where(x => x.idEstado == idEstado);
 
@@ -114,5 +114,22 @@ public partial class Administrador_Usuarios : System.Web.UI.Page
         {
 
         }
+    }
+
+    protected void txtSearch_TextChanged(object sender, EventArgs e)
+    {
+        string search = txtSearch.Text.ToLower();
+        if(search.Length > 0)
+        {
+            grdUsuarios.DataSource = MPGlobalSessiones.Current.UsuariosAdministrador.Where(x => x.nombreFull.ToLower().Contains(search) || x.nomEstado.ToLower().Contains(search) || x.NomMunicipio.ToLower().Contains(search) || x.Referencia.ToLower().Contains(search) || x.Area.ToLower().Contains(search) || x.Departamento.ToLower().Contains(search) || x.Telefono.ToLower().Contains(search) ).ToList();
+            grdUsuarios.DataBind();
+        }
+        else
+        {
+            grdUsuarios.DataSource = MPGlobalSessiones.Current.UsuariosAdministrador;
+            grdUsuarios.DataBind();
+        }
+        txtSearch.Focus();
+        ScriptManager.RegisterStartupScript(updUsuarios, updUsuarios.GetType(), "regresaFocus", "regresaFocusSearch();", true);
     }
 }

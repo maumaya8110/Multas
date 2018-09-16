@@ -64,7 +64,7 @@
                             <div class="inputGroupContainer">
                                 <div class="input-group">
                                     <span class="input-group-addon"><i class="glyphicon glyphicon-search"></i></span>
-                                    <asp:TextBox ID="txtSearch" runat="server" placeholder="Busqueda rápida..." CssClass="form-control" Width="100%" Style="height: 40px;"></asp:TextBox>
+                                    <asp:TextBox ID="txtSearch" runat="server" placeholder="Busqueda rápida..." AutoPostBack="true" CssClass="form-control search" Width="100%" Style="height: 40px;" OnTextChanged="txtSearch_TextChanged"></asp:TextBox>
                                 </div>
                             </div>
                         </div>
@@ -93,13 +93,19 @@
                                     <asp:BoundField HeaderText="Estado" DataField="nomEstado" />
                                     <asp:BoundField HeaderText="Municipio" DataField="NomMunicipio" />
                                     <asp:BoundField HeaderText="Nombre" DataField="nombreFull" />
-                                    <asp:BoundField HeaderText="Rol" DataField="Rol" />
                                     <asp:BoundField HeaderText="Referencia" DataField="Referencia" />
                                     <asp:BoundField HeaderText="Departamento" DataField="Departamento" />
                                     <asp:BoundField HeaderText="Area" DataField="Area" />
                                     <asp:BoundField HeaderText="Email" DataField="Email" />
                                     <asp:BoundField HeaderText="Teléfono" DataField="Telefono" />
                                 </Columns>
+                                <EmptyDataTemplate>
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <h4>No se encontrarón resultados ...</h4>
+                                        </div>
+                                    </div>
+                                </EmptyDataTemplate>
                             </asp:GridView>
                         </div>
                     </div>
@@ -158,6 +164,8 @@
                 closeOnConfirm: true
             });
         }
+
+          
     </script>
 </asp:Content>
 

@@ -649,6 +649,23 @@
                     $(window).scrollTop(0);
                 });
             }
+
+            function regresaFocusSearch() {
+                $('.search').focus();
+                SetCursorToTextEnd($('.search').attr('id'));
+            }
+
+             function SetCursorToTextEnd(textControlID) {
+            var text = document.getElementById(textControlID);
+            if (text !== null && text.value.length > 0) {
+                if (text.createTextRange) {
+                    var FieldRange = text.createTextRange();
+                    FieldRange.moveStart('character', text.value.length);
+                    FieldRange.collapse();
+                    FieldRange.select();
+                }
+            }
+        }
         </script>
 
     </form>
