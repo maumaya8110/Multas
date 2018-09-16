@@ -300,7 +300,7 @@
                                 <asp:CheckBox ID="chkEstatusEstado" runat="server" Checked='<%# bool.Parse(Eval("EstatusEstado").ToString()) %>' Enabled="false" />
                             </ItemTemplate>
                             <EditItemTemplate>
-                                <asp:CheckBox ID="chkEstatusEstado" runat="server" Checked='<%# bool.Parse(Eval("EstatusEstado").ToString()) %>' />
+                                <asp:CheckBox ID="chkEstatusEstado" runat="server" Checked='<%# bool.Parse(Eval("EstatusEstado").ToString()) %>' Enabled="true"/>
                             </EditItemTemplate>
                         </asp:TemplateField>
 
