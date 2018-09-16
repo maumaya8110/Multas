@@ -294,7 +294,7 @@
                                     <!-- Menu Footer-->
                                     <li class="user-footer">
                                         <div class="pull-left">
-                                            <a class="btn btn-default">Perfil</a>
+                                          
                                         </div>
                                         <div class="pull-right">
                                             <asp:Button ID="btnSingOut" runat="server" Text="Cerrar sesión" CssClass="btn btn-default" OnClick="btnSingOut_Click" />
@@ -649,6 +649,23 @@
                     $(window).scrollTop(0);
                 });
             }
+
+            function regresaFocusSearch() {
+                $('.search').focus();
+                SetCursorToTextEnd($('.search').attr('id'));
+            }
+
+             function SetCursorToTextEnd(textControlID) {
+            var text = document.getElementById(textControlID);
+            if (text !== null && text.value.length > 0) {
+                if (text.createTextRange) {
+                    var FieldRange = text.createTextRange();
+                    FieldRange.moveStart('character', text.value.length);
+                    FieldRange.collapse();
+                    FieldRange.select();
+                }
+            }
+        }
         </script>
 
     </form>

@@ -315,26 +315,19 @@ public class Helper
                 ddl.Items.Add(new ListItem(propNom.GetValue(item).ToString().Trim(), propId.GetValue(item).ToString().Trim()));
             }
     }
+
+    /// <summary>
+    /// Guarda el log de errores en archivo txt 
+    /// </summary>
+    /// <param name="exception"></param>
+    public static void registraError(String exception)
+    {
+
+        String filename = HttpContext.Current.Server.MapPath("~/_Logs/errores.txt");
+        StreamWriter sw = File.AppendText(filename);
+        sw.WriteLine("****** " + DateTime.Now.ToString() + " " + exception.ToString());
+        sw.Close();
+
+    }
 }
 
-    ///// <summary>
-    ///// Guarda el log de errores en archivo txt y Base de Datos
-    ///// </summary>
-    ///// <param name="exception"></param>
-    //public static void saveErrors(String exception)
-    //{
-        
-    //    try
-    //    {
-    //        ctx.InsertaBugTracker(exception, HttpContext.Current.User.Identity.Name, exception, HttpContext.Current.Request.UserHostAddress, System.Net.Dns.GetHostEntry(HttpContext.Current.Request.ServerVariables["REMOTE_HOST"]).HostName, HttpContext.Current.Request.Url.AbsoluteUri, true);
-    //    }
-    //    catch { }
-
-
-    //    String filename = HttpContext.Current.Server.MapPath("~/_Logs/errors.txt");
-    //    StreamWriter sw = File.AppendText(filename);
-    //    sw.WriteLine("****** " + DateTime.Now.ToString() + " " + exception.ToString());
-    //    sw.Close();
-
-    //}
-//}

@@ -65,7 +65,7 @@
                         <div class="inputGroupContainer">
                             <div class="input-group">
                                 <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-                                <asp:TextBox ID="txtFirstName" runat="server" placeholder="Nombre(s)" CssClass="form-control campo_obligatorio"></asp:TextBox>
+                                <asp:TextBox ID="txtFirstName" runat="server" placeholder="Nombre(s)" MaxLength="20" CssClass="form-control campo_obligatorio"></asp:TextBox>
                             </div>
                         </div>
                     </div>
@@ -80,7 +80,7 @@
                         <div class="inputGroupContainer">
                             <div class="input-group">
                                 <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-                                <asp:TextBox ID="txtApPaterno" runat="server" placeholder="Apellido Paterno" CssClass="form-control campo_obligatorio"></asp:TextBox>
+                                <asp:TextBox ID="txtApPaterno" runat="server" placeholder="Apellido Paterno" MaxLength="50" CssClass="form-control campo_obligatorio"></asp:TextBox>
                             </div>
                         </div>
                     </div>
@@ -95,7 +95,7 @@
                         <div class="inputGroupContainer">
                             <div class="input-group">
                                 <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-                                <asp:TextBox ID="txtApMaterno" runat="server" placeholder="Apellido Materno" CssClass="form-control campo_obligatorio"></asp:TextBox>
+                                <asp:TextBox ID="txtApMaterno" runat="server" placeholder="Apellido Materno" MaxLength="50" CssClass="form-control campo_obligatorio"></asp:TextBox>
                             </div>
                         </div>
                     </div>
@@ -118,7 +118,7 @@
                         <div class="inputGroupContainer">
                             <div class="input-group">
                                 <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-                                <asp:TextBox ID="txtUserName" runat="server" CssClass="form-control campo_obligatorio" placeholder="Username"></asp:TextBox>
+                                <asp:TextBox ID="txtUserName" runat="server" CssClass="form-control campo_obligatorio" MaxLength="20" placeholder="Username"></asp:TextBox>
                             </div>
                         </div>
                     </div>
@@ -175,7 +175,7 @@
                         <div class="inputGroupContainer">
                             <div class="input-group">
                                 <span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
-                                <asp:TextBox ID="txtEmail" runat="server" CssClass="form-control campo_obligatorio" placeholder="e-mail"></asp:TextBox>
+                                <asp:TextBox ID="txtEmail" runat="server" CssClass="form-control campo_obligatorio" MaxLength="50" placeholder="e-mail"></asp:TextBox>
                             </div>
                         </div>
                     </div>
@@ -190,7 +190,7 @@
                         <div class="inputGroupContainer">
                             <div class="input-group">
                                 <span class="input-group-addon"><i class="glyphicon glyphicon-phone"></i></span>
-                                <asp:TextBox ID="txtTelefono" runat="server" CssClass="form-control campo_obligatorio" placeholder="Teléfono" onkeypress="javascript:validaNumeros(this, event);"></asp:TextBox>
+                                <asp:TextBox ID="txtTelefono" runat="server" CssClass="form-control campo_obligatorio" MaxLength="20" placeholder="Teléfono" onkeypress="javascript:validaNumeros(this, event);"></asp:TextBox>
                             </div>
                         </div>
                     </div>
