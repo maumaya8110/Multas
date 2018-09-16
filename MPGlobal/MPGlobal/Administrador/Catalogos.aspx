@@ -4,6 +4,7 @@
 <%@ Register Src="~/Administrador/UserControl/ucCatMunicipio.ascx" TagPrefix="uc1" TagName="ucCatMunicipio" %>
 <%@ Register Src="~/Administrador/UserControl/ucCatOficinas.ascx" TagPrefix="uc1" TagName="ucCatOficinas" %>
 <%@ Register Src="~/Administrador/UserControl/ucCatVentana.ascx" TagPrefix="uc1" TagName="ucCatVentana" %>
+<%@ Register Src="~/Administrador/UserControl/ucCatPersonas.ascx" TagPrefix="uc1" TagName="ucCatPersonas" %>
 
 
 
@@ -29,6 +30,7 @@
                     <asp:ListItem>Selecciona el catalogo</asp:ListItem>
                     <asp:ListItem>Estados</asp:ListItem>
                     <asp:ListItem>Municipios</asp:ListItem>
+                    <asp:ListItem>Personas</asp:ListItem>
                     <asp:ListItem>Oficinas</asp:ListItem>
                     <asp:ListItem>Ventanas</asp:ListItem>
                 </asp:DropDownList>
@@ -46,5 +48,7 @@
     <uc1:ucCatMunicipio runat="server" id="ucCatMunicipio" />
     <uc1:ucCatOficinas runat="server" ID="ucCatOficinas" />
     <uc1:ucCatVentana runat="server" ID="ucCatVentana" />
+    <uc1:ucCatPersonas runat="server" ID="ucCatPersonas" />
+
 </asp:Content>
 

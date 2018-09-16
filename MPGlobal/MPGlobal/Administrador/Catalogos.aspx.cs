@@ -39,7 +39,21 @@ public partial class Catalogos : System.Web.UI.Page
         {
             case "Selecciona el catalogo":
                 btnNew.Visible = false;
+                btnCancelarN.Visible = false;
                 ucCatEstado.GridDatabind();
+
+                ucCatMunicipio.GridDatabind();
+                ucCatOficinas.GridDatabind();
+                ucCatVentana.GridDatabind();
+                ucCatPersonas.GridDatabind();
+
+                //HacerInVisible los demas UserControl
+                ucCatEstado.Visible = false;
+                ucCatMunicipio.Visible = false;
+                ucCatOficinas.Visible = false;
+                ucCatVentana.Visible = false;
+                ucCatPersonas.Visible = false;
+
 
                 break;
             case "Estados":
@@ -53,7 +67,7 @@ public partial class Catalogos : System.Web.UI.Page
                 ucCatMunicipio.Visible = false;
                 ucCatOficinas.Visible = false;
                 ucCatVentana.Visible = false;
-
+                ucCatPersonas.Visible = false;
 
                 break;
             case "Municipios":
@@ -68,6 +82,7 @@ public partial class Catalogos : System.Web.UI.Page
                 ucCatEstado.Visible = false;
                 ucCatOficinas.Visible = false;
                 ucCatVentana.Visible = false;
+                ucCatPersonas.Visible = false;
 
                 break;
             case "Oficinas":
@@ -83,6 +98,7 @@ public partial class Catalogos : System.Web.UI.Page
                 ucCatEstado.Visible = false;
                 ucCatMunicipio.Visible = false;
                 ucCatVentana.Visible = false;
+                ucCatPersonas.Visible = false;
 
                 break;
 
@@ -98,6 +114,23 @@ public partial class Catalogos : System.Web.UI.Page
                 ucCatEstado.Visible = false;
                 ucCatMunicipio.Visible = false;
                 ucCatOficinas.Visible = false;
+                ucCatPersonas.Visible = false;
+
+                break;
+            case "Personas":
+                btnNew.Visible = true;
+
+                //HacerVisible el UserControl
+                ucCatPersonas.Visible = true;
+                ucCatPersonas.LlenaGrid();
+                ucCatPersonas.LlenaDrop();
+
+                //HacerInVisible los demas UserControl
+                ucCatEstado.Visible = false;
+                ucCatMunicipio.Visible = false;
+                ucCatOficinas.Visible = false;
+                ucCatVentana.Visible = false;
+
 
                 break;
 
@@ -115,6 +148,7 @@ public partial class Catalogos : System.Web.UI.Page
         ucCatMunicipio.Visible = false;
         ucCatOficinas.Visible = false;
         ucCatVentana.Visible = false;
+        ucCatPersonas.Visible = false;
     }
 
 
@@ -140,6 +174,10 @@ public partial class Catalogos : System.Web.UI.Page
 
             case "Ventanas":
                 ucCatVentana.UpdtVisible();
+
+                break;
+            case "Personas":
+                ucCatPersonas.UpdtVisible();
 
                 break;
             default:
@@ -175,6 +213,9 @@ public partial class Catalogos : System.Web.UI.Page
 
             case "Ventanas":
                 ucCatVentana.UpdtInVisible(); ucCatVentana.LimpiaCampos();
+                break;
+            case "Personas":
+                ucCatPersonas.UpdtInVisible(); ucCatPersonas.LimpiaCampos();
                 break;
             default:
 
