@@ -1,4 +1,4 @@
-﻿<%@ Control Language="C#" AutoEventWireup="true" CodeFile="ucCatMunicipio.ascx.cs" Inherits="Administrador_UserControl_ucCatMunicipio" %>
+﻿<%@ Control Language="C#" AutoEventWireup="true" CodeFile="ucCatVentana.ascx.cs" Inherits="Administrador_UserControl_ucCatVentana" %>
 
 <style type="text/css">
     .Titulo {
@@ -8,7 +8,7 @@
 <script src="../Scripts/sweetalert2.all.min.js"></script>
 <script type="text/javascript">
 
-    function QuestionDelete(IdMunicipio) {
+    function QuestionDelete(IdVentana) {
         swal({
             title: "Estas seguro de eliminar el registro?",
             text: "No podrás recuperarlo!",
@@ -22,7 +22,7 @@
                 if (isConfirm) {
                     swal("Eliminado!", "El registro ha sido eliminado.", "success");
 
-                    document.getElementById('<%= HiddenField1AutEli.ClientID %>').value = IdMunicipio;
+                    document.getElementById('<%= HiddenField1AutEli.ClientID %>').value = IdVentana;
                     //return true;
                     document.getElementById('<%= BtnElimina.ClientID %>').click();
 
@@ -122,14 +122,15 @@
             <asp:Button ID="BtnElimina" runat="server" Style="visibility: hidden;" OnClick="BtnElimina_Click" Text="btnElimina" />
 
 
-            <asp:UpdatePanel ID="UpdtAgregarMpo" runat="server" Visible="false">
+            <asp:UpdatePanel ID="UpdtAgregarVentana" runat="server" Visible="false">
 
                 <ContentTemplate>
-                    <div class="panel panel-default" id="AddMunicipio" style="margin: 1% 2% 2% 2%;">
-                        <div class="panel-heading">Alta de Municipio</div>
+                    <div class="panel panel-default" id="AddVentana" style="margin: 1% 2% 2% 2%;">
+                        <div class="panel-heading">Alta de Ventana</div>
                         <div class="panel-body">
                             <div class="form-inline col-auto">
                                 <div class="form-group">
+                                    <%--DropEstado--%>
                                     <div class="form-group">
                                         <div class="inputGroupContainer">
                                             <div class="input-group">
@@ -139,19 +140,24 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <asp:TextBox ID="txtMunicipio" runat="server" placeholder="Municipio" CssClass="form-control campo_obligatorio"></asp:TextBox>
 
-                                    <asp:TextBox ID="txtAbreviatura" runat="server" placeholder="Abreviatura" CssClass="form-control campo_obligatorio"></asp:TextBox>
+                                    <%--DropMpo--%>
+                                    <div class="form-group">
+                                        <div class="inputGroupContainer">
+                                            <div class="input-group">
+                                                <span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
+                                                <asp:DropDownList ID="DropMpos" runat="server" CssClass="form-control selectpicker campo_obligatorio">
+                                                </asp:DropDownList>
+                                            </div>
+                                        </div>
+                                    </div>
 
-                                    <asp:TextBox ID="txtContacto" runat="server" placeholder="Contacto" CssClass="form-control campo_obligatorio"></asp:TextBox>
+                                    <asp:TextBox ID="txtVentana" runat="server" placeholder="Ventana" CssClass="form-control campo_obligatorio"></asp:TextBox>
 
-                                    <asp:TextBox ID="txtTelefono" runat="server" placeholder="Telefono" CssClass="form-control campo_obligatorio" onkeypress="javascript:validaNumeros(this, event);"></asp:TextBox>
+                                    <asp:TextBox ID="txtURL" runat="server" placeholder="URL" CssClass="form-control campo_obligatorio"></asp:TextBox>
 
-                                    <asp:TextBox ID="txtCorreo" runat="server" placeholder="Correo" CssClass="form-control campo_obligatorio"></asp:TextBox>
-
-                                    <asp:TextBox ID="txtLicencia" runat="server" placeholder="Licencia" CssClass="form-control campo_obligatorio" onkeypress="javascript:validaNumeros(this, event);"></asp:TextBox>
-
-                                    <asp:LinkButton ID="LinkBtnAlta" runat="server" type="button" class="btn btn-default btn-sm" CommandName="LinkBtnAlta" OnClick="LinkBtnAlta_Click" data-target="#AddMunicipio" OnClientClick="javascript:validaCampos(this,event);">
+                                   
+                                    <asp:LinkButton ID="LinkBtnAlta" runat="server" type="button" class="btn btn-default btn-sm" CommandName="LinkBtnAlta" OnClick="LinkBtnAlta_Click" data-target="#AddVentana" OnClientClick="javascript:validaCampos(this,event);">
                                             <span class="glyphicon glyphicon-plus"></span>
                                     </asp:LinkButton>
                                 </div>
@@ -206,7 +212,7 @@
                                 <%--<asp:LinkButton ID="btnDelete" runat="server" ToolTip="ELIMINAR" type="button" class="btn btn-default btn-xs" CommandName="Delete">
                                             <span class="glyphicon glyphicon-trash"></span>
                                     </asp:LinkButton>--%>
-                                <a class="btn btn-default btn-xs" onclick="QuestionDelete('<%# Eval("IdMunicipio")%>');" tooltip="ELIMINAR"><span class="glyphicon glyphicon-trash"></span></a>
+                                <a class="btn btn-default btn-xs" onclick="QuestionDelete('<%# Eval("IdVentana")%>');" tooltip="ELIMINAR"><span class="glyphicon glyphicon-trash"></span></a>
 
 
 
@@ -231,12 +237,8 @@
 
 
 
-                        <%--campos no editables...--%>
-                        <asp:TemplateField HeaderStyle-Width="100px" HeaderText="ID">
-                            <ItemTemplate>
-                                <asp:Label ID="lblIdMunicipio" runat="server" Text='<%# Eval("IdMunicipio")%>'> </asp:Label>
-                            </ItemTemplate>
-                        </asp:TemplateField>
+               
+                       
                         <%--campos editables...--%>
                         <asp:TemplateField HeaderStyle-Width="150px" HeaderText="ESTADO">
                             <ItemTemplate>
@@ -246,8 +248,7 @@
                               <div class="form-group">
                                         <div class="inputGroupContainer">
                                             <div class="input-group">
-                                               <%-- <span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>--%>
-                                                <asp:DropDownList ID="DrpEstado" runat="server" CssClass="form-control selectpicker campo_obligatorio">
+                                                <asp:DropDownList ID="DropEstado" runat="server" CssClass="form-control selectpicker campo_obligatorio">
                                                 </asp:DropDownList>
                                             </div>
                                         </div>
@@ -258,64 +259,54 @@
 
                         <asp:TemplateField HeaderStyle-Width="150px" HeaderText="MUNICIPIO">
                             <ItemTemplate>
-                                <asp:Label ID="lblNomMunicipio" runat="server"><%# Eval("NomMunicipio")%></asp:Label>
+                                <asp:Label ID="lblMunicipio" runat="server"><%# Eval("nomMunicipio")%></asp:Label>
                             </ItemTemplate>
                             <EditItemTemplate>
-                                <asp:TextBox ID="TxtNomMunicipio" runat="server" Text='<%# Bind("NomMunicipio")%>' CssClass="form-control"></asp:TextBox>
+                              <div class="form-group">
+                                        <div class="inputGroupContainer">
+                                            <div class="input-group">                                              
+                                                <asp:DropDownList ID="DropMpo" runat="server" CssClass="form-control selectpicker campo_obligatorio">
+                                                </asp:DropDownList>
+                                            </div>
+                                        </div>
+                                    </div>
+
                             </EditItemTemplate>
                         </asp:TemplateField>
 
-                        <asp:TemplateField HeaderStyle-Width="150px" HeaderText="ABREVIATURA">
+                        <%-- <asp:TemplateField HeaderStyle-Width="100px" HeaderText="ID Ventana">
                             <ItemTemplate>
-                                <asp:Label ID="lblSiglasMunicipio" runat="server"><%# Eval("SiglasMunicipio")%></asp:Label>
+                                <asp:Label ID="lblIdVentana" runat="server" Text='<%# Eval("IdVentana")%>'> </asp:Label>
                             </ItemTemplate>
-                            <EditItemTemplate>
-                                <asp:TextBox ID="TxtSiglasMunicipio" runat="server" Text='<%# Bind("SiglasMunicipio")%>' CssClass="form-control"></asp:TextBox>
-                            </EditItemTemplate>
-                        </asp:TemplateField>
+                        </asp:TemplateField>--%>
 
-                        <asp:TemplateField HeaderStyle-Width="150px" HeaderText="CONTACTO">
+                        <asp:TemplateField HeaderStyle-Width="150px" HeaderText="VENTANA">
                             <ItemTemplate>
-                                <asp:Label ID="lblCONTACTO" runat="server"><%# Eval("CONTACTO")%></asp:Label>
+                                
+                                <asp:Label ID="lblNomVentana" runat="server"><%# Eval("NomVentana")%></asp:Label>
                             </ItemTemplate>
                             <EditItemTemplate>
-                                <asp:TextBox ID="TxtCONTACTO" runat="server" Text='<%# Bind("CONTACTO")%>' CssClass="form-control"></asp:TextBox>
+                                <asp:TextBox ID="TxtNomVentana" runat="server" Text='<%# Bind("NomVentana")%>' CssClass="form-control"></asp:TextBox>
+                                <asp:HiddenField ID="HiddenIdVentana" runat="server" Value=<%# Eval("IdVentana") %> ></asp:HiddenField>
                             </EditItemTemplate>
                         </asp:TemplateField>
 
-                        <asp:TemplateField HeaderStyle-Width="150px" HeaderText="TELEFONO">
+                        <asp:TemplateField HeaderStyle-Width="150px" HeaderText="URL">
                             <ItemTemplate>
-                                <asp:Label ID="lblTELEFONO" runat="server"><%# Eval("TELEFONO")%></asp:Label>
+                                <asp:Label ID="lblURL" runat="server"><%# Eval("URL")%></asp:Label>
                             </ItemTemplate>
                             <EditItemTemplate>
-                                <asp:TextBox ID="TxtTELEFONO" runat="server" Text='<%# Bind("TELEFONO")%>' CssClass="form-control"></asp:TextBox>
+                                <asp:TextBox ID="TxtURL" runat="server" Text='<%# Bind("URL")%>' CssClass="form-control"></asp:TextBox>
                             </EditItemTemplate>
                         </asp:TemplateField>
-
-                        <asp:TemplateField HeaderStyle-Width="150px" HeaderText="CORREO">
-                            <ItemTemplate>
-                                <asp:Label ID="lblCORREO" runat="server"><%# Eval("CORREO")%></asp:Label>
-                            </ItemTemplate>
-                            <EditItemTemplate>
-                                <asp:TextBox ID="TxtCORREO" runat="server" Text='<%# Bind("CORREO")%>' CssClass="form-control"></asp:TextBox>
-                            </EditItemTemplate>
-                        </asp:TemplateField>
-
-                        <asp:TemplateField HeaderStyle-Width="150px" HeaderText="LICENCIA">
-                            <ItemTemplate>
-                                <asp:Label ID="lblIdLicencia" runat="server"><%# Eval("IdLicencia")%></asp:Label>
-                            </ItemTemplate>
-                            <EditItemTemplate>
-                                <asp:TextBox ID="TxtIdLicencia" runat="server" Text='<%# Bind("IdLicencia")%>' CssClass="form-control"></asp:TextBox>
-                            </EditItemTemplate>
-                        </asp:TemplateField>
-
+                       
+                       
                         <asp:TemplateField HeaderStyle-Width="150px" HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Center" HeaderText="ESTATUS">
                             <ItemTemplate>
-                                <asp:CheckBox ID="chkEstatusMunicipio" runat="server" Checked='<%# bool.Parse(Eval("EstatusMunicipio").ToString()) %>' Enabled="false" />
+                                <asp:CheckBox ID="chkEstatusVentana" runat="server" Checked='<%# bool.Parse(Eval("Estatus").ToString()) %>' Enabled="false" />
                             </ItemTemplate>
                             <EditItemTemplate>
-                                <asp:CheckBox ID="chkEstatusMunicipio" runat="server" Checked='<%# bool.Parse(Eval("EstatusMunicipio").ToString()) %>' />
+                                <asp:CheckBox ID="chkEstatusVentana" runat="server" Checked='<%# bool.Parse(Eval("Estatus").ToString()) %>' />
                             </EditItemTemplate>
                         </asp:TemplateField>
 

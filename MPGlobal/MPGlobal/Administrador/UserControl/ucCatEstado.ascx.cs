@@ -60,7 +60,7 @@ public partial class Administrador_UserControl_ucCatEstado : System.Web.UI.UserC
         using (DataBase db = new DataBase())
         {
 
-            GridView1.DataSource = db.EjecutaSPCatalogos(DataBase.TipoAccion.Consulta, (DataBase.TipoCatalogo)Session["TipoCatalogo"], null);
+            GridView1.DataSource = db.EjecutaSPCatalogos(DataBase.TipoAccion.Consulta, DataBase.TipoCatalogo.Estados, null);
             GridView1.DataBind();
         }
 
@@ -118,7 +118,7 @@ public partial class Administrador_UserControl_ucCatEstado : System.Web.UI.UserC
             parametros.Add(new SqlParameter("@idLicencia", ((TextBox)(row.Cells[7].Controls[1])).Text));
             parametros.Add(new SqlParameter("@estatusEstado", ((CheckBox)(row.Cells[8].Controls[1])).Checked));
 
-            db.EjecutaSPCatalogos(DataBase.TipoAccion.Modificar, (DataBase.TipoCatalogo)Session["TipoCatalogo"], parametros.ToArray());
+            db.EjecutaSPCatalogos(DataBase.TipoAccion.Modificar, DataBase.TipoCatalogo.Estados, parametros.ToArray());
 
 
         }
@@ -157,7 +157,7 @@ public partial class Administrador_UserControl_ucCatEstado : System.Web.UI.UserC
             parametros.Add(new SqlParameter("@idEstado", HiddenField1AutEli.Value));
 
 
-            db.EjecutaSPCatalogos(DataBase.TipoAccion.Eliminar, (DataBase.TipoCatalogo)Session["TipoCatalogo"], parametros.ToArray());
+            db.EjecutaSPCatalogos(DataBase.TipoAccion.Eliminar, DataBase.TipoCatalogo.Estados, parametros.ToArray());
 
 
         }
@@ -220,7 +220,7 @@ public partial class Administrador_UserControl_ucCatEstado : System.Web.UI.UserC
             parametros.Add(new SqlParameter("@Correo", txtCorreo.Text));
             parametros.Add(new SqlParameter("@idLicencia", txtLicencia.Text));
             parametros.Add(new SqlParameter("@estatusEstado", 1));
-            db.EjecutaSPCatalogos(DataBase.TipoAccion.Insertar, (DataBase.TipoCatalogo)Session["TipoCatalogo"], parametros.ToArray());
+            db.EjecutaSPCatalogos(DataBase.TipoAccion.Insertar, DataBase.TipoCatalogo.Estados, parametros.ToArray());
 
 
             ScriptManager.RegisterStartupScript(this.Page, this.Page.GetType(), "Mostrar Modal", "AltaSuccess();", true);

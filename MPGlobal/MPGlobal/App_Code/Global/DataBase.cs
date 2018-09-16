@@ -38,8 +38,10 @@ public class DataBase : IDisposable
         Usuarios = 3,
         [StringEnum.StringValue("Sp_Cat_BitacoraCatalogos")]
         BitacoraCatalogos = 4,
+        [StringEnum.StringValue("Sp_Cat_Oficina")]
+        Oficinas = 5,
         [StringEnum.StringValue("Sp_Cat_Ventanas")]
-        Ventanas = 5,
+        Ventana = 6
     }
 
     public enum TipoError
@@ -143,7 +145,7 @@ public class DataBase : IDisposable
     }
 
     /// <summary>
-    /// Ejecuta el SP y regresa el primer valor de la columna que se regresa 
+    /// Ejecuta el SP y regresa el primer valor de la columna que se regresa
     /// </summary>
     /// <param name="sp"></param>
     /// <param name="parametros"></param>

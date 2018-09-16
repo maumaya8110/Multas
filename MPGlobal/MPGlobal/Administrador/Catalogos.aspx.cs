@@ -15,8 +15,8 @@ public partial class Catalogos : System.Web.UI.Page
     {
         if (!IsPostBack)
         {
-            Session["TipoMovimiento"] = "";
-            Session["TipoCatalogo"] = "";
+            //Session["TipoMovimiento"] = "";
+            //Session["TipoCatalogo"] = "";
             Session["SelectDrop"] = "";
 
             OcultarUC();
@@ -44,8 +44,6 @@ public partial class Catalogos : System.Web.UI.Page
                 break;
             case "Estados":
                 btnNew.Visible = true;
-                Session["TipoMovimiento"] = "CONSULTAR";
-                Session["TipoCatalogo"] = DataBase.TipoCatalogo.Estados;
 
                 //HacerVisible el UserControl
                 ucCatEstado.Visible = true;
@@ -53,26 +51,56 @@ public partial class Catalogos : System.Web.UI.Page
 
                 //HacerInVisible los demas UserControl
                 ucCatMunicipio.Visible = false;
+                ucCatOficinas.Visible = false;
+                ucCatVentana.Visible = false;
+
 
                 break;
             case "Municipios":
                 btnNew.Visible = true;
-                Session["TipoMovimiento"] = "CONSULTAR";
-                Session["TipoCatalogo"] = DataBase.TipoCatalogo.Municipios;// "Sp_Cat_Municipios";
 
                 //HacerVisible el UserControl
                 ucCatMunicipio.Visible = true;
                 ucCatMunicipio.LlenaGrid();
-
+                ucCatMunicipio.LlenaDrop();
 
                 //HacerInVisible los demas UserControl
                 ucCatEstado.Visible = false;
-
+                ucCatOficinas.Visible = false;
+                ucCatVentana.Visible = false;
 
                 break;
             case "Oficinas":
 
+                btnNew.Visible = true;
+
+                //HacerVisible el UserControl
+                ucCatOficinas.Visible = true;
+                ucCatOficinas.LlenaGrid();
+                ucCatOficinas.LlenaDrop();
+
+                //HacerInVisible los demas UserControl
+                ucCatEstado.Visible = false;
+                ucCatMunicipio.Visible = false;
+                ucCatVentana.Visible = false;
+
                 break;
+
+            case "Ventanas":
+                btnNew.Visible = true;
+
+                //HacerVisible el UserControl
+                ucCatVentana.Visible = true;
+                ucCatVentana.LlenaGrid();
+                ucCatVentana.LlenaDrop();
+
+                //HacerInVisible los demas UserControl
+                ucCatEstado.Visible = false;
+                ucCatMunicipio.Visible = false;
+                ucCatOficinas.Visible = false;
+
+                break;
+
             default:
 
                 break;
@@ -81,7 +109,13 @@ public partial class Catalogos : System.Web.UI.Page
 
     }
 
-    protected void OcultarUC() { ucCatEstado.Visible = false; ucCatMunicipio.Visible = false; }
+    protected void OcultarUC()
+    {
+        ucCatEstado.Visible = false;
+        ucCatMunicipio.Visible = false;
+        ucCatOficinas.Visible = false;
+        ucCatVentana.Visible = false;
+    }
 
 
     protected void btnNew_Click(object sender, EventArgs e)
@@ -100,6 +134,12 @@ public partial class Catalogos : System.Web.UI.Page
 
                 break;
             case "Oficinas":
+                ucCatOficinas.UpdtVisible();
+
+                break;
+
+            case "Ventanas":
+                ucCatVentana.UpdtVisible();
 
                 break;
             default:
@@ -130,7 +170,11 @@ public partial class Catalogos : System.Web.UI.Page
 
                 break;
             case "Oficinas":
+                ucCatOficinas.UpdtInVisible(); ucCatOficinas.LimpiaCampos();
+                break;
 
+            case "Ventanas":
+                ucCatVentana.UpdtInVisible(); ucCatVentana.LimpiaCampos();
                 break;
             default:
 
