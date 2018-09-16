@@ -33,8 +33,9 @@ public static class DataTableHelper
                         PropertyInfo propertyInfo = obj.GetType().GetProperty(prop.Name);
                         propertyInfo.SetValue(obj, Convert.ChangeType(row[prop.Name], propertyInfo.PropertyType), null);
                     }
-                    catch
+                    catch(Exception X)
                     {
+                        string error = X.Message;
                         continue;
                     }
                 }

@@ -7,7 +7,7 @@ using System.Web.UI.WebControls;
 using System.Data;
 using System.Data.SqlClient;
 
-public partial class Administrador_UserControl_ucCatMunicipio : System.Web.UI.UserControl
+public partial class Administrador_UserControl_ucCatOficinas : System.Web.UI.UserControl
 {
     
     protected void Page_Load(object sender, EventArgs e)
@@ -27,10 +27,10 @@ public partial class Administrador_UserControl_ucCatMunicipio : System.Web.UI.Us
 
     public void LlenaGrid()
     {
-        //TipoCatalogo = "Sp_Cat_Municipios";
+        
         using (DataBase db = new DataBase())
         {
-            GridView1.DataSource = db.EjecutaSPCatalogos(DataBase.TipoAccion.Consulta, DataBase.TipoCatalogo.Municipios, null);
+            GridView1.DataSource = db.EjecutaSPCatalogos(DataBase.TipoAccion.Consulta, DataBase.TipoCatalogo.Oficinas, null);
             GridView1.DataBind();
                         
         }
@@ -43,6 +43,7 @@ public partial class Administrador_UserControl_ucCatMunicipio : System.Web.UI.Us
         using (DataBase db = new DataBase())
         {
             Helper.cargaCatalogoGenericCombo(DropEstados, db.EjecutaSPCatalogos(DataBase.TipoAccion.Consulta, DataBase.TipoCatalogo.Estados, null).Tables[0].DataTableToList<Estado>(), "idEstado", "nomEstado");
+            Helper.cargaCatalogoGenericCombo(DropMpos, db.EjecutaSPCatalogos(DataBase.TipoAccion.Consulta, DataBase.TipoCatalogo.Municipios, null).Tables[0].DataTableToList<Municipio>(), "idMunicipio", "NomMunicipio");
 
         }
 
@@ -56,8 +57,8 @@ public partial class Administrador_UserControl_ucCatMunicipio : System.Web.UI.Us
     }
 
 
-    public void UpdtVisible() { UpdtAgregarMpo.Visible = true; }
-    public void UpdtInVisible() { UpdtAgregarMpo.Visible = false; }
+    public void UpdtVisible() { UpdtAgregarOficina.Visible = true; }
+    public void UpdtInVisible() { UpdtAgregarOficina.Visible = false; }
 
 
 
@@ -67,11 +68,14 @@ public partial class Administrador_UserControl_ucCatMunicipio : System.Web.UI.Us
         GridView1.EditIndex = e.NewEditIndex;
         LlenaGrid();
 
-        DropDownList DropEstado = ((DropDownList)GridView1.Rows[e.NewEditIndex].Cells[1].FindControl("DrpEstado"));
+        DropDownList DropEstado = ((DropDownList)GridView1.Rows[e.NewEditIndex].Cells[1].FindControl("DropEstado"));
+        DropDownList DropMunicipio = ((DropDownList)GridView1.Rows[e.NewEditIndex].Cells[1].FindControl("DropMpo"));
+
 
         using (DataBase db = new DataBase())
         {
             Helper.cargaCatalogoGenericCombo(DropEstado, db.EjecutaSPCatalogos(DataBase.TipoAccion.Consulta, DataBase.TipoCatalogo.Estados, null).Tables[0].DataTableToList<Estado>(), "idEstado", "nomEstado");
+            Helper.cargaCatalogoGenericCombo(DropMunicipio, db.EjecutaSPCatalogos(DataBase.TipoAccion.Consulta, DataBase.TipoCatalogo.Municipios, null).Tables[0].DataTableToList<Municipio>(), "idMunicipio", "NomMunicipio");
 
         }
 
@@ -97,17 +101,19 @@ public partial class Administrador_UserControl_ucCatMunicipio : System.Web.UI.Us
 
             //Para cuando agregas muchos parametros
             List<SqlParameter> parametros = new List<SqlParameter>();
-            parametros.Add(new SqlParameter("@idEstado", ((DropDownList)(row.Cells[2].Controls[1])).SelectedValue));
-            parametros.Add(new SqlParameter("@IdMunicipio", ((Label)(row.Cells[1].Controls[1])).Text));
-            parametros.Add(new SqlParameter("@nomMunicipio", ((TextBox)(row.Cells[3].Controls[1])).Text));
-            parametros.Add(new SqlParameter("@siglasMunicipio", ((TextBox)(row.Cells[4].Controls[1])).Text));
-            parametros.Add(new SqlParameter("@Contacto", ((TextBox)(row.Cells[5].Controls[1])).Text));
-            parametros.Add(new SqlParameter("@Telefono", ((TextBox)(row.Cells[6].Controls[1])).Text));
-            parametros.Add(new SqlParameter("@Correo", ((TextBox)(row.Cells[7].Controls[1])).Text));
-            parametros.Add(new SqlParameter("@idLicencia", ((TextBox)(row.Cells[8].Controls[1])).Text));
-            parametros.Add(new SqlParameter("@estatusMunicipio", ((CheckBox)(row.Cells[9].Controls[1])).Checked));
+            parametros.Add(new SqlParameter("@idEstado", ((DropDownList)(row.Cells[1].Controls[1])).SelectedValue));
+            parametros.Add(new SqlParameter("@idMunicipio", ((DropDownList)(row.Cells[2].Controls[1])).SelectedValue));
 
-            db.EjecutaSPCatalogos(DataBase.TipoAccion.Modificar, DataBase.TipoCatalogo.Municipios, parametros.ToArray());
+            //parametros.Add(new SqlParameter("@IdOficina", ((HiddenField)GridView1.Rows[e.RowIndex].Cells[1].FindControl("HiddenIdOficina")).Value )); 
+            parametros.Add(new SqlParameter("@IdOficina", ((HiddenField)(row.Cells[3].Controls[1].FindControl("HiddenIdOficina"))).Value));
+
+            
+            parametros.Add(new SqlParameter("@DescOficina", ((TextBox)(row.Cells[3].Controls[1])).Text));
+            parametros.Add(new SqlParameter("@DireccOficina", ((TextBox)(row.Cells[4].Controls[1])).Text));
+            parametros.Add(new SqlParameter("@TelefOficina", ((TextBox)(row.Cells[5].Controls[1])).Text));
+            parametros.Add(new SqlParameter("@estatusOficina", ((CheckBox)(row.Cells[6].Controls[1])).Checked));
+
+            db.EjecutaSPCatalogos(DataBase.TipoAccion.Modificar, DataBase.TipoCatalogo.Oficinas, parametros.ToArray());
 
 
         }
@@ -124,7 +130,7 @@ public partial class Administrador_UserControl_ucCatMunicipio : System.Web.UI.Us
     protected void BtnElimina_Click(object sender, EventArgs e)
     {
 
-        string IdMunicipio = HiddenField1AutEli.Value;
+        string Id = HiddenField1AutEli.Value;
 
         using (DataBase db = new DataBase())
         {
@@ -132,10 +138,10 @@ public partial class Administrador_UserControl_ucCatMunicipio : System.Web.UI.Us
             //Para cuando agregas muchos parametros
             List<SqlParameter> parametros = new List<SqlParameter>();
 
-            parametros.Add(new SqlParameter("@idMunicipio", HiddenField1AutEli.Value));
+            parametros.Add(new SqlParameter("@idOficina", HiddenField1AutEli.Value));
 
 
-            db.EjecutaSPCatalogos(DataBase.TipoAccion.Eliminar, DataBase.TipoCatalogo.Municipios, parametros.ToArray());
+            db.EjecutaSPCatalogos(DataBase.TipoAccion.Eliminar, DataBase.TipoCatalogo.Oficinas, parametros.ToArray());
 
 
         }
@@ -158,12 +164,10 @@ public partial class Administrador_UserControl_ucCatMunicipio : System.Web.UI.Us
     public void LimpiaCampos()
     {
         //Limpia textbox
-        txtMunicipio.Text = "";
-        txtAbreviatura.Text = "";
-        txtContacto.Text = "";
+        txtOficina.Text = "";
+        txtDireccion.Text = "";
         txtTelefono.Text = "";
-        txtCorreo.Text = "";
-        txtLicencia.Text = "";
+        
     }
 
     protected void LinkBtnAlta_Click(object sender, EventArgs e)
@@ -174,21 +178,19 @@ public partial class Administrador_UserControl_ucCatMunicipio : System.Web.UI.Us
             //Para cuando agregas muchos parametros
             List<SqlParameter> parametros = new List<SqlParameter>();
             parametros.Add(new SqlParameter("@idEstado", DropEstados.SelectedValue));
+            parametros.Add(new SqlParameter("@idMunicipio", DropMpos.SelectedValue));
 
-            parametros.Add(new SqlParameter("@idMunicipio", ""));           
-            parametros.Add(new SqlParameter("@nomMunicipio", txtMunicipio.Text));
-            parametros.Add(new SqlParameter("@siglasMunicipio", txtAbreviatura.Text));
-            parametros.Add(new SqlParameter("@Contacto", txtContacto.Text));
-            parametros.Add(new SqlParameter("@Telefono", txtTelefono.Text));
-            parametros.Add(new SqlParameter("@Correo", txtCorreo.Text));
-            parametros.Add(new SqlParameter("@idLicencia", txtLicencia.Text));
-            parametros.Add(new SqlParameter("@estatusMunicipio", 1));
-            db.EjecutaSPCatalogos(DataBase.TipoAccion.Insertar, DataBase.TipoCatalogo.Municipios, parametros.ToArray());
+            parametros.Add(new SqlParameter("@idOficina", ""));
+            parametros.Add(new SqlParameter("@DescOficina", txtOficina.Text));
+            parametros.Add(new SqlParameter("@DireccOficina", txtDireccion.Text));
+            parametros.Add(new SqlParameter("@TelefOficina", txtTelefono.Text));          
+            parametros.Add(new SqlParameter("@estatusOficina", 1));
+            db.EjecutaSPCatalogos(DataBase.TipoAccion.Insertar, DataBase.TipoCatalogo.Oficinas, parametros.ToArray());
 
 
             ScriptManager.RegisterStartupScript(this.Page, this.Page.GetType(), "Mostrar Modal", "AltaSuccess();", true);
 
-            UpdtAgregarMpo.Visible = false;
+            UpdtAgregarOficina.Visible = false;
             BtnHabilita?.Invoke();
             LimpiaCampos();
             LlenaGrid();

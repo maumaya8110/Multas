@@ -37,7 +37,11 @@ public class DataBase : IDisposable
         [StringEnum.StringValue("Sp_Cat_Usuarios")]
         Usuarios = 3,
         [StringEnum.StringValue("Sp_Cat_BitacoraCatalogos")]
-        BitacoraCatalogos = 4
+        BitacoraCatalogos = 4,
+        [StringEnum.StringValue("Sp_Cat_Oficina")]
+        Oficinas = 5,
+        [StringEnum.StringValue("Sp_Cat_Ventanas")]
+        Ventana = 6
     }
 
     public enum TipoError
