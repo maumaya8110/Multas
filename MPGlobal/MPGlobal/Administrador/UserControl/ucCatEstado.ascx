@@ -232,14 +232,7 @@
             <asp:BoundField DataField="Country" HeaderText="Pais" ReadOnly="True" SortExpression="Country" />--%>
 
                         <%--campos editables...--%>
-                        <asp:TemplateField HeaderStyle-Width="100px" HeaderText="ID">
-                            <ItemTemplate>
-                                <asp:Label ID="lblIdEstado" runat="server" Text='<%# Eval("IdEstado")%>'> </asp:Label>
-                            </ItemTemplate>
-                            <%--<EditItemTemplate>
-                                    <asp:Label ID="lblIdEstado" runat="server" Text='<%# Eval("IdEstado")%>'> </asp:Label>
-                                </EditItemTemplate>--%>
-                        </asp:TemplateField>
+                        
 
                         <asp:TemplateField HeaderStyle-Width="150px" HeaderText="ESTADO">
                             <ItemTemplate>
@@ -247,6 +240,7 @@
                             </ItemTemplate>
                             <EditItemTemplate>
                                 <asp:TextBox ID="TxtNomEstado" runat="server" Text='<%# Bind("NomEstado")%>' CssClass="form-control"></asp:TextBox>
+                                 <asp:HiddenField ID="HiddenIdEstado" runat="server" Value='<%# Eval("IdEstado") %>'></asp:HiddenField>
                             </EditItemTemplate>
                         </asp:TemplateField>
 

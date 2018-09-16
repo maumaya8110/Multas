@@ -68,14 +68,18 @@ public partial class Administrador_UserControl_ucCatVentana : System.Web.UI.User
         GridView1.EditIndex = e.NewEditIndex;
         LlenaGrid();
 
-        DropDownList DropEstado = ((DropDownList)GridView1.Rows[e.NewEditIndex].Cells[1].FindControl("DropEstado"));
-        DropDownList DropMunicipio = ((DropDownList)GridView1.Rows[e.NewEditIndex].Cells[1].FindControl("DropMpo"));
+        DropDownList DropEstado = ((DropDownList)GridView1.Rows[e.NewEditIndex].Cells[3].FindControl("DropEstado"));
+        DropDownList DropMunicipio = ((DropDownList)GridView1.Rows[e.NewEditIndex].Cells[4].FindControl("DropMpo"));
 
 
         using (DataBase db = new DataBase())
         {
             Helper.cargaCatalogoGenericCombo(DropEstado, db.EjecutaSPCatalogos(DataBase.TipoAccion.Consulta, DataBase.TipoCatalogo.Estados, null).Tables[0].DataTableToList<Estado>(), "idEstado", "nomEstado");
             Helper.cargaCatalogoGenericCombo(DropMunicipio, db.EjecutaSPCatalogos(DataBase.TipoAccion.Consulta, DataBase.TipoCatalogo.Municipios, null).Tables[0].DataTableToList<Municipio>(), "idMunicipio", "NomMunicipio");
+
+            DropEstado.SelectedValue = ((HiddenField)(GridView1.Rows[e.NewEditIndex].Cells[3].Controls[1].FindControl("HiddenIdEstado"))).Value;
+            DropMunicipio.SelectedValue = ((HiddenField)(GridView1.Rows[e.NewEditIndex].Cells[4].Controls[1].FindControl("HiddenIdMunicipio"))).Value;
+
 
         }
 
@@ -101,15 +105,16 @@ public partial class Administrador_UserControl_ucCatVentana : System.Web.UI.User
 
             //Para cuando agregas muchos parametros
             List<SqlParameter> parametros = new List<SqlParameter>();
-            parametros.Add(new SqlParameter("@idEstado", ((DropDownList)(row.Cells[1].Controls[1])).SelectedValue));
-            parametros.Add(new SqlParameter("@idMunicipio", ((DropDownList)(row.Cells[2].Controls[1])).SelectedValue));
-
-            //parametros.Add(new SqlParameter("@IdVentana", ((HiddenField)GridView1.Rows[e.RowIndex].Cells[1].FindControl("HiddenIdVentana")).Value )); 
-            parametros.Add(new SqlParameter("@IdVentana", ((HiddenField)(row.Cells[3].Controls[1].FindControl("HiddenIdVentana"))).Value));
+          
 
             
-            parametros.Add(new SqlParameter("@NomVentana", ((TextBox)(row.Cells[3].Controls[1])).Text));
-            parametros.Add(new SqlParameter("@URL", ((TextBox)(row.Cells[4].Controls[1])).Text));
+            parametros.Add(new SqlParameter("@IdVentana", ((HiddenField)(row.Cells[1].Controls[1].FindControl("HiddenIdVentana"))).Value));            
+            parametros.Add(new SqlParameter("@NomVentana", ((TextBox)(row.Cells[1].Controls[1])).Text));
+
+            parametros.Add(new SqlParameter("@URL", ((TextBox)(row.Cells[2].Controls[1])).Text));
+            parametros.Add(new SqlParameter("@idEstado", ((DropDownList)(row.Cells[3].Controls[1])).SelectedValue));
+            parametros.Add(new SqlParameter("@idMunicipio", ((DropDownList)(row.Cells[4].Controls[1])).SelectedValue));
+
             parametros.Add(new SqlParameter("@Estatus", ((CheckBox)(row.Cells[5].Controls[1])).Checked));
 
             db.EjecutaSPCatalogos(DataBase.TipoAccion.Modificar, DataBase.TipoCatalogo.Ventana, parametros.ToArray());

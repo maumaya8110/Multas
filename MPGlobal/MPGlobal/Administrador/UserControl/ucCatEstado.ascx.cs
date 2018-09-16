@@ -109,14 +109,16 @@ public partial class Administrador_UserControl_ucCatEstado : System.Web.UI.UserC
 
             //Para cuando agregas muchos parametros
             List<SqlParameter> parametros = new List<SqlParameter>();
-            parametros.Add(new SqlParameter("@idEstado", ((Label)(row.Cells[1].Controls[1])).Text));
-            parametros.Add(new SqlParameter("@nomEstado", ((TextBox)(row.Cells[2].Controls[1])).Text));
-            parametros.Add(new SqlParameter("@siglasEstado", ((TextBox)(row.Cells[3].Controls[1])).Text));
-            parametros.Add(new SqlParameter("@Contacto", ((TextBox)(row.Cells[4].Controls[1])).Text));
-            parametros.Add(new SqlParameter("@Telefono", ((TextBox)(row.Cells[5].Controls[1])).Text));
-            parametros.Add(new SqlParameter("@Correo", ((TextBox)(row.Cells[6].Controls[1])).Text));
-            parametros.Add(new SqlParameter("@idLicencia", ((TextBox)(row.Cells[7].Controls[1])).Text));
-            parametros.Add(new SqlParameter("@estatusEstado", ((CheckBox)(row.Cells[8].Controls[1])).Checked));
+            //parametros.Add(new SqlParameter("@idEstado", ((Label)(row.Cells[1].Controls[1])).Text));
+            parametros.Add(new SqlParameter("@idEstado", ((HiddenField)(row.Cells[1].Controls[1].FindControl("HiddenIdEstado"))).Value));
+
+            parametros.Add(new SqlParameter("@nomEstado", ((TextBox)(row.Cells[1].Controls[1])).Text));
+            parametros.Add(new SqlParameter("@siglasEstado", ((TextBox)(row.Cells[2].Controls[1])).Text));
+            parametros.Add(new SqlParameter("@Contacto", ((TextBox)(row.Cells[3].Controls[1])).Text));
+            parametros.Add(new SqlParameter("@Telefono", ((TextBox)(row.Cells[4].Controls[1])).Text));
+            parametros.Add(new SqlParameter("@Correo", ((TextBox)(row.Cells[5].Controls[1])).Text));
+            parametros.Add(new SqlParameter("@idLicencia", ((TextBox)(row.Cells[6].Controls[1])).Text));
+            parametros.Add(new SqlParameter("@estatusEstado", ((CheckBox)(row.Cells[7].Controls[1])).Checked));
 
             db.EjecutaSPCatalogos(DataBase.TipoAccion.Modificar, DataBase.TipoCatalogo.Estados, parametros.ToArray());
 

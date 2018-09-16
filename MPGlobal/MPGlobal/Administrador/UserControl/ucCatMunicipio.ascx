@@ -232,29 +232,13 @@
 
 
                         <%--campos no editables...--%>
-                        <asp:TemplateField HeaderStyle-Width="100px" HeaderText="ID">
+                       <%-- <asp:TemplateField HeaderStyle-Width="100px" HeaderText="ID">
                             <ItemTemplate>
                                 <asp:Label ID="lblIdMunicipio" runat="server" Text='<%# Eval("IdMunicipio")%>'> </asp:Label>
                             </ItemTemplate>
-                        </asp:TemplateField>
+                        </asp:TemplateField>--%>
                         <%--campos editables...--%>
-                        <asp:TemplateField HeaderStyle-Width="150px" HeaderText="ESTADO">
-                            <ItemTemplate>
-                                <asp:Label ID="lblEstado" runat="server"><%# Eval("nomEstado")%></asp:Label>
-                            </ItemTemplate>
-                            <EditItemTemplate>
-                              <div class="form-group">
-                                        <div class="inputGroupContainer">
-                                            <div class="input-group">
-                                               <%-- <span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>--%>
-                                                <asp:DropDownList ID="DrpEstado" runat="server" CssClass="form-control selectpicker campo_obligatorio">
-                                                </asp:DropDownList>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                            </EditItemTemplate>
-                        </asp:TemplateField>
+                        
 
                         <asp:TemplateField HeaderStyle-Width="150px" HeaderText="MUNICIPIO">
                             <ItemTemplate>
@@ -262,6 +246,7 @@
                             </ItemTemplate>
                             <EditItemTemplate>
                                 <asp:TextBox ID="TxtNomMunicipio" runat="server" Text='<%# Bind("NomMunicipio")%>' CssClass="form-control"></asp:TextBox>
+                                <asp:HiddenField ID="HiddenIdMunicipio" runat="server" Value='<%# Eval("IdMunicipio") %>'></asp:HiddenField>
                             </EditItemTemplate>
                         </asp:TemplateField>
 
@@ -274,6 +259,24 @@
                             </EditItemTemplate>
                         </asp:TemplateField>
 
+                        <asp:TemplateField HeaderStyle-Width="150px" HeaderText="ESTADO">
+                            <ItemTemplate>
+                                <asp:Label ID="lblEstado" runat="server"><%# Eval("nomEstado")%></asp:Label>
+                            </ItemTemplate>
+                            <EditItemTemplate>
+                                <div class="form-group">
+                                    <div class="inputGroupContainer">
+                                        <div class="input-group">
+                                            <%-- <span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>--%>
+                                            <asp:DropDownList ID="DrpEstado" runat="server" CssClass="form-control selectpicker campo_obligatorio">
+                                            </asp:DropDownList>
+                                            <asp:HiddenField ID="HiddenIdEstado" runat="server" Value='<%# Eval("IdEstado") %>'></asp:HiddenField>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </EditItemTemplate>
+                        </asp:TemplateField>
                         <asp:TemplateField HeaderStyle-Width="150px" HeaderText="CONTACTO">
                             <ItemTemplate>
                                 <asp:Label ID="lblCONTACTO" runat="server"><%# Eval("CONTACTO")%></asp:Label>

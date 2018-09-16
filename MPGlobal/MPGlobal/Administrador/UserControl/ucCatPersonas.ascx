@@ -244,39 +244,7 @@
 
 
                         <%--campos editables...--%>
-                        <asp:TemplateField HeaderStyle-Width="150px" HeaderText="ESTADO">
-                            <ItemTemplate>
-                                <asp:Label ID="lblEstado" runat="server"><%# Eval("nomEstado")%></asp:Label>
-                            </ItemTemplate>
-                            <EditItemTemplate>
-                                <div class="form-group">
-                                    <div class="inputGroupContainer">
-                                        <div class="input-group">
-                                            <asp:DropDownList ID="DropEstado" runat="server" CssClass="form-control selectpicker campo_obligatorio">
-                                            </asp:DropDownList>
-                                        </div>
-                                    </div>
-                                </div>
-
-                            </EditItemTemplate>
-                        </asp:TemplateField>
-
-                        <asp:TemplateField HeaderStyle-Width="150px" HeaderText="MUNICIPIO">
-                            <ItemTemplate>
-                                <asp:Label ID="lblMunicipio" runat="server"><%# Eval("nomMunicipio")%></asp:Label>
-                            </ItemTemplate>
-                            <EditItemTemplate>
-                                <div class="form-group">
-                                    <div class="inputGroupContainer">
-                                        <div class="input-group">
-                                            <asp:DropDownList ID="DropMpo" runat="server" CssClass="form-control selectpicker campo_obligatorio">
-                                            </asp:DropDownList>
-                                        </div>
-                                    </div>
-                                </div>
-
-                            </EditItemTemplate>
-                        </asp:TemplateField>
+                        
 
                         <%-- <asp:TemplateField HeaderStyle-Width="100px" HeaderText="ID Persona">
                             <ItemTemplate>
@@ -329,7 +297,41 @@
                             </EditItemTemplate>
                         </asp:TemplateField>
 
+                        <asp:TemplateField HeaderStyle-Width="150px" HeaderText="ESTADO">
+                            <ItemTemplate>
+                                <asp:Label ID="lblEstado" runat="server"><%# Eval("nomEstado")%></asp:Label>
+                            </ItemTemplate>
+                            <EditItemTemplate>
+                                <div class="form-group">
+                                    <div class="inputGroupContainer">
+                                        <div class="input-group">
+                                            <asp:DropDownList ID="DropEstado" runat="server" CssClass="form-control selectpicker campo_obligatorio">
+                                            </asp:DropDownList>
+                                            <asp:HiddenField ID="HiddenIdEstado" runat="server" Value='<%# Eval("IdEstado") %>'></asp:HiddenField>
+                                        </div>
+                                    </div>
+                                </div>
 
+                            </EditItemTemplate>
+                        </asp:TemplateField>
+
+                        <asp:TemplateField HeaderStyle-Width="150px" HeaderText="MUNICIPIO">
+                            <ItemTemplate>
+                                <asp:Label ID="lblMunicipio" runat="server"><%# Eval("nomMunicipio")%></asp:Label>
+                            </ItemTemplate>
+                            <EditItemTemplate>
+                                <div class="form-group">
+                                    <div class="inputGroupContainer">
+                                        <div class="input-group">
+                                            <asp:DropDownList ID="DropMpo" runat="server" CssClass="form-control selectpicker campo_obligatorio">
+                                            </asp:DropDownList>
+                                            <asp:HiddenField ID="HiddenIdMunicipio" runat="server" Value='<%# Eval("IdMunicipio") %>'></asp:HiddenField>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </EditItemTemplate>
+                        </asp:TemplateField>
 
                         <asp:TemplateField HeaderStyle-Width="150px" HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Center" HeaderText="ESTATUS">
                             <ItemTemplate>

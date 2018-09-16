@@ -9,7 +9,7 @@ using System.Data.SqlClient;
 
 public partial class Administrador_UserControl_ucCatMunicipio : System.Web.UI.UserControl
 {
-    
+
     protected void Page_Load(object sender, EventArgs e)
     {
         //if (!IsPostBack) { LlenaDrop(); }
@@ -32,7 +32,7 @@ public partial class Administrador_UserControl_ucCatMunicipio : System.Web.UI.Us
         {
             GridView1.DataSource = db.EjecutaSPCatalogos(DataBase.TipoAccion.Consulta, DataBase.TipoCatalogo.Municipios, null);
             GridView1.DataBind();
-                        
+
         }
     }
 
@@ -53,6 +53,8 @@ public partial class Administrador_UserControl_ucCatMunicipio : System.Web.UI.Us
     {
         GridView1.PageIndex = e.NewPageIndex;
         LlenaGrid();
+
+
     }
 
 
@@ -73,6 +75,8 @@ public partial class Administrador_UserControl_ucCatMunicipio : System.Web.UI.Us
         {
             Helper.cargaCatalogoGenericCombo(DropEstado, db.EjecutaSPCatalogos(DataBase.TipoAccion.Consulta, DataBase.TipoCatalogo.Estados, null).Tables[0].DataTableToList<Estado>(), "idEstado", "nomEstado");
 
+            DropEstado.SelectedValue = ((HiddenField)(GridView1.Rows[e.NewEditIndex].Cells[3].Controls[1].FindControl("HiddenIdEstado"))).Value;
+
         }
 
     }
@@ -88,7 +92,7 @@ public partial class Administrador_UserControl_ucCatMunicipio : System.Web.UI.Us
     protected void GridView1_Rowupdating(object sender, GridViewUpdateEventArgs e)
     {
 
-      
+
 
         GridViewRow row = GridView1.Rows[e.RowIndex];
 
@@ -97,15 +101,19 @@ public partial class Administrador_UserControl_ucCatMunicipio : System.Web.UI.Us
 
             //Para cuando agregas muchos parametros
             List<SqlParameter> parametros = new List<SqlParameter>();
-            parametros.Add(new SqlParameter("@idEstado", ((DropDownList)(row.Cells[2].Controls[1])).SelectedValue));
-            parametros.Add(new SqlParameter("@IdMunicipio", ((Label)(row.Cells[1].Controls[1])).Text));
-            parametros.Add(new SqlParameter("@nomMunicipio", ((TextBox)(row.Cells[3].Controls[1])).Text));
-            parametros.Add(new SqlParameter("@siglasMunicipio", ((TextBox)(row.Cells[4].Controls[1])).Text));
-            parametros.Add(new SqlParameter("@Contacto", ((TextBox)(row.Cells[5].Controls[1])).Text));
-            parametros.Add(new SqlParameter("@Telefono", ((TextBox)(row.Cells[6].Controls[1])).Text));
-            parametros.Add(new SqlParameter("@Correo", ((TextBox)(row.Cells[7].Controls[1])).Text));
-            parametros.Add(new SqlParameter("@idLicencia", ((TextBox)(row.Cells[8].Controls[1])).Text));
-            parametros.Add(new SqlParameter("@estatusMunicipio", ((CheckBox)(row.Cells[9].Controls[1])).Checked));
+           
+            //parametros.Add(new SqlParameter("@IdMunicipio", ((Label)(row.Cells[1].Controls[1])).Text));
+            parametros.Add(new SqlParameter("@IdMunicipio", ((HiddenField)(row.Cells[1].Controls[1].FindControl("HiddenIdMunicipio"))).Value));
+            parametros.Add(new SqlParameter("@nomMunicipio", ((TextBox)(row.Cells[1].Controls[1])).Text));
+
+            parametros.Add(new SqlParameter("@siglasMunicipio", ((TextBox)(row.Cells[2].Controls[1])).Text));
+            parametros.Add(new SqlParameter("@idEstado", ((DropDownList)(row.Cells[3].Controls[1])).SelectedValue));
+
+            parametros.Add(new SqlParameter("@Contacto", ((TextBox)(row.Cells[4].Controls[1])).Text));
+            parametros.Add(new SqlParameter("@Telefono", ((TextBox)(row.Cells[5].Controls[1])).Text));
+            parametros.Add(new SqlParameter("@Correo", ((TextBox)(row.Cells[6].Controls[1])).Text));
+            parametros.Add(new SqlParameter("@idLicencia", ((TextBox)(row.Cells[7].Controls[1])).Text));
+            parametros.Add(new SqlParameter("@estatusMunicipio", ((CheckBox)(row.Cells[8].Controls[1])).Checked));
 
             db.EjecutaSPCatalogos(DataBase.TipoAccion.Modificar, DataBase.TipoCatalogo.Municipios, parametros.ToArray());
 
@@ -175,7 +183,7 @@ public partial class Administrador_UserControl_ucCatMunicipio : System.Web.UI.Us
             List<SqlParameter> parametros = new List<SqlParameter>();
             parametros.Add(new SqlParameter("@idEstado", DropEstados.SelectedValue));
 
-            parametros.Add(new SqlParameter("@idMunicipio", ""));           
+            parametros.Add(new SqlParameter("@idMunicipio", ""));
             parametros.Add(new SqlParameter("@nomMunicipio", txtMunicipio.Text));
             parametros.Add(new SqlParameter("@siglasMunicipio", txtAbreviatura.Text));
             parametros.Add(new SqlParameter("@Contacto", txtContacto.Text));
@@ -195,4 +203,6 @@ public partial class Administrador_UserControl_ucCatMunicipio : System.Web.UI.Us
         }
 
     }
+
+   
 }
