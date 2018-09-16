@@ -43,11 +43,18 @@ public partial class Administrador_Usuarios : System.Web.UI.Page
         {
             using (DataBase db = new DataBase())
             {
-                List<SqlParameter> parametros = new List<SqlParameter>();
-                parametros.Add(new SqlParameter("@idEstado", ddlEstado.SelectedValue));
-                parametros.Add(new SqlParameter("@idMunicipio", ddlMunicipio.SelectedValue));
+                int idEstado = int.Parse(ddlEstado.SelectedValue);
+                int idMunicipio = int.Parse(ddlMunicipio.SelectedValue);
+                //
+                List<Usuario> usuarios = db.EjecutaSPCatalogos(DataBase.TipoAccion.Consulta, DataBase.TipoCatalogo.Usuarios, null).Tables[0].DataTableToList<Usuario>();//.Where(x => x.idEstado == idEstado && x.idMunicipio == idMunicipio);
+                IEnumerable<Usuario> query = usuarios;
+                if (idEstado > 0)
+                    query = query.Where(x => x.idEstado == idEstado);
 
-                grdUsuarios.DataSource = db.EjecutaSPCatalogos(DataBase.TipoAccion.Consulta, DataBase.TipoCatalogo.Usuarios, parametros.ToArray());
+                if (idMunicipio > 0)
+                    query = query.Where(x => x.idMunicipio == idMunicipio);
+
+                grdUsuarios.DataSource = query.ToList();
                 grdUsuarios.DataBind();
             }
         }

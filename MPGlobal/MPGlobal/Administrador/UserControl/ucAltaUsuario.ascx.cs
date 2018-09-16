@@ -27,7 +27,7 @@ public partial class Administrador_UserControl_ucAltaUsuario : System.Web.UI.Use
             {
                 Helper.cargaCatalogoGenericCombo(ddlEstado, db.EjecutaSPCatalogos(DataBase.TipoAccion.Consulta, DataBase.TipoCatalogo.Estados, null).Tables[0].DataTableToList<Estado>(), "idEstado", "nomEstado");
 
-                Helper.cargaCatalogoGenericReporteSimple(ddlRol, db.ObtieneDatos("Sp_CargaRoles", null).Tables[0].DataTableToList<CatalogoGenerico>());
+                Helper.cargaCatalogoGenericCombo(ddlRol, db.ObtieneDatos("Sp_CargaRoles", null).Tables[0].DataTableToList<CatalogoGenerico>(), false);
             }
         }
     }
@@ -60,14 +60,16 @@ public partial class Administrador_UserControl_ucAltaUsuario : System.Web.UI.Use
                         return;
                     }
 
+                    pnlUsuarioExiste.Visible = false;
                     //valida si el usuario ya fue registrado
-                        var usuarioExiste = db.ObtieneDatos("Sp_ObtieneUsuarioByUserName", new SqlParameter[] {new SqlParameter("@username", txtUserName.Text) });
+                    var usuarioExiste = db.ObtieneDatos("Sp_ObtieneUsuarioByUserName", new SqlParameter[] {new SqlParameter("@username", txtUserName.Text) });
                     if (usuarioExiste.Tables[0].Rows.Count > 0)
                     {
                         pnlUsuarioExiste.Visible = usuarioExiste != null;
                         return;
                     }
-                    
+
+                    pnlEmailExiste.Visible = false;
                     //valida si el email ya fue registrado
                     var emailExiste = db.ObtieneDatos("Sp_ObtieneUsuarioByEmail", new SqlParameter[] { new SqlParameter("@email", txtEmail.Text) });
                     if(emailExiste.Tables[0].Rows.Count > 0)
