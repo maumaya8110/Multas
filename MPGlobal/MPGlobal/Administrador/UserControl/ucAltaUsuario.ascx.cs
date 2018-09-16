@@ -147,8 +147,9 @@ public partial class Administrador_UserControl_ucAltaUsuario : System.Web.UI.Use
         using(DataBase db = new DataBase())
         {
             List<SqlParameter> parametros = new List<SqlParameter>();
-            parametros.Add(new SqlParameter("@idEstado", ddlEstado.SelectedValue));
-            Helper.cargaCatalogoGenericCombo(ddlMunicipio, db.EjecutaSPCatalogos(DataBase.TipoAccion.Consulta, DataBase.TipoCatalogo.Municipios, parametros.ToArray()).Tables[0].DataTableToList<Municipio>(), "idMunicipio", "NomMunicipio");
+
+            List<Municipio> municipios = db.EjecutaSPCatalogos(DataBase.TipoAccion.Consulta, DataBase.TipoCatalogo.Municipios, parametros.ToArray()).Tables[0].DataTableToList<Municipio>();
+            Helper.cargaCatalogoGenericCombo(ddlMunicipio, municipios.Where(x => x.idEstado == int.Parse(ddlEstado.SelectedValue)).ToList(), "idMunicipio", "NomMunicipio");
         }
     }
 

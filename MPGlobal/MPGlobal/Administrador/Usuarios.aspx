@@ -42,16 +42,20 @@
                             <p>Municipio</p>
                             <asp:DropDownList ID="ddlMunicipio" runat="server" CssClass="form-control" Width="100%"></asp:DropDownList>
                         </div>
-                        <div class="col-sm-2">
+                        <div class="col-xs-2 col-sm-3 col-lg-1">
                             <p style="visibility: hidden;">Municipio</p>
                             <div>
                                 <asp:LinkButton ID="lnkBuscar" runat="server" CssClass="btn btn-default" OnClick="btnBuscar_Click">
                         <span class="glyphicon glyphicon-search"></span> Consultar
                                 </asp:LinkButton>
-                                <asp:LinkButton ID="lnkAddUsuario" runat="server" OnClick="lnkAddUsuario_Click" CssClass="btn btn-default">
-                                    <span class="glyphicon glyphicon-plus"></span>Agregar
-                                </asp:LinkButton>
+
                             </div>
+                        </div>
+                        <div class="col-xs-2 col-sm-3 col-lg-1">
+                            <p style="visibility: hidden;">Municipio</p>
+                            <asp:LinkButton ID="lnkAddUsuario" runat="server" OnClick="lnkAddUsuario_Click" CssClass="btn btn-default">
+                                    <span class="glyphicon glyphicon-plus"></span>Agregar
+                            </asp:LinkButton>
                         </div>
                     </div>
                     <div class="row">
@@ -137,7 +141,7 @@
             }, function (isConfirm) {
                 if (isConfirm) {
                     document.getElementById('<%= hdnEliminar.ClientID %>').value = userId;
-                document.getElementById('<%= btnEliminar.ClientID %>').click();
+                    document.getElementById('<%= btnEliminar.ClientID %>').click();
                     }
                 });
 

@@ -12,30 +12,39 @@ public partial class MPMasterPage : System.Web.UI.MasterPage
 {
     protected void Page_Load(object sender, EventArgs e)
     {
-        if (!HttpContext.Current.User.Identity.IsAuthenticated)
+        try
         {
-            Response.Redirect("~/Account/Login.aspx");
-        }
-
-        if (!IsPostBack)
-        {
-            using(DataBase db = new DataBase())
+            if (!HttpContext.Current.User.Identity.IsAuthenticated)
             {
-                List<SqlParameter> param = new List<SqlParameter>();
-                param.Add(new SqlParameter("@id", Helper.GetUserID()));
-                DataTable dt = db.ObtieneDatos("Sp_ObtieneNombre", param.ToArray()).Tables[0];
-                lblInfoUsuario.Text = String.Format("{0} - {1}", dt.Rows[0]["nombre"].ToString(), dt.Rows[0]["rol"].ToString()); 
-                lblInfoUsuarioHeader.Text = dt.Rows[0]["nombre"].ToString();
+                Response.Redirect("~/Account/Login.aspx");
+            }
 
-                //carga el menu
-                List<Ventana> ventanas = db.EjecutaSPCatalogos(DataBase.TipoAccion.Consulta, DataBase.TipoCatalogo.Ventana, null, false).Tables[0].DataTableToList<Ventana>();
+            if (!IsPostBack)
+            {
+                using (DataBase db = new DataBase())
+                {
+                    List<SqlParameter> param = new List<SqlParameter>();
+                    param.Add(new SqlParameter("@id", Helper.GetUserID()));
+                    DataTable dt = db.ObtieneDatos("Sp_ObtieneNombre", param.ToArray()).Tables[0];
+                    lblInfoUsuario.Text = String.Format("{0} - {1}", dt.Rows[0]["nombre"].ToString(), dt.Rows[0]["rol"].ToString());
+                    lblInfoUsuarioHeader.Text = dt.Rows[0]["nombre"].ToString();
 
-                //Obtiene la info del usuario
-                Usuario usuario = db.EjecutaSPCatalogos(DataBase.TipoAccion.Consulta, DataBase.TipoCatalogo.Usuarios, null, false).Tables[0].DataTableToList<Usuario>().Find(x => x.userId == Helper.GetUserID());
-                rptMenu.DataSource = ventanas.Where(x => x.idEstado == usuario.idEstado && x.IdMunicipio == usuario.idMunicipio);
-                rptMenu.DataBind();
+                    //carga el menu
+                    List<Ventana> ventanas = db.EjecutaSPCatalogos(DataBase.TipoAccion.Consulta, DataBase.TipoCatalogo.Ventana, null, false).Tables[0].DataTableToList<Ventana>();
+
+                    //Obtiene la info del usuario
+                    Usuario usuario = db.EjecutaSPCatalogos(DataBase.TipoAccion.Consulta, DataBase.TipoCatalogo.Usuarios, null, false).Tables[0].DataTableToList<Usuario>().Find(x => x.userId == Helper.GetUserID());
+                    rptMenu.DataSource = ventanas.Where(x => x.idEstado == usuario.idEstado && x.IdMunicipio == usuario.idMunicipio);
+                    rptMenu.DataBind();
+                }
             }
         }
+        catch(Exception x)
+        {
+            Response.Redirect("login.aspx");
+            Helper.registraError(x.Message);
+        }
+       
     }
     
     public void setTitle(string title)
