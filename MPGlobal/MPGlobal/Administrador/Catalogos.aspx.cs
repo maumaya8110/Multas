@@ -54,6 +54,14 @@ public partial class Catalogos : System.Web.UI.Page
                 ucCatVentana.Visible = false;
                 ucCatPersonas.Visible = false;
 
+                ucCatTipoMulta.Visible = false;
+                ucCatAgente.Visible = false;
+                ucCatPlacas.Visible = false;
+                ucCatProcesos.Visible = false;
+                ucCatSistemas.Visible = false;
+                ucCatFunciones.Visible = false;
+                ucCatCajeros.Visible = false;
+
 
                 break;
             case "Estados":
@@ -69,6 +77,14 @@ public partial class Catalogos : System.Web.UI.Page
                 ucCatVentana.Visible = false;
                 ucCatPersonas.Visible = false;
 
+                ucCatTipoMulta.Visible = false;
+                ucCatAgente.Visible = false;
+                ucCatPlacas.Visible = false;
+                ucCatProcesos.Visible = false;
+                ucCatSistemas.Visible = false;
+                ucCatFunciones.Visible = false;
+                ucCatCajeros.Visible = false;
+
                 break;
             case "Municipios":
                 btnNew.Visible = true;
@@ -83,6 +99,13 @@ public partial class Catalogos : System.Web.UI.Page
                 ucCatOficinas.Visible = false;
                 ucCatVentana.Visible = false;
                 ucCatPersonas.Visible = false;
+                ucCatTipoMulta.Visible = false;
+                ucCatAgente.Visible = false;
+                ucCatPlacas.Visible = false;
+                ucCatProcesos.Visible = false;
+                ucCatSistemas.Visible = false;
+                ucCatFunciones.Visible = false;
+                ucCatCajeros.Visible = false;
 
                 break;
             case "Oficinas":
@@ -99,6 +122,13 @@ public partial class Catalogos : System.Web.UI.Page
                 ucCatMunicipio.Visible = false;
                 ucCatVentana.Visible = false;
                 ucCatPersonas.Visible = false;
+                ucCatTipoMulta.Visible = false;
+                ucCatAgente.Visible = false;
+                ucCatPlacas.Visible = false;
+                ucCatProcesos.Visible = false;
+                ucCatSistemas.Visible = false;
+                ucCatFunciones.Visible = false;
+                ucCatCajeros.Visible = false;
 
                 break;
 
@@ -115,6 +145,13 @@ public partial class Catalogos : System.Web.UI.Page
                 ucCatMunicipio.Visible = false;
                 ucCatOficinas.Visible = false;
                 ucCatPersonas.Visible = false;
+                ucCatTipoMulta.Visible = false;
+                ucCatAgente.Visible = false;
+                ucCatPlacas.Visible = false;
+                ucCatProcesos.Visible = false;
+                ucCatSistemas.Visible = false;
+                ucCatFunciones.Visible = false;
+                ucCatCajeros.Visible = false;
 
                 break;
             case "Personas":
@@ -131,8 +168,178 @@ public partial class Catalogos : System.Web.UI.Page
                 ucCatOficinas.Visible = false;
                 ucCatVentana.Visible = false;
 
+                ucCatTipoMulta.Visible = false;
+                ucCatAgente.Visible = false;
+                ucCatPlacas.Visible = false;
+                ucCatProcesos.Visible = false;
+                ucCatSistemas.Visible = false;
+                ucCatFunciones.Visible = false;
+                ucCatCajeros.Visible = false;
+
 
                 break;
+            case "Tipo de multa":
+                btnNew.Visible = true;
+
+                //HacerVisible el UserControl                
+                ucCatTipoMulta.Visible = true;
+                ucCatTipoMulta.LlenaGrid();
+                ucCatTipoMulta.LlenaDrop();
+
+                //HacerInVisible los demas UserControl
+                ucCatEstado.Visible = false;
+                ucCatMunicipio.Visible = false;
+                ucCatOficinas.Visible = false;
+                ucCatVentana.Visible = false;
+
+                ucCatPersonas.Visible = false;
+                ucCatAgente.Visible = false;
+                ucCatPlacas.Visible = false;
+                ucCatProcesos.Visible = false;
+                ucCatSistemas.Visible = false;
+                ucCatFunciones.Visible = false;
+                ucCatCajeros.Visible = false;
+
+                break;
+            case "Agentes":
+                btnNew.Visible = true;
+
+                //HacerVisible el UserControl
+                ucCatAgente.Visible = true;
+                ucCatAgente.LlenaGrid();
+                ucCatAgente.LlenaDrop();
+
+                //HacerInVisible los demas UserControl
+                ucCatEstado.Visible = false;
+                ucCatMunicipio.Visible = false;
+                ucCatOficinas.Visible = false;
+                ucCatVentana.Visible = false;
+
+                ucCatTipoMulta.Visible = false;
+                ucCatPersonas.Visible = false;
+                ucCatPlacas.Visible = false;
+                ucCatProcesos.Visible = false;
+                ucCatSistemas.Visible = false;
+                ucCatFunciones.Visible = false;
+                ucCatCajeros.Visible = false;
+
+                break;
+            case "Placas":
+                btnNew.Visible = true;
+
+                //HacerVisible el UserControl
+                ucCatPlacas.Visible = true;
+                ucCatPlacas.LlenaGrid();
+                ucCatPlacas.LlenaDrop();
+
+                //HacerInVisible los demas UserControl
+                ucCatEstado.Visible = false;
+                ucCatMunicipio.Visible = false;
+                ucCatOficinas.Visible = false;
+                ucCatVentana.Visible = false;
+
+                ucCatTipoMulta.Visible = false;
+                ucCatAgente.Visible = false;
+                ucCatPersonas.Visible = false;
+                ucCatProcesos.Visible = false;
+                ucCatSistemas.Visible = false;
+                ucCatFunciones.Visible = false;
+                ucCatCajeros.Visible = false;
+
+                break;
+            case "Procesos":
+                btnNew.Visible = true;
+
+                //HacerVisible el UserControl
+                ucCatProcesos.Visible = true;
+                ucCatProcesos.LlenaGrid();
+                ucCatProcesos.LlenaDrop();
+
+                //HacerInVisible los demas UserControl
+                ucCatEstado.Visible = false;
+                ucCatMunicipio.Visible = false;
+                ucCatOficinas.Visible = false;
+                ucCatVentana.Visible = false;
+
+                ucCatTipoMulta.Visible = false;
+                ucCatAgente.Visible = false;
+                ucCatPlacas.Visible = false;
+                ucCatPersonas.Visible = false;
+                ucCatSistemas.Visible = false;
+                ucCatFunciones.Visible = false;
+                ucCatCajeros.Visible = false;
+
+                break;
+            case "Sistemas":
+                btnNew.Visible = true;
+
+                //HacerVisible el UserControl
+                ucCatSistemas.Visible = true;
+                ucCatSistemas.LlenaGrid();
+                ucCatSistemas.LlenaDrop();
+
+                //HacerInVisible los demas UserControl
+                ucCatEstado.Visible = false;
+                ucCatMunicipio.Visible = false;
+                ucCatOficinas.Visible = false;
+                ucCatVentana.Visible = false;
+
+                ucCatTipoMulta.Visible = false;
+                ucCatAgente.Visible = false;
+                ucCatPlacas.Visible = false;
+                ucCatProcesos.Visible = false;
+                ucCatPersonas.Visible = false;
+                ucCatFunciones.Visible = false;
+                ucCatCajeros.Visible = false;
+
+                break;
+            case "Funciones":
+                btnNew.Visible = true;
+
+                //HacerVisible el UserControl
+                ucCatFunciones.Visible = true;
+                ucCatFunciones.LlenaGrid();
+                ucCatFunciones.LlenaDrop();
+
+                //HacerInVisible los demas UserControl
+                ucCatEstado.Visible = false;
+                ucCatMunicipio.Visible = false;
+                ucCatOficinas.Visible = false;
+                ucCatVentana.Visible = false;
+
+                ucCatTipoMulta.Visible = false;
+                ucCatAgente.Visible = false;
+                ucCatPlacas.Visible = false;
+                ucCatProcesos.Visible = false;
+                ucCatSistemas.Visible = false;
+                ucCatPersonas.Visible = false;
+                ucCatCajeros.Visible = false;
+
+                break;
+            case "Cajeros":
+                btnNew.Visible = true;
+
+                //HacerVisible el UserControl
+                ucCatCajeros.Visible = true;
+                ucCatCajeros.LlenaGrid();
+                ucCatCajeros.LlenaDrop();
+
+                //HacerInVisible los demas UserControl
+                ucCatEstado.Visible = false;
+                ucCatMunicipio.Visible = false;
+                ucCatOficinas.Visible = false;
+                ucCatVentana.Visible = false;
+
+                ucCatTipoMulta.Visible = false;
+                ucCatAgente.Visible = false;
+                ucCatPlacas.Visible = false;
+                ucCatProcesos.Visible = false;
+                ucCatSistemas.Visible = false;
+                ucCatFunciones.Visible = false;
+                ucCatPersonas.Visible = false;
+
+                break;
+
 
             default:
 
@@ -149,6 +356,16 @@ public partial class Catalogos : System.Web.UI.Page
         ucCatOficinas.Visible = false;
         ucCatVentana.Visible = false;
         ucCatPersonas.Visible = false;
+
+        ucCatTipoMulta.Visible = false;
+        ucCatAgente.Visible = false;
+        ucCatPlacas.Visible = false;
+        ucCatProcesos.Visible = false;
+        ucCatSistemas.Visible = false;
+        ucCatFunciones.Visible = false;
+        ucCatCajeros.Visible = false;
+
+
     }
 
 
@@ -178,6 +395,35 @@ public partial class Catalogos : System.Web.UI.Page
                 break;
             case "Personas":
                 ucCatPersonas.UpdtVisible();
+
+                break;
+
+            case "Tipo de multa":
+                ucCatTipoMulta.UpdtVisible();
+
+                break;
+            case "Agentes":
+                ucCatAgente.UpdtVisible();
+
+                break;
+            case "Placas":
+                ucCatPlacas.UpdtVisible();
+
+                break;
+            case "Procesos":
+                ucCatProcesos.UpdtVisible();
+
+                break;
+            case "Sistemas":
+                ucCatSistemas.UpdtVisible();
+
+                break;
+            case "Funciones":
+                ucCatFunciones.UpdtVisible();
+
+                break;
+            case "Cajeros":
+                ucCatCajeros.UpdtVisible();
 
                 break;
             default:
@@ -216,6 +462,35 @@ public partial class Catalogos : System.Web.UI.Page
                 break;
             case "Personas":
                 ucCatPersonas.UpdtInVisible(); ucCatPersonas.LimpiaCampos();
+                break;
+
+            case "Tipo de multa":
+                ucCatTipoMulta.UpdtInVisible(); ucCatPersonas.LimpiaCampos();
+
+                break;
+            case "Agentes":
+                ucCatAgente.UpdtInVisible(); ucCatPersonas.LimpiaCampos();
+
+                break;
+            case "Placas":
+                ucCatPlacas.UpdtInVisible(); ucCatPersonas.LimpiaCampos();
+
+                break;
+            case "Procesos":
+                ucCatProcesos.UpdtInVisible(); ucCatPersonas.LimpiaCampos();
+
+                break;
+            case "Sistemas":
+                ucCatSistemas.UpdtInVisible(); ucCatPersonas.LimpiaCampos();
+
+                break;
+            case "Funciones":
+                ucCatFunciones.UpdtInVisible(); ucCatPersonas.LimpiaCampos();
+
+                break;
+            case "Cajeros":
+                ucCatCajeros.UpdtInVisible(); ucCatPersonas.LimpiaCampos();
+
                 break;
             default:
 
