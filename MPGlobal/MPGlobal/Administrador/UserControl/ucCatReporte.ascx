@@ -7,37 +7,17 @@
 </style>
 <script src="../Scripts/sweetalert2.all.min.js"></script>
 <script type="text/javascript">
-$("#datetime").datetimepicker({
-    format: 'yyyy-mm-dd hh:ii'
-});
+    $("#datetime").datetimepicker({
+        format: 'yyyy-mm-dd hh:ii'
+    });
 </script>
 <script type="text/javascript">
+    $(".form_datetime").datetimepicker({
+        format: "dd MM yyyy - hh:ii"
+    });
+</script> 
+<script type="text/javascript">
 
-    function QuestionDelete(IdEstado) {
-        swal({
-            title: "Estas seguro de eliminar el registro?",
-            text: "No podrás recuperarlo!",
-            type: "warning",
-            showCancelButton: true,
-            confirmButtonClass: "btn-danger",
-            confirmButtonText: "Si, eliminarlo!",
-            closeOnConfirm: false
-        },
-            function (isConfirm) {
-                if (isConfirm) {
-                    swal("Eliminado!", "El registro ha sido eliminado.", "success");
-
-                    document.getElementById('<%= HiddenField1AutEli.ClientID %>').value = IdEstado;
-                    //return true;
-                    document.getElementById('<%= BtnElimina.ClientID %>').click();
-
-
-                    //return true;
-
-                }
-
-            });
-    }
 
 
 
@@ -129,24 +109,22 @@ $("#datetime").datetimepicker({
 <asp:UpdatePanel ID="UpdatePanel1" runat="server">
     <ContentTemplate>
         <div class="box">
-           <input size="16" type="text" class="form-control" id="datetime" readonly>
-
-            <asp:UpdatePanel ID="UpdtFiltros" runat="server" Visible="false">
-
+            &nbsp;<asp:UpdatePanel ID="UpdtFiltros" runat="server">
                 <ContentTemplate>
-                    <div class="panel panel-default" id="AddFiltros" style="margin: 1% 2% 2% 2%;">
-                        <div class="panel-heading">Reporte de Multas Pagadas</div>
+                    <div id="AddFiltros" class="panel panel-default" style="margin: 1% 2% 2% 2%;">
+                        <%--<div class="panel-heading">Reporte de Multas Pagadas</div>--%>
                         <div class="panel-body">
                             <div class="form-inline col-auto">
                                 <div class="form-group">
-                                    <asp:TextBox ID="txtFechaIni" runat="server" placeholder="Fecha Inicial" CssClass="form-control campo_obligatorio"></asp:TextBox>
 
+                                    <div class="input-append date form_datetime">
+                                        <input size="16" type="text" value="" readonly>
+                                        <span class="add-on"><i class="icon-th"></i></span>
+                                    </div>
 
-                                    <asp:TextBox ID="txtFechaFin" runat="server" placeholder="FechaFinal" CssClass="form-control campo_obligatorio"></asp:TextBox>
-
-
-
-                                    <asp:LinkButton ID="LinkBtnConsulta" runat="server" type="button" class="btn btn-default btn-sm" CommandName="LinkBtnConsulta" OnClick="LinkBtnConsulta_Click" data-target="#AddConsulta" OnClientClick="javascript:validaCampos(this,event);">
+                                    <asp:TextBox ID="txtFechaIni" runat="server" CssClass="form-control campo_obligatorio" placeholder="Fecha Inicial"></asp:TextBox>
+                                    <asp:TextBox ID="txtFechaFin" runat="server" CssClass="form-control campo_obligatorio" placeholder="FechaFinal"></asp:TextBox>
+                                    <asp:LinkButton ID="LinkBtnConsulta" runat="server" class="btn btn-default btn-sm" CommandName="LinkBtnConsulta" data-target="#AddConsulta" OnClick="LinkBtnConsulta_Click" OnClientClick="javascript:validaCampos(this,event);" type="button">
                                             <span class="glyphicon glyphicon-search"></span>Consultar
                                     </asp:LinkButton>
                                 </div>
@@ -155,14 +133,10 @@ $("#datetime").datetimepicker({
                     </div>
                 </ContentTemplate>
             </asp:UpdatePanel>
-
             <%--  --%>
-
-
             <!-- /.box-header -->
             <div class="box-body">
-
-                <asp:GridView ID="GridView1" runat="server" AllowPaging="true" PageSize="8" ClientIDMode="Static" AutoGenerateColumns="false" CssClass="table table-bordered table-striped" OnRowEditing="GridView1_RowEditing" OnRowCancelingEdit="GridView1_RowCancelingEdit" OnRowUpdating="GridView1_Rowupdating" OnPageIndexChanging="GridView1_PageIndexChanging">
+                <asp:GridView ID="GridView1" runat="server" AllowPaging="true" AutoGenerateColumns="false" ClientIDMode="Static" CssClass="table table-bordered table-striped" PageSize="8">
                     <%--Paginador...--%>
                     <%-- <PagerTemplate>
                             <div class="row" style="margin-top: 20px;">
@@ -180,35 +154,22 @@ $("#datetime").datetimepicker({
                             </div>
                         </PagerTemplate>--%>
                     <Columns>
-                        <%--CheckBox para seleccionar varios registros...--%>
-                        <%--   <asp:TemplateField ItemStyle-HorizontalAlign="Center" HeaderStyle-Width="70px">
+                        <%--CheckBox para seleccionar varios registros...--%><%--   <asp:TemplateField ItemStyle-HorizontalAlign="Center" HeaderStyle-Width="70px">
                 <ItemTemplate>
                     <asp:CheckBox ID="chkEliminar" runat="server" AutoPostBack="true" OnCheckedChanged="chk_OnCheckedChanged" />
                 </ItemTemplate>
-            </asp:TemplateField>   --%>
-
-                        <%--botones de acción sobre los registros...--%>
-                        <asp:TemplateField ItemStyle-HorizontalAlign="Center" HeaderStyle-Width="16%">
+            </asp:TemplateField>   --%><%--botones de acción sobre los registros...--%>
+                        <asp:TemplateField HeaderStyle-Width="16%" ItemStyle-HorizontalAlign="Center">
                             <ItemTemplate>
                                 <%--CheckBox para seleccionar registros...--%>
-
-
                                 <asp:CheckBox ID="CheckBoxMulta" runat="server" />
-                                   
-
-                                <asp:LinkButton ID="btnEdit" runat="server" ToolTip="EDITAR" type="button" class="btn btn-default btn-xs" CommandName="Edit">
+                                <%--                                <asp:LinkButton ID="btnEdit" runat="server" ToolTip="EDITAR" type="button" class="btn btn-default btn-xs" CommandName="Edit">
                                             <span class="glyphicon glyphicon-pencil"></span>
-                                </asp:LinkButton>
-
-                                <%-- <a class="btn btn-default btn-xs" onclick="QuestionDelete('<%# Eval("IdEstado")%>');" tooltip="ELIMINAR"><span class="glyphicon glyphicon-trash"></span></a>
-                                --%>
-
-
-                                <%--  <asp:Button ID="btnDelete" runat="server" Text="Quitar" CssClass="btn btn-danger" CommandName="Delete" OnClientClick="return confirm('¿Eliminar cliente?');" />
+                                </asp:LinkButton>--%><%-- <a class="btn btn-default btn-xs" onclick="QuestionDelete('<%# Eval("IdEstado")%>');" tooltip="ELIMINAR"><span class="glyphicon glyphicon-trash"></span></a>
+                                --%><%--  <asp:Button ID="btnDelete" runat="server" Text="Quitar" CssClass="btn btn-danger" CommandName="Delete" OnClientClick="return confirm('¿Eliminar cliente?');" />
                                     <asp:Button ID="btnEdit" runat="server" Text="Editar" CssClass="btn btn-info" CommandName="Edit" />--%>
                             </ItemTemplate>
                         </asp:TemplateField>
-
                         <asp:TemplateField HeaderStyle-Width="150px" HeaderText="ESTADO">
                             <ItemTemplate>
                                 <asp:Label ID="lblEstado" runat="server"><%# Eval("nomEstado")%></asp:Label>
@@ -219,14 +180,12 @@ $("#datetime").datetimepicker({
                                         <div class="input-group">
                                             <asp:DropDownList ID="DropEstado" runat="server" CssClass="form-control selectpicker campo_obligatorio">
                                             </asp:DropDownList>
-                                            <asp:HiddenField ID="HiddenIdEstado" runat="server" Value='<%# Eval("IdEstado") %>'></asp:HiddenField>
+                                            <asp:HiddenField ID="HiddenIdEstado" runat="server" Value='<%# Eval("IdEstado") %>' />
                                         </div>
                                     </div>
                                 </div>
-
                             </EditItemTemplate>
                         </asp:TemplateField>
-
                         <asp:TemplateField HeaderStyle-Width="150px" HeaderText="MUNICIPIO">
                             <ItemTemplate>
                                 <asp:Label ID="lblMunicipio" runat="server"><%# Eval("nomMunicipio")%></asp:Label>
@@ -237,58 +196,46 @@ $("#datetime").datetimepicker({
                                         <div class="input-group">
                                             <asp:DropDownList ID="DropMpo" runat="server" CssClass="form-control selectpicker campo_obligatorio">
                                             </asp:DropDownList>
-                                            <asp:HiddenField ID="HiddenIdMunicipio" runat="server" Value='<%# Eval("IdMunicipio") %>'></asp:HiddenField>
+                                            <asp:HiddenField ID="HiddenIdMunicipio" runat="server" Value='<%# Eval("IdMunicipio") %>' />
                                         </div>
                                     </div>
                                 </div>
-
                             </EditItemTemplate>
                         </asp:TemplateField>
-
                         <asp:TemplateField HeaderStyle-Width="150px" HeaderText="TIPO MULTA">
                             <ItemTemplate>
                                 <asp:Label ID="lblTipoMulta" runat="server"><%# Eval("TipoMulta")%></asp:Label>
                             </ItemTemplate>
                             <EditItemTemplate>
-                                <asp:TextBox ID="TxtTipoMulta" runat="server" Text='<%# Bind("TipoMulta")%>' CssClass="form-control"></asp:TextBox>
+                                <asp:TextBox ID="TxtTipoMulta" runat="server" CssClass="form-control" Text='<%# Bind("TipoMulta")%>'></asp:TextBox>
                             </EditItemTemplate>
                         </asp:TemplateField>
-
                         <asp:TemplateField HeaderStyle-Width="150px" HeaderText="IMPORTE">
                             <ItemTemplate>
                                 <asp:Label ID="lblIMPORTE" runat="server"><%# Eval("IMPORTE")%></asp:Label>
                             </ItemTemplate>
                             <EditItemTemplate>
-                                <asp:TextBox ID="TxtIMPORTE" runat="server" Text='<%# Bind("IMPORTE")%>' CssClass="form-control"></asp:TextBox>
+                                <asp:TextBox ID="TxtIMPORTE" runat="server" CssClass="form-control" Text='<%# Bind("IMPORTE")%>'></asp:TextBox>
                             </EditItemTemplate>
                         </asp:TemplateField>
-
                         <asp:TemplateField HeaderStyle-Width="150px" HeaderText="Descuento">
                             <ItemTemplate>
                                 <asp:Label ID="lblDescuento" runat="server"><%# Eval("Descuento")%></asp:Label>
                             </ItemTemplate>
                             <EditItemTemplate>
-                                <asp:TextBox ID="TxtDescuento" runat="server" Text='<%# Bind("Descuento")%>' CssClass="form-control"></asp:TextBox>
+                                <asp:TextBox ID="TxtDescuento" runat="server" CssClass="form-control" Text='<%# Bind("Descuento")%>'></asp:TextBox>
                             </EditItemTemplate>
                         </asp:TemplateField>
-
                         <asp:TemplateField HeaderStyle-Width="150px" HeaderText="TOTAL">
                             <ItemTemplate>
                                 <asp:Label ID="lblTotal" runat="server"><%# Eval("Total")%></asp:Label>
                             </ItemTemplate>
                             <EditItemTemplate>
-                                <asp:TextBox ID="TxtTotal" runat="server" Text='<%# Bind("Total")%>' CssClass="form-control"></asp:TextBox>
+                                <asp:TextBox ID="TxtTotal" runat="server" CssClass="form-control" Text='<%# Bind("Total")%>'></asp:TextBox>
                             </EditItemTemplate>
                         </asp:TemplateField>
-
-
-
-
-
                     </Columns>
-
                 </asp:GridView>
-
             </div>
             <!-- /.box-body -->
         </div>

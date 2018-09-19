@@ -17,5 +17,5 @@ public class ReporteMultasPagadas
     public string cantidad { get; set; }
     public string DPPMulta { get; set; }
     public string AplicaDesc { get; set; }
-    
+    public DateTime FechaPago { get; set; }
 }

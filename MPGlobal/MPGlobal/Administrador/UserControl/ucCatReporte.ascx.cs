@@ -51,22 +51,24 @@ public partial class Administrador_UserControl_ucCatReporte : System.Web.UI.User
 
     protected void LinkBtnConsulta_Click(object sender, EventArgs e)
     {
-        
-        using (DataBase db = new DataBase())
+        try
         {
-            ////Para cuando agregas muchos parametros
-            //List<SqlParameter> parametros = new List<SqlParameter>();
-            //parametros.Add(new SqlParameter("@nomEstado", txtFechaIni.Text));
-            //parametros.Add(new SqlParameter("@siglasEstado", txtFechaFin.Text));
+            using (DataBase db = new DataBase())
+            {
+                DateTime FechaIni = DateTime.Parse(txtFechaIni.Text);
+                DateTime FechaFin = DateTime.Parse(txtFechaFin.Text);
+                //
+                //MPGlobalSessiones.Current.UsuariosAdministrador = db.EjecutaSPCatalogos(DataBase.TipoAccion.Consulta, DataBase.TipoCatalogo.Usuarios, null).Tables[0].DataTableToList<Usuario>();//.Where(x => x.idEstado == idEstado && x.idMunicipio == idMunicipio);
+                IEnumerable<ReporteMultasPagadas> query = MPGlobalSessiones.Current.ReporteMultasPago;
+                
+                    query = query.Where(x => x.FechaPago >= FechaIni && x.FechaPago <= FechaFin);
 
-            //db.EjecutaSPCatalogos(DataBase.TipoAccion.Insertar, DataBase.TipoCatalogo.Estados, parametros.ToArray());
-
-
-            ////ScriptManager.RegisterStartupScript(this.Page, this.Page.GetType(), "Mostrar Modal", "AltaSuccess();", true);
-
-
-            LlenaGrid();
+                
+                GridView1.DataSource = query.ToList();
+                GridView1.DataBind();
+            }
         }
+        catch { }
 
     }
 }
