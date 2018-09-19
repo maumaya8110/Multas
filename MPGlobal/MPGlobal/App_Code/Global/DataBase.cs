@@ -6,7 +6,7 @@ using System.Data.SqlClient;
 using System.Data;
 using System.Configuration;
 using System.Reflection;
-
+using System.Xml.Linq;
 
 /// <summary>
 /// Descripción breve de DataBase

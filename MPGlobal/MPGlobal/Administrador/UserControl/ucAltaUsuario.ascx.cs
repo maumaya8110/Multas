@@ -10,6 +10,7 @@ using Microsoft.AspNet.Identity.Owin;
 using System.Data.SqlClient;
 using System.Data;
 using System.Web.Security;
+using System.Xml.Linq;
 
 public partial class Administrador_UserControl_ucAltaUsuario : System.Web.UI.UserControl
 {
@@ -27,7 +28,8 @@ public partial class Administrador_UserControl_ucAltaUsuario : System.Web.UI.Use
             {
                 Helper.cargaCatalogoGenericCombo(ddlEstado, db.EjecutaSPCatalogos(DataBase.TipoAccion.Consulta, DataBase.TipoCatalogo.Estados, null).Tables[0].DataTableToList<Estado>(), "idEstado", "nomEstado");
 
-                Helper.cargaCatalogoGenericCombo(ddlRol, db.ObtieneDatos("Sp_CargaRoles", null).Tables[0].DataTableToList<CatalogoGenerico>(), false);
+                Helper.cargaCatalogoGenericCombo(ddlRol, db.ObtieneDatos("Sp_CargaRoles", null).Tables[0].DataTableToList<CatalogoGenerico>());
+                
             }
         }
     }
@@ -123,10 +125,33 @@ public partial class Administrador_UserControl_ucAltaUsuario : System.Web.UI.Use
         parametros.Add(new SqlParameter("@email", txtEmail.Text));
         parametros.Add(new SqlParameter("@telefono", txtTelefono.Text));
         parametros.Add(new SqlParameter("@userId", id));
+
+        //guarda las ventanas
+        int idUsuario = Helper.GetIdUsuario(id);
         using (DataBase db = new DataBase())
         {
             db.EjecutaSPCatalogos(tipo, DataBase.TipoCatalogo.Usuarios, parametros.ToArray());
+
+            string xml = "";
+            foreach (RepeaterItem item in rptVentanas.Items)
+            {
+                CheckBox chk = item.FindControl("chkPermiso") as CheckBox;
+                HiddenField hdn = item.FindControl("hdnIdVentana") as HiddenField;
+                xml += String.Format("<ventana><id>{0}</id><estatus>{1}</estatus></ventana>", hdn.Value, chk.Checked ? "1" :"0");
+            }
+            xml = "<permiso>" + xml + "</permiso>";
+            XElement xel = XElement.Parse(xml);
+
+            List<SqlParameter> param = new List<SqlParameter>();
+            param.Add(new SqlParameter("@idUsuario", idUsuario));
+            SqlParameter p = new SqlParameter("@ventanas", SqlDbType.Xml);
+            p.Value = xml;
+            param.Add(p);
+            param.Add(new SqlParameter("@usuario", id));
+
+            db.EjecutaProcedure("sp_InsertaVentanaUsuario", param.ToArray());
         }
+
         ddlEstado.SelectedIndex = 0;
         ddlMunicipio.SelectedIndex = 0;
         ddlRol.SelectedIndex = 0;
@@ -138,6 +163,7 @@ public partial class Administrador_UserControl_ucAltaUsuario : System.Web.UI.Use
         txtConfirmContrasenia.Text = "";
         txtEmail.Text = "";
         txtTelefono.Text = "";
+
         ScriptManager.RegisterStartupScript(this.Page, this.Page.GetType(), "mensaje_correcto", "terminaAltaUsuario();", true);
         this.OnUsuarioAgregado?.Invoke(id);
     }
@@ -151,6 +177,8 @@ public partial class Administrador_UserControl_ucAltaUsuario : System.Web.UI.Use
             List<Municipio> municipios = db.EjecutaSPCatalogos(DataBase.TipoAccion.Consulta, DataBase.TipoCatalogo.Municipios, parametros.ToArray()).Tables[0].DataTableToList<Municipio>();
             Helper.cargaCatalogoGenericCombo(ddlMunicipio, municipios.Where(x => x.idEstado == int.Parse(ddlEstado.SelectedValue)).ToList(), "idMunicipio", "NomMunicipio");
         }
+
+        cargaVentanas();
     }
 
     public void cargaInfoUsuario(int id)
@@ -182,15 +210,24 @@ public partial class Administrador_UserControl_ucAltaUsuario : System.Web.UI.Use
 
             Session["UserIdModificar"] = dr["userId"].ToString();
 
+            //carga ventanas de los usuarios
+            List<UsuarioVentana> ventanas = db.ObtieneDatos("sp_ObtieneVentanasUsuario", new SqlParameter[] { new SqlParameter("@idUsuario", Helper.GetIdUsuario(Helper.GetUserID())) }).Tables[0].DataTableToList<UsuarioVentana>();
+            rptVentanas.DataSource = ventanas;
+            rptVentanas.DataBind();
+            pnlSinInfoVentanas.Visible = false;
+
             ScriptManager.RegisterStartupScript(updAltaUsuario, updAltaUsuario.GetType(), "muestraModal", "muestraModalUsuarios();", true);
         }
     }
 
     public void nuevoUsuario()
     {
+        Session["UserIdModificar"] = null;
         pnlContrasenias.Visible = true;
-        ddlEstado.SelectedIndex = 0;
-        ddlMunicipio.SelectedIndex = 0;
+        if(ddlEstado.Items.Count > 0)
+            ddlEstado.SelectedIndex = 0;
+        if(ddlMunicipio.Items.Count> 0)
+            ddlMunicipio.SelectedIndex = 0;
         ddlRol.SelectedIndex = 0;
         txtFirstName.Text = "";
         txtApPaterno.Text = "";
@@ -198,6 +235,43 @@ public partial class Administrador_UserControl_ucAltaUsuario : System.Web.UI.Use
         txtUserName.Text = "";
         txtEmail.Text = "";
         txtTelefono.Text = "";
+        pnlSinInfoVentanas.Visible = true;
+        rptVentanas.DataSource = null;
+        rptVentanas.DataBind();
         ScriptManager.RegisterStartupScript(updAltaUsuario, updAltaUsuario.GetType(), "muestraModal", "muestraModalUsuarios();", true);
+    }
+
+
+    protected void ddlMunicipio_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        cargaVentanas();
+    }
+    
+    private void cargaVentanas()
+    {
+        if(ddlEstado.SelectedIndex > 0 && ddlMunicipio.SelectedIndex > 0)
+        {
+            pnlSinInfoVentanas.Visible = false;
+            using(DataBase db = new DataBase())
+            {
+                //carga ventanas
+                IEnumerable<Ventana> ventanas = db.EjecutaSPCatalogos(DataBase.TipoAccion.Consulta, DataBase.TipoCatalogo.Ventana, null, false).Tables[0].DataTableToList<Ventana>();
+                int idEstado = 0;
+                int.TryParse(ddlEstado.SelectedValue, out idEstado);
+                if (idEstado > 0)
+                    ventanas = ventanas.Where(x => x.idEstado == idEstado);
+
+                int idMunicipiio = 0;
+                int.TryParse(ddlMunicipio.SelectedValue, out idMunicipiio);
+                if (idMunicipiio > 0)
+                    ventanas = ventanas.Where(x => x.IdMunicipio == idMunicipiio);
+
+                ventanas.ToList().ForEach(x => x.estatus = false);
+                rptVentanas.DataSource = ventanas.ToList();
+                rptVentanas.DataBind();
+            }
+
+            
+        }
     }
 }

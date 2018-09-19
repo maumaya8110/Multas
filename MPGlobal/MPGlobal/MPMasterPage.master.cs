@@ -30,18 +30,19 @@ public partial class MPMasterPage : System.Web.UI.MasterPage
                     lblInfoUsuarioHeader.Text = dt.Rows[0]["nombre"].ToString();
 
                     //carga el menu
-                    List<Ventana> ventanas = db.EjecutaSPCatalogos(DataBase.TipoAccion.Consulta, DataBase.TipoCatalogo.Ventana, null, false).Tables[0].DataTableToList<Ventana>();
+                    int idUsuario = Helper.GetIdUsuario(Helper.GetUserID());
+                    List<UsuarioVentana> ventanas = db.ObtieneDatos("sp_ObtieneVentanasUsuario", new SqlParameter[] { new SqlParameter("@idUsuario", idUsuario) }).Tables[0].DataTableToList<UsuarioVentana>();
 
                     //Obtiene la info del usuario
                     Usuario usuario = db.EjecutaSPCatalogos(DataBase.TipoAccion.Consulta, DataBase.TipoCatalogo.Usuarios, null, false).Tables[0].DataTableToList<Usuario>().Find(x => x.userId == Helper.GetUserID());
-                    rptMenu.DataSource = ventanas.Where(x => x.idEstado == usuario.idEstado && x.IdMunicipio == usuario.idMunicipio);
+                    rptMenu.DataSource = ventanas.Where(x => x.estatus).ToList();
                     rptMenu.DataBind();
                 }
             }
         }
         catch(Exception x)
         {
-            Response.Redirect("login.aspx");
+            Response.Redirect("~/Account/login.aspx");
             Helper.registraError(x.Message);
         }
        
