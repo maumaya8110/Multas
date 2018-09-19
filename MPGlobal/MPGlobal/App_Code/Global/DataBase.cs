@@ -43,8 +43,23 @@ public class DataBase : IDisposable
         [StringEnum.StringValue("Sp_Cat_Ventanas")]
         Ventana = 6,
         [StringEnum.StringValue("Sp_Cat_Personas")]
-        Personas = 7
-            
+        Personas = 7,
+
+        [StringEnum.StringValue("Sp_Cat_TiposMultas")]
+        TipoMulta = 8,
+        [StringEnum.StringValue("Sp_Cat_Agentes")]
+        Agentes = 9,
+        [StringEnum.StringValue("Sp_Cat_Placas")]
+        Placas = 10,
+        [StringEnum.StringValue("Sp_Cat_Procesos")]
+        Procesos = 11,
+        [StringEnum.StringValue("Sp_Cat_Sistema")]
+        Sistemas = 12,
+        [StringEnum.StringValue("Sp_Cat_Funciones")]
+        Funciones = 13,
+        [StringEnum.StringValue("Sp_Cat_Cajeros")]
+        Cajeros = 14
+
     }
 
     public enum TipoError
