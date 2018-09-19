@@ -116,7 +116,7 @@
         </ContentTemplate>
     </asp:UpdatePanel>
 
-    <div id="modalAddUsuario" class="modal fade modal-medium" role="dialog">
+    <div id="modalAddUsuario" class="modal fade modal-big" role="dialog">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
