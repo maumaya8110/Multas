@@ -108,14 +108,17 @@ public partial class Administrador_UserControl_ucCatTipoMulta : System.Web.UI.Us
           
 
             
-            parametros.Add(new SqlParameter("@IdTipoMulta", ((HiddenField)(row.Cells[1].Controls[1].FindControl("HiddenIdTipoMulta"))).Value));            
-            parametros.Add(new SqlParameter("@NomTipoMulta", ((TextBox)(row.Cells[1].Controls[1])).Text));
+            parametros.Add(new SqlParameter("@idmulta", ((HiddenField)(row.Cells[1].Controls[1].FindControl("HiddenIdTipoMulta"))).Value));            
+            parametros.Add(new SqlParameter("@Descripcion", ((TextBox)(row.Cells[1].Controls[1])).Text));
 
-            parametros.Add(new SqlParameter("@URL", ((TextBox)(row.Cells[2].Controls[1])).Text));
-            parametros.Add(new SqlParameter("@idEstado", ((DropDownList)(row.Cells[3].Controls[1])).SelectedValue));
-            parametros.Add(new SqlParameter("@idMunicipio", ((DropDownList)(row.Cells[4].Controls[1])).SelectedValue));
+            parametros.Add(new SqlParameter("@Cantidad", ((TextBox)(row.Cells[2].Controls[1])).Text));
+            parametros.Add(new SqlParameter("@DPPMulta", ((TextBox)(row.Cells[3].Controls[1])).Text));
+            parametros.Add(new SqlParameter("@AplicaDesc", ((TextBox)(row.Cells[4].Controls[1])).Text));
 
-            parametros.Add(new SqlParameter("@Estatus", ((CheckBox)(row.Cells[5].Controls[1])).Checked));
+            parametros.Add(new SqlParameter("@idEstado", ((DropDownList)(row.Cells[5].Controls[1])).SelectedValue));
+            parametros.Add(new SqlParameter("@idMunicipio", ((DropDownList)(row.Cells[6].Controls[1])).SelectedValue));
+
+            parametros.Add(new SqlParameter("@Estatus", ((CheckBox)(row.Cells[7].Controls[1])).Checked));
 
             db.EjecutaSPCatalogos(DataBase.TipoAccion.Modificar, DataBase.TipoCatalogo.TipoMulta, parametros.ToArray());
 
@@ -168,8 +171,10 @@ public partial class Administrador_UserControl_ucCatTipoMulta : System.Web.UI.Us
     public void LimpiaCampos()
     {
         //Limpia textbox
-        txtTipoMulta.Text = "";
-        txtURL.Text = "";
+        txtDescripcion.Text = "";
+        txtCantidad.Text = "";
+        txtAplicaDesc.Text = "";
+        txtDPPMulta.Text = "";
         
     }
 
@@ -184,8 +189,10 @@ public partial class Administrador_UserControl_ucCatTipoMulta : System.Web.UI.Us
             parametros.Add(new SqlParameter("@idMunicipio", DropMpos.SelectedValue));
 
             parametros.Add(new SqlParameter("@idTipoMulta", ""));
-            parametros.Add(new SqlParameter("@NomTipoMulta", txtTipoMulta.Text));
-            parametros.Add(new SqlParameter("@URL", txtURL.Text));        
+            parametros.Add(new SqlParameter("@Descripcion", txtDescripcion.Text));
+            parametros.Add(new SqlParameter("@Cantidad", txtCantidad.Text));
+            parametros.Add(new SqlParameter("@DPPMulta", txtDPPMulta.Text));
+            parametros.Add(new SqlParameter("@AplicaDesc", txtAplicaDesc.Text));
             parametros.Add(new SqlParameter("@estatus", 1));
             db.EjecutaSPCatalogos(DataBase.TipoAccion.Insertar, DataBase.TipoCatalogo.TipoMulta, parametros.ToArray());
 

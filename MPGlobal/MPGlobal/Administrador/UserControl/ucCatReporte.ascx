@@ -1,4 +1,4 @@
-﻿<%@ Control Language="C#" AutoEventWireup="true" CodeFile="ucCatTipoMulta.ascx.cs" Inherits="Administrador_UserControl_ucCatTipoMulta" %>
+﻿<%@ Control Language="C#" AutoEventWireup="true" CodeFile="ucCatReporte.ascx.cs" Inherits="Administrador_UserControl_ucCatReporte" %>
 
 <style type="text/css">
     .Titulo {
@@ -7,8 +7,13 @@
 </style>
 <script src="../Scripts/sweetalert2.all.min.js"></script>
 <script type="text/javascript">
+$("#datetime").datetimepicker({
+    format: 'yyyy-mm-dd hh:ii'
+});
+</script>
+<script type="text/javascript">
 
-    function QuestionDelete(IdTipoMulta) {
+    function QuestionDelete(IdEstado) {
         swal({
             title: "Estas seguro de eliminar el registro?",
             text: "No podrás recuperarlo!",
@@ -22,7 +27,7 @@
                 if (isConfirm) {
                     swal("Eliminado!", "El registro ha sido eliminado.", "success");
 
-                    document.getElementById('<%= HiddenField1AutEli.ClientID %>').value = IdTipoMulta;
+                    document.getElementById('<%= HiddenField1AutEli.ClientID %>').value = IdEstado;
                     //return true;
                     document.getElementById('<%= BtnElimina.ClientID %>').click();
 
@@ -113,57 +118,36 @@
 
 
     }
+
+
+
+
+
 </script>
 
 
 <asp:UpdatePanel ID="UpdatePanel1" runat="server">
     <ContentTemplate>
         <div class="box">
-            <asp:Button ID="BtnElimina" runat="server" Style="visibility: hidden;" OnClick="BtnElimina_Click" Text="btnElimina" />
+           <input size="16" type="text" class="form-control" id="datetime" readonly>
 
-
-            <asp:UpdatePanel ID="UpdtAgregarTipoMulta" runat="server" Visible="false">
+            <asp:UpdatePanel ID="UpdtFiltros" runat="server" Visible="false">
 
                 <ContentTemplate>
-                    <div class="panel panel-default" id="AddTipoMulta" style="margin: 1% 2% 2% 2%;">
-                        <div class="panel-heading">Alta de TipoMulta</div>
+                    <div class="panel panel-default" id="AddFiltros" style="margin: 1% 2% 2% 2%;">
+                        <div class="panel-heading">Reporte de Multas Pagadas</div>
                         <div class="panel-body">
                             <div class="form-inline col-auto">
                                 <div class="form-group">
-                                    <%--DropEstado--%>
-                                    <div class="form-group">
-                                        <div class="inputGroupContainer">
-                                            <div class="input-group">
-                                                <span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
-                                                <asp:DropDownList ID="DropEstados" runat="server" CssClass="form-control selectpicker campo_obligatorio">
-                                                </asp:DropDownList>
-                                            </div>
-                                        </div>
-                                    </div>
+                                    <asp:TextBox ID="txtFechaIni" runat="server" placeholder="Fecha Inicial" CssClass="form-control campo_obligatorio"></asp:TextBox>
 
-                                    <%--DropMpo--%>
-                                    <div class="form-group">
-                                        <div class="inputGroupContainer">
-                                            <div class="input-group">
-                                                <span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
-                                                <asp:DropDownList ID="DropMpos" runat="server" CssClass="form-control selectpicker campo_obligatorio">
-                                                </asp:DropDownList>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <%--[Descripcion],[Cantidad],[DPPMulta],[AplicaDesc],[Estatus])--%>
-                                    <asp:TextBox ID="txtDescripcion" runat="server" placeholder="Tipo de Multa" CssClass="form-control campo_obligatorio"></asp:TextBox>
 
-                                    <asp:TextBox ID="txtCantidad" runat="server" placeholder="Cantidad" CssClass="form-control campo_obligatorio"></asp:TextBox>
-
-                                    <asp:TextBox ID="txtDPPMulta" runat="server" placeholder="Tipo de Multa" CssClass="form-control campo_obligatorio"></asp:TextBox>
-
-                                    <asp:TextBox ID="txtAplicaDesc" runat="server" placeholder="Aplica Descuento" CssClass="form-control campo_obligatorio"></asp:TextBox>
+                                    <asp:TextBox ID="txtFechaFin" runat="server" placeholder="FechaFinal" CssClass="form-control campo_obligatorio"></asp:TextBox>
 
 
 
-                                    <asp:LinkButton ID="LinkBtnAlta" runat="server" type="button" class="btn btn-default btn-sm" CommandName="LinkBtnAlta" OnClick="LinkBtnAlta_Click" data-target="#AddTipoMulta" OnClientClick="javascript:validaCampos(this,event);">
-                                            <span class="glyphicon glyphicon-plus"></span>
+                                    <asp:LinkButton ID="LinkBtnConsulta" runat="server" type="button" class="btn btn-default btn-sm" CommandName="LinkBtnConsulta" OnClick="LinkBtnConsulta_Click" data-target="#AddConsulta" OnClientClick="javascript:validaCampos(this,event);">
+                                            <span class="glyphicon glyphicon-search"></span>Consultar
                                     </asp:LinkButton>
                                 </div>
                             </div>
@@ -206,83 +190,23 @@
                         <%--botones de acción sobre los registros...--%>
                         <asp:TemplateField ItemStyle-HorizontalAlign="Center" HeaderStyle-Width="16%">
                             <ItemTemplate>
-                                <%--Botones de eliminar y editar cliente...--%>
+                                <%--CheckBox para seleccionar registros...--%>
 
 
+                                <asp:CheckBox ID="CheckBoxMulta" runat="server" />
+                                   
 
                                 <asp:LinkButton ID="btnEdit" runat="server" ToolTip="EDITAR" type="button" class="btn btn-default btn-xs" CommandName="Edit">
                                             <span class="glyphicon glyphicon-pencil"></span>
                                 </asp:LinkButton>
-                                <%--OnClientClick="return QuestionDelete();" OnClick="btnDelete_Click" OnClientClick="QuestionDelete();" AutoPostBack="false"--%>
-                                <%--<asp:LinkButton ID="btnDelete" runat="server" ToolTip="ELIMINAR" type="button" class="btn btn-default btn-xs" CommandName="Delete">
-                                            <span class="glyphicon glyphicon-trash"></span>
-                                    </asp:LinkButton>--%>
-                                <a class="btn btn-default btn-xs" onclick="QuestionDelete('<%# Eval("IdTipoMulta")%>');" tooltip="ELIMINAR"><span class="glyphicon glyphicon-trash"></span></a>
 
+                                <%-- <a class="btn btn-default btn-xs" onclick="QuestionDelete('<%# Eval("IdEstado")%>');" tooltip="ELIMINAR"><span class="glyphicon glyphicon-trash"></span></a>
+                                --%>
 
 
                                 <%--  <asp:Button ID="btnDelete" runat="server" Text="Quitar" CssClass="btn btn-danger" CommandName="Delete" OnClientClick="return confirm('¿Eliminar cliente?');" />
                                     <asp:Button ID="btnEdit" runat="server" Text="Editar" CssClass="btn btn-info" CommandName="Edit" />--%>
                             </ItemTemplate>
-                            <EditItemTemplate>
-                                <%--Botones de grabar y cancelar la edición de registro OnClientClick="Success();"...--%>
-                                <asp:LinkButton ID="btnUpdate" runat="server" type="button" class="btn btn-default btn-xs" CommandName="Update">
-                                            <span class="glyphicon glyphicon-floppy-disk"></span> GRABAR
-                                </asp:LinkButton>
-
-                                <asp:LinkButton ID="btnCancel" runat="server" type="button" class="btn btn-default btn-xs" CommandName="Cancel">
-                                            <span class="glyphicon glyphicon-remove-circle"></span> CANCELAR
-                                </asp:LinkButton>
-
-                                <%-- <asp:Button ID="btnUpdate" runat="server" Text="Grabar" CssClass="btn btn-success" CommandName="Update" OnClientClick="return confirm('¿Seguro que quiere modificar los datos del cliente?');" />
-                                    <asp:Button ID="btnCancel" runat="server" Text="Cancelar" CssClass="btn btn-default" CommandName="Cancel" />--%>
-                            </EditItemTemplate>
-                        </asp:TemplateField>
-
-
-
-
-
-
-                        <%--campos editables...--%>
-                        <%--[Descripcion],[Cantidad],[DPPMulta],[AplicaDesc],[Estatus])--%>
-
-                        <asp:TemplateField HeaderStyle-Width="150px" HeaderText="TIPO MULTA">
-                            <ItemTemplate>
-
-                                <asp:Label ID="lblNomTipoMulta" runat="server"><%# Eval("Descripcion")%></asp:Label>
-                            </ItemTemplate>
-                            <EditItemTemplate>
-                                <asp:TextBox ID="TxtNomTipoMulta" runat="server" Text='<%# Bind("Descripcion")%>' CssClass="form-control"></asp:TextBox>
-                                <asp:HiddenField ID="HiddenIdTipoMulta" runat="server" Value='<%# Eval("idmulta") %>'></asp:HiddenField>
-                            </EditItemTemplate>
-                        </asp:TemplateField>
-
-                        <asp:TemplateField HeaderStyle-Width="150px" HeaderText="CANTIDAD">
-                            <ItemTemplate>
-                                <asp:Label ID="lblURL" runat="server"><%# Eval("Cantidad")%></asp:Label>
-                            </ItemTemplate>
-                            <EditItemTemplate>
-                                <asp:TextBox ID="TxtURL" runat="server" Text='<%# Bind("Cantidad")%>' CssClass="form-control"></asp:TextBox>
-                            </EditItemTemplate>
-                        </asp:TemplateField>
-
-                        <asp:TemplateField HeaderStyle-Width="150px" HeaderText="DPPMulta">
-                            <ItemTemplate>
-                                <asp:Label ID="lblURL" runat="server"><%# Eval("DPPMulta")%></asp:Label>
-                            </ItemTemplate>
-                            <EditItemTemplate>
-                                <asp:TextBox ID="TxtURL" runat="server" Text='<%# Bind("DPPMulta")%>' CssClass="form-control"></asp:TextBox>
-                            </EditItemTemplate>
-                        </asp:TemplateField>
-
-                        <asp:TemplateField HeaderStyle-Width="150px" HeaderText="APLICA DESC">
-                            <ItemTemplate>
-                                <asp:Label ID="lblURL" runat="server"><%# Eval("AplicaDesc")%></asp:Label>
-                            </ItemTemplate>
-                            <EditItemTemplate>
-                                <asp:TextBox ID="TxtURL" runat="server" Text='<%# Bind("AplicaDesc")%>' CssClass="form-control"></asp:TextBox>
-                            </EditItemTemplate>
                         </asp:TemplateField>
 
                         <asp:TemplateField HeaderStyle-Width="150px" HeaderText="ESTADO">
@@ -321,14 +245,42 @@
                             </EditItemTemplate>
                         </asp:TemplateField>
 
-                        <asp:TemplateField HeaderStyle-Width="150px" HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Center" HeaderText="ESTATUS">
+                        <asp:TemplateField HeaderStyle-Width="150px" HeaderText="TIPO MULTA">
                             <ItemTemplate>
-                                <asp:CheckBox ID="chkEstatusTipoMulta" runat="server" Checked='<%# bool.Parse(Eval("Estatus").ToString()) %>' Enabled="false" />
+                                <asp:Label ID="lblTipoMulta" runat="server"><%# Eval("TipoMulta")%></asp:Label>
                             </ItemTemplate>
                             <EditItemTemplate>
-                                <asp:CheckBox ID="chkEstatusTipoMulta" runat="server" Checked='<%# bool.Parse(Eval("Estatus").ToString()) %>' Enabled="true" />
+                                <asp:TextBox ID="TxtTipoMulta" runat="server" Text='<%# Bind("TipoMulta")%>' CssClass="form-control"></asp:TextBox>
                             </EditItemTemplate>
                         </asp:TemplateField>
+
+                        <asp:TemplateField HeaderStyle-Width="150px" HeaderText="IMPORTE">
+                            <ItemTemplate>
+                                <asp:Label ID="lblIMPORTE" runat="server"><%# Eval("IMPORTE")%></asp:Label>
+                            </ItemTemplate>
+                            <EditItemTemplate>
+                                <asp:TextBox ID="TxtIMPORTE" runat="server" Text='<%# Bind("IMPORTE")%>' CssClass="form-control"></asp:TextBox>
+                            </EditItemTemplate>
+                        </asp:TemplateField>
+
+                        <asp:TemplateField HeaderStyle-Width="150px" HeaderText="Descuento">
+                            <ItemTemplate>
+                                <asp:Label ID="lblDescuento" runat="server"><%# Eval("Descuento")%></asp:Label>
+                            </ItemTemplate>
+                            <EditItemTemplate>
+                                <asp:TextBox ID="TxtDescuento" runat="server" Text='<%# Bind("Descuento")%>' CssClass="form-control"></asp:TextBox>
+                            </EditItemTemplate>
+                        </asp:TemplateField>
+
+                        <asp:TemplateField HeaderStyle-Width="150px" HeaderText="TOTAL">
+                            <ItemTemplate>
+                                <asp:Label ID="lblTotal" runat="server"><%# Eval("Total")%></asp:Label>
+                            </ItemTemplate>
+                            <EditItemTemplate>
+                                <asp:TextBox ID="TxtTotal" runat="server" Text='<%# Bind("Total")%>' CssClass="form-control"></asp:TextBox>
+                            </EditItemTemplate>
+                        </asp:TemplateField>
+
 
 
 
