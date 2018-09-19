@@ -32,19 +32,21 @@
                 <span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
                 <asp:DropDownList ID="DropCatalogos" AutoPostBack="true" runat="server" name="department" class="form-control selectpicker" OnSelectedIndexChanged="DropCatalogos_SelectedIndexChanged">
                     <asp:ListItem>Selecciona el catalogo</asp:ListItem>
-                    <asp:ListItem>Estados</asp:ListItem>
-                    <asp:ListItem>Municipios</asp:ListItem>
-                    <asp:ListItem>Personas</asp:ListItem>
-                    <asp:ListItem>Oficinas</asp:ListItem>
-                    <asp:ListItem>Ventanas</asp:ListItem>
-
-                    <asp:ListItem>Tipos de multa</asp:ListItem>
+              
                     <asp:ListItem>Agentes</asp:ListItem>
+                    <asp:ListItem>Cajeros</asp:ListItem>
+                    <asp:ListItem>Estados</asp:ListItem>
+                    <asp:ListItem>Funciones</asp:ListItem>
+
+                    <asp:ListItem>Municipios</asp:ListItem>
+                    <asp:ListItem>Oficinas</asp:ListItem>
+                    <asp:ListItem>Personas</asp:ListItem>
                     <asp:ListItem>Placas</asp:ListItem>
                     <asp:ListItem>Procesos</asp:ListItem>
                     <asp:ListItem>Sistemas</asp:ListItem>
-                    <asp:ListItem>Funciones</asp:ListItem>
-                    <asp:ListItem>Cajeros</asp:ListItem>
+                    <asp:ListItem>Tipos de multa</asp:ListItem>
+                    <asp:ListItem>Ventanas</asp:ListItem>
+
                 </asp:DropDownList>
             </div>
 
