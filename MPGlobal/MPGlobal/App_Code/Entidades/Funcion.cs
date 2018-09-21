@@ -6,7 +6,7 @@ using System.Web;
 /// <summary>
 /// Descripción breve de Funciones
 /// </summary>
-public class FuncionesCat
+public class Funcion
 {
     public int idEstado { get; set; }
     public string nomEstado { get; set; }
