@@ -20,16 +20,33 @@
 
 
 <script type="text/javascript">
-    $(function () {
-        $('#datetimepicker1').datetimepicker();
+    Sys.WebForms.PageRequestManager.getInstance().add_beginRequest(beginReq);
+    Sys.WebForms.PageRequestManager.getInstance().add_endRequest(endReq);
 
+    function beginReq(sender, args) {
+    }
+
+    function endReq(sender, args) {
+         Datapicker();
+
+    }
+
+    function Datapicker() {
+        $('#datetimepicker1').datetimepicker({
+            format: 'DD/MM/YYYY'
+        });
+
+         $('#datetimepicker2').datetimepicker({
+            format: 'DD/MM/YYYY'
+        });
+
+    }
+    $(function () {
+        Datapicker();
+       
     });
 
-    $(function () {
-        $('#datetimepicker2').datetimepicker();
-
-    });
-
+   
 
 </script>
 <script type="text/javascript">
@@ -160,12 +177,13 @@
 
                                     </div>
 
-                                    <asp:LinkButton ID="LinkBtnConsulta" runat="server" class="btn btn-default btn-sm" CommandName="LinkBtnConsulta" data-target="#AddConsulta" OnClick="LinkBtnConsulta_Click" OnClientClick="javascript:validaCampos(this,event);" type="button">
+                                    <asp:LinkButton ID="LinkBtnConsulta" runat="server" class="btn btn-default btn-sm" CommandName="LinkBtnConsulta"  OnClick="LinkBtnConsulta_Click" type="button">
                                             <span class="glyphicon glyphicon-search"></span>Consultar
                                     </asp:LinkButton>
-                                    <asp:LinkButton CssClass="" ID="LinkBtnProcesar" runat="server" class="btn btn-default btn-sm" CommandName="LinkBtnProcesar" OnClick="LinkBtnProcesar_Click" type="button">
-                                            <span class="glyphicon glyphicon-retweet"></span>Procesar
-                                    </asp:LinkButton>
+                                      <a class="btn btn-default btn-sm" data-target="#modalCompletaInformacion" data-toggle="modal">
+                            <span class="glyphicon glyphicon-transfer"></span>Procesar
+
+                                   
                                 </div>
                             </div>
                         </div>
@@ -212,7 +230,7 @@
                         <asp:TemplateField HeaderStyle-Width="150px" HeaderText="TIPO MULTA">
                             <ItemTemplate>
                                 <asp:Label ID="lblTipoMulta" runat="server"><%# Eval("Descripcion")%></asp:Label>
-                                <asp:HiddenField ID="HiddenIdMunicipio" runat="server" Value='<%# Eval("IdMulta") %>' />
+                                <asp:HiddenField ID="HiddenIdMulta" runat="server" Value='<%# Eval("IdMulta") %>' />
                             </ItemTemplate>
 
                         </asp:TemplateField>
@@ -237,6 +255,43 @@
                     </Columns>
                 </asp:GridView>
 
+                 <div id="modalCompletaInformacion" class="modal fade modal-small" role="dialog">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h4 class="modal-title">Complete la siguiente información</h4>
+                        </div>
+                        <div class="modal-body">
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="form-group">
+                                            <div class="inputGroupContainer">
+                                                <div class="input-group">
+                                                    <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                                                    <asp:TextBox ID="txtDescripcion" runat="server" CssClass="form-control campo_obligatorio" placeholder="Recibo"></asp:TextBox>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="row">
+                                    <div class="col-sm-12 right">
+                                        <br />
+                                         <asp:LinkButton CssClass="" ID="LinkBtnProcesar" runat="server" class="btn btn-default btn-sm" CommandName="LinkBtnProcesar" OnClick="LinkBtnProcesar_Click" type="button">
+                                            <span class="glyphicon glyphicon-retweet"></span>Continuar
+                                    </asp:LinkButton>
+
+                                        <%--<asp:LinkButton CssClass="btn btn-default btn-sm" ID="lnkProcesado" runat="server" OnClick="lnkProcesado_Click" data-target="#modalCompletaInformacion" OnClientClick="javascript:validaCampos(this,event);" Text="Continuar"></asp:LinkButton>--%>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
             </div>
             <!-- /.box-body -->
         </div>
