@@ -8,17 +8,18 @@ using System.Web;
 /// </summary>
 public class ReporteMultasPagadas
 {
-    public int idEstado { get; set; }
-    public string nomEstado { get; set; }
+    public int IdEstado { get; set; }
+    public string NomEstado { get; set; }
     public int IdMunicipio { get; set; }
-    public string nomMunicipio { get; set; }
+    public string NomMunicipio { get; set; }
     public string IdBoleta { get; set; }
-    public int idmulta { get; set; }
+    public int IdMulta { get; set; }
     public string Descripcion { get; set; }
-    public string cantidad { get; set; }
+    public string Cantidad { get; set; }
     public string DPPMulta { get; set; }
     public string AplicaDesc { get; set; }
-    public DateTime FechaPago { get; set; }
+    public DateTime? Fechapago { get; set; }
     public string Total { get; set; }
-
+    public string ReciboPago { get; set; }
+    public string IdPlaca { get; set; }
 }
