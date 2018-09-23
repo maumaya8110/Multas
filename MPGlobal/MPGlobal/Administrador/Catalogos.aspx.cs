@@ -178,7 +178,7 @@ public partial class Catalogos : System.Web.UI.Page
 
 
                 break;
-            case "Tipo de multa":
+            case "Tipos de multa":
                 btnNew.Visible = true;
 
                 //HacerVisible el UserControl                
@@ -398,7 +398,7 @@ public partial class Catalogos : System.Web.UI.Page
 
                 break;
 
-            case "Tipo de multa":
+            case "Tipos de multa":
                 ucCatTipoMulta.UpdtVisible();
 
                 break;
@@ -464,7 +464,7 @@ public partial class Catalogos : System.Web.UI.Page
                 ucCatPersonas.UpdtInVisible(); ucCatPersonas.LimpiaCampos();
                 break;
 
-            case "Tipo de multa":
+            case "Tipos de multa":
                 ucCatTipoMulta.UpdtInVisible(); ucCatPersonas.LimpiaCampos();
 
                 break;

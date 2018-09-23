@@ -161,7 +161,7 @@
                                         </div>
                                     </div>
 
-                                     <%--DropOficina--%>
+                                    <%--DropOficina--%>
                                     <div class="form-group">
                                         <div class="inputGroupContainer">
                                             <div class="input-group">
@@ -172,7 +172,7 @@
                                         </div>
                                     </div>
 
-                                     <%--DropUsuarios--%>
+                                    <%--DropUsuarios--%>
                                     <div class="form-group">
                                         <div class="inputGroupContainer">
                                             <div class="input-group">
@@ -216,7 +216,7 @@
                         </div>
                     </div>
                 </div>
-                <asp:GridView ID="GridView1" runat="server" AllowPaging="true" PageSize="8" ClientIDMode="Static" AutoGenerateColumns="false" CssClass="table table-bordered table-striped" OnRowEditing="GridView1_RowEditing" OnRowCancelingEdit="GridView1_RowCancelingEdit" OnRowUpdating="GridView1_Rowupdating" OnPageIndexChanging="GridView1_PageIndexChanging">
+                <asp:GridView ID="GridView1" runat="server" EmptyDataText="No hay registros que mostrar" AllowPaging="true" PageSize="8" ClientIDMode="Static" AutoGenerateColumns="false" CssClass="table table-bordered table-striped" OnRowEditing="GridView1_RowEditing" OnRowCancelingEdit="GridView1_RowCancelingEdit" OnRowUpdating="GridView1_Rowupdating" OnPageIndexChanging="GridView1_PageIndexChanging">
                     <%--Paginador...--%>
 
                     <Columns>
@@ -276,7 +276,7 @@
                                 <asp:TextBox ID="TxtFolioFinal" runat="server" Text='<%# Bind("FolioFinal")%>' CssClass="form-control"></asp:TextBox>
                             </EditItemTemplate>
                         </asp:TemplateField>
-                        
+
                         <%--Drop Estados--%>
                         <asp:TemplateField HeaderStyle-Width="150px" HeaderText="ESTADO">
                             <ItemTemplate>
@@ -362,7 +362,7 @@
                             </EditItemTemplate>
                         </asp:TemplateField>
 
-
+                      
 
 
                     </Columns>

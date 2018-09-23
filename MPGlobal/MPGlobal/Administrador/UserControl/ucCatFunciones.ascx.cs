@@ -48,7 +48,7 @@ public partial class Administrador_UserControl_ucCatFunciones : System.Web.UI.Us
             Helper.cargaCatalogoGenericCombo(DropEstados, db.EjecutaSPCatalogos(DataBase.TipoAccion.Consulta, DataBase.TipoCatalogo.Estados, null).Tables[0].DataTableToList<Estado>(), "idEstado", "nomEstado");
             Helper.cargaCatalogoGenericCombo(DropMpos, db.EjecutaSPCatalogos(DataBase.TipoAccion.Consulta, DataBase.TipoCatalogo.Municipios, null).Tables[0].DataTableToList<Municipio>(), "idMunicipio", "NomMunicipio");
 
-            Helper.cargaCatalogoGenericCombo(DropSistema, db.EjecutaSPCatalogos(DataBase.TipoAccion.Consulta, DataBase.TipoCatalogo.Sistemas, null).Tables[0].DataTableToList<Oficinas>(), "IdSistema", "NomSistema");
+            Helper.cargaCatalogoGenericCombo(DropSistema, db.EjecutaSPCatalogos(DataBase.TipoAccion.Consulta, DataBase.TipoCatalogo.Sistemas, null).Tables[0].DataTableToList<Sistemas>(), "IdSistema", "NomSistema");
             Helper.cargaCatalogoGenericCombo(DropVentana, db.EjecutaSPCatalogos(DataBase.TipoAccion.Consulta, DataBase.TipoCatalogo.Ventana, null).Tables[0].DataTableToList<Ventana>(), "IdVentana", "NomVentana");
             
         }
@@ -76,10 +76,10 @@ public partial class Administrador_UserControl_ucCatFunciones : System.Web.UI.Us
         GridView1.EditIndex = e.NewEditIndex;
         LlenaGrid();
 
-        DropDownList DropEstado = ((DropDownList)GridView1.Rows[e.NewEditIndex].Cells[4].FindControl("DropEstado"));
-        DropDownList DropMunicipio = ((DropDownList)GridView1.Rows[e.NewEditIndex].Cells[5].FindControl("DropMpo"));
-        DropDownList DropSistema = ((DropDownList)GridView1.Rows[e.NewEditIndex].Cells[6].FindControl("DropSistema"));
-        DropDownList DropVentana = ((DropDownList)GridView1.Rows[e.NewEditIndex].Cells[7].FindControl("DropVentana"));
+        DropDownList DropEstado = ((DropDownList)GridView1.Rows[e.NewEditIndex].Cells[2].FindControl("DropEstado"));
+        DropDownList DropMunicipio = ((DropDownList)GridView1.Rows[e.NewEditIndex].Cells[3].FindControl("DropMpo"));
+        DropDownList DropSistema = ((DropDownList)GridView1.Rows[e.NewEditIndex].Cells[4].FindControl("DropSistema"));
+        DropDownList DropVentana = ((DropDownList)GridView1.Rows[e.NewEditIndex].Cells[5].FindControl("DropVentana"));
 
 
 
@@ -122,15 +122,17 @@ public partial class Administrador_UserControl_ucCatFunciones : System.Web.UI.Us
             //Para cuando agregas muchos parametros
             List<SqlParameter> parametros = new List<SqlParameter>();
                     
-            parametros.Add(new SqlParameter("@IdCaja", ((HiddenField)(row.Cells[1].Controls[1].FindControl("HiddenIdFuncion"))).Value));
-           // parametros.Add(new SqlParameter("@Nombre", ((TextBox)(row.Cells[1].Controls[1])).Text));
+            parametros.Add(new SqlParameter("@IdFuncion", ((HiddenField)(row.Cells[1].Controls[1].FindControl("HiddenIdFuncion"))).Value));
+                       parametros.Add(new SqlParameter("@NomFuncion", ((TextBox)(row.Cells[1].Controls[1])).Text));
 
-            parametros.Add(new SqlParameter("@NomFuncion", ((TextBox)(row.Cells[2].Controls[1])).Text));
-            parametros.Add(new SqlParameter("@IdSistema", ((TextBox)(row.Cells[3].Controls[1])).Text));
-            parametros.Add(new SqlParameter("@IdVentana", ((TextBox)(row.Cells[4].Controls[1])).Text));
-            parametros.Add(new SqlParameter("@idEstado", ((DropDownList)(row.Cells[5].Controls[1])).SelectedValue));
-            parametros.Add(new SqlParameter("@idMunicipio", ((DropDownList)(row.Cells[6].Controls[1])).SelectedValue));
-            parametros.Add(new SqlParameter("@estatusCaja", ((CheckBox)(row.Cells[7].Controls[1])).Checked));
+
+        
+            parametros.Add(new SqlParameter("@idEstado", ((DropDownList)(row.Cells[2].Controls[1])).SelectedValue));
+            parametros.Add(new SqlParameter("@idMunicipio", ((DropDownList)(row.Cells[3].Controls[1])).SelectedValue));
+            parametros.Add(new SqlParameter("@IdSistema", ((TextBox)(row.Cells[4].Controls[1])).Text));
+            parametros.Add(new SqlParameter("@IdVentana", ((TextBox)(row.Cells[5].Controls[1])).Text));
+
+            parametros.Add(new SqlParameter("@estatus", ((CheckBox)(row.Cells[6].Controls[1])).Checked));
 
             db.EjecutaSPCatalogos(DataBase.TipoAccion.Modificar, DataBase.TipoCatalogo.Funcion, parametros.ToArray());
 
@@ -157,7 +159,7 @@ public partial class Administrador_UserControl_ucCatFunciones : System.Web.UI.Us
             //Para cuando agregas muchos parametros
             List<SqlParameter> parametros = new List<SqlParameter>();
 
-            parametros.Add(new SqlParameter("@IdCaja", HiddenField1AutEli.Value));
+            parametros.Add(new SqlParameter("@IdFuncion", HiddenField1AutEli.Value));
 
 
             db.EjecutaSPCatalogos(DataBase.TipoAccion.Eliminar, DataBase.TipoCatalogo.Funcion, parametros.ToArray());
@@ -203,7 +205,7 @@ public partial class Administrador_UserControl_ucCatFunciones : System.Web.UI.Us
 
             parametros.Add(new SqlParameter("@idEstado", DropEstados.SelectedValue));
             parametros.Add(new SqlParameter("@idMunicipio", DropMpos.SelectedValue));
-            parametros.Add(new SqlParameter("@EstatusCaja", 1));
+            parametros.Add(new SqlParameter("@Estatus", 1));
             db.EjecutaSPCatalogos(DataBase.TipoAccion.Insertar, DataBase.TipoCatalogo.Funcion, parametros.ToArray());
 
 

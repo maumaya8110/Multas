@@ -12,10 +12,13 @@ public class ReporteMultasPagadas
     public string nomEstado { get; set; }
     public int IdMunicipio { get; set; }
     public string nomMunicipio { get; set; }
+    public string IdBoleta { get; set; }
     public int idmulta { get; set; }
     public string Descripcion { get; set; }
     public string cantidad { get; set; }
     public string DPPMulta { get; set; }
     public string AplicaDesc { get; set; }
     public DateTime FechaPago { get; set; }
+    public string Total { get; set; }
+
 }

@@ -14,5 +14,5 @@ public class Sistemas
     public string nomMunicipio { get; set; }
     public int IdSistema { get; set; }
     public string NomSistema { get; set; }
-    public bool EstatusVentana { get; set; }
+    public bool Estatus { get; set; }
 }

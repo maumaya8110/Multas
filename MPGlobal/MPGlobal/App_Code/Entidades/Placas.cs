@@ -18,5 +18,5 @@ public class Placas
     public string Tipo { get; set; }
     public string Modelo { get; set; }
     public string Serie { get; set; }
-    public bool EstatusVentana { get; set; }
+    public bool Estatus { get; set; }
 }
