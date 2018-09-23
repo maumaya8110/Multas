@@ -129,20 +129,20 @@
                                         <br />
                                         <div class="input-group date" id="datetimepicker1" data-date-format="dd-mm-yyyy">
                                             <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
-                                            <asp:TextBox ID="txtFechaIni" runat="server" CssClass="form-control campo_obligatorio input-group-addon" style="width:100%;text-align:left;" placeholder="Fecha pago" ></asp:TextBox>
-                                            
+                                            <asp:TextBox ID="txtFechaIni" runat="server" CssClass="form-control campo_obligatorio input-group-addon" Style="width: 100%; text-align: left;" placeholder="Fecha pago"></asp:TextBox>
+
                                         </div>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-sm-12">
-                                        <br /> 
+                                        <br />
                                         <div class="inputGroupContainer">
-                                                <div class="input-group">
-                                                    <span class="input-group-addon"><i class="glyphicon glyphicon-usd"></i></span>
-                                                    <asp:TextBox ID="txtTotalPago" runat="server" CssClass="form-control campo_obligatorio" placeholder="Total pago"></asp:TextBox>
-                                                </div>
+                                            <div class="input-group">
+                                                <span class="input-group-addon"><i class="glyphicon glyphicon-usd"></i></span>
+                                                <asp:TextBox ID="txtTotalPago" runat="server" CssClass="form-control campo_obligatorio" placeholder="Total pago"></asp:TextBox>
                                             </div>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="row">
