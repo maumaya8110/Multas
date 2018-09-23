@@ -59,8 +59,8 @@ public partial class Administrador_UserControl_ucCatReporte : System.Web.UI.User
                 //string FechaIni = txtFechaIni.Text;
                 //string FechaFin = txtFechaFin.Text;
 
-                //DateTime FechaIni = DateTime.Parse(txtFechaIni.Text);
-                //DateTime FechaFin = DateTime.Parse(txtFechaFin.Text);
+                DateTime FechaIni = DateTime.Parse(txtFechaIni.Text);
+                DateTime FechaFin = DateTime.Parse(txtFechaFin.Text);
 
                 //
                 MPGlobalSessiones.Current.ReporteMultasPago = db.EjecutaSPCatalogos(DataBase.TipoAccion.Consulta, DataBase.TipoCatalogo.ReporteMultasPagadas, null).Tables[0].DataTableToList<ReporteMultasPagadas>();//.Where(x => x.idEstado == idEstado && x.idMunicipio == idMunicipio);
@@ -69,9 +69,9 @@ public partial class Administrador_UserControl_ucCatReporte : System.Web.UI.User
 
 
 
-                //IEnumerable<ReporteMultasPagadas> query = MPGlobalSessiones.Current.ReporteMultasPago;
-                
-                    //query = query.Where(x => x.FechaPago >= FechaIni && x.FechaPago <= FechaFin);
+                IEnumerable<ReporteMultasPagadas> query = MPGlobalSessiones.Current.ReporteMultasPago;
+
+                query = query.Where(x => x.FechaPago >= FechaIni && x.FechaPago <= FechaFin);
 
                 GridView1.DataSource = MPGlobalSessiones.Current.ReporteMultasPago;
                 GridView1.DataBind();
