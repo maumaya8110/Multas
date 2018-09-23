@@ -93,6 +93,13 @@ textarea {
 }
 
 
+.modal-small .modal-dialog {
+    width: 400px;
+    max-width: 90%;
+    height: 90%;
+}
+
+
 h4.profile, h5.profile {
     color: #FFF;
 }
@@ -128,3 +135,8 @@ h4.profile, h5.profile {
         width: 97%;
         color: #FFF;
     }
+
+.form-group {
+    margin-bottom:0px !important;
+}
+

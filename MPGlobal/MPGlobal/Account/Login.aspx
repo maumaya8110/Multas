@@ -83,8 +83,10 @@
                                     </div>
                                     <asp:RequiredFieldValidator runat="server" ControlToValidate="UserName"
                                         CssClass="text-danger" ErrorMessage="El campo de nombre de usuario es obligatorio." />
+                                    <br />
                                 </div>
                                 <div class="col-md-12">
+                                    <br />
                                     <div class="form-group">
                                         <div class="col-md-12">
                                             <div class="form-group">
@@ -98,10 +100,12 @@
                                         </div>
                                     </div>
                                     <asp:RequiredFieldValidator runat="server" ControlToValidate="Password" CssClass="text-danger" ErrorMessage="El campo de contraseña es obligatorio." />
+                                    <br />
                                 </div>
 
                                 <div class="row">
                                     <div class="col-sm-7">
+                                        <br />
                                         <div class="checkbox">
                                             <asp:CheckBox runat="server" ID="RememberMe" />
                                             <asp:Label runat="server" AssociatedControlID="RememberMe">¿Recordar cuenta?</asp:Label>

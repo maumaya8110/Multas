@@ -15,10 +15,6 @@ AS
 			Tbl.Col.value('estatus[1]', 'BIT') AS permiso
 	FROM	@ventanas.nodes('permiso/ventana') AS Tbl(Col)
 	
-
-	select * from @tblventanas
-
-
 	DELETE FROM UsuariosVentana where idusuario = @idUsuario
 			
 	INSERT INTO UsuariosVentana(idUsuario, idVentana, estatus, usrCrtd, dateCrtd, usrMod, dateMod)

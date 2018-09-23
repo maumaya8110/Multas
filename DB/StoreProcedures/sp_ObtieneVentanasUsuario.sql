@@ -12,5 +12,5 @@ AS
 	FROM		Ventanas v
 	INNER JOIN	Usuarios u (NOLOCK) ON v.idEstado = u.idEstado and  V.idMunicipio = u.idMunicipio
 	LEFT JOIN	UsuariosVentana uv (NOLOCK) ON v.idVentana = uv.idVentana and u.idusuario = uv.idUsuario
-	WHERE		uv.idUsuario = @idUsuario
+	WHERE		u.idUsuario = @idUsuario
 	

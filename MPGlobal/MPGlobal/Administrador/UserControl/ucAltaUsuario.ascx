@@ -193,7 +193,7 @@
                 </asp:Panel>
                 <asp:Repeater ID="rptVentanas" runat="server">
                     <ItemTemplate>
-                        <div class="col-sm-1 text-center">
+                        <div class="col-sm-2 text-center">
                             <b><%# Eval("NomVentana") %></b><br />
                             <asp:CheckBox ID="chkPermiso" runat="server"  Checked='<%# bool.Parse(Eval("estatus").ToString()) %>' />
                             <asp:HiddenField ID="hdnIdVentana" runat="server" Value='<%# Eval("idVentana") %>' />
