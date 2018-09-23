@@ -12,12 +12,38 @@ public class MPGlobalSessiones
     public List<Municipio> CatMunicipios;
     public List<ReporteMultasPagadas> ReporteMultasPago;
 
+    public List<Agentes> Agentes;
+
+    public List<Cajeros> Cajeros;
+    public List<Estado> Estado;
+    public List<Funcion> Funcion;
+    public List<Oficinas> Oficinas;
+    public List<Placas> Placas;
+    public List<Procesos> Procesos;
+    public List<Sistemas> Sistemas;
+    public List<TipoMulta> TipoMulta;
+    public List<Ventana> Ventana;
+
+
+
     private MPGlobalSessiones()
     {
 
         UsuariosAdministrador = new List<Usuario>();
         CatMunicipios = new List<Municipio>();
         ReporteMultasPago = new List<ReporteMultasPagadas>();
+
+        Agentes = new List<Agentes>();
+        Cajeros = new List<Cajeros>();
+        Estado = new List<Estado>();
+        Funcion = new List<Funcion>();
+        Oficinas = new List<Oficinas>();
+        Placas = new List<Placas>();
+        Procesos = new List<Procesos>();
+        Sistemas = new List<Sistemas>();
+        TipoMulta = new List<TipoMulta>();
+        Ventana = new List<Ventana>();
+
     }
 
     public static MPGlobalSessiones Current
@@ -36,5 +62,5 @@ public class MPGlobalSessiones
         }
     }
 
-  
+
 }

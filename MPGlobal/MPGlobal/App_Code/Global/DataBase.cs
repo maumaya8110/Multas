@@ -56,7 +56,7 @@ public class DataBase : IDisposable
         [StringEnum.StringValue("Sp_Cat_Sistema")]
         Sistemas = 12,
         [StringEnum.StringValue("Sp_Cat_Funciones")]
-        Funciones = 13,
+        Funcion = 13,
         [StringEnum.StringValue("Sp_Cat_Cajeros")]
         Cajeros = 14,
         [StringEnum.StringValue("Sp_Reporte_MultasPagadas")]

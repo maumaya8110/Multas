@@ -6,7 +6,7 @@ using System.Web;
 /// <summary>
 /// Descripción breve de Municipio
 /// </summary>
-public class Oficina
+public class Oficinas
 {
     public int idEstado { get; set; }
     public string nomEstado { get; set; }
