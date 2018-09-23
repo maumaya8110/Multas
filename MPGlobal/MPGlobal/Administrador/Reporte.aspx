@@ -16,13 +16,22 @@
         <br />
         <div class="form-inline ">
 
-          <%--  <label class="control-label">Reporte de Multas Pagadas</label>--%>
-
-                     
+            <%--  <label class="control-label">Reporte de Multas Pagadas</label>--%>
         </div>
 
     </div>
-    <uc1:ucCatReporte runat="server" id="ucCatReporte" />
-    
+    <uc1:ucCatReporte runat="server" ID="ucCatReporte" />
+
+    <script type="text/javascript">
+        Sys.WebForms.PageRequestManager.getInstance().add_beginRequest(beginReq);
+        Sys.WebForms.PageRequestManager.getInstance().add_endRequest(endReq);
+
+        function beginReq(sender, args) {
+        }
+
+        function endReq(sender, args) {
+        }
+    </script>
+
 </asp:Content>
 
