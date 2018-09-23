@@ -9,7 +9,7 @@ using System.Data.SqlClient;
 
 public partial class Administrador_UserControl_ucCatPlacas : System.Web.UI.UserControl
 {
-    
+
     protected void Page_Load(object sender, EventArgs e)
     {
         //if (!IsPostBack) { LlenaDrop(); }
@@ -27,12 +27,15 @@ public partial class Administrador_UserControl_ucCatPlacas : System.Web.UI.UserC
 
     public void LlenaGrid()
     {
-        
+
         using (DataBase db = new DataBase())
         {
-            GridView1.DataSource = db.EjecutaSPCatalogos(DataBase.TipoAccion.Consulta, DataBase.TipoCatalogo.Ventana, null);
+
+            MPGlobalSessiones.Current.Placas = db.EjecutaSPCatalogos(DataBase.TipoAccion.Consulta, DataBase.TipoCatalogo.Placas, null).Tables[0].DataTableToList<Placas>(); ;
+
+            GridView1.DataSource = MPGlobalSessiones.Current.Placas;
             GridView1.DataBind();
-                        
+
         }
     }
 
@@ -45,6 +48,7 @@ public partial class Administrador_UserControl_ucCatPlacas : System.Web.UI.UserC
             Helper.cargaCatalogoGenericCombo(DropEstados, db.EjecutaSPCatalogos(DataBase.TipoAccion.Consulta, DataBase.TipoCatalogo.Estados, null).Tables[0].DataTableToList<Estado>(), "idEstado", "nomEstado");
             Helper.cargaCatalogoGenericCombo(DropMpos, db.EjecutaSPCatalogos(DataBase.TipoAccion.Consulta, DataBase.TipoCatalogo.Municipios, null).Tables[0].DataTableToList<Municipio>(), "idMunicipio", "NomMunicipio");
 
+          
         }
 
     }
@@ -54,11 +58,13 @@ public partial class Administrador_UserControl_ucCatPlacas : System.Web.UI.UserC
     {
         GridView1.PageIndex = e.NewPageIndex;
         LlenaGrid();
+
+
     }
 
 
-    public void UpdtVisible() { UpdtAgregarVentana.Visible = true; }
-    public void UpdtInVisible() { UpdtAgregarVentana.Visible = false; }
+    public void UpdtVisible() { UpdtAgregarMpo.Visible = true; }
+    public void UpdtInVisible() { UpdtAgregarMpo.Visible = false; }
 
 
 
@@ -68,18 +74,18 @@ public partial class Administrador_UserControl_ucCatPlacas : System.Web.UI.UserC
         GridView1.EditIndex = e.NewEditIndex;
         LlenaGrid();
 
-        DropDownList DropEstado = ((DropDownList)GridView1.Rows[e.NewEditIndex].Cells[3].FindControl("DropEstado"));
-        DropDownList DropMunicipio = ((DropDownList)GridView1.Rows[e.NewEditIndex].Cells[4].FindControl("DropMpo"));
-
+        DropDownList DropEstado = ((DropDownList)GridView1.Rows[e.NewEditIndex].Cells[4].FindControl("DropEstado"));
+        DropDownList DropMunicipio = ((DropDownList)GridView1.Rows[e.NewEditIndex].Cells[5].FindControl("DropMpo"));
+     
 
         using (DataBase db = new DataBase())
         {
             Helper.cargaCatalogoGenericCombo(DropEstado, db.EjecutaSPCatalogos(DataBase.TipoAccion.Consulta, DataBase.TipoCatalogo.Estados, null).Tables[0].DataTableToList<Estado>(), "idEstado", "nomEstado");
             Helper.cargaCatalogoGenericCombo(DropMunicipio, db.EjecutaSPCatalogos(DataBase.TipoAccion.Consulta, DataBase.TipoCatalogo.Municipios, null).Tables[0].DataTableToList<Municipio>(), "idMunicipio", "NomMunicipio");
 
+         
             DropEstado.SelectedValue = ((HiddenField)(GridView1.Rows[e.NewEditIndex].Cells[3].Controls[1].FindControl("HiddenIdEstado"))).Value;
             DropMunicipio.SelectedValue = ((HiddenField)(GridView1.Rows[e.NewEditIndex].Cells[4].Controls[1].FindControl("HiddenIdMunicipio"))).Value;
-
 
         }
 
@@ -96,7 +102,7 @@ public partial class Administrador_UserControl_ucCatPlacas : System.Web.UI.UserC
     protected void GridView1_Rowupdating(object sender, GridViewUpdateEventArgs e)
     {
 
-      
+
 
         GridViewRow row = GridView1.Rows[e.RowIndex];
 
@@ -105,19 +111,20 @@ public partial class Administrador_UserControl_ucCatPlacas : System.Web.UI.UserC
 
             //Para cuando agregas muchos parametros
             List<SqlParameter> parametros = new List<SqlParameter>();
-          
 
-            
-            parametros.Add(new SqlParameter("@IdVentana", ((HiddenField)(row.Cells[1].Controls[1].FindControl("HiddenIdVentana"))).Value));            
-            parametros.Add(new SqlParameter("@NomVentana", ((TextBox)(row.Cells[1].Controls[1])).Text));
+            parametros.Add(new SqlParameter("@IdPlaca", ((HiddenField)(row.Cells[1].Controls[1].FindControl("HiddenIdPlaca"))).Value));
+            parametros.Add(new SqlParameter("@Placa", ((TextBox)(row.Cells[1].Controls[1])).Text));
 
-            parametros.Add(new SqlParameter("@URL", ((TextBox)(row.Cells[2].Controls[1])).Text));
-            parametros.Add(new SqlParameter("@idEstado", ((DropDownList)(row.Cells[3].Controls[1])).SelectedValue));
-            parametros.Add(new SqlParameter("@idMunicipio", ((DropDownList)(row.Cells[4].Controls[1])).SelectedValue));
 
-            parametros.Add(new SqlParameter("@Estatus", ((CheckBox)(row.Cells[5].Controls[1])).Checked));
+            parametros.Add(new SqlParameter("@Marca", ((TextBox)(row.Cells[2].Controls[1])).Text));
+            parametros.Add(new SqlParameter("@Tipo", ((TextBox)(row.Cells[3].Controls[1])).Text));
+            parametros.Add(new SqlParameter("@Modelo", ((TextBox)(row.Cells[4].Controls[1])).Text));
+            parametros.Add(new SqlParameter("@Serie", ((TextBox)(row.Cells[5].Controls[1])).Text));
+            parametros.Add(new SqlParameter("@idEstado", ((DropDownList)(row.Cells[6].Controls[1])).SelectedValue));
+            parametros.Add(new SqlParameter("@idMunicipio", ((DropDownList)(row.Cells[7].Controls[1])).SelectedValue));
+            parametros.Add(new SqlParameter("@estatus", ((CheckBox)(row.Cells[8].Controls[1])).Checked));
 
-            db.EjecutaSPCatalogos(DataBase.TipoAccion.Modificar, DataBase.TipoCatalogo.Ventana, parametros.ToArray());
+            db.EjecutaSPCatalogos(DataBase.TipoAccion.Modificar, DataBase.TipoCatalogo.Placas, parametros.ToArray());
 
 
         }
@@ -134,7 +141,7 @@ public partial class Administrador_UserControl_ucCatPlacas : System.Web.UI.UserC
     protected void BtnElimina_Click(object sender, EventArgs e)
     {
 
-        string Id = HiddenField1AutEli.Value;
+        string IdPlaca = HiddenField1AutEli.Value;
 
         using (DataBase db = new DataBase())
         {
@@ -142,10 +149,10 @@ public partial class Administrador_UserControl_ucCatPlacas : System.Web.UI.UserC
             //Para cuando agregas muchos parametros
             List<SqlParameter> parametros = new List<SqlParameter>();
 
-            parametros.Add(new SqlParameter("@idVentana", HiddenField1AutEli.Value));
+            parametros.Add(new SqlParameter("@IdPlaca", HiddenField1AutEli.Value));
 
 
-            db.EjecutaSPCatalogos(DataBase.TipoAccion.Eliminar, DataBase.TipoCatalogo.Ventana, parametros.ToArray());
+            db.EjecutaSPCatalogos(DataBase.TipoAccion.Eliminar, DataBase.TipoCatalogo.Placas, parametros.ToArray());
 
 
         }
@@ -168,9 +175,14 @@ public partial class Administrador_UserControl_ucCatPlacas : System.Web.UI.UserC
     public void LimpiaCampos()
     {
         //Limpia textbox
-        txtVentana.Text = "";
-        txtURL.Text = "";
+        txtNomPlaca.Text = "";
+        txtMarca.Text = "";
+        txtTipo.Text = "";
+        txtModelo.Text = "";
+        txtSerie.Text = "";
+            
         
+
     }
 
     protected void LinkBtnAlta_Click(object sender, EventArgs e)
@@ -180,23 +192,48 @@ public partial class Administrador_UserControl_ucCatPlacas : System.Web.UI.UserC
         {
             //Para cuando agregas muchos parametros
             List<SqlParameter> parametros = new List<SqlParameter>();
+            parametros.Add(new SqlParameter("@IdPlaca", ""));
+
+            parametros.Add(new SqlParameter("@Placa", txtNomPlaca.Text));
+            parametros.Add(new SqlParameter("@Marca", txtMarca.Text));
+            parametros.Add(new SqlParameter("@Tipo", txtTipo.Text));
+            parametros.Add(new SqlParameter("@Modelo", txtModelo.Text));
+            parametros.Add(new SqlParameter("@Serie", txtSerie.Text));
+
+   
+
             parametros.Add(new SqlParameter("@idEstado", DropEstados.SelectedValue));
             parametros.Add(new SqlParameter("@idMunicipio", DropMpos.SelectedValue));
-
-            parametros.Add(new SqlParameter("@idVentana", ""));
-            parametros.Add(new SqlParameter("@NomVentana", txtVentana.Text));
-            parametros.Add(new SqlParameter("@URL", txtURL.Text));        
-            parametros.Add(new SqlParameter("@estatus", 1));
-            db.EjecutaSPCatalogos(DataBase.TipoAccion.Insertar, DataBase.TipoCatalogo.Ventana, parametros.ToArray());
+            parametros.Add(new SqlParameter("@Estatus", 1));
+            db.EjecutaSPCatalogos(DataBase.TipoAccion.Insertar, DataBase.TipoCatalogo.Placas, parametros.ToArray());
 
 
             ScriptManager.RegisterStartupScript(this.Page, this.Page.GetType(), "Mostrar Modal", "AltaSuccess();", true);
 
-            UpdtAgregarVentana.Visible = false;
+            UpdtAgregarMpo.Visible = false;
             BtnHabilita?.Invoke();
             LimpiaCampos();
             LlenaGrid();
         }
 
     }
+
+
+    protected void txtSearch_TextChanged(object sender, EventArgs e)
+    {
+        string search = txtSearch.Text.ToLower();
+        if (search.Length > 0)
+        {
+            GridView1.DataSource = MPGlobalSessiones.Current.Placas.Where(x => x.Placa.ToLower().Contains(search) || x.nomMunicipio.ToLower().Contains(search) || x.nomEstado.ToLower().Contains(search) || x.Marca.ToLower().Contains(search) || x.Tipo.ToLower().Contains(search) || x.Modelo.ToLower().Contains(search) || x.Serie.ToLower().Contains(search)).ToList();
+            GridView1.DataBind();
+        }
+        else
+        {
+            GridView1.DataSource = MPGlobalSessiones.Current.Placas;
+            GridView1.DataBind();
+        }
+        txtSearch.Focus();
+        ScriptManager.RegisterStartupScript(UpdatePanel1, UpdatePanel1.GetType(), "regresaFocus", "regresaFocusSearch();", true);
+    }
+
 }

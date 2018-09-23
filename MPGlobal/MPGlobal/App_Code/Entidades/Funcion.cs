@@ -18,5 +18,5 @@ public class Funcion
     public string NomVentana { get; set; }
     public int IdFuncion { get; set; }
     public string NomFuncion { get; set; }
-    public bool EstatusVentana { get; set; }
+    public bool Estatus { get; set; }
 }

@@ -7,7 +7,7 @@ using System.Web.UI.WebControls;
 using System.Data;
 using System.Data.SqlClient;
 
-public partial class Administrador_UserControl_ucCatFunciones : System.Web.UI.UserControl
+public partial class Administrador_UserControl_ucCatSistemas : System.Web.UI.UserControl
 {
 
     protected void Page_Load(object sender, EventArgs e)
@@ -31,9 +31,9 @@ public partial class Administrador_UserControl_ucCatFunciones : System.Web.UI.Us
         using (DataBase db = new DataBase())
         {
 
-            MPGlobalSessiones.Current.Funcion = db.EjecutaSPCatalogos(DataBase.TipoAccion.Consulta, DataBase.TipoCatalogo.Funcion, null).Tables[0].DataTableToList<Funcion>(); ;
+            MPGlobalSessiones.Current.Sistemas = db.EjecutaSPCatalogos(DataBase.TipoAccion.Consulta, DataBase.TipoCatalogo.Sistemas, null).Tables[0].DataTableToList<Sistemas>(); ;
          
-            GridView1.DataSource = MPGlobalSessiones.Current.Funcion;
+            GridView1.DataSource = MPGlobalSessiones.Current.Sistemas;
             GridView1.DataBind();
 
         }
@@ -47,10 +47,7 @@ public partial class Administrador_UserControl_ucCatFunciones : System.Web.UI.Us
         {
             Helper.cargaCatalogoGenericCombo(DropEstados, db.EjecutaSPCatalogos(DataBase.TipoAccion.Consulta, DataBase.TipoCatalogo.Estados, null).Tables[0].DataTableToList<Estado>(), "idEstado", "nomEstado");
             Helper.cargaCatalogoGenericCombo(DropMpos, db.EjecutaSPCatalogos(DataBase.TipoAccion.Consulta, DataBase.TipoCatalogo.Municipios, null).Tables[0].DataTableToList<Municipio>(), "idMunicipio", "NomMunicipio");
-
-            Helper.cargaCatalogoGenericCombo(DropSistema, db.EjecutaSPCatalogos(DataBase.TipoAccion.Consulta, DataBase.TipoCatalogo.Sistemas, null).Tables[0].DataTableToList<Oficinas>(), "IdSistema", "NomSistema");
-            Helper.cargaCatalogoGenericCombo(DropVentana, db.EjecutaSPCatalogos(DataBase.TipoAccion.Consulta, DataBase.TipoCatalogo.Ventana, null).Tables[0].DataTableToList<Ventana>(), "IdVentana", "NomVentana");
-            
+                        
         }
 
     }
@@ -76,26 +73,18 @@ public partial class Administrador_UserControl_ucCatFunciones : System.Web.UI.Us
         GridView1.EditIndex = e.NewEditIndex;
         LlenaGrid();
 
-        DropDownList DropEstado = ((DropDownList)GridView1.Rows[e.NewEditIndex].Cells[4].FindControl("DropEstado"));
-        DropDownList DropMunicipio = ((DropDownList)GridView1.Rows[e.NewEditIndex].Cells[5].FindControl("DropMpo"));
-        DropDownList DropSistema = ((DropDownList)GridView1.Rows[e.NewEditIndex].Cells[6].FindControl("DropSistema"));
-        DropDownList DropVentana = ((DropDownList)GridView1.Rows[e.NewEditIndex].Cells[7].FindControl("DropVentana"));
-
+        DropDownList DropEstado = ((DropDownList)GridView1.Rows[e.NewEditIndex].Cells[3].FindControl("DropEstado"));
+        DropDownList DropMunicipio = ((DropDownList)GridView1.Rows[e.NewEditIndex].Cells[4].FindControl("DropMpo"));
+       
 
 
         using (DataBase db = new DataBase())
         {
             Helper.cargaCatalogoGenericCombo(DropEstado, db.EjecutaSPCatalogos(DataBase.TipoAccion.Consulta, DataBase.TipoCatalogo.Estados, null).Tables[0].DataTableToList<Estado>(), "idEstado", "nomEstado");
             Helper.cargaCatalogoGenericCombo(DropMunicipio, db.EjecutaSPCatalogos(DataBase.TipoAccion.Consulta, DataBase.TipoCatalogo.Municipios, null).Tables[0].DataTableToList<Municipio>(), "idMunicipio", "NomMunicipio");
-
-            Helper.cargaCatalogoGenericCombo(DropSistema, db.EjecutaSPCatalogos(DataBase.TipoAccion.Consulta, DataBase.TipoCatalogo.Sistemas, null).Tables[0].DataTableToList<Oficinas>(), "IdSistema", "NomSistema");
-            Helper.cargaCatalogoGenericCombo(DropVentana, db.EjecutaSPCatalogos(DataBase.TipoAccion.Consulta, DataBase.TipoCatalogo.Ventana, null).Tables[0].DataTableToList<Usuario>(), "IdVentana", "NomVentana");
-
+                       
             DropEstado.SelectedValue = ((HiddenField)(GridView1.Rows[e.NewEditIndex].Cells[3].Controls[1].FindControl("HiddenIdEstado"))).Value;
             DropMunicipio.SelectedValue = ((HiddenField)(GridView1.Rows[e.NewEditIndex].Cells[4].Controls[1].FindControl("HiddenIdMunicipio"))).Value;
-
-            DropSistema.SelectedValue = ((HiddenField)(GridView1.Rows[e.NewEditIndex].Cells[3].Controls[1].FindControl("HiddenIdSistema"))).Value;
-            DropVentana.SelectedValue = ((HiddenField)(GridView1.Rows[e.NewEditIndex].Cells[4].Controls[1].FindControl("HiddenIdVentana"))).Value;
 
         }
 
@@ -122,17 +111,14 @@ public partial class Administrador_UserControl_ucCatFunciones : System.Web.UI.Us
             //Para cuando agregas muchos parametros
             List<SqlParameter> parametros = new List<SqlParameter>();
                     
-            parametros.Add(new SqlParameter("@IdCaja", ((HiddenField)(row.Cells[1].Controls[1].FindControl("HiddenIdFuncion"))).Value));
-           // parametros.Add(new SqlParameter("@Nombre", ((TextBox)(row.Cells[1].Controls[1])).Text));
+            parametros.Add(new SqlParameter("@IdSistema", ((HiddenField)(row.Cells[1].Controls[1].FindControl("HiddenIdSistema"))).Value));
+            parametros.Add(new SqlParameter("@NomSistema", ((TextBox)(row.Cells[1].Controls[1])).Text));
 
-            parametros.Add(new SqlParameter("@NomFuncion", ((TextBox)(row.Cells[2].Controls[1])).Text));
-            parametros.Add(new SqlParameter("@IdSistema", ((TextBox)(row.Cells[3].Controls[1])).Text));
-            parametros.Add(new SqlParameter("@IdVentana", ((TextBox)(row.Cells[4].Controls[1])).Text));
-            parametros.Add(new SqlParameter("@idEstado", ((DropDownList)(row.Cells[5].Controls[1])).SelectedValue));
-            parametros.Add(new SqlParameter("@idMunicipio", ((DropDownList)(row.Cells[6].Controls[1])).SelectedValue));
-            parametros.Add(new SqlParameter("@estatusCaja", ((CheckBox)(row.Cells[7].Controls[1])).Checked));
+            parametros.Add(new SqlParameter("@idEstado", ((DropDownList)(row.Cells[2].Controls[1])).SelectedValue));
+            parametros.Add(new SqlParameter("@idMunicipio", ((DropDownList)(row.Cells[3].Controls[1])).SelectedValue));
+            parametros.Add(new SqlParameter("@estatus", ((CheckBox)(row.Cells[4].Controls[1])).Checked));
 
-            db.EjecutaSPCatalogos(DataBase.TipoAccion.Modificar, DataBase.TipoCatalogo.Funcion, parametros.ToArray());
+            db.EjecutaSPCatalogos(DataBase.TipoAccion.Modificar, DataBase.TipoCatalogo.Sistemas, parametros.ToArray());
 
 
         }
@@ -149,7 +135,7 @@ public partial class Administrador_UserControl_ucCatFunciones : System.Web.UI.Us
     protected void BtnElimina_Click(object sender, EventArgs e)
     {
 
-        string IdFuncion = HiddenField1AutEli.Value;
+        string IdSistema = HiddenField1AutEli.Value;
 
         using (DataBase db = new DataBase())
         {
@@ -157,10 +143,10 @@ public partial class Administrador_UserControl_ucCatFunciones : System.Web.UI.Us
             //Para cuando agregas muchos parametros
             List<SqlParameter> parametros = new List<SqlParameter>();
 
-            parametros.Add(new SqlParameter("@IdCaja", HiddenField1AutEli.Value));
+            parametros.Add(new SqlParameter("@IdSistema", HiddenField1AutEli.Value));
 
 
-            db.EjecutaSPCatalogos(DataBase.TipoAccion.Eliminar, DataBase.TipoCatalogo.Funcion, parametros.ToArray());
+            db.EjecutaSPCatalogos(DataBase.TipoAccion.Eliminar, DataBase.TipoCatalogo.Sistemas, parametros.ToArray());
 
 
         }
@@ -183,7 +169,7 @@ public partial class Administrador_UserControl_ucCatFunciones : System.Web.UI.Us
     public void LimpiaCampos()
     {
         //Limpia textbox
-        txtNomFuncion.Text = "";
+        txtNomSistema.Text = "";
        
     }
 
@@ -194,17 +180,14 @@ public partial class Administrador_UserControl_ucCatFunciones : System.Web.UI.Us
         {
             //Para cuando agregas muchos parametros
             List<SqlParameter> parametros = new List<SqlParameter>();
-            parametros.Add(new SqlParameter("@IdFuncion", ""));
+            parametros.Add(new SqlParameter("@IdSistema", ""));
            
-            parametros.Add(new SqlParameter("@NomFuncion", txtNomFuncion.Text));
-            parametros.Add(new SqlParameter("@IdVentana", DropVentana.SelectedValue));
-            parametros.Add(new SqlParameter("@IdSistema", DropSistema.SelectedValue));
-            //parametros.Add(new SqlParameter("@UltimoAcceso", DropEstados.SelectedValue));
+            parametros.Add(new SqlParameter("@NomSistema", txtNomSistema.Text));
 
             parametros.Add(new SqlParameter("@idEstado", DropEstados.SelectedValue));
             parametros.Add(new SqlParameter("@idMunicipio", DropMpos.SelectedValue));
-            parametros.Add(new SqlParameter("@EstatusCaja", 1));
-            db.EjecutaSPCatalogos(DataBase.TipoAccion.Insertar, DataBase.TipoCatalogo.Funcion, parametros.ToArray());
+            parametros.Add(new SqlParameter("@Estatus", 1));
+            db.EjecutaSPCatalogos(DataBase.TipoAccion.Insertar, DataBase.TipoCatalogo.Sistemas, parametros.ToArray());
 
 
             ScriptManager.RegisterStartupScript(this.Page, this.Page.GetType(), "Mostrar Modal", "AltaSuccess();", true);
@@ -223,12 +206,12 @@ public partial class Administrador_UserControl_ucCatFunciones : System.Web.UI.Us
         string search = txtSearch.Text.ToLower();
         if (search.Length > 0)
         {
-            GridView1.DataSource = MPGlobalSessiones.Current.Funcion.Where(x => x.NomFuncion.ToLower().Contains(search) || x.nomMunicipio.ToLower().Contains(search) || x.nomEstado.ToLower().Contains(search) || x.NomSistema.ToLower().Contains(search) || x.NomVentana.ToLower().Contains(search)).ToList();
+            GridView1.DataSource = MPGlobalSessiones.Current.Sistemas.Where(x => x.NomSistema.ToLower().Contains(search) || x.nomMunicipio.ToLower().Contains(search) || x.nomEstado.ToLower().Contains(search) || x.NomSistema.ToLower().Contains(search) ).ToList();
             GridView1.DataBind();
         }
         else
         {
-            GridView1.DataSource = MPGlobalSessiones.Current.Funcion;
+            GridView1.DataSource = MPGlobalSessiones.Current.Sistemas;
             GridView1.DataBind();
         }
         txtSearch.Focus();

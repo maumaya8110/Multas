@@ -1,4 +1,4 @@
-﻿<%@ Control Language="C#" AutoEventWireup="true" CodeFile="ucCatFunciones - Copia.ascx.cs" Inherits="Administrador_UserControl_ucCatFunciones" %>
+﻿<%@ Control Language="C#" AutoEventWireup="true" CodeFile="ucCatSistemas.ascx.cs" Inherits="Administrador_UserControl_ucCatSistemas" %>
 
 <style type="text/css">
     .Titulo {
@@ -8,7 +8,7 @@
 <script src="../Scripts/sweetalert2.all.min.js"></script>
 <script type="text/javascript">
 
-    function QuestionDelete(IdFuncion) {
+    function QuestionDelete(IdSistema) {
         swal({
             title: "Estas seguro de eliminar el registro?",
             text: "No podrás recuperarlo!",
@@ -22,7 +22,7 @@
                 if (isConfirm) {
                     swal("Eliminado!", "El registro ha sido eliminado.", "success");
 
-                    document.getElementById('<%= HiddenField1AutEli.ClientID %>').value = IdFuncion;
+                    document.getElementById('<%= HiddenField1AutEli.ClientID %>').value = IdSistema;
                     //return true;
                     document.getElementById('<%= BtnElimina.ClientID %>').click();
 
@@ -127,15 +127,13 @@
             <asp:UpdatePanel ID="UpdtAgregarMpo" runat="server" Visible="false">
 
                 <ContentTemplate>
-                    <div class="panel panel-default" id="AddFuncion" style="margin: 1% 2% 2% 2%;">
-                        <div class="panel-heading">Alta de Funcion</div>
+                    <div class="panel panel-default" id="AddSistema" style="margin: 1% 2% 2% 2%;">
+                        <div class="panel-heading">Alta de Sistema</div>
                         <div class="panel-body">
                             <div class="form-inline col-auto">
                                 <div class="form-group">
                                   
-
-
-                                    <asp:TextBox ID="txtNomFuncion" runat="server" placeholder="Funcion" CssClass="form-control campo_obligatorio"></asp:TextBox>
+                                    <asp:TextBox ID="txtNomSistema" runat="server" placeholder="Sistema" CssClass="form-control campo_obligatorio"></asp:TextBox>
                                       <%--DropEstado--%>
                                     <div class="form-group">
                                         <div class="inputGroupContainer">
@@ -158,30 +156,9 @@
                                         </div>
                                     </div>
 
-                                     <%--DropSistema--%>
-                                    <div class="form-group">
-                                        <div class="inputGroupContainer">
-                                            <div class="input-group">
-                                                <span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
-                                                <asp:DropDownList ID="DropSistema" runat="server" CssClass="form-control selectpicker campo_obligatorio">
-                                                </asp:DropDownList>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                     <%--DropVentana--%>
-                                    <div class="form-group">
-                                        <div class="inputGroupContainer">
-                                            <div class="input-group">
-                                                <span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
-                                                <asp:DropDownList ID="DropVentana" runat="server" CssClass="form-control selectpicker campo_obligatorio">
-                                                </asp:DropDownList>
-                                            </div>
-                                        </div>
-                                    </div>
 
 
-                                    <asp:LinkButton ID="LinkBtnAlta" runat="server" type="button" class="btn btn-default btn-sm" CommandName="LinkBtnAlta" OnClick="LinkBtnAlta_Click" data-target="#AddFuncion" OnClientClick="javascript:validaCampos(this,event);">
+                                    <asp:LinkButton ID="LinkBtnAlta" runat="server" type="button" class="btn btn-default btn-sm" CommandName="LinkBtnAlta" OnClick="LinkBtnAlta_Click" data-target="#AddSistema" OnClientClick="javascript:validaCampos(this,event);">
                                             <span class="glyphicon glyphicon-plus"></span>
                                     </asp:LinkButton>
 
@@ -213,7 +190,7 @@
                         </div>
                     </div>
                 </div>
-                <asp:GridView ID="GridView1" runat="server" AllowPaging="true" PageSize="8" ClientIDMode="Static" AutoGenerateColumns="false" CssClass="table table-bordered table-striped" OnRowEditing="GridView1_RowEditing" OnRowCancelingEdit="GridView1_RowCancelingEdit" OnRowUpdating="GridView1_Rowupdating" OnPageIndexChanging="GridView1_PageIndexChanging">
+                <asp:GridView ID="GridView1" runat="server" EmptyDataText="No hay registros que mostrar" AllowPaging="true" PageSize="8" ClientIDMode="Static" AutoGenerateColumns="false" CssClass="table table-bordered table-striped" OnRowEditing="GridView1_RowEditing" OnRowCancelingEdit="GridView1_RowCancelingEdit" OnRowUpdating="GridView1_Rowupdating" OnPageIndexChanging="GridView1_PageIndexChanging">
                     <%--Paginador...--%>
 
                     <Columns>
@@ -227,7 +204,7 @@
                                             <span class="glyphicon glyphicon-pencil"></span>
                                 </asp:LinkButton>
 
-                                <a class="btn btn-default btn-xs" onclick="QuestionDelete('<%# Eval("IdFuncion")%>');" tooltip="ELIMINAR"><span class="glyphicon glyphicon-trash"></span></a>
+                                <a class="btn btn-default btn-xs" onclick="QuestionDelete('<%# Eval("IdSistema")%>');" tooltip="ELIMINAR"><span class="glyphicon glyphicon-trash"></span></a>
 
                             </ItemTemplate>
                             <EditItemTemplate>
@@ -248,13 +225,13 @@
                         <%--campos editables...--%>
 
 
-                        <asp:TemplateField HeaderStyle-Width="150px" HeaderText="FUNCION">
+                        <asp:TemplateField HeaderStyle-Width="150px" HeaderText="SISTEMA">
                             <ItemTemplate>
-                                <asp:Label ID="lblNomFuncion" runat="server"><%# Eval("NomFuncion")%></asp:Label>
+                                <asp:Label ID="lblNomSistema" runat="server"><%# Eval("NomSistema")%></asp:Label>
                             </ItemTemplate>
                             <EditItemTemplate>
-                                <asp:TextBox ID="TxtNomFuncion" runat="server" Text='<%# Bind("NomFuncion")%>' CssClass="form-control"></asp:TextBox>
-                                <asp:HiddenField ID="HiddenIdFuncion" runat="server" Value='<%# Eval("IdFuncion") %>'></asp:HiddenField>
+                                <asp:TextBox ID="TxtNomSistema" runat="server" Text='<%# Bind("NomSistema")%>' CssClass="form-control"></asp:TextBox>
+                                <asp:HiddenField ID="HiddenIdSistema" runat="server" Value='<%# Eval("IdSistema") %>'></asp:HiddenField>
                             </EditItemTemplate>
                         </asp:TemplateField>
                    
@@ -297,50 +274,14 @@
                             </EditItemTemplate>
                         </asp:TemplateField>
 
-                        <%--Drop SISTEMA--%>
-                        <asp:TemplateField HeaderStyle-Width="150px" HeaderText="SISTEMA">
+                     
+
+                    <asp:TemplateField HeaderStyle-Width="150px" HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Center" HeaderText="ESTATUS">
                             <ItemTemplate>
-                                <asp:Label ID="lblSistema" runat="server"><%# Eval("Nomistema")%></asp:Label>
+                                <asp:CheckBox ID="chkEstatus" runat="server" Checked='<%# bool.Parse(Eval("Estatus").ToString()) %>' Enabled="false" />
                             </ItemTemplate>
                             <EditItemTemplate>
-                                <div class="form-group">
-                                    <div class="inputGroupContainer">
-                                        <div class="input-group">
-                                            <asp:DropDownList ID="DropSistema" runat="server" CssClass="form-control selectpicker campo_obligatorio">
-                                            </asp:DropDownList>
-                                            <asp:HiddenField ID="HiddenIdSistema" runat="server" Value='<%# Eval("IdSistema") %>'></asp:HiddenField>
-                                        </div>
-                                    </div>
-                                </div>
-
-                            </EditItemTemplate>
-                        </asp:TemplateField>
-
-                        <%--Drop VENTANAS--%>
-                        <asp:TemplateField HeaderStyle-Width="150px" HeaderText="VENTANA">
-                            <ItemTemplate>
-                                <asp:Label ID="lblNomVentana" runat="server"><%# Eval("NomVentana")%></asp:Label>
-                            </ItemTemplate>
-                            <EditItemTemplate>
-                                <div class="form-group">
-                                    <div class="inputGroupContainer">
-                                        <div class="input-group">
-                                            <asp:DropDownList ID="DropNomVentana" runat="server" CssClass="form-control selectpicker campo_obligatorio">
-                                            </asp:DropDownList>
-                                            <asp:HiddenField ID="HiddenIdVentana" runat="server" Value='<%# Eval("IdVentana") %>'></asp:HiddenField>
-                                        </div>
-                                    </div>
-                                </div>
-
-                            </EditItemTemplate>
-                        </asp:TemplateField>
-
-                        <asp:TemplateField HeaderStyle-Width="150px" HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Center" HeaderText="ESTATUS">
-                            <ItemTemplate>
-                                <asp:CheckBox ID="chkEstatusFuncion" runat="server" Checked='<%# bool.Parse(Eval("EstatusFuncion").ToString()) %>' Enabled="false" />
-                            </ItemTemplate>
-                            <EditItemTemplate>
-                                <asp:CheckBox ID="chkEstatusFuncion" runat="server" Checked='<%# bool.Parse(Eval("EstatusFuncion").ToString()) %>' Enabled="true" />
+                                <asp:CheckBox ID="chkEstatus" runat="server" Checked='<%# bool.Parse(Eval("Estatus").ToString()) %>' Enabled="true" />
                             </EditItemTemplate>
                         </asp:TemplateField>
 

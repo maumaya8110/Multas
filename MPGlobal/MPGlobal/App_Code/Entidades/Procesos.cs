@@ -15,7 +15,10 @@ public class Procesos
     public int idproceso { get; set; }
     public string NomProceso { get; set; }
     public string Sistema { get; set; }
+    public string NomSistema { get; set; }
+
     public string Ventana { get; set; }
+    public string NomVentana { get; set; }
     public string Boton { get; set; }
     public bool Estatus { get; set; }
 }
