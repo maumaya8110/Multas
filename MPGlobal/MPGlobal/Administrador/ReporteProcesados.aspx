@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MPMasterPage.master" AutoEventWireup="true" CodeFile="ReporteProcesados.aspx.cs" Inherits="Catalogos" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MPMasterPage.master" AutoEventWireup="true" CodeFile="ReporteProcesados.aspx.cs" Inherits="ReporteProcesados" %>
 
 
 <%@ Register Src="~/Administrador/UserControl/ucCatReporte.ascx" TagPrefix="uc1" TagName="ucCatReporte" %>
@@ -6,6 +6,8 @@
 
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
+
+
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="FeaturedContent" runat="Server">
 </asp:Content>
@@ -164,5 +166,84 @@
         </div>
     </div>
 
+
+    <style type="text/css">
+    .Titulo {
+        text-align: center;
+    }
+</style>
+<script src="../Scripts/sweetalert2.all.min.js"></script>
+
+<%--Para que funcione el datapicker--%>
+<link href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.css" rel="stylesheet" />
+<link href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/css/bootstrap-datetimepicker.css" rel="stylesheet" />
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.15.2/moment.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/js/bootstrap-datetimepicker.min.js"></script>
+<%--Fin--%>
+
+
+
+<script type="text/javascript">
+    Sys.WebForms.PageRequestManager.getInstance().add_beginRequest(beginReq);
+    Sys.WebForms.PageRequestManager.getInstance().add_endRequest(endReq);
+
+    function beginReq(sender, args) {
+    }
+
+    function endReq(sender, args) {
+        Datapicker();
+        if($('#GridView1').find('thead').size() > 0)
+            $('#GridView1').DataTable({
+                language: {
+                    search: 'Buscar: ',
+                    info: 'Mostrar _START_ a _END_ de _TOTAL_ registros',
+                    lengthMenu: 'Mostrar _MENU_ registros',
+                    zeroRecords: 'No se encontraron registros con esa coincidencia',
+                    infoEmpty: 'Mostrando 0 registros',
+                    infoFiltered: '(Filtrado de _MAX_ registros en total)',
+                    paginate: {first: "Primero", last:"Ultimo", next:"Siguiente",  previous:"Anterior"} 
+                       
+                }
+            });
+    }
+
+    function Datapicker() {
+        $('#datetimepicker1').datetimepicker({
+            format: 'DD/MM/YYYY'
+        });
+
+        $('#datetimepicker2').datetimepicker({
+            format: 'DD/MM/YYYY'
+        });
+
+    }
+    $(function () {
+        Datapicker();
+
+    });
+
+
+
+</script>
+<script type="text/javascript">
+          
+    function Success() {
+
+        swal({
+            position: 'top-end',
+            type: 'success',
+            title: 'Multas Procesadas exitosamente',
+            showConfirmButton: true
+            //timer: 1500
+
+        });
+    }
+
+</script>
 </asp:Content>
+
+
 
