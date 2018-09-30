@@ -63,7 +63,6 @@ public class DataBase : IDisposable
          ReporteMultasPagadas = 15,
         [StringEnum.StringValue("Sp_ObtieneMultasSinPagar")]
         ReporteMultasSinPagar = 16
-         
     }
 
     public enum TipoError
