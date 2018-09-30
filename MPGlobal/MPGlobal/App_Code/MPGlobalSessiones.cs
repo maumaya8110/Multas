@@ -22,7 +22,12 @@ public class MPGlobalSessiones
     public List<Sistemas> Sistemas;
     public List<TipoMulta> TipoMulta;
     public List<Ventana> Ventana;
+<<<<<<< HEAD
     public UsuarioLogueado> UsuarioLogueado;
+=======
+    public UsuarioLogueado UsuarioLogueado;
+    public List<ReporteMultasSinPagar> ReporteMultasSinPagar;
+>>>>>>> 3f0a161d997e27699f08bc49fb5afdebd1a93bb3
 
     private MPGlobalSessiones()
     {
@@ -30,7 +35,12 @@ public class MPGlobalSessiones
         UsuariosAdministrador = new List<Usuario>();
         CatMunicipios = new List<Municipio>();
         ReporteMultasPago = new List<ReporteMultasPagadas>();
+<<<<<<< HEAD
         ReporteMultasProcesadas = new List<ReporteProcesados>();
+=======
+        ReporteMultasSinPagar = new List<ReporteMultasSinPagar>();
+
+>>>>>>> 3f0a161d997e27699f08bc49fb5afdebd1a93bb3
         Agentes = new List<Agentes>();
         Cajeros = new List<Cajeros>();
         Estado = new List<Estado>();

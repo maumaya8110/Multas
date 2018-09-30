@@ -60,10 +60,17 @@ public class DataBase : IDisposable
         [StringEnum.StringValue("Sp_Cat_Cajeros")]
         Cajeros = 14,
         [StringEnum.StringValue("Sp_Reporte_MultasPagadas")]
+<<<<<<< HEAD
         ReporteMultasPagadas = 15,
         [StringEnum.StringValue("Sp_Reporte_Multas_Procesadas")]
         ReporteProcesados = 16
 
+=======
+         ReporteMultasPagadas = 15,
+        [StringEnum.StringValue("Sp_ObtieneMultasSinPagar")]
+        ReporteMultasSinPagar = 16
+         
+>>>>>>> 3f0a161d997e27699f08bc49fb5afdebd1a93bb3
 
     }
 
