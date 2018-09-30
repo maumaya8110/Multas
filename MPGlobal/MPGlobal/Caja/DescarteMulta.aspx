@@ -168,7 +168,18 @@
         function endReq(sender, args) {
             formatoFecha();
 
-            $('#grdDetalleMultas').DataTable();
+            $('#grdDetalleMultas').DataTable({
+                language: {
+                    search: 'Buscar: ',
+                    info: 'Mostrar _START_ a _END_ de _TOTAL_ registros',
+                    lengthMenu: 'Mostrar _MENU_ registros',
+                    zeroRecords: 'No se encontraron registros con esa coincidencia',
+                    infoEmpty: 'Mostrando 0 registros',
+                    infoFiltered: '(Filtrado de _MAX_ registros en total)',
+                    paginate: {first: "Primero", last:"Ultimo", next:"Siguiente",  previous:"Anterior"}
+
+                }
+            });
         }
 
         function formatoFecha() {
