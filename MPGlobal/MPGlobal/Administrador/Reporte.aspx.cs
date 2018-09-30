@@ -7,7 +7,7 @@ using System.Web.UI.WebControls;
 using System.Data;
 using System.Data.SqlClient;
 
-public partial class Catalogos : System.Web.UI.Page
+public partial class Reporte : System.Web.UI.Page
 {
 
 

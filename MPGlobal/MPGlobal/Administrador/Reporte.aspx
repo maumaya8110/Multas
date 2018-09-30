@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MPMasterPage.master" AutoEventWireup="true" CodeFile="Reporte.aspx.cs" Inherits="Catalogos" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MPMasterPage.master" AutoEventWireup="true" CodeFile="Reporte.aspx.cs" Inherits="Reporte" %>
 
 
 <%@ Register Src="~/Administrador/UserControl/ucCatReporte.ascx" TagPrefix="uc1" TagName="ucCatReporte" %>
