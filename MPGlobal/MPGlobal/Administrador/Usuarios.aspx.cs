@@ -51,10 +51,10 @@ public partial class Administrador_Usuarios : System.Web.UI.Page
                 //MPGlobalSessiones.Current.UsuariosAdministrador = db.EjecutaSPCatalogos(DataBase.TipoAccion.Consulta, DataBase.TipoCatalogo.Usuarios, null).Tables[0].DataTableToList<Usuario>();//.Where(x => x.idEstado == idEstado && x.idMunicipio == idMunicipio);
                 IEnumerable<Usuario> query = MPGlobalSessiones.Current.UsuariosAdministrador;
                 if (idEstado > 0)
-                    query = query.Where(x => x.idEstado == idEstado);
+                    query = query.Where(x => x.IdEstado == idEstado);
 
                 if (idMunicipio > 0)
-                    query = query.Where(x => x.idMunicipio == idMunicipio);
+                    query = query.Where(x => x.IdMunicipio == idMunicipio);
 
                 grdUsuarios.DataSource = query.ToList();
                 grdUsuarios.DataBind();
@@ -123,7 +123,7 @@ public partial class Administrador_Usuarios : System.Web.UI.Page
         string search = txtSearch.Text.ToLower();
         if(search.Length > 0)
         {
-            grdUsuarios.DataSource = MPGlobalSessiones.Current.UsuariosAdministrador.Where(x => x.nombreFull.ToLower().Contains(search) || x.nomEstado.ToLower().Contains(search) || x.NomMunicipio.ToLower().Contains(search) || x.Referencia.ToLower().Contains(search) || x.Area.ToLower().Contains(search) || x.Departamento.ToLower().Contains(search) || x.Telefono.ToLower().Contains(search) ).ToList();
+            grdUsuarios.DataSource = MPGlobalSessiones.Current.UsuariosAdministrador.Where(x => x.NombreFull.ToLower().Contains(search) || x.NomEstado.ToLower().Contains(search) || x.NomMunicipio.ToLower().Contains(search) || x.Referencia.ToLower().Contains(search) || x.Area.ToLower().Contains(search) || x.Departamento.ToLower().Contains(search) || x.Telefono.ToLower().Contains(search) ).ToList();
             grdUsuarios.DataBind();
         }
         else

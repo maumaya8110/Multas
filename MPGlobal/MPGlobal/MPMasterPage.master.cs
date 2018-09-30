@@ -34,7 +34,8 @@ public partial class MPMasterPage : System.Web.UI.MasterPage
                     List<UsuarioVentana> ventanas = db.ObtieneDatos("sp_ObtieneVentanasUsuario", new SqlParameter[] { new SqlParameter("@idUsuario", idUsuario) }).Tables[0].DataTableToList<UsuarioVentana>();
 
                     //Obtiene la info del usuario
-                    Usuario usuario = db.EjecutaSPCatalogos(DataBase.TipoAccion.Consulta, DataBase.TipoCatalogo.Usuarios, null, false).Tables[0].DataTableToList<Usuario>().Find(x => x.userId == Helper.GetUserID());
+                    if(MPGlobalSessiones.Current.UsuarioLogueado.Usuario == null || MPGlobalSessiones.Current.UsuarioLogueado.Usuario.UserId == "")
+                        MPGlobalSessiones.Current.UsuarioLogueado.Usuario = db.EjecutaSPCatalogos(DataBase.TipoAccion.Consulta, DataBase.TipoCatalogo.Usuarios, null, false).Tables[0].DataTableToList<Usuario>().Find(x => x.UserId == Helper.GetUserID());
                     rptMenu.DataSource = ventanas.Where(x => x.estatus).ToList();
                     rptMenu.DataBind();
                 }

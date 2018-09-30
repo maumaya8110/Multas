@@ -37,8 +37,8 @@
                     zeroRecords: 'No se encontraron registros con esa coincidencia',
                     infoEmpty: 'Mostrando 0 registros',
                     infoFiltered: '(Filtrado de _MAX_ registros en total)',
-                    paginate: {first: "Primero", last:"Ultimo", next:"Siguiente",  previous:"Anterior"} 
-                       
+                    paginate: {first: "Primero", last:"Ultimo", next:"Siguiente",  previous:"Anterior"}
+
                 }
             });
     }
@@ -62,7 +62,7 @@
 
 </script>
 <script type="text/javascript">
-          
+
     function Success() {
 
         swal({
@@ -100,7 +100,7 @@
                             </div>
                         </div>
                     </div>
-                    
+
                     <div class="row">
                         <div class="col-sm-12 right">
                             <br />
@@ -236,5 +236,3 @@
 
     </ContentTemplate>
 </asp:UpdatePanel>
-
-

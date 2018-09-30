@@ -31,7 +31,7 @@
                         <asp:LinkButton ID="lnkBuscaMulta" runat="server" CssClass="btn btn-default btn-sm" OnClick="btnBuscarMulta_Click">
                       <span class="glyphicon glyphicon-search"></span>Consultar
                         </asp:LinkButton>
-                        <a class="btn btn-default btn-sm" data-target="#modalCompletaInformacion" data-toggle="modal">
+                        <a id="lnkModalInfoDescartar" runat="server" class="btn btn-default btn-sm" onclick="javascript:abreModalDescartar();" visible="false">
                             <span class="glyphicon glyphicon-transfer"></span>Descartar
                         </a>
                     </div>
@@ -114,11 +114,16 @@
                             <div class="container">
                                 <div class="row">
                                     <div class="col-sm-12">
+                                        <p>Por favor proporciona la siguiente información</p>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-12">
                                         <div class="form-group">
                                             <div class="inputGroupContainer">
                                                 <div class="input-group">
                                                     <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-                                                    <asp:TextBox ID="txtConfirmContrasenia" runat="server" CssClass="form-control campo_obligatorio" placeholder="Recibo"></asp:TextBox>
+                                                    <asp:TextBox ID="txtRecibo" runat="server" CssClass="form-control campo_obligatorio" placeholder="Recibo"></asp:TextBox>
                                                 </div>
                                             </div>
                                         </div>
@@ -129,26 +134,20 @@
                                         <br />
                                         <div class="input-group date" id="datetimepicker1" data-date-format="dd-mm-yyyy">
                                             <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
-                                            <asp:TextBox ID="txtFechaIni" runat="server" CssClass="form-control campo_obligatorio input-group-addon" Style="width: 100%; text-align: left;" placeholder="Fecha pago"></asp:TextBox>
+                                            <asp:TextBox ID="txtFechaPago" runat="server" CssClass="form-control campo_obligatorio input-group-addon" Style="width: 100%; text-align: left;" placeholder="Fecha pago"></asp:TextBox>
 
                                         </div>
                                     </div>
                                 </div>
+
                                 <div class="row">
-                                    <div class="col-sm-12">
+                                    <div class="col-sm-6">
                                         <br />
-                                        <div class="inputGroupContainer">
-                                            <div class="input-group">
-                                                <span class="input-group-addon"><i class="glyphicon glyphicon-usd"></i></span>
-                                                <asp:TextBox ID="txtTotalPago" runat="server" CssClass="form-control campo_obligatorio" placeholder="Total pago"></asp:TextBox>
-                                            </div>
-                                        </div>
+                                        <a class="btn btn-default btn-sm" data-dismiss="modal">Cancelar</a>
                                     </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-sm-12 right">
+                                    <div class="col-sm-6 text-right">
                                         <br />
-                                        <asp:LinkButton CssClass="btn btn-default btn-sm" ID="lnkDescartar" runat="server" OnClick="lnkDescartar_Click" data-target="#modalCompletaInformacion" OnClientClick="javascript:validaCampos(this,event);" Text="Continuar"></asp:LinkButton>
+                                        <asp:LinkButton CssClass="btn btn-default btn-sm right" ID="lnkDescartar" runat="server" OnClick="lnkDescartar_Click" data-target="#modalCompletaInformacion" OnClientClick="javascript:validaCampos(this,event);" Text="Continuar"></asp:LinkButton>
                                     </div>
                                 </div>
                             </div>
@@ -168,6 +167,19 @@
 
         function endReq(sender, args) {
             formatoFecha();
+
+            $('#grdDetalleMultas').DataTable({
+                language: {
+                    search: 'Buscar: ',
+                    info: 'Mostrar _START_ a _END_ de _TOTAL_ registros',
+                    lengthMenu: 'Mostrar _MENU_ registros',
+                    zeroRecords: 'No se encontraron registros con esa coincidencia',
+                    infoEmpty: 'Mostrando 0 registros',
+                    infoFiltered: '(Filtrado de _MAX_ registros en total)',
+                    paginate: {first: "Primero", last:"Ultimo", next:"Siguiente",  previous:"Anterior"}
+
+                }
+            });
         }
 
         function formatoFecha() {
@@ -179,6 +191,24 @@
         $(document).ready(function () {
             formatoFecha();
         });
+
+        function abreModalDescartar() {
+            if ($('#CheckBoxMulta:checked').size() > 0) {
+                $('#modalCompletaInformacion').modal('show');
+            }
+            else {
+                swal({
+                    title: 'Favor de validar',
+                    text: 'Por favor selecciona al menos una multa antes de descartar.',
+                    type: 'info',
+                    confirmButtonText: 'Aceptar'
+                });
+            }
+        }
+
+        function terminaDescarte() {
+            $('body').removeClass('');
+            $('#modalCompletaInformacion').modal('hide');
+        }
     </script>
 </asp:Content>
-
