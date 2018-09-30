@@ -22,6 +22,7 @@ public class MPGlobalSessiones
     public List<TipoMulta> TipoMulta;
     public List<Ventana> Ventana;
     public UsuarioLogueado UsuarioLogueado;
+    public List<ReporteMultasSinPagar> ReporteMultasSinPagar;
 
     private MPGlobalSessiones()
     {
@@ -29,6 +30,7 @@ public class MPGlobalSessiones
         UsuariosAdministrador = new List<Usuario>();
         CatMunicipios = new List<Municipio>();
         ReporteMultasPago = new List<ReporteMultasPagadas>();
+        ReporteMultasSinPagar = new List<ReporteMultasSinPagar>();
 
         Agentes = new List<Agentes>();
         Cajeros = new List<Cajeros>();

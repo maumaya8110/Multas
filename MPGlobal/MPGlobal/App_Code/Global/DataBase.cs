@@ -60,7 +60,9 @@ public class DataBase : IDisposable
         [StringEnum.StringValue("Sp_Cat_Cajeros")]
         Cajeros = 14,
         [StringEnum.StringValue("Sp_Reporte_MultasPagadas")]
-         ReporteMultasPagadas = 15
+         ReporteMultasPagadas = 15,
+        [StringEnum.StringValue("Sp_ObtieneMultasSinPagar")]
+        ReporteMultasSinPagar = 16
          
 
     }
