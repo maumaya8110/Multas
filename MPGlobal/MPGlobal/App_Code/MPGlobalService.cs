@@ -51,7 +51,7 @@ public class MPGlobalService : System.Web.Services.WebService
 
     [WebMethod]
     [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
-    public string DescartaMulta(int idLicenciaEst, int idLicenciaMun, int idEstado, int idMunicipio, int idBoleta, string placa)
+    public string DescartaMulta(int idLicenciaEst, int idLicenciaMun, int[] multas, string recibo, DateTime fechaPago)
     {
         return "";
     }

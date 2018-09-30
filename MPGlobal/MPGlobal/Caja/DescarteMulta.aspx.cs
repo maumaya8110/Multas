@@ -4,6 +4,8 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using System.Data;
+using System.Data.SqlClient;
 
 public partial class Caja_DescarteMulta : System.Web.UI.Page
 {
@@ -15,7 +17,7 @@ public partial class Caja_DescarteMulta : System.Web.UI.Page
             {
                 using (DataBase db = new DataBase())
                 {
-                    MPGlobalSessiones.Current.ReporteMultasPago = db.EjecutaSPCatalogos(DataBase.TipoAccion.Consulta, DataBase.TipoCatalogo.ReporteMultasPagadas, null).Tables[0].DataTableToList<ReporteMultasPagadas>();//.Where(x => x.idEstado == idEstado && x.idMunicipio == idMunicipio);
+                    MPGlobalSessiones.Current.ReporteMultasPago = db.EjecutaSPCatalogos(DataBase.TipoAccion.Consulta, DataBase.TipoCatalogo.ReporteMultasPagadas, null).Tables[0].DataTableToList<ReporteMultasPagadas>();
                 }
             }
             catch { }
@@ -26,9 +28,14 @@ public partial class Caja_DescarteMulta : System.Web.UI.Page
     {
         try
         {
-            IEnumerable<ReporteMultasPagadas> query = MPGlobalSessiones.Current.ReporteMultasPago.Where(x => x.ReciboPago == "" && x.Fechapago == null && x.IdPlaca == txtPlaca.Text);
+            IEnumerable<ReporteMultasPagadas> query = MPGlobalSessiones.Current.ReporteMultasPago.Where(x => x.ReciboPago == "" && x.FechaPago == null && x.IdPlaca == txtPlaca.Text);
             grdDetalleMultas.DataSource = query.ToList();
             grdDetalleMultas.DataBind();
+
+            lnkModalInfoDescartar.Visible = query.ToList().Count > 0;
+
+            if (query.ToList().Count > 0)
+                grdDetalleMultas.HeaderRow.TableSection = TableRowSection.TableHeader;
         }
         catch { }
     }
@@ -37,7 +44,7 @@ public partial class Caja_DescarteMulta : System.Web.UI.Page
     {
         using (DataBase db = new DataBase())
         {
-            foreach(GridView row in grdDetalleMultas.Rows)
+            foreach(GridViewRow row in grdDetalleMultas.Rows)
             {
                 CheckBox chk = row.FindControl("CheckBoxMulta") as CheckBox;
                 if (chk.Checked)
@@ -46,9 +53,18 @@ public partial class Caja_DescarteMulta : System.Web.UI.Page
                     int idMunicipio = int.Parse((row.FindControl("HiddenIdMunicipio") as HiddenField).Value);
                     int idBoleta = int.Parse((row.FindControl("HiddenIdBoleta") as HiddenField).Value);
 
+                    List<SqlParameter> parametros = new List<SqlParameter>();
+                    parametros.Add(new SqlParameter("@idEstado", idEstado));
+                    parametros.Add(new SqlParameter("@idMunicipio", idMunicipio));
+                    parametros.Add(new SqlParameter("@idBoleta", idBoleta));
+                    parametros.Add(new SqlParameter("@recibo", txtRecibo.Text));
+                    parametros.Add(new SqlParameter("@fechaPago", DateTime.Parse(txtFechaPago.Text)));
 
+                    db.EjecutaProcedure("Sp_DescartaMutlas", parametros.ToArray());
                 }
             }
+
+            ScriptManager.RegisterStartupScript(updDescargaMulta, updDescargaMulta.GetType(), "terminaDescarte_function", "terminaDescarte();", true);
         }
     }
 }

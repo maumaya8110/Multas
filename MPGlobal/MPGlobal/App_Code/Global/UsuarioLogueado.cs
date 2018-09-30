@@ -4,10 +4,9 @@ using System.Linq;
 using System.Web;
 
 /// <summary>
-/// Descripción breve de Rol
+/// Descripción breve de UsuarioLogueado
 /// </summary>
-public class Rol
+public class UsuarioLogueado
 {
-    public string Id { get; set; }
-    public string Name { get; set; }
+   public Usuario Usuario { get; set; }
 }

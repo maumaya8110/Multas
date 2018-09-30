@@ -23,9 +23,8 @@ public class MPGlobalSessiones
     public List<Sistemas> Sistemas;
     public List<TipoMulta> TipoMulta;
     public List<Ventana> Ventana;
-
-
-
+    public UsuarioLogueado UsuarioLogueado;
+    
     private MPGlobalSessiones()
     {
 
@@ -43,7 +42,7 @@ public class MPGlobalSessiones
         Sistemas = new List<Sistemas>();
         TipoMulta = new List<TipoMulta>();
         Ventana = new List<Ventana>();
-
+        UsuarioLogueado = new UsuarioLogueado();
     }
 
     public static MPGlobalSessiones Current
