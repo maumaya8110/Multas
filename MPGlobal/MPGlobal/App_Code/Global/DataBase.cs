@@ -61,7 +61,7 @@ public class DataBase : IDisposable
         Cajeros = 14,
         [StringEnum.StringValue("Sp_Reporte_MultasPagadas")]
         ReporteMultasPagadas = 15,
-        [StringEnum.StringValue("Sp_Reporte_Procesadas")]
+        [StringEnum.StringValue("Sp_Reporte_Multas_Procesadas")]
         ReporteProcesados = 16
 
 

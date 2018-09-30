@@ -31,11 +31,10 @@ public partial class ReporteProcesados : System.Web.UI.Page
                 DateTime FechaIni = DateTime.Parse(txtFechaIni.Text);
                 DateTime FechaFin = DateTime.Parse(txtFechaFin.Text);
 
-                //
+                
+                //MPGlobalSessiones.Current.ReporteMultasProcesadas = db.EjecutaSPCatalogos(DataBase.TipoAccion.Consulta, DataBase.TipoCatalogo.ReporteMultasProcesadas, null).Tables[0].DataTableToList<ReporteProcesados>();//.Where(x => x.idEstado == idEstado && x.idMunicipio == idMunicipio);
+
                 MPGlobalSessiones.Current.ReporteMultasPago = db.EjecutaSPCatalogos(DataBase.TipoAccion.Consulta, DataBase.TipoCatalogo.ReporteMultasPagadas, null).Tables[0].DataTableToList<ReporteMultasPagadas>();//.Where(x => x.idEstado == idEstado && x.idMunicipio == idMunicipio);
-
-                //MPGlobalSessiones.Current.Agentes = db.EjecutaSPCatalogos(DataBase.TipoAccion.Consulta, DataBase.TipoCatalogo.Agentes, null).Tables[0].DataTableToList<Agentes>(); ;
-
 
 
                 IEnumerable<ReporteMultasPagadas> query = MPGlobalSessiones.Current.ReporteMultasPago;
