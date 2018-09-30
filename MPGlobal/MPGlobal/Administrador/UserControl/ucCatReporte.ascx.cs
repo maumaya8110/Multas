@@ -17,41 +17,9 @@ public partial class Administrador_UserControl_ucCatReporte : System.Web.UI.User
     {
 
 
-    }
-
-
-
-    public void GridDatabind()
-    {
-        GridView1.DataBind();
-
-    }
+    }   
 
     public void LlenaGrid()
-    {
-
-        using (DataBase db = new DataBase())
-        {
-
-            GridView1.DataSource = db.EjecutaSPCatalogos(DataBase.TipoAccion.Consulta, DataBase.TipoCatalogo.ReporteMultasPagadas, null);
-            GridView1.DataBind();
-        }
-
-
-    }
-
-
-    protected void GridView1_PageIndexChanging(object sender, GridViewPageEventArgs e)
-    {
-        GridView1.PageIndex = e.NewPageIndex;
-        LlenaGrid();
-    }
-
-
-
-
-
-    protected void LinkBtnConsulta_Click(object sender, EventArgs e)
     {
         try
         {
@@ -74,12 +42,15 @@ public partial class Administrador_UserControl_ucCatReporte : System.Web.UI.User
 
                 query = query.Where(x => x.FechaPago >= FechaIni && x.FechaPago <= FechaFin);
 
-                GridView1.DataSource = MPGlobalSessiones.Current.ReporteMultasPago;
+                //GridView1.DataSource = MPGlobalSessiones.Current.ReporteMultasPago;
+                //GridView1.DataBind();
+
+                GridView1.DataSource = query.ToList();
                 GridView1.DataBind();
 
+                if (query.ToList().Count > 0)
+                    GridView1.HeaderRow.TableSection = TableRowSection.TableHeader;
 
-                //GridView1.DataSource = query.ToList();
-                //GridView1.DataBind();
             }
         }
         catch (Exception x)
@@ -87,35 +58,29 @@ public partial class Administrador_UserControl_ucCatReporte : System.Web.UI.User
             throw x;
         }
 
+
+    }
+       
+
+    protected void LinkBtnConsulta_Click(object sender, EventArgs e)
+    {
+        LlenaGrid();
+
     }
 
-    protected void LinkBtnProcesar_Click(object sender, EventArgs e)
+    
+    protected void lnkContinuar_Click(object sender, EventArgs e)
     {
-
-
         try
         {
-            //using (DataBase db = new DataBase())
-            //{
-
-            //
-
-            //foreach (GridViewRow row in GridView1.Rows)
-            //{
-
-
-            //////-------------------------------
-            //List<SqlParameter> parametros = new List<SqlParameter>();
-            //parametros.Add(new SqlParameter("@IdEstado", ((HiddenField)(row.Cells[1].Controls[1].FindControl("HiddenIdEstado"))).Value));
-
+           
             int id = Helper.GetIdUsuario(Helper.GetUserID());
-            //guarda las ventanas
-            string Descripcion = "";
+          
+            string Descripcion = txtDescripcion.Text;
             int idUsuario = id;
             using (DataBase db = new DataBase())
             {
-                //db.EjecutaSPCatalogos(tipo, DataBase.TipoCatalogo.Usuarios, parametros.ToArray());
-
+               
                 string xml = "";
                 foreach (GridViewRow row in GridView1.Rows)
                 {
@@ -127,14 +92,14 @@ public partial class Administrador_UserControl_ucCatReporte : System.Web.UI.User
                         string IdBoleta = ((HiddenField)(row.Cells[1].Controls[1].FindControl("HiddenIdBoleta"))).Value;
                         string IdMulta = ((HiddenField)(row.Cells[1].Controls[1].FindControl("HiddenIdMulta"))).Value;
 
-                                               
+
                         HiddenField hdn = row.FindControl("hdnIdVentana") as HiddenField;
                         xml += String.Format("<Proceso><IdEstado>{0}</IdEstado>" +
                             "                           <IdMunicipio>{1}</IdMunicipio>" +
                             "                           <IdBoleta>{2}</IdBoleta>" +
                             "                           <IdMulta>{3}</IdMulta>" +
                             "                           <UsuarioProceso>{4}</UsuarioProceso>" +
-                            "               </Proceso>", IdEstado, IdMunicipio,IdBoleta,IdMulta, idUsuario);
+                            "               </Proceso>", IdEstado, IdMunicipio, IdBoleta, IdMulta, idUsuario);
                     }
                 }
                 xml = "<Actualiza>" + xml + "</Actualiza>";
@@ -142,36 +107,19 @@ public partial class Administrador_UserControl_ucCatReporte : System.Web.UI.User
 
                 List<SqlParameter> param = new List<SqlParameter>();
                 param.Add(new SqlParameter("@idUsuario", idUsuario));
-                param.Add(new SqlParameter("@idDescripcion", Descripcion));
+                param.Add(new SqlParameter("@Descripcion", Descripcion));
                 SqlParameter p = new SqlParameter("@Proceso", SqlDbType.Xml);
                 p.Value = xml;
                 param.Add(p);
-                param.Add(new SqlParameter("@usuario", id));
+                //param.Add(new SqlParameter("@usuario", id));
 
                 db.EjecutaProcedure("sp_InsertaProcesoMulta", param.ToArray());
-
-
-
-
             }
 
-            //ddlEstado.SelectedIndex = 0;
-            //ddlMunicipio.SelectedIndex = 0;
-            //ddlRol.SelectedIndex = 0;
-            //txtFirstName.Text = "";
-            //txtApPaterno.Text = "";
-            //txtApMaterno.Text = "";
-            //txtUserName.Text = "";
-            //txtContrasenia.Text = "";
-            //txtConfirmContrasenia.Text = "";
-            //txtEmail.Text = "";
-            //txtTelefono.Text = "";
-
-            ScriptManager.RegisterStartupScript(this.Page, this.Page.GetType(), "Mostrar Modal", "AltaSuccess();", true);
-
-            //this.OnUsuarioAgregado?.Invoke(id);
+           ScriptManager.RegisterStartupScript(this.Page, this.Page.GetType(), "Mostrar Modal", "Success();", true);
 
 
+            LlenaGrid();
         }
         catch (Exception x)
         {

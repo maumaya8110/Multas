@@ -28,7 +28,19 @@
 
     function endReq(sender, args) {
         Datapicker();
+        if($('#GridView1').find('thead').size() > 0)
+            $('#GridView1').DataTable({
+                language: {
+                    search: 'Buscar: ',
+                    info: 'Mostrar _START_ a _END_ de _TOTAL_ registros',
+                    lengthMenu: 'Mostrar _MENU_ registros',
+                    zeroRecords: 'No se encontraron registros con esa coincidencia',
+                    infoEmpty: 'Mostrando 0 registros',
+                    infoFiltered: '(Filtrado de _MAX_ registros en total)',
+                    paginate: {first: "Primero", last:"Ultimo", next:"Siguiente",  previous:"Anterior"}
 
+                }
+            });
     }
 
     function Datapicker() {
@@ -51,144 +63,105 @@
 </script>
 <script type="text/javascript">
 
-
-
-
     function Success() {
 
         swal({
             position: 'top-end',
             type: 'success',
-            title: 'La modificación ha sido exitosa',
-            showConfirmButton: false,
-            timer: 1500
+            title: 'Multas Procesadas exitosamente',
+            showConfirmButton: true
+            //timer: 1500
 
         });
     }
 
-    function AltaSuccess() {
-
-        swal({
-            position: 'top-end',
-            type: 'success',
-            title: 'Alta exitosa',
-            showConfirmButton: false,
-            timer: 1500
-
-        });
-    }
-
-    function EditSuccess() {
-
-        swal({
-            position: 'top-end',
-            type: 'success',
-            title: 'Modificación exitosa',
-            showConfirmButton: false,
-            timer: 1500
-
-        });
-    }
-
-    function DeleteSuccess() {
-
-        swal({
-            position: 'top-end',
-            type: 'success',
-            title: 'Eliminación exitosa',
-            showConfirmButton: false,
-            timer: 1500
-
-        });
-    }
 </script>
 
 <asp:HiddenField ID="HiddenField1AutEli" runat="server" />
 
-<script type="text/javascript">
-    Sys.WebForms.PageRequestManager.getInstance().add_beginRequest(beginReq);
-    Sys.WebForms.PageRequestManager.getInstance().add_endRequest(endReq);
+<div id="modalCompletaInformacion" class="modal fade modal-small" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Completa la siguiente información</h4>
+            </div>
+            <div class="modal-body">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <div class="inputGroupContainer">
+                                    <div class="input-group">
+                                        <span class="input-group-addon"><i class="glyphicon glyphicon-edit"></i></span>
+                                        <asp:TextBox ID="txtDescripcion" runat="server" CssClass="form-control campo_obligatorio" placeholder="DESCRIPCIÓN"></asp:TextBox>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 
-    function beginReq(sender, args) {
-
-
-    }
-
-    function endReq(sender, args) {
-        $(function () {
-            $('#example1').DataTable()
-            $('#GridView1').DataTable()
-            $('#example2').DataTable({
-                'paging': true,
-                'lengthChange': false,
-                'searching': false,
-                'ordering': true,
-                'info': true,
-                'autoWidth': false
-            })
-        })
-
-
-
-    }
-
-
-
-
-
-</script>
-
+                    <div class="row">
+                        <div class="col-sm-12 right">
+                            <br />
+                            <asp:LinkButton CssClass="btn btn-default btn-sm" ID="lnkContinuar" runat="server" OnClick="lnkContinuar_Click" data-target="#modalCompletaInformacion" OnClientClick="javascript:validaCampos(this,event);" Text="Continuar"></asp:LinkButton>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
 <asp:UpdatePanel ID="UpdatePanel1" runat="server">
     <ContentTemplate>
         <div class="box">
-            &nbsp;<asp:UpdatePanel ID="UpdtFiltros" runat="server">
-                <ContentTemplate>
-                    <div id="AddFiltros" class="panel panel-default" style="margin: 1% 2% 2% 2%;">
-                        <%--<div class="panel-heading">Reporte de Multas Pagadas</div>--%>
-                        <div class="panel-body">
-                            <div class="form-inline col-auto">
-                                <div class="form-group">
 
-                                    <%--  <div class='input-group date' id='datetimepicker1'>
+            <div id="AddFiltros" class="panel panel-default" style="margin: 1% 2% 2% 2%;">
+                <%--<div class="panel-heading">Reporte de Multas Pagadas</div>--%>
+                <div class="panel-body">
+                    <div class="form-inline col-auto">
+                        <div class="form-group">
+
+                            <%--  <div class='input-group date' id='datetimepicker1'>
                                         <input type='text' class="form-control" />
                                         <span class="input-group-addon">
                                             <span class="glyphicon glyphicon-calendar"></span>
                                         </span>
                                     </div>--%>
 
-                                    <%--      <div class="input-daterange input-group" id="datetimepicker">
+                            <%--      <div class="input-daterange input-group" id="datetimepicker">
                                         <input type="text" class="input-sm form-control" name="start" />
                                         <span class="input-group-addon">to</span>
                                         <input type="text" class="input-sm form-control" name="end" />
                                     </div>--%>
 
-                                    <div class="input-group date" id="datetimepicker1" data-date-format="dd-mm-yyyy">
-                                        <asp:TextBox ID="txtFechaIni" runat="server" CssClass="form-control campo_obligatorio input-group-addon" placeholder="Fecha Inicial"></asp:TextBox>
-                                        <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+                            <div class="input-group date" id="datetimepicker1" data-date-format="dd-mm-yyyy">
+                                <asp:TextBox ID="txtFechaIni" runat="server" CssClass="form-control campo_obligatorio input-group-addon" placeholder="Fecha Inicial"></asp:TextBox>
+                                <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
 
-                                        <%--<span class="input-group-addon"> al </span>--%>
-                                    </div>
-
-
-                                    <div class="input-group date" id="datetimepicker2" data-date-format="dd-mm-yyyy">
-                                        <asp:TextBox ID="txtFechaFin" runat="server" CssClass="form-control campo_obligatorio  input-group-addon" placeholder="Fecha Final"></asp:TextBox>
-                                        <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
-
-                                    </div>
-
-                                    <asp:LinkButton ID="LinkBtnConsulta" runat="server" class="btn btn-default btn-sm" CommandName="LinkBtnConsulta" OnClick="LinkBtnConsulta_Click" type="button">
-                                            <span class="glyphicon glyphicon-search"></span>Consultar
-                                    </asp:LinkButton>
-                                    <a class="btn btn-default btn-sm" data-target="#modalCompletaInformacion" data-toggle="modal">
-                                        <span class="glyphicon glyphicon-transfer"></span>Procesar
-                                    </a>
-                                </div>
+                                <%--<span class="input-group-addon"> al </span>--%>
                             </div>
+
+
+                            <div class="input-group date" id="datetimepicker2" data-date-format="dd-mm-yyyy">
+                                <asp:TextBox ID="txtFechaFin" runat="server" CssClass="form-control campo_obligatorio  input-group-addon" placeholder="Fecha Final"></asp:TextBox>
+                                <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+
+                            </div>
+
+                            <asp:LinkButton ID="LinkBtnConsulta" runat="server" class="btn btn-default btn-sm" CommandName="LinkBtnConsulta" OnClick="LinkBtnConsulta_Click" type="button">
+                                            <span class="glyphicon glyphicon-search"></span>Consultar
+                            </asp:LinkButton>
+                            <a class="btn btn-default btn-sm" data-target="#modalCompletaInformacion" data-toggle="modal">
+                                <span class="glyphicon glyphicon-transfer"></span>Procesar
+                            </a>
+
                         </div>
                     </div>
-                </ContentTemplate>
-            </asp:UpdatePanel>
+                </div>
+            </div>
+
             <%--  --%>
             <!-- /.box-header -->
             <div class="box-body">
@@ -253,73 +226,13 @@
                         </asp:TemplateField>
                     </Columns>
                 </asp:GridView>
-
-                <div id="modalCompletaInformacion" class="modal fade modal-small" role="dialog">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                <h4 class="modal-title">Complete la siguiente información</h4>
-                            </div>
-                            <div class="modal-body">
-                                <div class="container">
-                                    <div class="row">
-                                        <div class="col-sm-12">
-                                            <div class="form-group">
-                                                <div class="inputGroupContainer">
-                                                    <div class="input-group">
-                                                        <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-                                                        <asp:TextBox ID="txtDescripcion" runat="server" CssClass="form-control campo_obligatorio" placeholder="Recibo"></asp:TextBox>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="row">
-                                        <div class="col-sm-12 right">
-                                            <br />
-                                            <asp:LinkButton CssClass="" ID="LinkBtnProcesar" runat="server" class="btn btn-default btn-sm" CommandName="LinkBtnProcesar" OnClick="LinkBtnProcesar_Click" type="button">
-                                            <span class="glyphicon glyphicon-retweet"></span>Continuar
-                                            </asp:LinkButton>
-
-                                            <%--<asp:LinkButton CssClass="btn btn-default btn-sm" ID="lnkProcesado" runat="server" OnClick="lnkProcesado_Click" data-target="#modalCompletaInformacion" OnClientClick="javascript:validaCampos(this,event);" Text="Continuar"></asp:LinkButton>--%>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
             </div>
+
+
+
             <!-- /.box-body -->
         </div>
 
 
     </ContentTemplate>
 </asp:UpdatePanel>
-
-
-
-<!-- jQuery 3 -->
-<%--<script src="../bower_components/jquery/dist/jquery.min.js"></script>--%>
-<!-- Bootstrap 3.3.7 -->
-<script src="../bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-<!-- DataTables -->
-<script src="../bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
-<script src="../bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
-<!-- SlimScroll -->
-<script src="../bower_components/jquery-slimscroll/jquery.slimscroll.min.js"></script>
-<!-- FastClick -->
-<script src="../bower_components/fastclick/lib/fastclick.js"></script>
-<!-- AdminLTE App -->
-<%--<script src="../dist/js/adminlte.min.js"></script>--%>
-<!-- AdminLTE for demo purposes -->
-<%--<script src="../dist/js/demo.js"></script>--%>
-<!-- page script -->
-
-
-
-<!-- Mirrored from adminlte.io/themes/AdminLTE/pages/tables/data.html by HTTrack Website Copier/3.x [XR&CO'2010], Mon, 27 Aug 2018 16:46:30 GMT -->
-<!-- Added by HTTrack -->
-<meta http-equiv="content-type" content="text/html;charset=utf-8">
