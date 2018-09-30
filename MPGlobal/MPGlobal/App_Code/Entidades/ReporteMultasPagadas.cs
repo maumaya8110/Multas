@@ -18,7 +18,7 @@ public class ReporteMultasPagadas
     public string Cantidad { get; set; }
     public string DPPMulta { get; set; }
     public string AplicaDesc { get; set; }
-    public DateTime? Fechapago { get; set; }
+    public DateTime FechaPago { get; set; }
     public string Total { get; set; }
     public string ReciboPago { get; set; }
     public string IdPlaca { get; set; }
