@@ -5,17 +5,6 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="FeaturedContent" runat="Server">
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="MainContent" runat="Server">
-
-    <%--Para que funcione el datapicker--%>
-    <link href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.css" rel="stylesheet" />
-    <link href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/css/bootstrap-datetimepicker.css" rel="stylesheet" />
-
-    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.15.2/moment.min.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/js/bootstrap-datetimepicker.min.js"></script>
-    <%--Fin--%>
-
     <asp:ScriptManager ID="scriptManager" runat="server"></asp:ScriptManager>
     <asp:UpdatePanel ID="updDescargaMulta" runat="server">
         <ContentTemplate>
@@ -24,7 +13,7 @@
                     <div class="form-inline col-auto">
                         <div class="form-group">
                             <div class="input-group">
-                                <span class="input-group-addon"><span class="glyphicon glyphicon-road"></span></span>
+                                <span class="input-group-addon"><span class="glyphicon glyphicon-list-alt"></span></span>
                                 <asp:TextBox ID="txtPlaca" runat="server" CssClass="form-control" placeholder="Placa"></asp:TextBox>
                             </div>
                         </div>
@@ -82,19 +71,13 @@
                         </asp:TemplateField>
                         <asp:TemplateField HeaderStyle-Width="150px" HeaderText="IMPORTE">
                             <ItemTemplate>
-                                <asp:Label ID="lblIMPORTE" runat="server"><%# Eval("Cantidad")%></asp:Label>
+                                <asp:Label ID="lblIMPORTE" runat="server"><%# Eval("TotalPago")%></asp:Label>
                             </ItemTemplate>
 
                         </asp:TemplateField>
                         <asp:TemplateField HeaderStyle-Width="150px" HeaderText="DESCUENTO">
                             <ItemTemplate>
                                 <asp:Label ID="lblDescuento" runat="server"><%# Eval("AplicaDesc")%></asp:Label>
-                            </ItemTemplate>
-
-                        </asp:TemplateField>
-                        <asp:TemplateField HeaderStyle-Width="150px" HeaderText="TOTAL">
-                            <ItemTemplate>
-                                <asp:Label ID="lblTotal" runat="server"><%# Eval("Total")%></asp:Label>
                             </ItemTemplate>
 
                         </asp:TemplateField>
@@ -176,7 +159,7 @@
                     zeroRecords: 'No se encontraron registros con esa coincidencia',
                     infoEmpty: 'Mostrando 0 registros',
                     infoFiltered: '(Filtrado de _MAX_ registros en total)',
-                    paginate: {first: "Primero", last:"Ultimo", next:"Siguiente",  previous:"Anterior"}
+                    paginate: { first: "Primero", last: "Ultimo", next: "Siguiente", previous: "Anterior" }
 
                 }
             });
@@ -207,8 +190,24 @@
         }
 
         function terminaDescarte() {
-            $('body').removeClass('');
+            $('.modal-backdrop').remove();
+            $('body').removeClass('modal-open');
             $('#modalCompletaInformacion').modal('hide');
+            swal({
+                position: 'top-end',
+                type: 'success',
+                title: 'Se ha hecho el descarte correctamente.',
+                showConfirmButton: false,
+                timer: 1500
+
+            });
         }
     </script>
+      <%--Para que funcione el datapicker--%>
+
+    
+    <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.15.2/moment.min.js"></script>
+    
+    <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/js/bootstrap-datetimepicker.min.js"></script>
+    <%--Fin--%>
 </asp:Content>

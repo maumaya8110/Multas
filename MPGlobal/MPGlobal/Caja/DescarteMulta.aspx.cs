@@ -13,14 +13,7 @@ public partial class Caja_DescarteMulta : System.Web.UI.Page
     {
         if (!IsPostBack)
         {
-            try
-            {
-                using (DataBase db = new DataBase())
-                {
-                    MPGlobalSessiones.Current.ReporteMultasPago = db.EjecutaSPCatalogos(DataBase.TipoAccion.Consulta, DataBase.TipoCatalogo.ReporteMultasPagadas, null).Tables[0].DataTableToList<ReporteMultasPagadas>();
-                }
-            }
-            catch { }
+            recargaInformacion();
         }
     }
 
@@ -28,7 +21,7 @@ public partial class Caja_DescarteMulta : System.Web.UI.Page
     {
         try
         {
-            IEnumerable<ReporteMultasPagadas> query = MPGlobalSessiones.Current.ReporteMultasPago.Where(x => x.ReciboPago == "" && x.FechaPago == null && x.IdPlaca == txtPlaca.Text);
+            IEnumerable<ReporteMultasSinPagar> query = MPGlobalSessiones.Current.ReporteMultasSinPagar.Where(x => x.IdPlaca == txtPlaca.Text);
             grdDetalleMultas.DataSource = query.ToList();
             grdDetalleMultas.DataBind();
 
@@ -64,7 +57,23 @@ public partial class Caja_DescarteMulta : System.Web.UI.Page
                 }
             }
 
+            //recarga
+            recargaInformacion();
+            btnBuscarMulta_Click(null, null);
+
             ScriptManager.RegisterStartupScript(updDescargaMulta, updDescargaMulta.GetType(), "terminaDescarte_function", "terminaDescarte();", true);
         }
+    }
+
+    private void recargaInformacion()
+    {
+        try
+        {
+            using (DataBase db = new DataBase())
+            {
+                MPGlobalSessiones.Current.ReporteMultasSinPagar = db.EjecutaSPCatalogos(DataBase.TipoAccion.Consulta, DataBase.TipoCatalogo.ReporteMultasSinPagar, null).Tables[0].DataTableToList<ReporteMultasSinPagar>();
+            }
+        }
+        catch { }
     }
 }
