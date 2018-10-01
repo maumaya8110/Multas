@@ -9,7 +9,7 @@ using System.Data.SqlClient;
 using System.Web.Script.Serialization;
 
 /// <summary>
-/// Descripción breve de MPGlobalService
+/// MPGlobalService
 /// </summary>
 [WebService(Namespace = "http://tempuri.org/")]
 [WebServiceBinding(ConformsTo = WsiProfiles.BasicProfile1_1)]
@@ -25,6 +25,16 @@ public class MPGlobalService : System.Web.Services.WebService
         //InitializeComponent(); 
     }   
 
+    /// <summary>
+    /// Obtiene las Multas en una fecha proporcionada
+    /// </summary>
+    /// <param name="idLicenciaEst"></param>
+    /// <param name="idLicenciaMun"></param>
+    /// <param name="idEstado"></param>
+    /// <param name="idMunicipio"></param>
+    /// <param name="fechaIni"></param>
+    /// <param name="fechaFin"></param>
+    /// <returns>JSON</returns>
     [WebMethod]
     [ScriptMethod(ResponseFormat= ResponseFormat.Json)]
     public string ObtieneMultas(int idLicenciaEst, int idLicenciaMun, int idEstado, int idMunicipio, DateTime fechaIni, DateTime fechaFin)
@@ -48,12 +58,42 @@ public class MPGlobalService : System.Web.Services.WebService
             return new JavaScriptSerializer().Serialize(json);
         }
     }
-
+    
+    
+    /// <summary>
+    /// Marca la multa propoorcionada como pagada
+    /// </summary>
+    /// <param name="idLicenciaEst"></param>
+    /// <param name="idLicenciaMun"></param>
+    /// <param name="idEstado"></param>
+    /// <param name="idMunicipio"></param>
+    /// <param name="idBoleta"></param>
+    /// <param name="recibo"></param>
+    /// <param name="fechaPago"></param>
+    /// <returns>JSON</returns>
     [WebMethod]
     [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
-    public string DescartaMulta(int idLicenciaEst, int idLicenciaMun, int[] multas, string recibo, DateTime fechaPago)
+    public string DescartaMulta(int idLicenciaEst, int idLicenciaMun, int idEstado, int idMunicipio, int idBoleta, string recibo, DateTime fechaPago)
     {
-        return "";
+        using (DataBase db = new DataBase())
+        {
+            List<SqlParameter> parametros = new List<SqlParameter>();
+            parametros.Add(new SqlParameter("@idEstado", idEstado));
+            parametros.Add(new SqlParameter("@idMunicipio", idMunicipio));
+            parametros.Add(new SqlParameter("@idLicenciaE", idLicenciaEst));
+            parametros.Add(new SqlParameter("@idLicenciaM", idLicenciaMun));
+            parametros.Add(new SqlParameter("@idBoleta", idBoleta));
+            parametros.Add(new SqlParameter("@recibo", recibo));
+            parametros.Add(new SqlParameter("@fechaPago", fechaPago));
+
+            DataSet ds = db.ObtieneDatos("Sp_DescargaMultaService", parametros.ToArray());
+            JSONDescarteMulta json = new JSONDescarteMulta();
+            json.Resultado = ds.Tables[0].DataTableToList<Resultado>().FirstOrDefault();
+            if (ds.Tables[0].Rows[0]["estatus"].ToString() == "1")
+                json.Mensaje = ds.Tables[1].Rows[0]["resultadoText"].ToString();
+
+            return new JavaScriptSerializer().Serialize(json);
+        }
     }
 
 }
