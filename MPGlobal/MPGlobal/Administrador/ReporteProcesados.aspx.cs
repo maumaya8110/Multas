@@ -25,24 +25,18 @@ public partial class ReporteProcesados : System.Web.UI.Page
         {
             using (DataBase db = new DataBase())
             {
-                //string FechaIni = txtFechaIni.Text;
-                //string FechaFin = txtFechaFin.Text;
 
                 DateTime FechaIni = DateTime.Parse(txtFechaIni.Text);
                 DateTime FechaFin = DateTime.Parse(txtFechaFin.Text);
 
-                
-                //MPGlobalSessiones.Current.ReporteMultasProcesadas = db.EjecutaSPCatalogos(DataBase.TipoAccion.Consulta, DataBase.TipoCatalogo.ReporteMultasProcesadas, null).Tables[0].DataTableToList<ReporteProcesados>();//.Where(x => x.idEstado == idEstado && x.idMunicipio == idMunicipio);
 
-                MPGlobalSessiones.Current.ReporteMultasPago = db.EjecutaSPCatalogos(DataBase.TipoAccion.Consulta, DataBase.TipoCatalogo.ReporteMultasPagadas, null).Tables[0].DataTableToList<ReporteMultasPagadas>();//.Where(x => x.idEstado == idEstado && x.idMunicipio == idMunicipio);
+               MPGlobalSessiones.Current.ReporteMultasProcesadas = db.EjecutaSPCatalogos(DataBase.TipoAccion.Consulta, DataBase.TipoCatalogo.ReporteProcesadas, null).Tables[0].DataTableToList<ReporteMultasProcesadas>();
 
+              
 
-                IEnumerable<ReporteMultasPagadas> query = MPGlobalSessiones.Current.ReporteMultasPago;
+                IEnumerable<ReporteMultasProcesadas> query = MPGlobalSessiones.Current.ReporteMultasProcesadas;
 
-                query = query.Where(x => x.FechaPago >= FechaIni && x.FechaPago <= FechaFin);
-
-                //GridView1.DataSource = MPGlobalSessiones.Current.ReporteMultasPago;
-                //GridView1.DataBind();
+                query = query.Where(x => x.FechaProcesado >= FechaIni && x.FechaProcesado <= FechaFin);
 
                 GridView1.DataSource = query.ToList();
                 GridView1.DataBind();
@@ -67,14 +61,16 @@ public partial class ReporteProcesados : System.Web.UI.Page
     }
 
 
-    protected void lnkContinuar_Click(object sender, EventArgs e)
+  
+
+    protected void lnkGuardar_Click(object sender, EventArgs e)
     {
         try
         {
 
             int id = Helper.GetIdUsuario(Helper.GetUserID());
 
-            string Descripcion = txtDescripcion.Text;
+            //string Descripcion = txtDescripcion.Text;
             int idUsuario = id;
             using (DataBase db = new DataBase())
             {
@@ -105,7 +101,7 @@ public partial class ReporteProcesados : System.Web.UI.Page
 
                 List<SqlParameter> param = new List<SqlParameter>();
                 param.Add(new SqlParameter("@idUsuario", idUsuario));
-                param.Add(new SqlParameter("@Descripcion", Descripcion));
+                //param.Add(new SqlParameter("@Descripcion", Descripcion));
                 SqlParameter p = new SqlParameter("@Proceso", SqlDbType.Xml);
                 p.Value = xml;
                 param.Add(p);
@@ -123,6 +119,5 @@ public partial class ReporteProcesados : System.Web.UI.Page
         {
             throw x;
         }
-
     }
 }

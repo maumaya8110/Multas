@@ -6,14 +6,14 @@ using System.Web;
 /// <summary>
 /// Descripción breve de Municipio
 /// </summary>
-public class ReporteProcesados
+public class ReporteMultasProcesadas
 {
     public int IdEstado { get; set; }
     public string NomEstado { get; set; }
     public int IdMunicipio { get; set; }
     public string NomMunicipio { get; set; }
     public string IdProcesado { get; set; }
-    public int Descripcion { get; set; }
+    public string Descripcion { get; set; }
     public DateTime FechaProcesado { get; set; }
     public string UsuarioProcesado { get; set; }
     public string MontoPagoMpoGenera { get; set; }
