@@ -65,7 +65,7 @@
                             <asp:TemplateField HeaderStyle-Width="10%" ItemStyle-HorizontalAlign="Center">
                                 <ItemTemplate>
                                     
-                                    <a class="btn btn-default btn-sm" onclick=' Var(<%# Eval("MontoPagoMpoGenera")%>,<%# Eval("MontoPagoMpoCobra")%>,<%# Eval("MontoPagoEmpresa")%>)'>
+                                    <a class="btn btn-default btn-sm" onclick='Var(<%# Eval("IdProcesado")%>, Var(<%# Eval("MontoPagoMpoGenera")%>,<%# Eval("MontoPagoMpoCobra")%>,<%# Eval("MontoPagoEmpresa")%>)'>
                                         <span class=""></span>Seleccionar
                                     </a>
                                 </ItemTemplate>
@@ -151,30 +151,8 @@
                 </div>
                 <div class="modal-body">
                     <div class="container">
-
-                        <%--<div class="row">
-                                    <div class="col-sm-12">
-                                        <div class="form-group">
-                                            <div class="inputGroupContainer">
-                                                <div class="input-group">
-                                                    <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-                                                    <asp:TextBox ID="txtRecibo" runat="server" CssClass="form-control campo_obligatorio" placeholder="Recibo"></asp:TextBox>
-                                                    <asp:Label ID="lblM1" runat="server" Text="MontoPagoMpoGenera"></asp:Label>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-sm-12">
-                                        <br />
-                                        <div class="input-group date" id="datetimepicker3" data-date-format="dd-mm-yyyy">
-                                            <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
-                                            <asp:TextBox ID="txtFechaPago" runat="server" CssClass="form-control campo_obligatorio input-group-addon" Style="width: 100%; text-align: left;" placeholder="Fecha pago"></asp:TextBox>
-
-                                        </div>
-                                    </div>
-                                </div>--%>
+                         <asp:Label ID="lblIdP" runat="server" Text="IdProceso"></asp:Label>
+                       
                         <table class="table table-bordered">
                             <thead>
                                 <tr>
@@ -206,7 +184,7 @@
                                         <div class="input-group date" id="datetimepicker3" data-date-format="dd-mm-yyyy">
                                             <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
                                             <asp:TextBox ID="txtFechaPagoM1" runat="server" CssClass="form-control campo_obligatorio input-group-addon" Style="width: 100%; text-align: left;" placeholder="Fecha pago"></asp:TextBox>
-
+                                           
                                         </div>
                                     </td>
                                     <td>
@@ -312,8 +290,9 @@
 
     </script>
     <script type="text/javascript">
-        function Var(M1, M2, M3) {
+        function Var(IdP, M1, M2, M3) {
 
+            $('span[id$="lblIdP"]').text(IdP);
             $('span[id$="lblM1"]').text(M1);
             $('span[id$="lblM2"]').text(M2);
             $('span[id$="lblM3"]').text(M3);

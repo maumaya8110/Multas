@@ -30,9 +30,9 @@ public partial class ReporteProcesados : System.Web.UI.Page
                 DateTime FechaFin = DateTime.Parse(txtFechaFin.Text);
 
 
-               MPGlobalSessiones.Current.ReporteMultasProcesadas = db.EjecutaSPCatalogos(DataBase.TipoAccion.Consulta, DataBase.TipoCatalogo.ReporteProcesadas, null).Tables[0].DataTableToList<ReporteMultasProcesadas>();
+                MPGlobalSessiones.Current.ReporteMultasProcesadas = db.EjecutaSPCatalogos(DataBase.TipoAccion.Consulta, DataBase.TipoCatalogo.ReporteProcesadas, null).Tables[0].DataTableToList<ReporteMultasProcesadas>();
 
-              
+
 
                 IEnumerable<ReporteMultasProcesadas> query = MPGlobalSessiones.Current.ReporteMultasProcesadas;
 
@@ -61,7 +61,7 @@ public partial class ReporteProcesados : System.Web.UI.Page
     }
 
 
-  
+
 
     protected void lnkGuardar_Click(object sender, EventArgs e)
     {
@@ -74,46 +74,42 @@ public partial class ReporteProcesados : System.Web.UI.Page
             int idUsuario = id;
             using (DataBase db = new DataBase())
             {
-
                 string xml = "";
-                foreach (GridViewRow row in GridView1.Rows)
-                {
-                    CheckBox chk = row.FindControl("CheckBoxMulta") as CheckBox;
-                    if (chk.Checked == true)
-                    {
-                        string IdEstado = ((HiddenField)(row.Cells[1].Controls[1].FindControl("HiddenIdEstado"))).Value;
-                        string IdMunicipio = ((HiddenField)(row.Cells[1].Controls[1].FindControl("HiddenIdMunicipio"))).Value;
-                        string IdBoleta = ((HiddenField)(row.Cells[1].Controls[1].FindControl("HiddenIdBoleta"))).Value;
-                        string IdMulta = ((HiddenField)(row.Cells[1].Controls[1].FindControl("HiddenIdMulta"))).Value;
+
+                string IdProceso = lblIdP.Text;
+                string FechaPagoM1 = txtFechaPagoM1.Text;
+                string FechaPagoM2 = txtFechaPagoM2.Text;
+                string FechaPagoM3 = txtFechaPagoM3.Text;
+
+                xml += String.Format("<Proceso><IdProceso>{0}</IdProceso>" +
+                    "                           <FechaMonto1>{1}</FechaMonto1>" +
+                    "                           <FechaMonto2>{2}</FechaMonto2>" +
+                    "                           <FechaMonto3>{3}</FechaMonto3>" +
+                    "                           <UsuarioProceso>{4}</UsuarioProceso>" +
+                    "               </Proceso>", IdProceso, FechaPagoM1, FechaPagoM2, FechaPagoM3, idUsuario);
 
 
-                        HiddenField hdn = row.FindControl("hdnIdVentana") as HiddenField;
-                        xml += String.Format("<Proceso><IdEstado>{0}</IdEstado>" +
-                            "                           <IdMunicipio>{1}</IdMunicipio>" +
-                            "                           <IdBoleta>{2}</IdBoleta>" +
-                            "                           <IdMulta>{3}</IdMulta>" +
-                            "                           <UsuarioProceso>{4}</UsuarioProceso>" +
-                            "               </Proceso>", IdEstado, IdMunicipio, IdBoleta, IdMulta, idUsuario);
-                    }
-                }
                 xml = "<Actualiza>" + xml + "</Actualiza>";
                 XElement xel = XElement.Parse(xml);
 
                 List<SqlParameter> param = new List<SqlParameter>();
-                param.Add(new SqlParameter("@idUsuario", idUsuario));
-                //param.Add(new SqlParameter("@Descripcion", Descripcion));
+                param.Add(new SqlParameter("@TipoMovimiento", 4));
+                param.Add(new SqlParameter("@echaIni", ""));
+                param.Add(new SqlParameter("@echaFin", ""));
+
                 SqlParameter p = new SqlParameter("@Proceso", SqlDbType.Xml);
                 p.Value = xml;
                 param.Add(p);
-                //param.Add(new SqlParameter("@usuario", id));
 
-                db.EjecutaProcedure("sp_InsertaProcesoMulta", param.ToArray());
+
+                db.EjecutaProcedure("Sp_Reporte_Procesadas", param.ToArray());
             }
+
+
 
             ScriptManager.RegisterStartupScript(this.Page, this.Page.GetType(), "Mostrar Modal", "Success();", true);
 
 
-            LlenaGrid();
         }
         catch (Exception x)
         {
