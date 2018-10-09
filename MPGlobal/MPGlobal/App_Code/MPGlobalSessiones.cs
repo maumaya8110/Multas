@@ -11,7 +11,6 @@ public class MPGlobalSessiones
     public List<Usuario> UsuariosAdministrador;
     public List<Municipio> CatMunicipios;
     public List<ReporteMultasPagadas> ReporteMultasPago;
-    public List<ReporteMultasProcesadas> ReporteMultasProcesadas;
     public List<Agentes> Agentes;
     public List<Cajeros> Cajeros;
     public List<Estado> Estado;
@@ -31,7 +30,7 @@ public class MPGlobalSessiones
         CatMunicipios = new List<Municipio>();
         ReporteMultasPago = new List<ReporteMultasPagadas>();
         ReporteMultasSinPagar = new List<ReporteMultasSinPagar>();
-        ReporteMultasProcesadas = new List<ReporteMultasProcesadas>();
+
         Agentes = new List<Agentes>();
         Cajeros = new List<Cajeros>();
         Estado = new List<Estado>();
