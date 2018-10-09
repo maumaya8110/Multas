@@ -65,7 +65,7 @@
                             <asp:TemplateField HeaderStyle-Width="10%" ItemStyle-HorizontalAlign="Center">
                                 <ItemTemplate>
                                     
-                                    <a class="btn btn-default btn-sm" onclick='Var(<%# Eval("IdProcesado")%>, Var(<%# Eval("MontoPagoMpoGenera")%>,<%# Eval("MontoPagoMpoCobra")%>,<%# Eval("MontoPagoEmpresa")%>)'>
+                                    <a class="btn btn-default btn-sm" onclick=' Var(<%# Eval("IdProcesado")%>,<%# Eval("MontoPagoMpoGenera")%>,<%# Eval("MontoPagoMpoCobra")%>,<%# Eval("MontoPagoEmpresa")%>)'>
                                         <span class=""></span>Seleccionar
                                     </a>
                                 </ItemTemplate>
