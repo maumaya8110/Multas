@@ -87,6 +87,8 @@
 
 <asp:HiddenField ID="HiddenField1AutEli" runat="server" />
 
+
+
 <script type="text/javascript">
     Sys.WebForms.PageRequestManager.getInstance().add_beginRequest(beginReq);
     Sys.WebForms.PageRequestManager.getInstance().add_endRequest(endReq);
@@ -96,26 +98,41 @@
 
     }
 
+    //function endReq(sender, args) {
+    //    $(function () {
+    //        $('#example1').DataTable()
+    //        $('#GridView1').DataTable()
+    //        $('#example2').DataTable({
+    //            'paging': true,
+    //            'lengthChange': false,
+    //            'searching': false,
+    //            'ordering': true,
+    //            'info': true,
+    //            'autoWidth': false
+    //        })
+    //    })
+
+
+
+    //}
+
+
     function endReq(sender, args) {
-        $(function () {
-            $('#example1').DataTable()
-            $('#GridView1').DataTable()
-            $('#example2').DataTable({
-                'paging': true,
-                'lengthChange': false,
-                'searching': false,
-                'ordering': true,
-                'info': true,
-                'autoWidth': false
-            })
-        })
+           
+            if ($('#GridView1').find('thead').size() > 0)
+                $('#GridView1').DataTable({
+                    language: {
+                        search: 'Buscar: ',
+                        info: 'Mostrar _START_ a _END_ de _TOTAL_ registros',
+                        lengthMenu: 'Mostrar _MENU_ registros',
+                        zeroRecords: 'No se encontraron registros con esa coincidencia',
+                        infoEmpty: 'Mostrando 0 registros',
+                        infoFiltered: '(Filtrado de _MAX_ registros en total)',
+                        paginate: { first: "Primero", last: "Ultimo", next: "Siguiente", previous: "Anterior" }
 
-
-
-    }
-
-
-
+                    }
+                });
+        }
 
 
 </script>

@@ -21,7 +21,12 @@
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="MainContent" runat="Server">
     <asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager>
+
     <div class="box-header">
+
+        <h3 id="titleHeader" runat="server">Administrador
+            <small>Catálogos</small>
+        </h3>
         <%--<h3 class="box-title">Administrador de Catálogos</h3>--%>
         <br />
         <div class="form-inline ">
@@ -32,7 +37,7 @@
                 <span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
                 <asp:DropDownList ID="DropCatalogos" AutoPostBack="true" runat="server" name="department" class="form-control selectpicker" OnSelectedIndexChanged="DropCatalogos_SelectedIndexChanged">
                     <asp:ListItem>Selecciona el catalogo</asp:ListItem>
-              
+
                     <asp:ListItem>Agentes</asp:ListItem>
                     <asp:ListItem>Cajeros</asp:ListItem>
                     <asp:ListItem>Estados</asp:ListItem>
@@ -72,5 +77,7 @@
     <uc1:ucCatFunciones runat="server" ID="ucCatFunciones" />
     <uc1:ucCatCajeros runat="server" ID="ucCatCajeros" />
     
+    
+
 </asp:Content>
 

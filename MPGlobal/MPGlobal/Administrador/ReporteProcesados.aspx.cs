@@ -76,11 +76,11 @@ public partial class ReporteProcesados : System.Web.UI.Page
             {
                 string xml = "";
 
-                string IdProceso = lblIdP.Text;
-                string FechaPagoM1 = txtFechaPagoM1.Text;
+                int IdProceso = int.Parse(hdnIdP.Value);
+                string FechaPagoM1 =txtFechaPagoM1.Text;
                 string FechaPagoM2 = txtFechaPagoM2.Text;
                 string FechaPagoM3 = txtFechaPagoM3.Text;
-
+                
                 xml += String.Format("<Proceso><IdProceso>{0}</IdProceso>" +
                     "                           <FechaMonto1>{1}</FechaMonto1>" +
                     "                           <FechaMonto2>{2}</FechaMonto2>" +
@@ -93,9 +93,7 @@ public partial class ReporteProcesados : System.Web.UI.Page
                 XElement xel = XElement.Parse(xml);
 
                 List<SqlParameter> param = new List<SqlParameter>();
-                param.Add(new SqlParameter("@TipoMovimiento", 4));
-                param.Add(new SqlParameter("@echaIni", ""));
-                param.Add(new SqlParameter("@echaFin", ""));
+                param.Add(new SqlParameter("@TipoMovimiento", 4));               
 
                 SqlParameter p = new SqlParameter("@Proceso", SqlDbType.Xml);
                 p.Value = xml;

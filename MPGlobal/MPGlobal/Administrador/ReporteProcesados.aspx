@@ -64,20 +64,13 @@
                             <%--botones de acción sobre los registros...--%>
                             <asp:TemplateField HeaderStyle-Width="10%" ItemStyle-HorizontalAlign="Center">
                                 <ItemTemplate>
-<<<<<<< HEAD
-
-=======
->>>>>>> e2ca3d36403473d4364ff06f0e2c1544c1c13e7d
                                     
                                     <a class="btn btn-default btn-sm" onclick=' Var(<%# Eval("IdProcesado")%>,<%# Eval("MontoPagoMpoGenera")%>,<%# Eval("MontoPagoMpoCobra")%>,<%# Eval("MontoPagoEmpresa")%>)'>
                                         <span class=""></span>Seleccionar
                                     </a>
-<<<<<<< HEAD
 
-=======
->>>>>>> e2ca3d36403473d4364ff06f0e2c1544c1c13e7d
                                     <%--CheckBox para seleccionar registros...--%>
-                                    <asp:CheckBox ID="CheckBoxMulta" Checked="true" runat="server" />
+                                   <%-- <asp:CheckBox ID="CheckBoxMulta" Checked="true" runat="server" />--%>
 
 
                                 </ItemTemplate>
@@ -99,7 +92,7 @@
                             </asp:TemplateField>
                             <asp:TemplateField HeaderStyle-Width="150px" HeaderText="Id">
                                 <ItemTemplate>
-                                    <asp:Label ID="lblIdProcesado" runat="server"><%# Eval("IdProcesado")%></asp:Label>
+                                    <asp:Label ID="lblIdProcesado" runat="server" Text='<%# Eval("IdProcesado")%>'></asp:Label>
                                     <asp:HiddenField ID="HiddenIdProcesado" runat="server" Value='<%# Eval("IdProcesado") %>' />
                                 </ItemTemplate>
 
@@ -114,19 +107,19 @@
                             </asp:TemplateField>
                             <asp:TemplateField HeaderStyle-Width="150px" HeaderText="Fecha Procesado">
                                 <ItemTemplate>
-                                    <asp:Label ID="lblFechaProcesado" runat="server"><%# Eval("FechaProcesado")%></asp:Label>
+                                    <asp:Label ID="lblFechaProcesado" runat="server" Text='<%# Eval("FechaProcesado")%>'></asp:Label>
                                 </ItemTemplate>
 
                             </asp:TemplateField>
                             <asp:TemplateField HeaderStyle-Width="150px" HeaderText="Usuario">
                                 <ItemTemplate>
-                                    <asp:Label ID="lblUsuario" runat="server"><%# Eval("UsuarioProcesado")%></asp:Label>
+                                    <asp:Label ID="lblUsuario" runat="server" Text='<%# Eval("UsuarioProcesado")%>'></asp:Label>
                                 </ItemTemplate>
 
                             </asp:TemplateField>
                             <asp:TemplateField HeaderStyle-Width="150px" HeaderText="Monto Municipio Generador">
                                 <ItemTemplate>
-                                    <asp:Label ID="lblMontoPagoMpoGenera" runat="server"><%# Eval("MontoPagoMpoGenera")%></asp:Label>
+                                    <asp:Label ID="lblMontoPagoMpoGenera" runat="server" Text='<%# Eval("MontoPagoMpoGenera")%>'></asp:Label>
                                 </ItemTemplate>
                             </asp:TemplateField>
 
@@ -163,10 +156,15 @@
                 </div>
                 <div class="modal-body">
                     <div class="container">
-                         <asp:Label ID="lblIdP" runat="server" Text="IdProceso"></asp:Label>
+
+                       
 
                         <table class="table table-bordered">
                             <thead>
+                                <tr ><th colspan="3"> <asp:Label ID="Label1" runat="server" Text="Id Proceso:"></asp:Label> 
+                                    <asp:Label ID="lblIdP" runat="server" Text=""></asp:Label>
+                                    <asp:HiddenField ID="hdnIdP" runat="server" ClientIDMode="Static" />
+                                     </th></tr>
                                 <tr>
 
                                     <th scope="col">Monto Municipio Generador</th>
@@ -305,9 +303,12 @@
         function Var(IdP, M1, M2, M3) {
 
             $('span[id$="lblIdP"]').text(IdP);
+             $('#hdnIdP').val(IdP);
+            
             $('span[id$="lblM1"]').text(M1);
             $('span[id$="lblM2"]').text(M2);
             $('span[id$="lblM3"]').text(M3);
+            
 
             $('#modalCompletaInformacion').modal('show');
 

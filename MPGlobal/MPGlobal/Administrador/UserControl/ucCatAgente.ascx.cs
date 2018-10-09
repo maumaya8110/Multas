@@ -208,21 +208,21 @@ public partial class Administrador_UserControl_ucCatAgente : System.Web.UI.UserC
     }
 
 
-    protected void txtSearch_TextChanged(object sender, EventArgs e)
-    {
-        string search = txtSearch.Text.ToLower();
-        if (search.Length > 0)
-        {
-            GridView1.DataSource = MPGlobalSessiones.Current.Agentes.Where(x => x.Nombre.ToLower().Contains(search) || x.nomMunicipio.ToLower().Contains(search) || x.Referencia.ToLower().Contains(search) || x.Apaterno.ToLower().Contains(search) || x.Amaterno.ToLower().Contains(search) ).ToList();
-            GridView1.DataBind();
-        }
-        else
-        {
-            GridView1.DataSource = MPGlobalSessiones.Current.Agentes;
-            GridView1.DataBind();
-        }
-        txtSearch.Focus();
-        ScriptManager.RegisterStartupScript(UpdatePanel1, UpdatePanel1.GetType(), "regresaFocus", "regresaFocusSearch();", true);
-    }
+    //protected void txtSearch_TextChanged(object sender, EventArgs e)
+    //{
+    //    string search = txtSearch.Text.ToLower();
+    //    if (search.Length > 0)
+    //    {
+    //        GridView1.DataSource = MPGlobalSessiones.Current.Agentes.Where(x => x.Nombre.ToLower().Contains(search) || x.nomMunicipio.ToLower().Contains(search) || x.Referencia.ToLower().Contains(search) || x.Apaterno.ToLower().Contains(search) || x.Amaterno.ToLower().Contains(search) ).ToList();
+    //        GridView1.DataBind();
+    //    }
+    //    else
+    //    {
+    //        GridView1.DataSource = MPGlobalSessiones.Current.Agentes;
+    //        GridView1.DataBind();
+    //    }
+    //    txtSearch.Focus();
+    //    ScriptManager.RegisterStartupScript(UpdatePanel1, UpdatePanel1.GetType(), "regresaFocus", "regresaFocusSearch();", true);
+    //}
 
 }
