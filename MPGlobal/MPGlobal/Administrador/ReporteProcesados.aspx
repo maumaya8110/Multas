@@ -67,16 +67,16 @@
                             <%--botones de acción sobre los registros...--%>
                             <asp:TemplateField HeaderStyle-Width="16%" ItemStyle-HorizontalAlign="Center">
                                 <ItemTemplate>
-<<<<<<< HEAD
+
                                     
                                     <a class="btn btn-default btn-sm" onclick=' Var(<%# Eval("IdProcesado")%>,<%# Eval("MontoPagoMpoGenera")%>,<%# Eval("MontoPagoMpoCobra")%>,<%# Eval("MontoPagoEmpresa")%>)'>
                                         <span class=""></span>Seleccionar
                                     </a>
-=======
+
                                     <%--CheckBox para seleccionar registros...--%>
                                     <asp:CheckBox ID="CheckBoxMulta" Checked="true" runat="server" />
 
->>>>>>> d56a41015789c013c0af8e7f0f9d5c6c5d034d39
+
                                 </ItemTemplate>
                             </asp:TemplateField>
                             <asp:TemplateField HeaderStyle-Width="150px" HeaderText="ESTADO">
