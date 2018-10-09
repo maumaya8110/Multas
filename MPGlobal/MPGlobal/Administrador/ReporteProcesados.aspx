@@ -65,9 +65,13 @@
                             <asp:TemplateField HeaderStyle-Width="10%" ItemStyle-HorizontalAlign="Center">
                                 <ItemTemplate>
                                     
-                                    <a class="btn btn-default btn-sm" onclick='Var(<%# Eval("IdProcesado")%>, Var(<%# Eval("MontoPagoMpoGenera")%>,<%# Eval("MontoPagoMpoCobra")%>,<%# Eval("MontoPagoEmpresa")%>)'>
+                                    <a class="btn btn-default btn-sm" onclick=' Var(<%# Eval("IdProcesado")%>,<%# Eval("MontoPagoMpoGenera")%>,<%# Eval("MontoPagoMpoCobra")%>,<%# Eval("MontoPagoEmpresa")%>)'>
                                         <span class=""></span>Seleccionar
                                     </a>
+                                    <%--CheckBox para seleccionar registros...--%>
+                                    <asp:CheckBox ID="CheckBoxMulta" Checked="true" runat="server" />
+
+
                                 </ItemTemplate>
                             </asp:TemplateField>
                             <asp:TemplateField HeaderStyle-Width="150px" HeaderText="Estado">
@@ -152,7 +156,7 @@
                 <div class="modal-body">
                     <div class="container">
                          <asp:Label ID="lblIdP" runat="server" Text="IdProceso"></asp:Label>
-                       
+
                         <table class="table table-bordered">
                             <thead>
                                 <tr>
@@ -184,7 +188,7 @@
                                         <div class="input-group date" id="datetimepicker3" data-date-format="dd-mm-yyyy">
                                             <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
                                             <asp:TextBox ID="txtFechaPagoM1" runat="server" CssClass="form-control campo_obligatorio input-group-addon" Style="width: 100%; text-align: left;" placeholder="Fecha pago"></asp:TextBox>
-                                           
+
                                         </div>
                                     </td>
                                     <td>
@@ -315,6 +319,3 @@
 
     </script>
 </asp:Content>
-
-
-
