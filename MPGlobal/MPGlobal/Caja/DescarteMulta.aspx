@@ -86,7 +86,7 @@
 
             </div>
 
-            <div id="modalCompletaInformacion" class="modal fade modal-small" role="dialog">
+            <div id="modalCompletaInformacion" class="modal fade modal-medium" role="dialog">
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
