@@ -30,9 +30,20 @@ public partial class Administrador_UserControl_ucCatVentana : System.Web.UI.User
         
         using (DataBase db = new DataBase())
         {
-            GridView1.DataSource = db.EjecutaSPCatalogos(DataBase.TipoAccion.Consulta, DataBase.TipoCatalogo.Ventana, null);
+            //GridView1.DataSource = db.EjecutaSPCatalogos(DataBase.TipoAccion.Consulta, DataBase.TipoCatalogo.Ventana, null);
+            //GridView1.DataBind();
+
+            MPGlobalSessiones.Current.Ventana = db.EjecutaSPCatalogos(DataBase.TipoAccion.Consulta, DataBase.TipoCatalogo.Ventana, null).Tables[0].DataTableToList<Ventana>();
+            IEnumerable<Ventana> query = MPGlobalSessiones.Current.Ventana;
+
+            GridView1.DataSource = query.ToList();
             GridView1.DataBind();
-                        
+
+            if (query.ToList().Count > 0)
+                GridView1.HeaderRow.TableSection = TableRowSection.TableHeader;
+
+
+
         }
     }
 

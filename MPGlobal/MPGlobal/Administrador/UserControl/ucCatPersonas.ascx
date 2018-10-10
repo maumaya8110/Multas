@@ -157,8 +157,8 @@
 
                                     <asp:TextBox ID="txtAmat" runat="server" placeholder="Ap. Materno" CssClass="form-control campo_obligatorio"></asp:TextBox>
 
-                                    <asp:TextBox ID="txtLicencia" runat="server" placeholder="Licencia" CssClass="form-control campo_obligatorio"></asp:TextBox>
-                                    <asp:TextBox ID="txtINE" runat="server" placeholder="INE" CssClass="form-control campo_obligatorio"></asp:TextBox>
+                                    <asp:TextBox ID="txtLicencia" runat="server" placeholder="Licencia" CssClass="form-control campo_obligatorio" onkeypress="javascript:validaNumeros(this, event);"></asp:TextBox>
+                                    <asp:TextBox ID="txtINE" runat="server" placeholder="INE" CssClass="form-control campo_obligatorio" onkeypress="javascript:validaNumeros(this, event);"></asp:TextBox>
 
 
                                     <asp:LinkButton ID="LinkBtnAlta" runat="server" type="button" class="btn btn-default btn-sm" CommandName="LinkBtnAlta" OnClick="LinkBtnAlta_Click" data-target="#AddPersona" OnClientClick="javascript:validaCampos(this,event);">
@@ -359,25 +359,3 @@
 
 
 
-<!-- jQuery 3 -->
-<%--<script src="../bower_components/jquery/dist/jquery.min.js"></script>--%>
-<!-- Bootstrap 3.3.7 -->
-<script src="../bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-<!-- DataTables -->
-<script src="../bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
-<script src="../bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
-<!-- SlimScroll -->
-<script src="../bower_components/jquery-slimscroll/jquery.slimscroll.min.js"></script>
-<!-- FastClick -->
-<script src="../bower_components/fastclick/lib/fastclick.js"></script>
-<!-- AdminLTE App -->
-<%--<script src="../dist/js/adminlte.min.js"></script>--%>
-<!-- AdminLTE for demo purposes -->
-<%--<script src="../dist/js/demo.js"></script>--%>
-<!-- page script -->
-
-
-
-<!-- Mirrored from adminlte.io/themes/AdminLTE/pages/tables/data.html by HTTrack Website Copier/3.x [XR&CO'2010], Mon, 27 Aug 2018 16:46:30 GMT -->
-<!-- Added by HTTrack -->
-<meta http-equiv="content-type" content="text/html;charset=utf-8">

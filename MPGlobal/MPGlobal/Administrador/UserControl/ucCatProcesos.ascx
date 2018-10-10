@@ -204,17 +204,7 @@
 
             <!-- /.box-header -->
             <div class="box-body">
-                <div class="row">
-                    <div class="col-sm-9"></div>
-                    <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3">
-                        <div class="inputGroupContainer">
-                            <div class="input-group">
-                                <span class="input-group-addon"><i class="glyphicon glyphicon-search"></i></span>
-                                <asp:TextBox ID="txtSearch" runat="server" placeholder="Busqueda rápida..." AutoPostBack="true" CssClass="form-control search" Width="100%" Style="height: 40px;" OnTextChanged="txtSearch_TextChanged"></asp:TextBox>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+             
                 <asp:GridView ID="GridView1" runat="server" EmptyDataText="No hay registros que mostrar" AllowPaging="true" PageSize="8" ClientIDMode="Static" AutoGenerateColumns="false" CssClass="table table-bordered table-striped" OnRowEditing="GridView1_RowEditing" OnRowCancelingEdit="GridView1_RowCancelingEdit" OnRowUpdating="GridView1_Rowupdating" OnPageIndexChanging="GridView1_PageIndexChanging">
                     <%--Paginador...--%>
 
@@ -373,26 +363,3 @@
 </asp:UpdatePanel>
 
 
-
-<!-- jQuery 3 -->
-<%--<script src="../bower_components/jquery/dist/jquery.min.js"></script>--%>
-<!-- Bootstrap 3.3.7 -->
-<script src="../bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-<!-- DataTables -->
-<script src="../bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
-<script src="../bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
-<!-- SlimScroll -->
-<script src="../bower_components/jquery-slimscroll/jquery.slimscroll.min.js"></script>
-<!-- FastClick -->
-<script src="../bower_components/fastclick/lib/fastclick.js"></script>
-<!-- AdminLTE App -->
-<%--<script src="../dist/js/adminlte.min.js"></script>--%>
-<!-- AdminLTE for demo purposes -->
-<%--<script src="../dist/js/demo.js"></script>--%>
-<!-- page script -->
-
-
-
-<!-- Mirrored from adminlte.io/themes/AdminLTE/pages/tables/data.html by HTTrack Website Copier/3.x [XR&CO'2010], Mon, 27 Aug 2018 16:46:30 GMT -->
-<!-- Added by HTTrack -->
-<meta http-equiv="content-type" content="text/html;charset=utf-8">

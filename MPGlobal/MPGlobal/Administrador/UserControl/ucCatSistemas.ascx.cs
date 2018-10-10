@@ -31,10 +31,14 @@ public partial class Administrador_UserControl_ucCatSistemas : System.Web.UI.Use
         using (DataBase db = new DataBase())
         {
 
-            MPGlobalSessiones.Current.Sistemas = db.EjecutaSPCatalogos(DataBase.TipoAccion.Consulta, DataBase.TipoCatalogo.Sistemas, null).Tables[0].DataTableToList<Sistemas>(); ;
-         
-            GridView1.DataSource = MPGlobalSessiones.Current.Sistemas;
+            MPGlobalSessiones.Current.Sistemas = db.EjecutaSPCatalogos(DataBase.TipoAccion.Consulta, DataBase.TipoCatalogo.Sistemas, null).Tables[0].DataTableToList<Sistemas>();
+            IEnumerable<Sistemas> query = MPGlobalSessiones.Current.Sistemas;
+
+            GridView1.DataSource = query.ToList();
             GridView1.DataBind();
+
+            if (query.ToList().Count > 0)
+                GridView1.HeaderRow.TableSection = TableRowSection.TableHeader;
 
         }
     }
@@ -199,23 +203,5 @@ public partial class Administrador_UserControl_ucCatSistemas : System.Web.UI.Use
         }
 
     }
-
-
-    protected void txtSearch_TextChanged(object sender, EventArgs e)
-    {
-        string search = txtSearch.Text.ToLower();
-        if (search.Length > 0)
-        {
-            GridView1.DataSource = MPGlobalSessiones.Current.Sistemas.Where(x => x.NomSistema.ToLower().Contains(search) || x.nomMunicipio.ToLower().Contains(search) || x.nomEstado.ToLower().Contains(search) || x.NomSistema.ToLower().Contains(search) ).ToList();
-            GridView1.DataBind();
-        }
-        else
-        {
-            GridView1.DataSource = MPGlobalSessiones.Current.Sistemas;
-            GridView1.DataBind();
-        }
-        txtSearch.Focus();
-        ScriptManager.RegisterStartupScript(UpdatePanel1, UpdatePanel1.GetType(), "regresaFocus", "regresaFocusSearch();", true);
-    }
-
+          
 }

@@ -30,9 +30,15 @@ public partial class Administrador_UserControl_ucCatOficinas : System.Web.UI.Use
         
         using (DataBase db = new DataBase())
         {
-            GridView1.DataSource = db.EjecutaSPCatalogos(DataBase.TipoAccion.Consulta, DataBase.TipoCatalogo.Oficinas, null);
+           MPGlobalSessiones.Current.Oficinas = db.EjecutaSPCatalogos(DataBase.TipoAccion.Consulta, DataBase.TipoCatalogo.Oficinas, null).Tables[0].DataTableToList<Oficinas>();
+            IEnumerable<Oficinas> query = MPGlobalSessiones.Current.Oficinas;
+
+            GridView1.DataSource = query.ToList();
             GridView1.DataBind();
-                        
+
+            if (query.ToList().Count > 0)
+                GridView1.HeaderRow.TableSection = TableRowSection.TableHeader;
+
         }
     }
 

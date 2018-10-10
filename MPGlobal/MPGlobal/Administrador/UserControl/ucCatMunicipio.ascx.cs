@@ -31,17 +31,16 @@ public partial class Administrador_UserControl_ucCatMunicipio : System.Web.UI.Us
         using (DataBase db = new DataBase())
         {
 
-            MPGlobalSessiones.Current.CatMunicipios = db.EjecutaSPCatalogos(DataBase.TipoAccion.Consulta, DataBase.TipoCatalogo.Municipios, null).Tables[0].DataTableToList<Municipio>(); ;
-           //IEnumerable<Municipio> query = MPGlobalSessiones.Current.CatMunicipios;
+            //MPGlobalSessiones.Current.CatMunicipios = db.EjecutaSPCatalogos(DataBase.TipoAccion.Consulta, DataBase.TipoCatalogo.Municipios, null).Tables[0].DataTableToList<Municipio>(); ;
+            MPGlobalSessiones.Current.CatMunicipios = db.EjecutaSPCatalogos(DataBase.TipoAccion.Consulta, DataBase.TipoCatalogo.Municipios, null).Tables[0].DataTableToList<Municipio>();
+            IEnumerable<Municipio> query = MPGlobalSessiones.Current.CatMunicipios;
 
-
-            GridView1.DataSource = MPGlobalSessiones.Current.CatMunicipios;
+            GridView1.DataSource = query.ToList();
             GridView1.DataBind();
 
+            if (query.ToList().Count > 0)
+                GridView1.HeaderRow.TableSection = TableRowSection.TableHeader;
 
-
-            //GridView1.DataSource = db.EjecutaSPCatalogos(DataBase.TipoAccion.Consulta, DataBase.TipoCatalogo.Municipios, null);
-            //GridView1.DataBind();
 
         }
     }
@@ -214,22 +213,5 @@ public partial class Administrador_UserControl_ucCatMunicipio : System.Web.UI.Us
 
     }
 
-
-    protected void txtSearch_TextChanged(object sender, EventArgs e)
-    {
-        string search = txtSearch.Text.ToLower();
-        if (search.Length > 0)
-        {
-            GridView1.DataSource = MPGlobalSessiones.Current.CatMunicipios.Where(x => x.NomMunicipio.ToLower().Contains(search) || x.nomEstado.ToLower().Contains(search) || x.SiglasMunicipio.ToLower().Contains(search) || x.Contacto.ToLower().Contains(search) || x.Telefono.ToLower().Contains(search) || x.Correo.ToLower().Contains(search) || x.idLicencia.ToLower().Contains(search)).ToList();
-            GridView1.DataBind();
-        }
-        else
-        {
-            GridView1.DataSource = MPGlobalSessiones.Current.CatMunicipios;
-            GridView1.DataBind();
-        }
-        txtSearch.Focus();
-        ScriptManager.RegisterStartupScript(UpdatePanel1, UpdatePanel1.GetType(), "regresaFocus", "regresaFocusSearch();", true);
-    }
 
 }

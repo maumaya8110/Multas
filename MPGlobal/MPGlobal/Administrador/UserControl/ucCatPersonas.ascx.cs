@@ -32,7 +32,16 @@ public partial class Administrador_UserControl_ucCatPersonas : System.Web.UI.Use
         {
             GridView1.DataSource = db.EjecutaSPCatalogos(DataBase.TipoAccion.Consulta, DataBase.TipoCatalogo.Personas, null);
             GridView1.DataBind();
-                        
+            //MPGlobalSessiones.Current.Personas = db.EjecutaSPCatalogos(DataBase.TipoAccion.Consulta, DataBase.TipoCatalogo.Personas, null).Tables[0].DataTableToList<Personas>();
+            //IEnumerable<Personas> query = MPGlobalSessiones.Current.Personas;
+
+            //GridView1.DataSource = query.ToList();
+            //GridView1.DataBind();
+
+            //if (query.ToList().Count > 0)
+            //    GridView1.HeaderRow.TableSection = TableRowSection.TableHeader;
+
+
         }
     }
 

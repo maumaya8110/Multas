@@ -15,5 +15,5 @@ public class Estado
     public string Telefono { get; set; }
     public string Correo { get; set; }
     public string idLicencia { get; set; }
-    public int estatusEstado { get; set; }
+    public bool EstatusEstado { get; set; }
 }

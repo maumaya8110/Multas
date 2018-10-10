@@ -31,10 +31,15 @@ public partial class Administrador_UserControl_ucCatPlacas : System.Web.UI.UserC
         using (DataBase db = new DataBase())
         {
 
-            MPGlobalSessiones.Current.Placas = db.EjecutaSPCatalogos(DataBase.TipoAccion.Consulta, DataBase.TipoCatalogo.Placas, null).Tables[0].DataTableToList<Placas>(); ;
+         
+            MPGlobalSessiones.Current.Placas = db.EjecutaSPCatalogos(DataBase.TipoAccion.Consulta, DataBase.TipoCatalogo.Placas, null).Tables[0].DataTableToList<Placas>();
+            IEnumerable<Placas> query = MPGlobalSessiones.Current.Placas;
 
-            GridView1.DataSource = MPGlobalSessiones.Current.Placas;
+            GridView1.DataSource = query.ToList();
             GridView1.DataBind();
+
+            if (query.ToList().Count > 0)
+                GridView1.HeaderRow.TableSection = TableRowSection.TableHeader;
 
         }
     }
@@ -219,21 +224,5 @@ public partial class Administrador_UserControl_ucCatPlacas : System.Web.UI.UserC
     }
 
 
-    protected void txtSearch_TextChanged(object sender, EventArgs e)
-    {
-        string search = txtSearch.Text.ToLower();
-        if (search.Length > 0)
-        {
-            GridView1.DataSource = MPGlobalSessiones.Current.Placas.Where(x => x.Placa.ToLower().Contains(search) || x.nomMunicipio.ToLower().Contains(search) || x.nomEstado.ToLower().Contains(search) || x.Marca.ToLower().Contains(search) || x.Tipo.ToLower().Contains(search) || x.Modelo.ToLower().Contains(search) || x.Serie.ToLower().Contains(search)).ToList();
-            GridView1.DataBind();
-        }
-        else
-        {
-            GridView1.DataSource = MPGlobalSessiones.Current.Placas;
-            GridView1.DataBind();
-        }
-        txtSearch.Focus();
-        ScriptManager.RegisterStartupScript(UpdatePanel1, UpdatePanel1.GetType(), "regresaFocus", "regresaFocusSearch();", true);
-    }
-
+  
 }

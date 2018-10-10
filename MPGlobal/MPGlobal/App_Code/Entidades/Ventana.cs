@@ -12,7 +12,7 @@ public class Ventana
     public string nomEstado { get; set; }
     public int IdMunicipio { get; set; }
     public string nomMunicipio { get; set; }
-    public int IdVentana { get; set; }
+    public int idVentana { get; set; }
     public string NomVentana { get; set; }
     public string URL { get; set; }
     public bool EstatusVentana { get; set; }
