@@ -97,21 +97,7 @@
     }
 
     function endReq(sender, args) {
-        $(function () {
-            $('#example1').DataTable()
-            $('#GridView1').DataTable()
-            $('#example2').DataTable({
-                'paging': true,
-                'lengthChange': false,
-                'searching': false,
-                'ordering': true,
-                'info': true,
-                'autoWidth': false
-            })
-        })
-
-
-
+      
     }
 </script>
 
@@ -177,7 +163,7 @@
             <!-- /.box-header -->
             <div class="box-body">
 
-                <asp:GridView ID="GridView1" runat="server" EmptyDataText="No hay registros que mostrar" AllowPaging="true" PageSize="8" ClientIDMode="Static" AutoGenerateColumns="false" CssClass="table table-bordered table-striped" OnRowEditing="GridView1_RowEditing" OnRowCancelingEdit="GridView1_RowCancelingEdit" OnRowUpdating="GridView1_Rowupdating" OnPageIndexChanging="GridView1_PageIndexChanging">
+                <asp:GridView ID="GridView1" runat="server" EmptyDataText="No hay registros que mostrar" ClientIDMode="Static" AutoGenerateColumns="false" CssClass="table table-bordered table-striped" OnRowEditing="GridView1_RowEditing" OnRowCancelingEdit="GridView1_RowCancelingEdit" OnRowUpdating="GridView1_Rowupdating" OnPageIndexChanging="GridView1_PageIndexChanging">
                     <%--Paginador...--%>
                     <%-- <PagerTemplate>
                             <div class="row" style="margin-top: 20px;">
@@ -264,18 +250,18 @@
                         </asp:TemplateField>
                         <asp:TemplateField HeaderStyle-Width="150px" HeaderText="AP. PATERNO">
                             <ItemTemplate>
-                                <asp:Label ID="lblApaterno" runat="server"><%# Eval("Apaterno")%></asp:Label>
+                                <asp:Label ID="lblApaterno" runat="server"><%# Eval("APaterno")%></asp:Label>
                             </ItemTemplate>
                             <EditItemTemplate>
-                                <asp:TextBox ID="TxtApaterno" runat="server" Text='<%# Bind("Apaterno")%>' CssClass="form-control"></asp:TextBox>
+                                <asp:TextBox ID="TxtApaterno" runat="server" Text='<%# Bind("APaterno")%>' CssClass="form-control"></asp:TextBox>
                             </EditItemTemplate>
                         </asp:TemplateField>
                         <asp:TemplateField HeaderStyle-Width="150px" HeaderText="AP. MATERNO">
                             <ItemTemplate>
-                                <asp:Label ID="lblAmaterno" runat="server"><%# Eval("Amaterno")%></asp:Label>
+                                <asp:Label ID="lblAmaterno" runat="server"><%# Eval("AMaterno")%></asp:Label>
                             </ItemTemplate>
                             <EditItemTemplate>
-                                <asp:TextBox ID="TxtAmaterno" runat="server" Text='<%# Bind("Amaterno")%>' CssClass="form-control"></asp:TextBox>
+                                <asp:TextBox ID="TxtAmaterno" runat="server" Text='<%# Bind("AMaterno")%>' CssClass="form-control"></asp:TextBox>
                             </EditItemTemplate>
                         </asp:TemplateField>
 
@@ -299,7 +285,7 @@
 
                         <asp:TemplateField HeaderStyle-Width="150px" HeaderText="ESTADO">
                             <ItemTemplate>
-                                <asp:Label ID="lblEstado" runat="server"><%# Eval("nomEstado")%></asp:Label>
+                                <asp:Label ID="lblEstado" runat="server"><%# Eval("NomEstado")%></asp:Label>
                             </ItemTemplate>
                             <EditItemTemplate>
                                 <div class="form-group">
@@ -317,7 +303,7 @@
 
                         <asp:TemplateField HeaderStyle-Width="150px" HeaderText="MUNICIPIO">
                             <ItemTemplate>
-                                <asp:Label ID="lblMunicipio" runat="server"><%# Eval("nomMunicipio")%></asp:Label>
+                                <asp:Label ID="lblMunicipio" runat="server"><%# Eval("NomMunicipio")%></asp:Label>
                             </ItemTemplate>
                             <EditItemTemplate>
                                 <div class="form-group">

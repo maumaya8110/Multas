@@ -165,7 +165,7 @@
             <%--  --%>
             <!-- /.box-header -->
             <div class="box-body">
-                <asp:GridView ID="GridView1" runat="server" AllowPaging="true" EmptyDataText="No hay registros que mostrar" AutoGenerateColumns="false" ClientIDMode="Static" CssClass="table table-bordered table-striped" PageSize="8">
+                <asp:GridView ID="GridView1" runat="server" EmptyDataText="No hay registros que mostrar" AutoGenerateColumns="false" ClientIDMode="Static" CssClass="table table-bordered table-striped" >
 
                     <Columns>
                         <%--botones de acción sobre los registros...--%>

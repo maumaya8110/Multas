@@ -94,8 +94,8 @@
         $(document).ready(function () { EfectoGrid(); });
 
         function EfectoGrid() {
-            if ($('#GridView1').find('thead').size() > 0)
-                $('#GridView1').DataTable({
+            if ($('#GridView1').find('thead').size() > 0) {
+                 $('#GridView1').DataTable({
                     language: {
                         search: 'Buscar: ',
                         info: 'Mostrar _START_ a _END_ de _TOTAL_ registros',
@@ -107,6 +107,7 @@
 
                     }
                 });
+            }
         }
 
     </script>
