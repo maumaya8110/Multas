@@ -78,14 +78,18 @@ public partial class CapturaMultas : System.Web.UI.Page
     }
     protected void Page_Load(object sender, EventArgs e)
     {
-        if (MPGlobalSessiones.Current.UsuarioLogueado.Usuario == null)
-        {
-            Response.Redirect("../Account/login.aspx");
-        }
-        var x = MPGlobalSessiones.Current.UsuarioLogueado.Usuario;
+        //if (MPGlobalSessiones.Current.UsuarioLogueado.Usuario == null)
+        //{
+        //    Response.Redirect("../Account/login.aspx");
+        //}
+        //var x = MPGlobalSessiones.Current.UsuarioLogueado.Usuario;
 
-        Session["idUsuario"] = MPGlobalSessiones.Current.UsuarioLogueado.Usuario.IdUsuario.ToString();
-        Session["NombreUsuario"] = MPGlobalSessiones.Current.UsuarioLogueado.Usuario.NombreFull.ToString();
+        //Session["idUsuario"] = MPGlobalSessiones.Current.UsuarioLogueado.Usuario.IdUsuario.ToString();
+        //Session["NombreUsuario"] = MPGlobalSessiones.Current.UsuarioLogueado.Usuario.NombreFull.ToString();
+
+        Session["idUsuario"] = "1";
+        Session["NombreUsuario"] = "Admin";
+
         cAltaMultas obj = new cAltaMultas();
         if (Session["idUsuario"].ToString() == "")
         {

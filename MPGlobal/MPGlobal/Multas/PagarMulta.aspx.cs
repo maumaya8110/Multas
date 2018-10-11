@@ -8,16 +8,16 @@ public partial class PagarMulta : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
-        if (MPGlobalSessiones.Current.UsuarioLogueado.Usuario == null)
-        {
-            Response.Redirect("../Account/login.aspx");
-        }
-        var x = MPGlobalSessiones.Current.UsuarioLogueado.Usuario;
+        //if (MPGlobalSessiones.Current.UsuarioLogueado.Usuario == null)
+        //{
+        //    Response.Redirect("../Account/login.aspx");
+        //}
+        //var x = MPGlobalSessiones.Current.UsuarioLogueado.Usuario;
 
-        Session["idUsuario"] = MPGlobalSessiones.Current.UsuarioLogueado.Usuario.IdUsuario.ToString();
-        Session["NombreUsuario"] = MPGlobalSessiones.Current.UsuarioLogueado.Usuario.NombreFull.ToString();
+        //Session["idUsuario"] = MPGlobalSessiones.Current.UsuarioLogueado.Usuario.IdUsuario.ToString();
+        //Session["NombreUsuario"] = MPGlobalSessiones.Current.UsuarioLogueado.Usuario.NombreFull.ToString();
 
-
+        Session["idUsuario"] = "1";
 
         cAltaMultas obj = new cAltaMultas();
         if (!this.IsPostBack)
@@ -282,11 +282,79 @@ public partial class PagarMulta : System.Web.UI.Page
                 return;
             }
 
-            if (montoreal == montopago)
+
+
+            string folios  = "";
+            string folio = "";
+
+            cPagarMultas obj = new cPagarMultas();
+
+            DataSet Ds = obj.ConsultaPlaca(txtPlaca.Text);
+
+            string Monto;
+
+            if (Ds.Tables.Count > 0)
+            {
+
+                if (Ds.Tables[0].Rows.Count > 0)
+                {
+                    DataTable av = Ds.Tables[1];
+                    StringBuilder html = new StringBuilder();
+
+
+                    foreach (DataRow row in av.Rows)
+                    {
+                        folio =  row[0].ToString();
+                        if (folios == "")
+                        {
+                            folios = folio;
+
+                        }
+                        else {
+                            folios = folios + "," + folio;
+                            
+                        }
+
+                        
+
+                    }
+                   
+                }
+            }
+
+
+
+
+
+      if (montoreal == montopago)
             {
                 //Procede a grabar
+                cPagarMultas pagar = new cPagarMultas();
 
-                ShowAlertMessage("Grabado.");
+
+                string montosolicitado = montoreal.ToString();//lblMonto.Text.Replace(",", "").Replace("$", "");
+                string montopagado = montopago.ToString();
+
+                string idusuario = Session["idUsuario"].ToString();
+
+                string placa = lblPlaca.Text;
+
+                string foliox = folios;
+
+                string nombre = txtnombre.Text.ToUpper();
+                string appaterno = txtapellidop.Text.ToUpper();
+                string  apmaterno=txtapellidom.Text.ToUpper();
+                string calle=txtcalle.Text.ToUpper();
+                string colonia=txtcolonia.Text.ToUpper();
+                string rfc=txtRFC.Text.ToUpper();
+                string celular=txtcelular.Text.ToUpper();
+                string correo= txtemail.Text.ToUpper();
+                string idedo = cboEdo.SelectedValue;
+                string idmpo = cboMunicipio.SelectedValue;
+
+                DataSet dsx = pagar.PagoMultas(montosolicitado, montopagado, idusuario, placa, folios, nombre, appaterno, apmaterno, calle, colonia, rfc, celular, correo, idedo, idmpo);
+
+                ShowAlertMessage(folios);
 
             }
 
