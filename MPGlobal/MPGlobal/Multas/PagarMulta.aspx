@@ -8,7 +8,7 @@
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="MainContent" runat="Server">
     <asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager>
-     
+
     <asp:UpdateProgress ID="updateProgress" runat="server">
         <ProgressTemplate>
             <div style="position: fixed; text-align: center; height: 100%; width: 100%; top: 0; right: 0; left: 0; z-index: 9999999; background-color: White; opacity: 0.7; filter: alpha(Opacity=70)}">
@@ -59,7 +59,7 @@
                                                 <i class="glyphicon glyphicon-search"></i>
                                             </button>--%>
 
-                                            <asp:Button ID="btnConsultar" class="btn btn-successs" runat="server" Text="Consultar" OnClick="btnConsultar_Click" />
+                                            <asp:Button ID="btnConsultar" class="btn btn-instagram" runat="server" Text="Consultar" OnClick="btnConsultar_Click" />
 
                                         </div>
                                     </div>
@@ -405,7 +405,7 @@
                                     </div>
                                 </div>
 
-                                <div class="col-lg-2">
+                                <%-- <div class="col-lg-2">
                                     <div class="input-group">
                                         <label>IMPORTE:</label>
                                         <div class="input-group date">
@@ -416,7 +416,42 @@
                                         </div>
 
                                     </div>
+                                </div>--%>
+
+                                <div class="col-lg-3">
+                                    <div class="input-group">
+                                        <label>PLACA:</label>
+
+                                        <div class="input-group date">
+                                            <div class="input-group-addon">
+                                                <i class="fa fa-money"></i>
+                                            </div>
+
+                                            <%--<input type="text" class="form-control" placeholder="Search" id="txtPlaca" runat="server">--%>
+
+                                            <asp:TextBox ID="txtImporte" Style="text-transform: uppercase;" class="form-control currency pull-right"
+                                                min="0" step="0.01" data-number-to-fixed="2" data-number-stepfactor="100"
+                                                runat="server" placeholder="TECLEE IMPORTE"></asp:TextBox>
+
+
+
+                                            <%--<input type="number" value="1000" min="0" step="0.01" data-number-to-fixed="2" data-number-stepfactor="100" class="form-control currency" 
+
+                                            --%><div class="input-group-btn">
+                                                <%-- <button class="btn btn-default" type="submit" onclick="Buscar();">
+                                                <i class="glyphicon glyphicon-search"></i>
+                                            </button>--%>
+
+                                                <asp:Button ID="btnPagar" class="btn btn-warning" runat="server" Text="Cobrar" OnClick="btnPagar_Click" />
+
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+
                                 </div>
+
 
                             </div>
 
@@ -443,21 +478,33 @@
 
                                     <div class="col-lg-3">
                                         <div class="input-group">
-                                            <label>FECHA ACTUALIZACION:</label>
+                                            <label>FECHA ACTUALIZACION:  <asp:Label ID="lblhoy"  runat="server" Text=""></asp:Label></label>
 
-                                            <div class="input-group date">
-                                                <asp:Label ID="lblhoy" class="form-control pull-right" runat="server" Text=""></asp:Label>
+                                          <%--  <div class="input-group date">
+                                               
 
-                                            </div>
+                                            </div>--%>
                                         </div>
                                     </div>
+
+
+
+
+
+
+
+
+
+
+
+
 
                                     <div class="col-lg-2">
                                         <div class="input-group">
                                             <%--<label>PAGAR MULTAS:</label>--%>
                                             <div class="input-group date">
 
-                                                <button type="button" onclick="GUARDAR()" class="btn btn-microsoft">PAGAR MULTAS <span class="glyphicon glyphicon-send"></span></button>
+                                                <%--<button type="button" onclick="GUARDAR()" class="btn btn-microsoft">PAGAR MULTAS <span class="glyphicon glyphicon-send"></span></button>--%>
                                             </div>
 
                                         </div>
@@ -493,6 +540,8 @@
             <%--                <asp:AsyncPostBackTrigger ControlID="cboTipoMulta" EventName="SelectedIndexChanged" />
 
                   <asp:PostBackTrigger ControlID="txtdatepicker" />--%>
+
+               <asp:PostBackTrigger ControlID="txtImporte" />
         </Triggers>
 
     </asp:UpdatePanel>
@@ -547,8 +596,7 @@
 
             // document.getElementById("MainContent_hndEliminar").value = renglon;
 
-            if (document.getElementById("MainContent_txtPlaca").value != "")
-            { document.getElementById("MainContent_cmdBuscar").click(); }
+            if (document.getElementById("MainContent_txtPlaca").value != "") { document.getElementById("MainContent_cmdBuscar").click(); }
             else {
                 alert("Favor de teclear numero de placa valido.");
             }
@@ -575,7 +623,7 @@
     <script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/js/bootstrap-datetimepicker.min.js"></script>
     <%--Fin--%>
-
+    <script src="../Scripts/jquery.maskMoney.js"></script>
 
 
     <script type="text/javascript">
@@ -618,8 +666,51 @@
         });
 
 
+        $("#MainContent_txtImporte").maskMoney({
 
+            // The symbol to be displayed before the value entered by the user
+            prefix: 'MXN$ ',
+            //prefix: '',
+
+            // The suffix to be displayed after the value entered by the user(example: "1234.23 €"). 
+            suffix: "",
+
+            // Delay formatting of text field until focus leaves the field
+            formatOnBlur: false,
+
+            // Prevent users from inputing zero
+            allowZero: false,
+
+            // Prevent users from inputing negative values
+            allowNegative: true,
+
+            // Allow empty input values, so that when you delete the number it doesn't reset to 0.00. 
+            allowEmpty: false,
+
+            // Select text in the input on double click
+            doubleClickSelection: true,
+
+            // Select all text in the input when the element fires the focus event. 
+            selectAllOnFocus: false,
+
+            // The thousands separator
+            thousands: ',',
+
+            // The decimal separator
+            decimal: '.',
+
+            // How many decimal places are allowed
+            precision: 2,
+
+            // Set if the symbol will stay in the field after the user exits the field. 
+            affixesStay: false,
+
+            // Place caret at the end of the input on focus 
+            bringCaretAtEndOnFocus: true
+
+        });
     </script>
+
     <script type="text/javascript">
 
         function Success() {
