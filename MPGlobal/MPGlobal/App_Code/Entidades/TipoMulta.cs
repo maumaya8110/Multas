@@ -15,7 +15,9 @@ public class TipoMulta
     public int idmulta { get; set; }
     public string Descripcion { get; set; }
     public string cantidad { get; set; }
-    public string DPPMulta { get; set; }
-    public string AplicaDesc { get; set; }
+    public int DPPMulta { get; set; }
+    public bool AplicaDesc { get; set; }
+    public bool Recargo { get; set; }
+    public bool Actualizacion { get; set; }
     public bool Estatus { get; set; }
 }

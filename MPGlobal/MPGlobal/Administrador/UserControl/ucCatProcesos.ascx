@@ -32,91 +32,62 @@
                 }
 
             });
-        }
+    }
 
 
 
-        function Success() {
+    function Success() {
 
-            swal({
-                position: 'top-end',
-                type: 'success',
-                title: 'La modificación ha sido exitosa',
-                showConfirmButton: false,
-                timer: 1500
+        swal({
+            position: 'top-end',
+            type: 'success',
+            title: 'La modificación ha sido exitosa',
+            showConfirmButton: false,
+            timer: 1500
 
-            });
-        }
+        });
+    }
 
-        function AltaSuccess() {
+    function AltaSuccess() {
 
-            swal({
-                position: 'top-end',
-                type: 'success',
-                title: 'Alta exitosa',
-                showConfirmButton: false,
-                timer: 1500
+        swal({
+            position: 'top-end',
+            type: 'success',
+            title: 'Alta exitosa',
+            showConfirmButton: false,
+            timer: 1500
 
-            });
-        }
+        });
+    }
 
-        function EditSuccess() {
+    function EditSuccess() {
 
-            swal({
-                position: 'top-end',
-                type: 'success',
-                title: 'Modificación exitosa',
-                showConfirmButton: false,
-                timer: 1500
+        swal({
+            position: 'top-end',
+            type: 'success',
+            title: 'Modificación exitosa',
+            showConfirmButton: false,
+            timer: 1500
 
-            });
-        }
+        });
+    }
 
-        function DeleteSuccess() {
+    function DeleteSuccess() {
 
-            swal({
-                position: 'top-end',
-                type: 'success',
-                title: 'Eliminación exitosa',
-                showConfirmButton: false,
-                timer: 1500
+        swal({
+            position: 'top-end',
+            type: 'success',
+            title: 'Eliminación exitosa',
+            showConfirmButton: false,
+            timer: 1500
 
-            });
-        }
+        });
+    }
 
 
 </script>
 
 <asp:HiddenField ID="HiddenField1AutEli" runat="server" />
-
-<script type="text/javascript">
-    Sys.WebForms.PageRequestManager.getInstance().add_beginRequest(beginReq);
-    Sys.WebForms.PageRequestManager.getInstance().add_endRequest(endReq);
-
-    function beginReq(sender, args) {
-
-
-    }
-
-    function endReq(sender, args) {
-        $(function () {
-            $('#example1').DataTable()
-            $('#GridView1').DataTable()
-            $('#example2').DataTable({
-                'paging': true,
-                'lengthChange': false,
-                'searching': false,
-                'ordering': true,
-                'info': true,
-                'autoWidth': false
-            })
-        })
-
-
-
-    }
-</script>
-
 
 <asp:UpdatePanel ID="UpdatePanel1" runat="server">
     <ContentTemplate>
@@ -132,11 +103,11 @@
                         <div class="panel-body">
                             <div class="form-inline col-auto">
                                 <div class="form-group">
-                                  
+
 
 
                                     <asp:TextBox ID="txtNomProceso" runat="server" placeholder="Proceso" CssClass="form-control campo_obligatorio"></asp:TextBox>
-                                      <%--DropEstado--%>
+                                    <%--DropEstado--%>
                                     <div class="form-group">
                                         <div class="inputGroupContainer">
                                             <div class="input-group">
@@ -157,9 +128,9 @@
                                             </div>
                                         </div>
                                     </div>
-                                                                    
 
-                                     <%--DropSistema--%>
+
+                                    <%--DropSistema--%>
                                     <div class="form-group">
                                         <div class="inputGroupContainer">
                                             <div class="input-group">
@@ -170,7 +141,7 @@
                                         </div>
                                     </div>
 
-                                     <%--DropVentana--%>
+                                    <%--DropVentana--%>
                                     <div class="form-group">
                                         <div class="inputGroupContainer">
                                             <div class="input-group">
@@ -180,7 +151,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                     <asp:TextBox ID="txtBoton" runat="server" placeholder="BOTON" CssClass="form-control campo_obligatorio"></asp:TextBox>
+                                    <asp:TextBox ID="txtBoton" runat="server" placeholder="BOTON" CssClass="form-control campo_obligatorio"></asp:TextBox>
 
 
                                     <asp:LinkButton ID="LinkBtnAlta" runat="server" type="button" class="btn btn-default btn-sm" CommandName="LinkBtnAlta" OnClick="LinkBtnAlta_Click" data-target="#AddProceso" OnClientClick="javascript:validaCampos(this,event);">
@@ -204,7 +175,7 @@
 
             <!-- /.box-header -->
             <div class="box-body">
-             
+
                 <asp:GridView ID="GridView1" runat="server" EmptyDataText="No hay registros que mostrar" ClientIDMode="Static" AutoGenerateColumns="false" CssClass="table table-bordered table-striped" OnRowEditing="GridView1_RowEditing" OnRowCancelingEdit="GridView1_RowCancelingEdit" OnRowUpdating="GridView1_Rowupdating" OnPageIndexChanging="GridView1_PageIndexChanging">
                     <%--Paginador...--%>
 
@@ -249,8 +220,8 @@
                                 <asp:HiddenField ID="HiddenIdProceso" runat="server" Value='<%# Eval("IdProceso") %>'></asp:HiddenField>
                             </EditItemTemplate>
                         </asp:TemplateField>
-                   
-                        
+
+
                         <%--Drop Estados--%>
                         <asp:TemplateField HeaderStyle-Width="150px" HeaderText="ESTADO">
                             <ItemTemplate>
@@ -327,13 +298,13 @@
                             </EditItemTemplate>
                         </asp:TemplateField>
 
-                          <asp:TemplateField HeaderStyle-Width="150px" HeaderText="BOTON">
+                        <asp:TemplateField HeaderStyle-Width="150px" HeaderText="BOTON">
                             <ItemTemplate>
                                 <asp:Label ID="lblBoton" runat="server"><%# Eval("Boton")%></asp:Label>
                             </ItemTemplate>
                             <EditItemTemplate>
                                 <asp:TextBox ID="TxtBoton" runat="server" Text='<%# Bind("Boton")%>' CssClass="form-control"></asp:TextBox>
-                             
+
                             </EditItemTemplate>
                         </asp:TemplateField>
 
