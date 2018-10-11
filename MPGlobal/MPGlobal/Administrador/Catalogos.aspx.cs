@@ -37,7 +37,7 @@ public partial class Catalogos : System.Web.UI.Page
 
         switch (Session["SelectDrop"].ToString())
         {
-            case "Selecciona el catalogo":
+            case "SELECCIONA UN CATALOGO":
                 btnNew.Visible = false;
                 btnCancelarN.Visible = false;
                 ucCatEstado.GridDatabind();
@@ -64,7 +64,7 @@ public partial class Catalogos : System.Web.UI.Page
 
 
                 break;
-            case "Estados":
+            case "ESTADOS":
                 btnNew.Visible = true;
 
                 //HacerVisible el UserControl
@@ -86,7 +86,7 @@ public partial class Catalogos : System.Web.UI.Page
                 ucCatCajeros.Visible = false;
 
                 break;
-            case "Municipios":
+            case "MUNICIPIOS":
                 btnNew.Visible = true;
 
                 //HacerVisible el UserControl
@@ -108,7 +108,7 @@ public partial class Catalogos : System.Web.UI.Page
                 ucCatCajeros.Visible = false;
 
                 break;
-            case "Oficinas":
+            case "OFICINAS":
 
                 btnNew.Visible = true;
 
@@ -132,7 +132,7 @@ public partial class Catalogos : System.Web.UI.Page
 
                 break;
 
-            case "Ventanas":
+            case "VENTANAS":
                 btnNew.Visible = true;
 
                 //HacerVisible el UserControl
@@ -154,7 +154,7 @@ public partial class Catalogos : System.Web.UI.Page
                 ucCatCajeros.Visible = false;
 
                 break;
-            case "Personas":
+            case "PERSONAS":
                 btnNew.Visible = true;
 
                 //HacerVisible el UserControl
@@ -178,7 +178,7 @@ public partial class Catalogos : System.Web.UI.Page
 
 
                 break;
-            case "Tipos de multa":
+            case "TIPOS DE MULTA":
                 btnNew.Visible = true;
 
                 //HacerVisible el UserControl                
@@ -201,7 +201,7 @@ public partial class Catalogos : System.Web.UI.Page
                 ucCatCajeros.Visible = false;
 
                 break;
-            case "Agentes":
+            case "AGENTES":
                 btnNew.Visible = true;
 
                 //HacerVisible el UserControl
@@ -224,7 +224,7 @@ public partial class Catalogos : System.Web.UI.Page
                 ucCatCajeros.Visible = false;
 
                 break;
-            case "Placas":
+            case "PLACAS":
                 btnNew.Visible = true;
 
                 //HacerVisible el UserControl
@@ -247,7 +247,7 @@ public partial class Catalogos : System.Web.UI.Page
                 ucCatCajeros.Visible = false;
 
                 break;
-            case "Procesos":
+            case "PROCESOS":
                 btnNew.Visible = true;
 
                 //HacerVisible el UserControl
@@ -270,7 +270,7 @@ public partial class Catalogos : System.Web.UI.Page
                 ucCatCajeros.Visible = false;
 
                 break;
-            case "Sistemas":
+            case "SISTEMAS":
                 btnNew.Visible = true;
 
                 //HacerVisible el UserControl
@@ -293,7 +293,7 @@ public partial class Catalogos : System.Web.UI.Page
                 ucCatCajeros.Visible = false;
 
                 break;
-            case "Funciones":
+            case "FUNCIONES":
                 btnNew.Visible = true;
 
                 //HacerVisible el UserControl
@@ -316,7 +316,7 @@ public partial class Catalogos : System.Web.UI.Page
                 ucCatCajeros.Visible = false;
 
                 break;
-            case "Cajeros":
+            case "CAJEROS":
                 btnNew.Visible = true;
 
                 //HacerVisible el UserControl
@@ -373,56 +373,56 @@ public partial class Catalogos : System.Web.UI.Page
     {
         switch (Session["SelectDrop"].ToString())
         {
-            case "Selecciona el catalogo":
+            case "SELECCIONA UN CATALOGO":
 
                 break;
-            case "Estados":
+            case "ESTADOS":
                 ucCatEstado.UpdtVisible();
 
                 break;
-            case "Municipios":
+            case "MUNICIPIOS":
                 ucCatMunicipio.UpdtVisible();
 
                 break;
-            case "Oficinas":
+            case "OFICINAS":
                 ucCatOficinas.UpdtVisible();
 
                 break;
 
-            case "Ventanas":
+            case "VENTANAS":
                 ucCatVentana.UpdtVisible();
 
                 break;
-            case "Personas":
+            case "PERSONAS":
                 ucCatPersonas.UpdtVisible();
 
                 break;
 
-            case "Tipos de multa":
+            case "TIPOS DE MULTA":
                 ucCatTipoMulta.UpdtVisible();
 
                 break;
-            case "Agentes":
+            case "AGENTES":
                 ucCatAgente.UpdtVisible();
 
                 break;
-            case "Placas":
+            case "PLACAS":
                 ucCatPlacas.UpdtVisible();
 
                 break;
-            case "Procesos":
+            case "PROCESOS":
                 ucCatProcesos.UpdtVisible();
 
                 break;
-            case "Sistemas":
+            case "SISTEMAS":
                 ucCatSistemas.UpdtVisible();
 
                 break;
-            case "Funciones":
+            case "FUNCIONES":
                 ucCatFunciones.UpdtVisible();
 
                 break;
-            case "Cajeros":
+            case "CAJEROS":
                 ucCatCajeros.UpdtVisible();
 
                 break;
@@ -442,53 +442,53 @@ public partial class Catalogos : System.Web.UI.Page
     {
         switch (Session["SelectDrop"].ToString())
         {
-            case "Selecciona el catalogo":
+            case "SELECCIONA UN CATALOGO":
 
                 break;
-            case "Estados":
+            case "ESTADOS":
                 ucCatEstado.UpdtInVisible(); ucCatEstado.LimpiaCampos();
 
                 break;
-            case "Municipios":
+            case "MUNICIPIOS":
                 ucCatMunicipio.UpdtInVisible(); ucCatMunicipio.LimpiaCampos();
 
                 break;
-            case "Oficinas":
+            case "OFICINAS":
                 ucCatOficinas.UpdtInVisible(); ucCatOficinas.LimpiaCampos();
                 break;
 
-            case "Ventanas":
+            case "VENTANAS":
                 ucCatVentana.UpdtInVisible(); ucCatVentana.LimpiaCampos();
                 break;
-            case "Personas":
+            case "PERSONAS":
                 ucCatPersonas.UpdtInVisible(); ucCatPersonas.LimpiaCampos();
                 break;
 
-            case "Tipos de multa":
+            case "TIPOS DE MULTA":
                 ucCatTipoMulta.UpdtInVisible(); ucCatPersonas.LimpiaCampos();
 
                 break;
-            case "Agentes":
+            case "AGENTES":
                 ucCatAgente.UpdtInVisible(); ucCatPersonas.LimpiaCampos();
 
                 break;
-            case "Placas":
+            case "PLACAS":
                 ucCatPlacas.UpdtInVisible(); ucCatPersonas.LimpiaCampos();
 
                 break;
-            case "Procesos":
+            case "PROCESOS":
                 ucCatProcesos.UpdtInVisible(); ucCatPersonas.LimpiaCampos();
 
                 break;
-            case "Sistemas":
+            case "SISTEMAS":
                 ucCatSistemas.UpdtInVisible(); ucCatPersonas.LimpiaCampos();
 
                 break;
-            case "Funciones":
+            case "FUNCIONES":
                 ucCatFunciones.UpdtInVisible(); ucCatPersonas.LimpiaCampos();
 
                 break;
-            case "Cajeros":
+            case "CAJEROS":
                 ucCatCajeros.UpdtInVisible(); ucCatPersonas.LimpiaCampos();
 
                 break;
