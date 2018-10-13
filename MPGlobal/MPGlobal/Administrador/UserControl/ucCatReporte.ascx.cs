@@ -17,7 +17,12 @@ public partial class Administrador_UserControl_ucCatReporte : System.Web.UI.User
     {
 
 
-    }   
+    }
+
+    public void habilitaReadOnly(bool readOnly)
+    {
+        GridView1.Columns[0].Visible = !readOnly;
+    }
 
     public void LlenaGrid()
     {

@@ -16,6 +16,11 @@ public partial class Administrador_UserControl_ucCatAgente : System.Web.UI.UserC
 
     }
 
+    public void habilitaReadOnly(bool readOnly)
+    {
+        GridView1.Columns[0].Visible = !readOnly;
+    }
+
     public delegate void Habilita();
     public event Habilita BtnHabilita;
 
@@ -50,7 +55,7 @@ public partial class Administrador_UserControl_ucCatAgente : System.Web.UI.UserC
 
         using (DataBase db = new DataBase())
         {
-            Helper.cargaCatalogoGenericCombo(DropEstados, db.EjecutaSPCatalogos(DataBase.TipoAccion.Consulta, DataBase.TipoCatalogo.Estados, null).Tables[0].DataTableToList<Estado>(), "idEstado", "nomEstado");
+            Helper.cargaCatalogoGenericCombo(DropEstados, db.EjecutaSPCatalogos(DataBase.TipoAccion.Consulta, DataBase.TipoCatalogo.Estados, null).Tables[0].DataTableToList<Estado>(), "idEstado", "nomEstado", "- Seleccione un estado - ");
             Helper.cargaCatalogoGenericCombo(DropMpos, db.EjecutaSPCatalogos(DataBase.TipoAccion.Consulta, DataBase.TipoCatalogo.Municipios, null).Tables[0].DataTableToList<Municipio>(), "idMunicipio", "NomMunicipio");
 
         }

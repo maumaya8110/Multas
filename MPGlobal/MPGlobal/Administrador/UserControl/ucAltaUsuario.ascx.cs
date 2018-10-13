@@ -126,12 +126,12 @@ public partial class Administrador_UserControl_ucAltaUsuario : System.Web.UI.Use
         parametros.Add(new SqlParameter("@telefono", txtTelefono.Text));
         parametros.Add(new SqlParameter("@userId", id));
 
-        //guarda las ventanas
-        int idUsuario = Helper.GetIdUsuario(id);
         using (DataBase db = new DataBase())
         {
             db.EjecutaSPCatalogos(tipo, DataBase.TipoCatalogo.Usuarios, parametros.ToArray());
 
+            //guarda las ventanas
+            int idUsuario = Helper.GetIdUsuario(id);
             string xml = "";
             foreach (RepeaterItem item in rptVentanas.Items)
             {

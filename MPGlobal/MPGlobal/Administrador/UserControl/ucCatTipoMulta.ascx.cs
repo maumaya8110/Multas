@@ -16,6 +16,11 @@ public partial class Administrador_UserControl_ucCatTipoMulta : System.Web.UI.Us
 
     }
 
+    public void habilitaReadOnly(bool readOnly)
+    {
+        GridView1.Columns[0].Visible = !readOnly;
+    }
+
     public delegate void Habilita();
     public event Habilita BtnHabilita;
 
