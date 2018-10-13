@@ -213,5 +213,19 @@ public partial class Administrador_UserControl_ucCatAgente : System.Web.UI.UserC
     }
 
 
-    
+
+
+    protected void DropEstados_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        cAltaMultas obj = new cAltaMultas();
+        DataTable dtcatMpo;
+        int cveEdo = int.Parse(DropEstados.SelectedValue);
+        dtcatMpo = obj.catMunicipiosXEdo(cveEdo);
+
+        DropMpos.DataSource = dtcatMpo;
+        DropMpos.DataValueField = "id";
+        DropMpos.DataTextField = "Nombre";
+        DropMpos.DataBind();
+
+    }
 }
