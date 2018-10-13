@@ -24,8 +24,8 @@
                     swal("Eliminado!", "El registro ha sido eliminado.", "success");
 
                     document.getElementById('<%= HiddenField1AutEli.ClientID %>').value = IdEstado;
-                        //return true;
-                        document.getElementById('<%= BtnElimina.ClientID %>').click();
+                    //return true;
+                    document.getElementById('<%= BtnElimina.ClientID %>').click();
 
 
                     //return true;
@@ -133,19 +133,21 @@
             <!-- /.box-header -->
             <div class="box-body">
 
-                <asp:GridView ID="GridView1" runat="server" EmptyDataText="No hay registros que mostrar" ClientIDMode="Static" AutoGenerateColumns="false" CssClass="table table-bordered table-striped" OnRowEditing="GridView1_RowEditing" OnRowCancelingEdit="GridView1_RowCancelingEdit" OnRowUpdating="GridView1_Rowupdating" >
-                   
-                    <Columns>                     
+                <asp:GridView ID="GridView1" runat="server" EmptyDataText="No hay registros que mostrar" ClientIDMode="Static" AutoGenerateColumns="false" CssClass="table table-bordered table-striped" OnRowEditing="GridView1_RowEditing" OnRowCancelingEdit="GridView1_RowCancelingEdit" OnRowUpdating="GridView1_Rowupdating" OnRowDataBound="GridView1_RowDataBound">
+
+                    <Columns>
 
                         <%--botones de acción sobre los registros...--%>
                         <asp:TemplateField ItemStyle-HorizontalAlign="Center" HeaderStyle-Width="16%">
                             <ItemTemplate>
                                 <%--Botones de eliminar y editar cliente...--%>
-                                                               
-                                <asp:LinkButton ID="btnEdit" runat="server" ToolTip="EDITAR" type="button" class="btn btn-default btn-xs" CommandName="Edit">
+                                <asp:Panel ID="pnlEdicion" runat="server">
+                                    <asp:LinkButton ID="btnEdit" runat="server" ToolTip="EDITAR" type="button" class="btn btn-default btn-xs" CommandName="Edit">
                                             <span class="glyphicon glyphicon-pencil"></span>
-                                </asp:LinkButton>                           
-                                <a class="btn btn-default btn-xs" onclick="QuestionDelete('<%# Eval("IdEstado")%>');" tooltip="ELIMINAR"><span class="glyphicon glyphicon-trash"></span></a>
+                                    </asp:LinkButton>
+                                    <a class="btn btn-default btn-xs" onclick="QuestionDelete('<%# Eval("IdEstado")%>');" tooltip="ELIMINAR"><span class="glyphicon glyphicon-trash"></span></a>
+                                </asp:Panel>
+
                             </ItemTemplate>
                             <EditItemTemplate>
                                 <%--Botones de grabar y cancelar la edición de registro OnClientClick="Success();"...--%>
@@ -161,7 +163,7 @@
                         </asp:TemplateField>
 
                         <%--campos editables...--%>
-                        
+
 
                         <asp:TemplateField HeaderStyle-Width="150px" HeaderText="ESTADO">
                             <ItemTemplate>
@@ -169,7 +171,7 @@
                             </ItemTemplate>
                             <EditItemTemplate>
                                 <asp:TextBox ID="TxtNomEstado" runat="server" Text='<%# Bind("NomEstado")%>' CssClass="form-control"></asp:TextBox>
-                                 <asp:HiddenField ID="HiddenIdEstado" runat="server" Value='<%# Eval("IdEstado") %>'></asp:HiddenField>
+                                <asp:HiddenField ID="HiddenIdEstado" runat="server" Value='<%# Eval("IdEstado") %>'></asp:HiddenField>
                             </EditItemTemplate>
                         </asp:TemplateField>
 
@@ -223,7 +225,7 @@
                                 <asp:CheckBox ID="chkEstatusEstado" runat="server" Checked='<%# bool.Parse(Eval("EstatusEstado").ToString()) %>' Enabled="false" />
                             </ItemTemplate>
                             <EditItemTemplate>
-                                <asp:CheckBox ID="chkEstatusEstado" runat="server" Checked='<%# bool.Parse(Eval("EstatusEstado").ToString()) %>' Enabled="true"/>
+                                <asp:CheckBox ID="chkEstatusEstado" runat="server" Checked='<%# bool.Parse(Eval("EstatusEstado").ToString()) %>' Enabled="true" />
                             </EditItemTemplate>
                         </asp:TemplateField>
 

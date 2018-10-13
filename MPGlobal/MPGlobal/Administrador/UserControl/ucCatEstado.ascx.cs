@@ -13,18 +13,21 @@ public partial class Administrador_UserControl_ucCatEstado : System.Web.UI.UserC
     //public string TipoCatalogo = "";
     //public string TipoMovimiento = "";
 
+    
     protected void Page_Load(object sender, EventArgs e)
     {
 
-       
+
     }
 
     public delegate void Habilita();
     public event Habilita BtnHabilita;
 
+    public void habilitaReadOnly(bool readOnly)
+    {
+        GridView1.Columns[0].Visible = !readOnly;
+    }
 
-
-    
     public void GridDatabind()
     {
         GridView1.DataBind();
@@ -39,13 +42,13 @@ public partial class Administrador_UserControl_ucCatEstado : System.Web.UI.UserC
 
             MPGlobalSessiones.Current.Estado = db.EjecutaSPCatalogos(DataBase.TipoAccion.Consulta, DataBase.TipoCatalogo.Estados, null).Tables[0].DataTableToList<Estado>();
             IEnumerable<Estado> query = MPGlobalSessiones.Current.Estado;
-                       
+
             GridView1.DataSource = query.ToList();
             GridView1.DataBind();
 
             if (query.ToList().Count > 0)
                 GridView1.HeaderRow.TableSection = TableRowSection.TableHeader;
-           
+
         }
 
 
@@ -59,7 +62,7 @@ public partial class Administrador_UserControl_ucCatEstado : System.Web.UI.UserC
     }
 
 
-    public void UpdtVisible() { UpdtAgregarEdo.Visible = true;}
+    public void UpdtVisible() { UpdtAgregarEdo.Visible = true; }
     public void UpdtInVisible() { UpdtAgregarEdo.Visible = false; }
 
 
@@ -212,6 +215,11 @@ public partial class Administrador_UserControl_ucCatEstado : System.Web.UI.UserC
             LimpiaCampos();
             LlenaGrid();
         }
+
+    }
+
+    protected void GridView1_RowDataBound(object sender, GridViewRowEventArgs e)
+    {
 
     }
 }
