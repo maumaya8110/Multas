@@ -120,7 +120,7 @@
                                         <div class="inputGroupContainer">
                                             <div class="input-group">
                                                 <span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
-                                                <asp:DropDownList ID="DropEstados" runat="server" placeholder="Estados" CssClass="form-control selectpicker campo_obligatorio">
+                                                <asp:DropDownList ID="DropEstados" runat="server" placeholder="Estados" CssClass="form-control selectpicker campo_obligatorio" OnSelectedIndexChanged="DropEstados_SelectedIndexChanged" AutoPostBack="true">
                                                 </asp:DropDownList>
                                             </div>
                                         </div>

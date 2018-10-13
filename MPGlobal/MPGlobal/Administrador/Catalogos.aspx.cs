@@ -9,29 +9,12 @@ using System.Data.SqlClient;
 
 public partial class Catalogos : System.Web.UI.Page
 {
-    public bool ReadOnly
-    {
-        get
-        {
-            if (Session["ReadOnlyCatalogos"] == null)
-                Session["ReadOnlyCatalogos"] = false;
 
-            return (bool)Session["ReadOnlyCatalogos"];
-        }
-        set
-        {
-            Session["ReadOnlyCatalogos"] = value;
-        }
-    }
 
     protected void Page_Load(object sender, EventArgs e)
     {
         if (!IsPostBack)
         {
-            //obtiene si tiene acceso a agregar y editar
-            ReadOnly = false;
-            btnNew.Visible = false;
-
             //Session["TipoMovimiento"] = "";
             //Session["TipoCatalogo"] = "";
             Session["SelectDrop"] = "";
@@ -81,18 +64,13 @@ public partial class Catalogos : System.Web.UI.Page
 
 
                 break;
-<<<<<<< HEAD
             case "ESTADOS":
                 btnNew.Visible = true;
-=======
-            case "Estados":
-                btnNew.Visible = !ReadOnly;
->>>>>>> 341ec9fd9915bae36dd443ebe384c97280ce1961
 
                 //HacerVisible el UserControl
                 ucCatEstado.Visible = true;
                 ucCatEstado.LlenaGrid();
-                ucCatEstado.habilitaReadOnly(ReadOnly);
+
                 //HacerInVisible los demas UserControl
                 ucCatMunicipio.Visible = false;
                 ucCatOficinas.Visible = false;
@@ -108,19 +86,13 @@ public partial class Catalogos : System.Web.UI.Page
                 ucCatCajeros.Visible = false;
 
                 break;
-<<<<<<< HEAD
             case "MUNICIPIOS":
                 btnNew.Visible = true;
-=======
-            case "Municipios":
-                btnNew.Visible = !ReadOnly;
->>>>>>> 341ec9fd9915bae36dd443ebe384c97280ce1961
 
                 //HacerVisible el UserControl
                 ucCatMunicipio.Visible = true;
                 ucCatMunicipio.LlenaGrid();
                 ucCatMunicipio.LlenaDrop();
-                ucCatMunicipio.habilitaReadOnly(ReadOnly);
 
                 //HacerInVisible los demas UserControl
                 ucCatEstado.Visible = false;
@@ -138,13 +110,12 @@ public partial class Catalogos : System.Web.UI.Page
                 break;
             case "OFICINAS":
 
-                btnNew.Visible = !ReadOnly;
+                btnNew.Visible = true;
 
                 //HacerVisible el UserControl
                 ucCatOficinas.Visible = true;
                 ucCatOficinas.LlenaGrid();
                 ucCatOficinas.LlenaDrop();
-                ucCatOficinas.habilitaReadOnly(ReadOnly);
 
                 //HacerInVisible los demas UserControl
                 ucCatEstado.Visible = false;
@@ -161,19 +132,13 @@ public partial class Catalogos : System.Web.UI.Page
 
                 break;
 
-<<<<<<< HEAD
             case "VENTANAS":
                 btnNew.Visible = true;
-=======
-            case "Ventanas":
-                btnNew.Visible = !ReadOnly;
->>>>>>> 341ec9fd9915bae36dd443ebe384c97280ce1961
 
                 //HacerVisible el UserControl
                 ucCatVentana.Visible = true;
                 ucCatVentana.LlenaGrid();
                 ucCatVentana.LlenaDrop();
-                ucCatVentana.habilitaReadOnly(ReadOnly);
 
                 //HacerInVisible los demas UserControl
                 ucCatEstado.Visible = false;
@@ -189,19 +154,13 @@ public partial class Catalogos : System.Web.UI.Page
                 ucCatCajeros.Visible = false;
 
                 break;
-<<<<<<< HEAD
             case "PERSONAS":
                 btnNew.Visible = true;
-=======
-            case "Personas":
-                btnNew.Visible = !ReadOnly;
->>>>>>> 341ec9fd9915bae36dd443ebe384c97280ce1961
 
                 //HacerVisible el UserControl
                 ucCatPersonas.Visible = true;
                 ucCatPersonas.LlenaGrid();
                 ucCatPersonas.LlenaDrop();
-                ucCatPersonas.habilitaReadOnly(ReadOnly);
 
                 //HacerInVisible los demas UserControl
                 ucCatEstado.Visible = false;
@@ -219,19 +178,13 @@ public partial class Catalogos : System.Web.UI.Page
 
 
                 break;
-<<<<<<< HEAD
             case "TIPOS DE MULTA":
                 btnNew.Visible = true;
-=======
-            case "Tipos de multa":
-                btnNew.Visible = !ReadOnly;
->>>>>>> 341ec9fd9915bae36dd443ebe384c97280ce1961
 
                 //HacerVisible el UserControl                
                 ucCatTipoMulta.Visible = true;
                 ucCatTipoMulta.LlenaGrid();
                 ucCatTipoMulta.LlenaDrop();
-                ucCatTipoMulta.habilitaReadOnly(ReadOnly);
 
                 //HacerInVisible los demas UserControl
                 ucCatEstado.Visible = false;
@@ -248,19 +201,13 @@ public partial class Catalogos : System.Web.UI.Page
                 ucCatCajeros.Visible = false;
 
                 break;
-<<<<<<< HEAD
             case "AGENTES":
                 btnNew.Visible = true;
-=======
-            case "Agentes":
-                btnNew.Visible = !ReadOnly;
->>>>>>> 341ec9fd9915bae36dd443ebe384c97280ce1961
 
                 //HacerVisible el UserControl
                 ucCatAgente.Visible = true;
                 ucCatAgente.LlenaGrid();
                 ucCatAgente.LlenaDrop();
-                ucCatAgente.habilitaReadOnly(ReadOnly);
 
                 //HacerInVisible los demas UserControl
                 ucCatEstado.Visible = false;
@@ -277,19 +224,13 @@ public partial class Catalogos : System.Web.UI.Page
                 ucCatCajeros.Visible = false;
 
                 break;
-<<<<<<< HEAD
             case "PLACAS":
                 btnNew.Visible = true;
-=======
-            case "Placas":
-                btnNew.Visible = !ReadOnly;
->>>>>>> 341ec9fd9915bae36dd443ebe384c97280ce1961
 
                 //HacerVisible el UserControl
                 ucCatPlacas.Visible = true;
                 ucCatPlacas.LlenaGrid();
                 ucCatPlacas.LlenaDrop();
-                ucCatPlacas.habilitaReadOnly(ReadOnly);
 
                 //HacerInVisible los demas UserControl
                 ucCatEstado.Visible = false;
@@ -306,19 +247,13 @@ public partial class Catalogos : System.Web.UI.Page
                 ucCatCajeros.Visible = false;
 
                 break;
-<<<<<<< HEAD
             case "PROCESOS":
                 btnNew.Visible = true;
-=======
-            case "Procesos":
-                btnNew.Visible = !ReadOnly;
->>>>>>> 341ec9fd9915bae36dd443ebe384c97280ce1961
 
                 //HacerVisible el UserControl
                 ucCatProcesos.Visible = true;
                 ucCatProcesos.LlenaGrid();
                 ucCatProcesos.LlenaDrop();
-                ucCatProcesos.habilitaReadOnly(ReadOnly);
 
                 //HacerInVisible los demas UserControl
                 ucCatEstado.Visible = false;
@@ -335,19 +270,13 @@ public partial class Catalogos : System.Web.UI.Page
                 ucCatCajeros.Visible = false;
 
                 break;
-<<<<<<< HEAD
             case "SISTEMAS":
                 btnNew.Visible = true;
-=======
-            case "Sistemas":
-                btnNew.Visible = !ReadOnly;
->>>>>>> 341ec9fd9915bae36dd443ebe384c97280ce1961
 
                 //HacerVisible el UserControl
                 ucCatSistemas.Visible = true;
                 ucCatSistemas.LlenaGrid();
                 ucCatSistemas.LlenaDrop();
-                ucCatSistemas.habilitaReadOnly(ReadOnly);
 
                 //HacerInVisible los demas UserControl
                 ucCatEstado.Visible = false;
@@ -364,19 +293,13 @@ public partial class Catalogos : System.Web.UI.Page
                 ucCatCajeros.Visible = false;
 
                 break;
-<<<<<<< HEAD
             case "FUNCIONES":
                 btnNew.Visible = true;
-=======
-            case "Funciones":
-                btnNew.Visible = !ReadOnly;
->>>>>>> 341ec9fd9915bae36dd443ebe384c97280ce1961
 
                 //HacerVisible el UserControl
                 ucCatFunciones.Visible = true;
                 ucCatFunciones.LlenaGrid();
                 ucCatFunciones.LlenaDrop();
-                ucCatFunciones.habilitaReadOnly(ReadOnly);
 
                 //HacerInVisible los demas UserControl
                 ucCatEstado.Visible = false;
@@ -393,19 +316,13 @@ public partial class Catalogos : System.Web.UI.Page
                 ucCatCajeros.Visible = false;
 
                 break;
-<<<<<<< HEAD
             case "CAJEROS":
                 btnNew.Visible = true;
-=======
-            case "Cajeros":
-                btnNew.Visible = !ReadOnly;
->>>>>>> 341ec9fd9915bae36dd443ebe384c97280ce1961
 
                 //HacerVisible el UserControl
                 ucCatCajeros.Visible = true;
                 ucCatCajeros.LlenaGrid();
                 ucCatCajeros.LlenaDrop();
-                ucCatCajeros.habilitaReadOnly(ReadOnly);
 
                 //HacerInVisible los demas UserControl
                 ucCatEstado.Visible = false;

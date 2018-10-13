@@ -28,7 +28,7 @@
 
     function endReq(sender, args) {
         Datapicker();
-        if($('#GridView1').find('thead').size() > 0)
+        if ($('#GridView1').find('thead').size() > 0)
             $('#GridView1').DataTable({
                 language: {
                     search: 'Buscar: ',
@@ -37,7 +37,7 @@
                     zeroRecords: 'No se encontraron registros con esa coincidencia',
                     infoEmpty: 'Mostrando 0 registros',
                     infoFiltered: '(Filtrado de _MAX_ registros en total)',
-                    paginate: {first: "Primero", last:"Ultimo", next:"Siguiente",  previous:"Anterior"}
+                    paginate: { first: "Primero", last: "Ultimo", next: "Siguiente", previous: "Anterior" }
 
                 }
             });
@@ -75,6 +75,32 @@
         });
     }
 
+    function FechaValida() {
+
+        swal({
+            position: 'top-end',
+            type: 'warning',
+            title: 'Favor de colocar fechas validas',
+            showConfirmButton: true
+            //timer: 1500
+
+        });
+    }
+
+    function SinMultasParaProcesar() {
+
+        swal({
+            position: 'top-end',
+            type: 'warning',
+            title: 'No hay multas para procesar',
+            showConfirmButton: true
+            //timer: 1500
+
+        });
+
+
+
+    }
 </script>
 
 <asp:HiddenField ID="HiddenField1AutEli" runat="server" />
@@ -123,29 +149,16 @@
                     <div class="form-inline col-auto">
                         <div class="form-group">
 
-                            <%--  <div class='input-group date' id='datetimepicker1'>
-                                        <input type='text' class="form-control" />
-                                        <span class="input-group-addon">
-                                            <span class="glyphicon glyphicon-calendar"></span>
-                                        </span>
-                                    </div>--%>
-
-                            <%--      <div class="input-daterange input-group" id="datetimepicker">
-                                        <input type="text" class="input-sm form-control" name="start" />
-                                        <span class="input-group-addon">to</span>
-                                        <input type="text" class="input-sm form-control" name="end" />
-                                    </div>--%>
 
                             <div class="input-group date" id="datetimepicker1" data-date-format="dd-mm-yyyy">
-                                <asp:TextBox ID="txtFechaIni" runat="server" CssClass="form-control campo_obligatorio input-group-addon" placeholder="Fecha Inicial"></asp:TextBox>
+                                <asp:TextBox ID="txtFechaIni" runat="server" CssClass="form-control selectpicker campo_obligatorio" placeholder="Fecha Inicial"></asp:TextBox>
                                 <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
 
-                                <%--<span class="input-group-addon"> al </span>--%>
                             </div>
 
 
                             <div class="input-group date" id="datetimepicker2" data-date-format="dd-mm-yyyy">
-                                <asp:TextBox ID="txtFechaFin" runat="server" CssClass="form-control campo_obligatorio  input-group-addon" placeholder="Fecha Final"></asp:TextBox>
+                                <asp:TextBox ID="txtFechaFin" runat="server" CssClass="form-control selectpicker campo_obligatorio" placeholder="Fecha Final"></asp:TextBox>
                                 <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
 
                             </div>
@@ -165,7 +178,7 @@
             <%--  --%>
             <!-- /.box-header -->
             <div class="box-body">
-                <asp:GridView ID="GridView1" runat="server" EmptyDataText="No hay registros que mostrar" AutoGenerateColumns="false" ClientIDMode="Static" CssClass="table table-bordered table-striped" >
+                <asp:GridView ID="GridView1" runat="server" EmptyDataText="No hay registros que mostrar" AutoGenerateColumns="false" ClientIDMode="Static" CssClass="table table-bordered table-striped">
 
                     <Columns>
                         <%--botones de acción sobre los registros...--%>

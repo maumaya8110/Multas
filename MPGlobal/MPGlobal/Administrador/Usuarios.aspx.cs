@@ -9,21 +9,6 @@ using System.Data;
 
 public partial class Administrador_Usuarios : System.Web.UI.Page
 {
-    public bool ReadOnly
-    {
-        get
-        {
-            if (Session["ReadOnlyCatalogos"] == null)
-                Session["ReadOnlyCatalogos"] = false;
-
-            return (bool)Session["ReadOnlyCatalogos"];
-        }
-        set
-        {
-            Session["ReadOnlyCatalogos"] = value;
-        }
-    }
-
     protected void Page_Init(object sender, EventArgs e)
     {
         ucAltaUsuario.OnUsuarioAgregado += UsuarioAgregado;
@@ -31,7 +16,6 @@ public partial class Administrador_Usuarios : System.Web.UI.Page
 
     private void UsuarioAgregado(string id)
     {
-        MPGlobalSessiones.Current.UsuariosAdministrador = db.EjecutaSPCatalogos(DataBase.TipoAccion.Consulta, DataBase.TipoCatalogo.Usuarios, null).Tables[0].DataTableToList<Usuario>();
         cargaUsuarios();
     }
 
@@ -39,11 +23,7 @@ public partial class Administrador_Usuarios : System.Web.UI.Page
     {
         if (!IsPostBack)
         {
-            //obtiene si tiene acceso a agregar y editar
-            ReadOnly = false;
-            lnkAddUsuario.Visible = !ReadOnly;
-
-            using (DataBase db = new DataBase())
+            using(DataBase db = new DataBase())
             {
                 //cargar catalogo estados
                 Helper.cargaCatalogoGenericReporte(ddlEstado, db.EjecutaSPCatalogos(DataBase.TipoAccion.Consulta, DataBase.TipoCatalogo.Estados, null).Tables[0].DataTableToList<Estado>(), "idEstado", "nomEstado");
@@ -79,9 +59,6 @@ public partial class Administrador_Usuarios : System.Web.UI.Page
                 grdUsuarios.DataSource = query.ToList();
                 grdUsuarios.DataBind();
             }
-
-            grdUsuarios.Columns[0].Visible = !ReadOnly;
-            grdUsuarios.Columns[1].Visible = !ReadOnly;
         }
         catch { }
     }
@@ -113,8 +90,7 @@ public partial class Administrador_Usuarios : System.Web.UI.Page
 
     protected void lnkEditar_Command(object sender, CommandEventArgs e)
     {
-        if(!ReadOnly)
-            ucAltaUsuario.cargaInfoUsuario(int.Parse(e.CommandArgument.ToString()));
+        ucAltaUsuario.cargaInfoUsuario(int.Parse(e.CommandArgument.ToString()));
     }
 
     protected void lnkAddUsuario_Click(object sender, EventArgs e)
