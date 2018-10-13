@@ -87,20 +87,6 @@
 
 <asp:HiddenField ID="HiddenField1AutEli" runat="server" />
 
-<script type="text/javascript">
-    Sys.WebForms.PageRequestManager.getInstance().add_beginRequest(beginReq);
-    Sys.WebForms.PageRequestManager.getInstance().add_endRequest(endReq);
-
-    function beginReq(sender, args) {
-
-
-    }
-
-    function endReq(sender, args) {
-      
-    }
-</script>
-
 
 <asp:UpdatePanel ID="UpdatePanel1" runat="server">
     <ContentTemplate>

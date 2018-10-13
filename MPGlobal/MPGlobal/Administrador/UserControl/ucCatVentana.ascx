@@ -87,35 +87,6 @@
 
 <asp:HiddenField ID="HiddenField1AutEli" runat="server" />
 
-<script type="text/javascript">
-    Sys.WebForms.PageRequestManager.getInstance().add_beginRequest(beginReq);
-    Sys.WebForms.PageRequestManager.getInstance().add_endRequest(endReq);
-
-    function beginReq(sender, args) {
-
-
-    }
-
-    function endReq(sender, args) {
-        $(function () {
-            $('#example1').DataTable()
-            $('#GridView1').DataTable()
-            $('#example2').DataTable({
-                'paging': true,
-                'lengthChange': false,
-                'searching': false,
-                'ordering': true,
-                'info': true,
-                'autoWidth': false
-            })
-        })
-
-
-
-    }
-</script>
-
-
 <asp:UpdatePanel ID="UpdatePanel1" runat="server">
     <ContentTemplate>
         <div class="box">
@@ -156,7 +127,7 @@
 
                                     <asp:TextBox ID="txtURL" runat="server" placeholder="URL" CssClass="form-control campo_obligatorio"></asp:TextBox>
 
-                                   
+
                                     <asp:LinkButton ID="LinkBtnAlta" runat="server" type="button" class="btn btn-default btn-sm" CommandName="LinkBtnAlta" OnClick="LinkBtnAlta_Click" data-target="#AddVentana" OnClientClick="javascript:validaCampos(this,event);">
                                             <span class="glyphicon glyphicon-plus"></span>
                                     </asp:LinkButton>
@@ -237,19 +208,19 @@
 
 
 
-               
-                       
+
+
                         <%--campos editables...--%>
-             
+
 
                         <asp:TemplateField HeaderStyle-Width="150px" HeaderText="VENTANA">
                             <ItemTemplate>
-                                
+
                                 <asp:Label ID="lblNomVentana" runat="server"><%# Eval("NomVentana")%></asp:Label>
                             </ItemTemplate>
                             <EditItemTemplate>
                                 <asp:TextBox ID="TxtNomVentana" runat="server" Text='<%# Bind("NomVentana")%>' CssClass="form-control"></asp:TextBox>
-                                <asp:HiddenField ID="HiddenIdVentana" runat="server" Value=<%# Eval("IdVentana") %> ></asp:HiddenField>
+                                <asp:HiddenField ID="HiddenIdVentana" runat="server" Value='<%# Eval("IdVentana") %>'></asp:HiddenField>
                             </EditItemTemplate>
                         </asp:TemplateField>
 
@@ -261,21 +232,21 @@
                                 <asp:TextBox ID="TxtURL" runat="server" Text='<%# Bind("URL")%>' CssClass="form-control"></asp:TextBox>
                             </EditItemTemplate>
                         </asp:TemplateField>
-                       
-                                   <asp:TemplateField HeaderStyle-Width="150px" HeaderText="ESTADO">
+
+                        <asp:TemplateField HeaderStyle-Width="150px" HeaderText="ESTADO">
                             <ItemTemplate>
                                 <asp:Label ID="lblEstado" runat="server"><%# Eval("nomEstado")%></asp:Label>
                             </ItemTemplate>
                             <EditItemTemplate>
-                              <div class="form-group">
-                                        <div class="inputGroupContainer">
-                                            <div class="input-group">
-                                                <asp:DropDownList ID="DropEstado" runat="server" CssClass="form-control selectpicker campo_obligatorio">
-                                                </asp:DropDownList>
-                                                <asp:HiddenField ID="HiddenIdEstado" runat="server" Value='<%# Eval("IdEstado") %>'></asp:HiddenField>
-                                            </div>
+                                <div class="form-group">
+                                    <div class="inputGroupContainer">
+                                        <div class="input-group">
+                                            <asp:DropDownList ID="DropEstado" runat="server" CssClass="form-control selectpicker campo_obligatorio">
+                                            </asp:DropDownList>
+                                            <asp:HiddenField ID="HiddenIdEstado" runat="server" Value='<%# Eval("IdEstado") %>'></asp:HiddenField>
                                         </div>
                                     </div>
+                                </div>
 
                             </EditItemTemplate>
                         </asp:TemplateField>
@@ -285,19 +256,19 @@
                                 <asp:Label ID="lblMunicipio" runat="server"><%# Eval("nomMunicipio")%></asp:Label>
                             </ItemTemplate>
                             <EditItemTemplate>
-                              <div class="form-group">
-                                        <div class="inputGroupContainer">
-                                            <div class="input-group">                                              
-                                                <asp:DropDownList ID="DropMpo" runat="server" CssClass="form-control selectpicker campo_obligatorio">
-                                                </asp:DropDownList>
-                                                <asp:HiddenField ID="HiddenIdMunicipio" runat="server" Value='<%# Eval("IdMunicipio") %>'></asp:HiddenField>
-                                            </div>
+                                <div class="form-group">
+                                    <div class="inputGroupContainer">
+                                        <div class="input-group">
+                                            <asp:DropDownList ID="DropMpo" runat="server" CssClass="form-control selectpicker campo_obligatorio">
+                                            </asp:DropDownList>
+                                            <asp:HiddenField ID="HiddenIdMunicipio" runat="server" Value='<%# Eval("IdMunicipio") %>'></asp:HiddenField>
                                         </div>
                                     </div>
+                                </div>
 
                             </EditItemTemplate>
                         </asp:TemplateField>
-                       
+
                         <asp:TemplateField HeaderStyle-Width="150px" HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Center" HeaderText="ESTATUS">
                             <ItemTemplate>
                                 <asp:CheckBox ID="chkEstatusVentana" runat="server" Checked='<%# bool.Parse(Eval("Estatus").ToString()) %>' Enabled="false" />

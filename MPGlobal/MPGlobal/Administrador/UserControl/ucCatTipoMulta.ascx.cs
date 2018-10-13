@@ -80,14 +80,18 @@ public partial class Administrador_UserControl_ucCatTipoMulta : System.Web.UI.Us
 
         DropDownList DropEstado = ((DropDownList)GridView1.Rows[e.NewEditIndex].Cells[5].FindControl("DropEstado"));
         DropDownList DropMunicipio = ((DropDownList)GridView1.Rows[e.NewEditIndex].Cells[6].FindControl("DropMpo"));
-     
+
+
+        //CheckBox chkRecargo = ((CheckBox)GridView1.Rows[e.NewEditIndex].Cells[7].FindControl("chkRecargo"));
+        //CheckBox chkActualizacion = ((CheckBox)GridView1.Rows[e.NewEditIndex].Cells[8].FindControl("chkActualizacion"));
+
 
         using (DataBase db = new DataBase())
         {
             Helper.cargaCatalogoGenericCombo(DropEstado, db.EjecutaSPCatalogos(DataBase.TipoAccion.Consulta, DataBase.TipoCatalogo.Estados, null).Tables[0].DataTableToList<Estado>(), "idEstado", "nomEstado");
             Helper.cargaCatalogoGenericCombo(DropMunicipio, db.EjecutaSPCatalogos(DataBase.TipoAccion.Consulta, DataBase.TipoCatalogo.Municipios, null).Tables[0].DataTableToList<Municipio>(), "idMunicipio", "NomMunicipio");
 
-         
+          
             DropEstado.SelectedValue = ((HiddenField)(GridView1.Rows[e.NewEditIndex].Cells[5].Controls[1].FindControl("HiddenIdEstado"))).Value;
             DropMunicipio.SelectedValue = ((HiddenField)(GridView1.Rows[e.NewEditIndex].Cells[6].Controls[1].FindControl("HiddenIdMunicipio"))).Value;
 
@@ -122,10 +126,12 @@ public partial class Administrador_UserControl_ucCatTipoMulta : System.Web.UI.Us
 
             parametros.Add(new SqlParameter("@Cantidad", ((TextBox)(row.Cells[2].Controls[1])).Text));
             parametros.Add(new SqlParameter("@DPPMulta", ((TextBox)(row.Cells[3].Controls[1])).Text));
-            parametros.Add(new SqlParameter("@AplicaDesc", ((TextBox)(row.Cells[4].Controls[1])).Text));
+            parametros.Add(new SqlParameter("@AplicaDesc", ((CheckBox)(row.Cells[4].Controls[1])).Checked));
             parametros.Add(new SqlParameter("@idEstado", ((DropDownList)(row.Cells[5].Controls[1])).SelectedValue));
             parametros.Add(new SqlParameter("@idMunicipio", ((DropDownList)(row.Cells[6].Controls[1])).SelectedValue));
-            parametros.Add(new SqlParameter("@estatus", ((CheckBox)(row.Cells[7].Controls[1])).Checked));
+            parametros.Add(new SqlParameter("@Recargo", ((CheckBox)(row.Cells[7].Controls[1])).Checked));
+            parametros.Add(new SqlParameter("@Actualizacion", ((CheckBox)(row.Cells[8].Controls[1])).Checked));
+            parametros.Add(new SqlParameter("@estatus", ((CheckBox)(row.Cells[9].Controls[1])).Checked));
 
             db.EjecutaSPCatalogos(DataBase.TipoAccion.Modificar, DataBase.TipoCatalogo.TipoMulta, parametros.ToArray());
 
@@ -180,8 +186,10 @@ public partial class Administrador_UserControl_ucCatTipoMulta : System.Web.UI.Us
         //Limpia textbox
         txtNomMulta.Text = "";
         txtCantidad.Text = "";
+        chkActualizacion.Checked = false;
+        chkAplicaDesc.Checked = false;
         txtDPPMulta.Text = "";
-        txtAplicaDesc.Text = "";
+        chkRecargo.Checked = false;
        
             
         
@@ -200,10 +208,12 @@ public partial class Administrador_UserControl_ucCatTipoMulta : System.Web.UI.Us
             parametros.Add(new SqlParameter("@Descripcion", txtNomMulta.Text));
             parametros.Add(new SqlParameter("@Cantidad", txtCantidad.Text));
             parametros.Add(new SqlParameter("@DPPMulta", txtDPPMulta.Text));
-            parametros.Add(new SqlParameter("@AplicaDesc", txtAplicaDesc.Text));
+            parametros.Add(new SqlParameter("@AplicaDesc", chkAplicaDesc.Checked));
               
             parametros.Add(new SqlParameter("@idEstado", DropEstados.SelectedValue));
             parametros.Add(new SqlParameter("@idMunicipio", DropMpos.SelectedValue));
+            parametros.Add(new SqlParameter("@Recargo", chkRecargo.Checked));
+            parametros.Add(new SqlParameter("@Actualizacion", chkActualizacion.Checked));
             parametros.Add(new SqlParameter("@Estatus", 1));
             db.EjecutaSPCatalogos(DataBase.TipoAccion.Insertar, DataBase.TipoCatalogo.TipoMulta, parametros.ToArray());
 
