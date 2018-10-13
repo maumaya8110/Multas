@@ -63,13 +63,13 @@
                             <section id="loginForm_2">
                                 <div class="form-horizontal">
                                     <br />
-                                    <h5 class="text-center">Proporciona tu usuario (correo) y te enviaremos un email para que puedas restablecerla.</h5>
+                                    <h5 class="text-center">Proporciona tu usuario y te enviaremos un email para que puedas restablecerla.</h5>
                                     <br />
                                     <div class="col-md-12">
                                         <div class="form-group">
                                             <div class="inputGroupContainer">
                                                 <div class="input-group">
-                                                    <span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
+                                                    <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
                                                     <asp:TextBox ID="txtEmail" runat="server" placeholder="Usuario" CssClass="form-control"></asp:TextBox>
 
                                                 </div>
@@ -88,7 +88,13 @@
                                         </div>
                                     </div>
                                     <div class="row">
-                                        <div class="col-sm-12 text-right">
+                                        <div class="col-sm-6">
+                                            <br />
+                                            <p>
+                                                <asp:HyperLink ID="lnkRegresar" runat="server" CssClass="btn btn-default" NavigateUrl="~/Account/Login.aspx" Text="Regresar"></asp:HyperLink>
+                                            </p>
+                                        </div>
+                                        <div class="col-sm-6 text-right">
                                             <br />
                                             <p>
                                                 <asp:Button ID="btnEnviarEmail" runat="server" CssClass="btn btn-primary" Text="Validar correo" OnClick="btnEnviarEmail_Click" />
@@ -105,7 +111,7 @@
                         <div class="container-full">
                             <div class="row">
                                 <div class="col-md-12">
-                                    <section class="confirmForgot" style="padding:15px;">
+                                    <section class="confirmForgot" style="padding: 15px;">
                                         <div class="form-horizontal">
                                             <br />
                                             <h4 class="text-info">Por favor valida tu correo para recuperar tu contraseña
@@ -113,7 +119,7 @@
                                             </h4>
                                             <br />
                                             <div class="col-sm-12 text-right">
-                                                <asp:HyperLink ID="lnkIniciarSesion" runat="server" NavigateUrl="~/Account/Login.aspx" Text="Iniciar sesión" CssClass="btn btn-primary" style="margin-bottom:15px;"></asp:HyperLink>
+                                                <asp:HyperLink ID="lnkIniciarSesion" runat="server" NavigateUrl="~/Account/Login.aspx" Text="Iniciar sesión" CssClass="btn btn-primary" Style="margin-bottom: 15px;"></asp:HyperLink>
                                                 <br />
                                             </div>
                                         </div>
