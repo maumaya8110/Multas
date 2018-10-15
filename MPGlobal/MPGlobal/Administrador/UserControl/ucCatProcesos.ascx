@@ -32,91 +32,62 @@
                 }
 
             });
-        }
+    }
 
 
 
-        function Success() {
+    function Success() {
 
-            swal({
-                position: 'top-end',
-                type: 'success',
-                title: 'La modificación ha sido exitosa',
-                showConfirmButton: false,
-                timer: 1500
+        swal({
+            position: 'top-end',
+            type: 'success',
+            title: 'La modificación ha sido exitosa',
+            showConfirmButton: false,
+            timer: 1500
 
-            });
-        }
+        });
+    }
 
-        function AltaSuccess() {
+    function AltaSuccess() {
 
-            swal({
-                position: 'top-end',
-                type: 'success',
-                title: 'Alta exitosa',
-                showConfirmButton: false,
-                timer: 1500
+        swal({
+            position: 'top-end',
+            type: 'success',
+            title: 'Alta exitosa',
+            showConfirmButton: false,
+            timer: 1500
 
-            });
-        }
+        });
+    }
 
-        function EditSuccess() {
+    function EditSuccess() {
 
-            swal({
-                position: 'top-end',
-                type: 'success',
-                title: 'Modificación exitosa',
-                showConfirmButton: false,
-                timer: 1500
+        swal({
+            position: 'top-end',
+            type: 'success',
+            title: 'Modificación exitosa',
+            showConfirmButton: false,
+            timer: 1500
 
-            });
-        }
+        });
+    }
 
-        function DeleteSuccess() {
+    function DeleteSuccess() {
 
-            swal({
-                position: 'top-end',
-                type: 'success',
-                title: 'Eliminación exitosa',
-                showConfirmButton: false,
-                timer: 1500
+        swal({
+            position: 'top-end',
+            type: 'success',
+            title: 'Eliminación exitosa',
+            showConfirmButton: false,
+            timer: 1500
 
-            });
-        }
+        });
+    }
 
 
 </script>
 
 <asp:HiddenField ID="HiddenField1AutEli" runat="server" />
-
-<script type="text/javascript">
-    Sys.WebForms.PageRequestManager.getInstance().add_beginRequest(beginReq);
-    Sys.WebForms.PageRequestManager.getInstance().add_endRequest(endReq);
-
-    function beginReq(sender, args) {
-
-
-    }
-
-    function endReq(sender, args) {
-        $(function () {
-            $('#example1').DataTable()
-            $('#GridView1').DataTable()
-            $('#example2').DataTable({
-                'paging': true,
-                'lengthChange': false,
-                'searching': false,
-                'ordering': true,
-                'info': true,
-                'autoWidth': false
-            })
-        })
-
-
-
-    }
-</script>
-
 
 <asp:UpdatePanel ID="UpdatePanel1" runat="server">
     <ContentTemplate>
@@ -132,16 +103,16 @@
                         <div class="panel-body">
                             <div class="form-inline col-auto">
                                 <div class="form-group">
-                                  
+
 
 
                                     <asp:TextBox ID="txtNomProceso" runat="server" placeholder="Proceso" CssClass="form-control campo_obligatorio"></asp:TextBox>
-                                      <%--DropEstado--%>
+                                    <%--DropEstado--%>
                                     <div class="form-group">
                                         <div class="inputGroupContainer">
                                             <div class="input-group">
                                                 <span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
-                                                <asp:DropDownList ID="DropEstados" runat="server" CssClass="form-control selectpicker campo_obligatorio">
+                                                <asp:DropDownList ID="DropEstados" runat="server" CssClass="form-control selectpicker campo_obligatorio" OnSelectedIndexChanged="DropEstados_SelectedIndexChanged" AutoPostBack="true">
                                                 </asp:DropDownList>
                                             </div>
                                         </div>
@@ -157,9 +128,9 @@
                                             </div>
                                         </div>
                                     </div>
-                                                                    
 
-                                     <%--DropSistema--%>
+
+                                    <%--DropSistema--%>
                                     <div class="form-group">
                                         <div class="inputGroupContainer">
                                             <div class="input-group">
@@ -170,7 +141,7 @@
                                         </div>
                                     </div>
 
-                                     <%--DropVentana--%>
+                                    <%--DropVentana--%>
                                     <div class="form-group">
                                         <div class="inputGroupContainer">
                                             <div class="input-group">
@@ -180,7 +151,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                     <asp:TextBox ID="txtBoton" runat="server" placeholder="BOTON" CssClass="form-control campo_obligatorio"></asp:TextBox>
+                                    <asp:TextBox ID="txtBoton" runat="server" placeholder="BOTON" CssClass="form-control campo_obligatorio"></asp:TextBox>
 
 
                                     <asp:LinkButton ID="LinkBtnAlta" runat="server" type="button" class="btn btn-default btn-sm" CommandName="LinkBtnAlta" OnClick="LinkBtnAlta_Click" data-target="#AddProceso" OnClientClick="javascript:validaCampos(this,event);">
@@ -204,18 +175,8 @@
 
             <!-- /.box-header -->
             <div class="box-body">
-                <div class="row">
-                    <div class="col-sm-9"></div>
-                    <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3">
-                        <div class="inputGroupContainer">
-                            <div class="input-group">
-                                <span class="input-group-addon"><i class="glyphicon glyphicon-search"></i></span>
-                                <asp:TextBox ID="txtSearch" runat="server" placeholder="Busqueda rápida..." AutoPostBack="true" CssClass="form-control search" Width="100%" Style="height: 40px;" OnTextChanged="txtSearch_TextChanged"></asp:TextBox>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <asp:GridView ID="GridView1" runat="server" EmptyDataText="No hay registros que mostrar" AllowPaging="true" PageSize="8" ClientIDMode="Static" AutoGenerateColumns="false" CssClass="table table-bordered table-striped" OnRowEditing="GridView1_RowEditing" OnRowCancelingEdit="GridView1_RowCancelingEdit" OnRowUpdating="GridView1_Rowupdating" OnPageIndexChanging="GridView1_PageIndexChanging">
+
+                <asp:GridView ID="GridView1" runat="server" EmptyDataText="No hay registros que mostrar" ClientIDMode="Static" AutoGenerateColumns="false" CssClass="table table-bordered table-striped" OnRowEditing="GridView1_RowEditing" OnRowCancelingEdit="GridView1_RowCancelingEdit" OnRowUpdating="GridView1_Rowupdating" OnPageIndexChanging="GridView1_PageIndexChanging">
                     <%--Paginador...--%>
 
                     <Columns>
@@ -259,8 +220,8 @@
                                 <asp:HiddenField ID="HiddenIdProceso" runat="server" Value='<%# Eval("IdProceso") %>'></asp:HiddenField>
                             </EditItemTemplate>
                         </asp:TemplateField>
-                   
-                        
+
+
                         <%--Drop Estados--%>
                         <asp:TemplateField HeaderStyle-Width="150px" HeaderText="ESTADO">
                             <ItemTemplate>
@@ -337,13 +298,13 @@
                             </EditItemTemplate>
                         </asp:TemplateField>
 
-                          <asp:TemplateField HeaderStyle-Width="150px" HeaderText="BOTON">
+                        <asp:TemplateField HeaderStyle-Width="150px" HeaderText="BOTON">
                             <ItemTemplate>
                                 <asp:Label ID="lblBoton" runat="server"><%# Eval("Boton")%></asp:Label>
                             </ItemTemplate>
                             <EditItemTemplate>
                                 <asp:TextBox ID="TxtBoton" runat="server" Text='<%# Bind("Boton")%>' CssClass="form-control"></asp:TextBox>
-                             
+
                             </EditItemTemplate>
                         </asp:TemplateField>
 
@@ -373,26 +334,3 @@
 </asp:UpdatePanel>
 
 
-
-<!-- jQuery 3 -->
-<%--<script src="../bower_components/jquery/dist/jquery.min.js"></script>--%>
-<!-- Bootstrap 3.3.7 -->
-<script src="../bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-<!-- DataTables -->
-<script src="../bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
-<script src="../bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
-<!-- SlimScroll -->
-<script src="../bower_components/jquery-slimscroll/jquery.slimscroll.min.js"></script>
-<!-- FastClick -->
-<script src="../bower_components/fastclick/lib/fastclick.js"></script>
-<!-- AdminLTE App -->
-<%--<script src="../dist/js/adminlte.min.js"></script>--%>
-<!-- AdminLTE for demo purposes -->
-<%--<script src="../dist/js/demo.js"></script>--%>
-<!-- page script -->
-
-
-
-<!-- Mirrored from adminlte.io/themes/AdminLTE/pages/tables/data.html by HTTrack Website Copier/3.x [XR&CO'2010], Mon, 27 Aug 2018 16:46:30 GMT -->
-<!-- Added by HTTrack -->
-<meta http-equiv="content-type" content="text/html;charset=utf-8">

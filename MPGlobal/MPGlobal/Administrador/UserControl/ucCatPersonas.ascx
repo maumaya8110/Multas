@@ -87,34 +87,6 @@
 
 <asp:HiddenField ID="HiddenField1AutEli" runat="server" />
 
-<script type="text/javascript">
-    Sys.WebForms.PageRequestManager.getInstance().add_beginRequest(beginReq);
-    Sys.WebForms.PageRequestManager.getInstance().add_endRequest(endReq);
-
-    function beginReq(sender, args) {
-
-
-    }
-
-    function endReq(sender, args) {
-        $(function () {
-            $('#example1').DataTable()
-            $('#GridView1').DataTable()
-            $('#example2').DataTable({
-                'paging': true,
-                'lengthChange': false,
-                'searching': false,
-                'ordering': true,
-                'info': true,
-                'autoWidth': false
-            })
-        })
-
-
-
-    }
-</script>
-
 
 <asp:UpdatePanel ID="UpdatePanel1" runat="server">
     <ContentTemplate>
@@ -135,7 +107,7 @@
                                         <div class="inputGroupContainer">
                                             <div class="input-group">
                                                 <span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
-                                                <asp:DropDownList ID="DropEstados" runat="server" CssClass="form-control selectpicker campo_obligatorio">
+                                                <asp:DropDownList ID="DropEstados" runat="server" CssClass="form-control selectpicker campo_obligatorio" OnSelectedIndexChanged="DropEstados_SelectedIndexChanged" AutoPostBack="true">
                                                 </asp:DropDownList>
                                             </div>
                                         </div>
@@ -157,8 +129,8 @@
 
                                     <asp:TextBox ID="txtAmat" runat="server" placeholder="Ap. Materno" CssClass="form-control campo_obligatorio"></asp:TextBox>
 
-                                    <asp:TextBox ID="txtLicencia" runat="server" placeholder="Licencia" CssClass="form-control campo_obligatorio"></asp:TextBox>
-                                    <asp:TextBox ID="txtINE" runat="server" placeholder="INE" CssClass="form-control campo_obligatorio"></asp:TextBox>
+                                    <asp:TextBox ID="txtLicencia" runat="server" placeholder="Licencia" CssClass="form-control campo_obligatorio" onkeypress="javascript:validaNumeros(this, event);"></asp:TextBox>
+                                    <asp:TextBox ID="txtINE" runat="server" placeholder="INE" CssClass="form-control campo_obligatorio" onkeypress="javascript:validaNumeros(this, event);"></asp:TextBox>
 
 
                                     <asp:LinkButton ID="LinkBtnAlta" runat="server" type="button" class="btn btn-default btn-sm" CommandName="LinkBtnAlta" OnClick="LinkBtnAlta_Click" data-target="#AddPersona" OnClientClick="javascript:validaCampos(this,event);">
@@ -177,7 +149,7 @@
             <!-- /.box-header -->
             <div class="box-body">
 
-                <asp:GridView ID="GridView1" runat="server" EmptyDataText="No hay registros que mostrar" AllowPaging="true" PageSize="8" ClientIDMode="Static" AutoGenerateColumns="false" CssClass="table table-bordered table-striped" OnRowEditing="GridView1_RowEditing" OnRowCancelingEdit="GridView1_RowCancelingEdit" OnRowUpdating="GridView1_Rowupdating" OnPageIndexChanging="GridView1_PageIndexChanging">
+                <asp:GridView ID="GridView1" runat="server" EmptyDataText="No hay registros que mostrar" ClientIDMode="Static" AutoGenerateColumns="false" CssClass="table table-bordered table-striped" OnRowEditing="GridView1_RowEditing" OnRowCancelingEdit="GridView1_RowCancelingEdit" OnRowUpdating="GridView1_Rowupdating" OnPageIndexChanging="GridView1_PageIndexChanging">
                     <%--Paginador...--%>
                     <%-- <PagerTemplate>
                             <div class="row" style="margin-top: 20px;">
@@ -264,18 +236,18 @@
                         </asp:TemplateField>
                         <asp:TemplateField HeaderStyle-Width="150px" HeaderText="AP. PATERNO">
                             <ItemTemplate>
-                                <asp:Label ID="lblApaterno" runat="server"><%# Eval("Apaterno")%></asp:Label>
+                                <asp:Label ID="lblApaterno" runat="server"><%# Eval("APaterno")%></asp:Label>
                             </ItemTemplate>
                             <EditItemTemplate>
-                                <asp:TextBox ID="TxtApaterno" runat="server" Text='<%# Bind("Apaterno")%>' CssClass="form-control"></asp:TextBox>
+                                <asp:TextBox ID="TxtApaterno" runat="server" Text='<%# Bind("APaterno")%>' CssClass="form-control"></asp:TextBox>
                             </EditItemTemplate>
                         </asp:TemplateField>
                         <asp:TemplateField HeaderStyle-Width="150px" HeaderText="AP. MATERNO">
                             <ItemTemplate>
-                                <asp:Label ID="lblAmaterno" runat="server"><%# Eval("Amaterno")%></asp:Label>
+                                <asp:Label ID="lblAmaterno" runat="server"><%# Eval("AMaterno")%></asp:Label>
                             </ItemTemplate>
                             <EditItemTemplate>
-                                <asp:TextBox ID="TxtAmaterno" runat="server" Text='<%# Bind("Amaterno")%>' CssClass="form-control"></asp:TextBox>
+                                <asp:TextBox ID="TxtAmaterno" runat="server" Text='<%# Bind("AMaterno")%>' CssClass="form-control"></asp:TextBox>
                             </EditItemTemplate>
                         </asp:TemplateField>
 
@@ -299,7 +271,7 @@
 
                         <asp:TemplateField HeaderStyle-Width="150px" HeaderText="ESTADO">
                             <ItemTemplate>
-                                <asp:Label ID="lblEstado" runat="server"><%# Eval("nomEstado")%></asp:Label>
+                                <asp:Label ID="lblEstado" runat="server"><%# Eval("NomEstado")%></asp:Label>
                             </ItemTemplate>
                             <EditItemTemplate>
                                 <div class="form-group">
@@ -317,7 +289,7 @@
 
                         <asp:TemplateField HeaderStyle-Width="150px" HeaderText="MUNICIPIO">
                             <ItemTemplate>
-                                <asp:Label ID="lblMunicipio" runat="server"><%# Eval("nomMunicipio")%></asp:Label>
+                                <asp:Label ID="lblMunicipio" runat="server"><%# Eval("NomMunicipio")%></asp:Label>
                             </ItemTemplate>
                             <EditItemTemplate>
                                 <div class="form-group">
@@ -359,25 +331,3 @@
 
 
 
-<!-- jQuery 3 -->
-<%--<script src="../bower_components/jquery/dist/jquery.min.js"></script>--%>
-<!-- Bootstrap 3.3.7 -->
-<script src="../bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-<!-- DataTables -->
-<script src="../bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
-<script src="../bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
-<!-- SlimScroll -->
-<script src="../bower_components/jquery-slimscroll/jquery.slimscroll.min.js"></script>
-<!-- FastClick -->
-<script src="../bower_components/fastclick/lib/fastclick.js"></script>
-<!-- AdminLTE App -->
-<%--<script src="../dist/js/adminlte.min.js"></script>--%>
-<!-- AdminLTE for demo purposes -->
-<%--<script src="../dist/js/demo.js"></script>--%>
-<!-- page script -->
-
-
-
-<!-- Mirrored from adminlte.io/themes/AdminLTE/pages/tables/data.html by HTTrack Website Copier/3.x [XR&CO'2010], Mon, 27 Aug 2018 16:46:30 GMT -->
-<!-- Added by HTTrack -->
-<meta http-equiv="content-type" content="text/html;charset=utf-8">

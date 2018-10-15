@@ -23,27 +23,31 @@ public partial class ReporteProcesados : System.Web.UI.Page
     {
         try
         {
-            using (DataBase db = new DataBase())
+            if (txtFechaIni.Text == "" || txtFechaFin.Text == "") { ScriptManager.RegisterStartupScript(this.Page, this.Page.GetType(), "Mostrar Modal", "FechaValida();", true); }
+            else
             {
+                using (DataBase db = new DataBase())
+                {
 
-                DateTime FechaIni = DateTime.Parse(txtFechaIni.Text);
-                DateTime FechaFin = DateTime.Parse(txtFechaFin.Text);
-
-
-                MPGlobalSessiones.Current.ReporteMultasProcesadas = db.EjecutaSPCatalogos(DataBase.TipoAccion.Consulta, DataBase.TipoCatalogo.ReporteProcesadas, null).Tables[0].DataTableToList<ReporteMultasProcesadas>();
-
+                    DateTime FechaIni = DateTime.Parse(txtFechaIni.Text);
+                    DateTime FechaFin = DateTime.Parse(txtFechaFin.Text);
 
 
-                IEnumerable<ReporteMultasProcesadas> query = MPGlobalSessiones.Current.ReporteMultasProcesadas;
+                    MPGlobalSessiones.Current.ReporteMultasProcesadas = db.EjecutaSPCatalogos(DataBase.TipoAccion.Consulta, DataBase.TipoCatalogo.ReporteProcesadas, null).Tables[0].DataTableToList<ReporteMultasProcesadas>();
 
-                query = query.Where(x => x.FechaProcesado >= FechaIni && x.FechaProcesado <= FechaFin);
 
-                GridView1.DataSource = query.ToList();
-                GridView1.DataBind();
 
-                if (query.ToList().Count > 0)
-                    GridView1.HeaderRow.TableSection = TableRowSection.TableHeader;
+                    IEnumerable<ReporteMultasProcesadas> query = MPGlobalSessiones.Current.ReporteMultasProcesadas;
 
+                    query = query.Where(x => x.FechaProcesado >= FechaIni && x.FechaProcesado <= FechaFin);
+
+                    GridView1.DataSource = query.ToList();
+                    GridView1.DataBind();
+
+                    if (query.ToList().Count > 0)
+                        GridView1.HeaderRow.TableSection = TableRowSection.TableHeader;
+
+                }
             }
         }
         catch (Exception x)

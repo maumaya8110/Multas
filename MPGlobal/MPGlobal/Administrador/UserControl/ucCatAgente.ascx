@@ -87,38 +87,8 @@
 
 
 </script>
-<script type="text/javascript">
-    Sys.WebForms.PageRequestManager.getInstance().add_beginRequest(beginReq);
-    Sys.WebForms.PageRequestManager.getInstance().add_endRequest(endReq);
-
-    function beginReq(sender, args) {
-    }
-
-    function endReq(sender, args) {
-        
-        if($('#GridView1').find('thead').size() > 0)
-            $('#GridView1').DataTable({
-                language: {
-                    search: 'Buscar: ',
-                    info: 'Mostrar _START_ a _END_ de _TOTAL_ registros',
-                    lengthMenu: 'Mostrar _MENU_ registros',
-                    zeroRecords: 'No se encontraron registros con esa coincidencia',
-                    infoEmpty: 'Mostrando 0 registros',
-                    infoFiltered: '(Filtrado de _MAX_ registros en total)',
-                    paginate: {first: "Primero", last:"Ultimo", next:"Siguiente",  previous:"Anterior"}
-
-                }
-            });
-    }
-      
-
-
-</script>
 
 <asp:HiddenField ID="HiddenField1AutEli" runat="server" />
-
-
-
 
 <asp:UpdatePanel ID="UpdatePanel1" runat="server">
     <ContentTemplate>
@@ -147,7 +117,7 @@
                                         <div class="inputGroupContainer">
                                             <div class="input-group">
                                                 <span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
-                                                <asp:DropDownList ID="DropEstados" runat="server" CssClass="form-control selectpicker campo_obligatorio">
+                                                <asp:DropDownList ID="DropEstados" runat="server" CssClass="form-control selectpicker campo_obligatorio" OnSelectedIndexChanged="DropEstados_SelectedIndexChanged" AutoPostBack="true">
                                                 </asp:DropDownList>
                                             </div>
                                         </div>
@@ -189,7 +159,7 @@
             <!-- /.box-header -->
             <div class="box-body">
 
-                <asp:GridView ID="GridView1" runat="server" EmptyDataText="No hay registros que mostrar" AllowPaging="true" PageSize="8" ClientIDMode="Static" AutoGenerateColumns="false" CssClass="table table-bordered table-striped" OnRowEditing="GridView1_RowEditing" OnRowCancelingEdit="GridView1_RowCancelingEdit" OnRowUpdating="GridView1_Rowupdating" OnPageIndexChanging="GridView1_PageIndexChanging">
+                <asp:GridView ID="GridView1" runat="server" EmptyDataText="No hay registros que mostrar" ClientIDMode="Static" AutoGenerateColumns="false" CssClass="table table-bordered table-striped" OnRowEditing="GridView1_RowEditing" OnRowCancelingEdit="GridView1_RowCancelingEdit" OnRowUpdating="GridView1_Rowupdating" OnPageIndexChanging="GridView1_PageIndexChanging">
                     <%--Paginador...--%>
 
                     <Columns>
@@ -318,4 +288,7 @@
 
     </ContentTemplate>
 </asp:UpdatePanel>
+
+
+
 

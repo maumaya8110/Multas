@@ -16,6 +16,11 @@ public partial class Administrador_UserControl_ucCatOficinas : System.Web.UI.Use
 
     }
 
+    public void habilitaReadOnly(bool readOnly)
+    {
+        GridView1.Columns[0].Visible = !readOnly;
+    }
+
     public delegate void Habilita();
     public event Habilita BtnHabilita;
 
@@ -30,9 +35,15 @@ public partial class Administrador_UserControl_ucCatOficinas : System.Web.UI.Use
         
         using (DataBase db = new DataBase())
         {
-            GridView1.DataSource = db.EjecutaSPCatalogos(DataBase.TipoAccion.Consulta, DataBase.TipoCatalogo.Oficinas, null);
+           MPGlobalSessiones.Current.Oficinas = db.EjecutaSPCatalogos(DataBase.TipoAccion.Consulta, DataBase.TipoCatalogo.Oficinas, null).Tables[0].DataTableToList<Oficinas>();
+            IEnumerable<Oficinas> query = MPGlobalSessiones.Current.Oficinas;
+
+            GridView1.DataSource = query.ToList();
             GridView1.DataBind();
-                        
+
+            if (query.ToList().Count > 0)
+                GridView1.HeaderRow.TableSection = TableRowSection.TableHeader;
+
         }
     }
 
@@ -42,8 +53,8 @@ public partial class Administrador_UserControl_ucCatOficinas : System.Web.UI.Use
 
         using (DataBase db = new DataBase())
         {
-            Helper.cargaCatalogoGenericCombo(DropEstados, db.EjecutaSPCatalogos(DataBase.TipoAccion.Consulta, DataBase.TipoCatalogo.Estados, null).Tables[0].DataTableToList<Estado>(), "idEstado", "nomEstado");
-            Helper.cargaCatalogoGenericCombo(DropMpos, db.EjecutaSPCatalogos(DataBase.TipoAccion.Consulta, DataBase.TipoCatalogo.Municipios, null).Tables[0].DataTableToList<Municipio>(), "idMunicipio", "NomMunicipio");
+            Helper.cargaCatalogoGenericCombo(DropEstados, db.EjecutaSPCatalogos(DataBase.TipoAccion.Consulta, DataBase.TipoCatalogo.Estados, null).Tables[0].DataTableToList<Estado>(), "idEstado", "nomEstado", "- SELECCIONE UN ESTADO - ");
+            Helper.cargaCatalogoGenericCombo(DropMpos, db.EjecutaSPCatalogos(DataBase.TipoAccion.Consulta, DataBase.TipoCatalogo.Municipios, null).Tables[0].DataTableToList<Municipio>(), "idMunicipio", "NomMunicipio", "- SELECCIONE UN MUNICIPIO - ");
 
         }
 
@@ -200,4 +211,19 @@ public partial class Administrador_UserControl_ucCatOficinas : System.Web.UI.Use
         }
 
     }
+
+    protected void DropEstados_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        cAltaMultas obj = new cAltaMultas();
+        DataTable dtcatMpo;
+        int cveEdo = int.Parse(DropEstados.SelectedValue);
+        dtcatMpo = obj.catMunicipiosXEdo(cveEdo);
+
+        DropMpos.DataSource = dtcatMpo;
+        DropMpos.DataValueField = "id";
+        DropMpos.DataTextField = "Nombre";
+        DropMpos.DataBind();
+
+    }
+
 }

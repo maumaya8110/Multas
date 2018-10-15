@@ -218,11 +218,11 @@ public class Helper
     /// <param name="ddl"></param>
     /// <param name="lista"></param>
     /// <param name="agregaPrimero"></param>
-    public static void cargaCatalogoGenericCombo<T>(DropDownList ddl, List<T> lista, bool agregaPrimero = true)
+    public static void cargaCatalogoGenericCombo<T>(DropDownList ddl, List<T> lista, string dummy = " - Selecciona una opción - ", bool agregaPrimero = true)
     {
         ddl.Items.Clear();
         if (agregaPrimero)
-            ddl.Items.Add(new ListItem(" ", "-1"));
+            ddl.Items.Add(new ListItem(dummy, "-1"));
 
         if(lista != null)
         {
@@ -281,10 +281,10 @@ public class Helper
     /// <param name="lista"></param>
     /// <param name="value"></param>
     /// <param name="text"></param>
-    public static void cargaCatalogoGenericCombo<T>(DropDownList ddl, List<T> lista, string value, string text)
+    public static void cargaCatalogoGenericCombo<T>(DropDownList ddl, List<T> lista, string value, string text, string dummy = " - Selecciona una opción - ")
     {
         ddl.Items.Clear();
-        ddl.Items.Add(new ListItem(" ", "-1"));
+        ddl.Items.Add(new ListItem(dummy, "-1"));
         foreach (T item in lista)
         {
             Type t = item.GetType();

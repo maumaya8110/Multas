@@ -36,21 +36,21 @@
             <div class="input-group">
                 <span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
                 <asp:DropDownList ID="DropCatalogos" AutoPostBack="true" runat="server" name="department" class="form-control selectpicker" OnSelectedIndexChanged="DropCatalogos_SelectedIndexChanged">
-                    <asp:ListItem>Selecciona el catalogo</asp:ListItem>
+                    <asp:ListItem>SELECCIONA UN CATALOGO</asp:ListItem>
 
-                    <asp:ListItem>Agentes</asp:ListItem>
-                    <asp:ListItem>Cajeros</asp:ListItem>
-                    <asp:ListItem>Estados</asp:ListItem>
-                    <asp:ListItem>Funciones</asp:ListItem>
+                    <asp:ListItem>AGENTES</asp:ListItem>
+                    <asp:ListItem>CAJEROS</asp:ListItem>
+                    <asp:ListItem>ESTADOS</asp:ListItem>
+                    <asp:ListItem>FUNCIONES</asp:ListItem>
 
-                    <asp:ListItem>Municipios</asp:ListItem>
-                    <asp:ListItem>Oficinas</asp:ListItem>
-                    <asp:ListItem>Personas</asp:ListItem>
-                    <asp:ListItem>Placas</asp:ListItem>
-                    <asp:ListItem>Procesos</asp:ListItem>
-                    <asp:ListItem>Sistemas</asp:ListItem>
-                    <asp:ListItem>Tipos de multa</asp:ListItem>
-                    <asp:ListItem>Ventanas</asp:ListItem>
+                    <asp:ListItem>MUNICIPIOS</asp:ListItem>
+                    <asp:ListItem>OFICINAS</asp:ListItem>
+                    <asp:ListItem>PERSONAS</asp:ListItem>
+                    <asp:ListItem>PLACAS</asp:ListItem>
+                    <asp:ListItem>PROCESOS</asp:ListItem>
+                    <asp:ListItem>SISTEMAS</asp:ListItem>
+                    <asp:ListItem>TIPOS DE MULTA</asp:ListItem>
+                    <asp:ListItem>VENTANAS</asp:ListItem>
 
                 </asp:DropDownList>
             </div>
@@ -76,8 +76,40 @@
     <uc1:ucCatSistemas runat="server" ID="ucCatSistemas" />
     <uc1:ucCatFunciones runat="server" ID="ucCatFunciones" />
     <uc1:ucCatCajeros runat="server" ID="ucCatCajeros" />
-    
-    
 
+
+    <script type="text/javascript">
+        Sys.WebForms.PageRequestManager.getInstance().add_beginRequest(beginReq);
+        Sys.WebForms.PageRequestManager.getInstance().add_endRequest(endReq);
+
+        function beginReq(sender, args) {
+
+
+        }
+
+        function endReq(sender, args) {
+            EfectoGrid();
+        }
+
+        $(document).ready(function () { EfectoGrid(); });
+
+        function EfectoGrid() {
+            if ($('#GridView1').find('thead').size() > 0) {
+                 $('#GridView1').DataTable({
+                    language: {
+                        search: 'Buscar: ',
+                        info: 'Mostrar _START_ a _END_ de _TOTAL_ registros',
+                        lengthMenu: 'Mostrar _MENU_ registros',
+                        zeroRecords: 'No se encontraron registros con esa coincidencia',
+                        infoEmpty: 'Mostrando 0 registros',
+                        infoFiltered: '(Filtrado de _MAX_ registros en total)',
+                        paginate: { first: "Primero", last: "Ultimo", next: "Siguiente", previous: "Anterior" }
+
+                    }
+                });
+            }
+        }
+
+    </script>
 </asp:Content>
 

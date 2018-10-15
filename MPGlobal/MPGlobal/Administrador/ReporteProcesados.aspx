@@ -64,15 +64,13 @@
                             <%--botones de acción sobre los registros...--%>
                             <asp:TemplateField HeaderStyle-Width="10%" ItemStyle-HorizontalAlign="Center">
                                 <ItemTemplate>
-                                    
+
                                     <a class="btn btn-default btn-sm" onclick=' Var(<%# Eval("IdProcesado")%>,<%# Eval("MontoPagoMpoGenera")%>,<%# Eval("MontoPagoMpoCobra")%>,<%# Eval("MontoPagoEmpresa")%>)'>
                                         <span class=""></span>Seleccionar
                                     </a>
 
                                     <%--CheckBox para seleccionar registros...--%>
-                                   <%-- <asp:CheckBox ID="CheckBoxMulta" Checked="true" runat="server" />--%>
-
-
+                                    <%-- <asp:CheckBox ID="CheckBoxMulta" Checked="true" runat="server" />--%>
                                 </ItemTemplate>
                             </asp:TemplateField>
                             <asp:TemplateField HeaderStyle-Width="150px" HeaderText="Estado">
@@ -157,14 +155,17 @@
                 <div class="modal-body">
                     <div class="container">
 
-                       
+
 
                         <table class="table table-bordered">
                             <thead>
-                                <tr ><th colspan="3"> <asp:Label ID="Label1" runat="server" Text="Id Proceso:"></asp:Label> 
-                                    <asp:Label ID="lblIdP" runat="server" Text=""></asp:Label>
-                                    <asp:HiddenField ID="hdnIdP" runat="server" ClientIDMode="Static" />
-                                     </th></tr>
+                                <tr>
+                                    <th colspan="3">
+                                        <asp:Label ID="Label1" runat="server" Text="Id Proceso:"></asp:Label>
+                                        <asp:Label ID="lblIdP" runat="server" Text=""></asp:Label>
+                                        <asp:HiddenField ID="hdnIdP" runat="server" ClientIDMode="Static" />
+                                    </th>
+                                </tr>
                                 <tr>
 
                                     <th scope="col">Monto Municipio Generador</th>
@@ -178,7 +179,7 @@
                                     <td>
                                         <%--<div class="input-group">
                                             <span class="input-group-addon"><i class="glyphicon glyphicon-usd"></i></span>--%>
-                                            <asp:Label ID="lblM1" runat="server" Text="MontoPagoMpoGenera"></asp:Label>
+                                        <asp:Label ID="lblM1" runat="server" Text="MontoPagoMpoGenera"></asp:Label>
                                         <%--/div>--%>
                                     </td>
                                     <td>
@@ -303,12 +304,12 @@
         function Var(IdP, M1, M2, M3) {
 
             $('span[id$="lblIdP"]').text(IdP);
-             $('#hdnIdP').val(IdP);
-            
+            $('#hdnIdP').val(IdP);
+
             $('span[id$="lblM1"]').text(M1);
             $('span[id$="lblM2"]').text(M2);
             $('span[id$="lblM3"]').text(M3);
-            
+
 
             $('#modalCompletaInformacion').modal('show');
 
@@ -320,6 +321,19 @@
                 position: 'top-end',
                 type: 'success',
                 title: 'Multas Procesadas exitosamente',
+                showConfirmButton: true
+                //timer: 1500
+
+            });
+        }
+
+
+        function FechaValida() {
+
+            swal({
+                position: 'top-end',
+                type: 'warning',
+                title: 'Favor de colocar fechas validas',
                 showConfirmButton: true
                 //timer: 1500
 

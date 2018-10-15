@@ -16,6 +16,11 @@ public partial class Administrador_UserControl_ucCatSistemas : System.Web.UI.Use
 
     }
 
+    public void habilitaReadOnly(bool readOnly)
+    {
+        GridView1.Columns[0].Visible = !readOnly;
+    }
+
     public delegate void Habilita();
     public event Habilita BtnHabilita;
 
@@ -31,10 +36,14 @@ public partial class Administrador_UserControl_ucCatSistemas : System.Web.UI.Use
         using (DataBase db = new DataBase())
         {
 
-            MPGlobalSessiones.Current.Sistemas = db.EjecutaSPCatalogos(DataBase.TipoAccion.Consulta, DataBase.TipoCatalogo.Sistemas, null).Tables[0].DataTableToList<Sistemas>(); ;
-         
-            GridView1.DataSource = MPGlobalSessiones.Current.Sistemas;
+            MPGlobalSessiones.Current.Sistemas = db.EjecutaSPCatalogos(DataBase.TipoAccion.Consulta, DataBase.TipoCatalogo.Sistemas, null).Tables[0].DataTableToList<Sistemas>();
+            IEnumerable<Sistemas> query = MPGlobalSessiones.Current.Sistemas;
+
+            GridView1.DataSource = query.ToList();
             GridView1.DataBind();
+
+            if (query.ToList().Count > 0)
+                GridView1.HeaderRow.TableSection = TableRowSection.TableHeader;
 
         }
     }
@@ -45,9 +54,9 @@ public partial class Administrador_UserControl_ucCatSistemas : System.Web.UI.Use
 
         using (DataBase db = new DataBase())
         {
-            Helper.cargaCatalogoGenericCombo(DropEstados, db.EjecutaSPCatalogos(DataBase.TipoAccion.Consulta, DataBase.TipoCatalogo.Estados, null).Tables[0].DataTableToList<Estado>(), "idEstado", "nomEstado");
-            Helper.cargaCatalogoGenericCombo(DropMpos, db.EjecutaSPCatalogos(DataBase.TipoAccion.Consulta, DataBase.TipoCatalogo.Municipios, null).Tables[0].DataTableToList<Municipio>(), "idMunicipio", "NomMunicipio");
-                        
+            Helper.cargaCatalogoGenericCombo(DropEstados, db.EjecutaSPCatalogos(DataBase.TipoAccion.Consulta, DataBase.TipoCatalogo.Estados, null).Tables[0].DataTableToList<Estado>(), "idEstado", "nomEstado", "- SELECCIONE UN ESTADO - ");
+            Helper.cargaCatalogoGenericCombo(DropMpos, db.EjecutaSPCatalogos(DataBase.TipoAccion.Consulta, DataBase.TipoCatalogo.Municipios, null).Tables[0].DataTableToList<Municipio>(), "idMunicipio", "NomMunicipio", "- SELECCIONE UN MUNICIPIO - ");
+
         }
 
     }
@@ -201,21 +210,17 @@ public partial class Administrador_UserControl_ucCatSistemas : System.Web.UI.Use
     }
 
 
-    protected void txtSearch_TextChanged(object sender, EventArgs e)
+    protected void DropEstados_SelectedIndexChanged(object sender, EventArgs e)
     {
-        string search = txtSearch.Text.ToLower();
-        if (search.Length > 0)
-        {
-            GridView1.DataSource = MPGlobalSessiones.Current.Sistemas.Where(x => x.NomSistema.ToLower().Contains(search) || x.nomMunicipio.ToLower().Contains(search) || x.nomEstado.ToLower().Contains(search) || x.NomSistema.ToLower().Contains(search) ).ToList();
-            GridView1.DataBind();
-        }
-        else
-        {
-            GridView1.DataSource = MPGlobalSessiones.Current.Sistemas;
-            GridView1.DataBind();
-        }
-        txtSearch.Focus();
-        ScriptManager.RegisterStartupScript(UpdatePanel1, UpdatePanel1.GetType(), "regresaFocus", "regresaFocusSearch();", true);
-    }
+        cAltaMultas obj = new cAltaMultas();
+        DataTable dtcatMpo;
+        int cveEdo = int.Parse(DropEstados.SelectedValue);
+        dtcatMpo = obj.catMunicipiosXEdo(cveEdo);
 
+        DropMpos.DataSource = dtcatMpo;
+        DropMpos.DataValueField = "id";
+        DropMpos.DataTextField = "Nombre";
+        DropMpos.DataBind();
+
+    }
 }

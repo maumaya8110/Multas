@@ -16,6 +16,11 @@ public partial class Administrador_UserControl_ucCatCajeros : System.Web.UI.User
 
     }
 
+    public void habilitaReadOnly(bool readOnly)
+    {
+        GridView1.Columns[0].Visible = !readOnly;
+    }
+
     public delegate void Habilita();
     public event Habilita BtnHabilita;
 
@@ -31,10 +36,15 @@ public partial class Administrador_UserControl_ucCatCajeros : System.Web.UI.User
         using (DataBase db = new DataBase())
         {
 
-            MPGlobalSessiones.Current.Cajeros = db.EjecutaSPCatalogos(DataBase.TipoAccion.Consulta, DataBase.TipoCatalogo.Cajeros, null).Tables[0].DataTableToList<Cajeros>(); ;
-         
-            GridView1.DataSource = MPGlobalSessiones.Current.Cajeros;
+           MPGlobalSessiones.Current.Cajeros = db.EjecutaSPCatalogos(DataBase.TipoAccion.Consulta, DataBase.TipoCatalogo.Cajeros, null).Tables[0].DataTableToList<Cajeros>();
+            IEnumerable<Cajeros> query = MPGlobalSessiones.Current.Cajeros;
+
+            GridView1.DataSource = query.ToList();
             GridView1.DataBind();
+
+            if (query.ToList().Count > 0)
+                GridView1.HeaderRow.TableSection = TableRowSection.TableHeader;
+
 
         }
     }
@@ -45,11 +55,12 @@ public partial class Administrador_UserControl_ucCatCajeros : System.Web.UI.User
 
         using (DataBase db = new DataBase())
         {
-            Helper.cargaCatalogoGenericCombo(DropEstados, db.EjecutaSPCatalogos(DataBase.TipoAccion.Consulta, DataBase.TipoCatalogo.Estados, null).Tables[0].DataTableToList<Estado>(), "idEstado", "nomEstado");
-            Helper.cargaCatalogoGenericCombo(DropMpos, db.EjecutaSPCatalogos(DataBase.TipoAccion.Consulta, DataBase.TipoCatalogo.Municipios, null).Tables[0].DataTableToList<Municipio>(), "idMunicipio", "NomMunicipio");
 
-            Helper.cargaCatalogoGenericCombo(DropOficinas, db.EjecutaSPCatalogos(DataBase.TipoAccion.Consulta, DataBase.TipoCatalogo.Oficinas, null).Tables[0].DataTableToList<Oficinas>(), "IdOficina", "DescOficina");
-            Helper.cargaCatalogoGenericCombo( DropUsuarios, db.EjecutaSPCatalogos(DataBase.TipoAccion.Consulta, DataBase.TipoCatalogo.Usuarios, null).Tables[0].DataTableToList<Usuario>(), "idusuario", "Nombre");
+            Helper.cargaCatalogoGenericCombo(DropEstados, db.EjecutaSPCatalogos(DataBase.TipoAccion.Consulta, DataBase.TipoCatalogo.Estados, null).Tables[0].DataTableToList<Estado>(), "idEstado", "nomEstado", "- SELECCIONE UN ESTADO - ");
+            Helper.cargaCatalogoGenericCombo(DropMpos, db.EjecutaSPCatalogos(DataBase.TipoAccion.Consulta, DataBase.TipoCatalogo.Municipios, null).Tables[0].DataTableToList<Municipio>(), "idMunicipio", "NomMunicipio", "- SELECCIONE UN MUNICIPIO - ");
+
+            Helper.cargaCatalogoGenericCombo(DropOficinas, db.EjecutaSPCatalogos(DataBase.TipoAccion.Consulta, DataBase.TipoCatalogo.Oficinas, null).Tables[0].DataTableToList<Oficinas>(), "IdOficina", "DescOficina","- SELECCIONE UNA OFICINA-");
+            Helper.cargaCatalogoGenericCombo( DropUsuarios, db.EjecutaSPCatalogos(DataBase.TipoAccion.Consulta, DataBase.TipoCatalogo.Usuarios, null).Tables[0].DataTableToList<Usuario>(), "IdUsuario", "Nombre","- SELECCIONE UN USUARIO -");
             
         }
 
@@ -78,7 +89,7 @@ public partial class Administrador_UserControl_ucCatCajeros : System.Web.UI.User
 
         DropDownList DropEstado = ((DropDownList)GridView1.Rows[e.NewEditIndex].Cells[4].FindControl("DropEstado"));
         DropDownList DropMunicipio = ((DropDownList)GridView1.Rows[e.NewEditIndex].Cells[5].FindControl("DropMpo"));
-        DropDownList DropOficina = ((DropDownList)GridView1.Rows[e.NewEditIndex].Cells[6].FindControl("DropOficinas"));
+        DropDownList DropOficinas = ((DropDownList)GridView1.Rows[e.NewEditIndex].Cells[6].FindControl("DropOficinas"));
         DropDownList DropUsuarios = ((DropDownList)GridView1.Rows[e.NewEditIndex].Cells[7].FindControl("DropUsuarios"));
 
 
@@ -89,13 +100,13 @@ public partial class Administrador_UserControl_ucCatCajeros : System.Web.UI.User
             Helper.cargaCatalogoGenericCombo(DropMunicipio, db.EjecutaSPCatalogos(DataBase.TipoAccion.Consulta, DataBase.TipoCatalogo.Municipios, null).Tables[0].DataTableToList<Municipio>(), "idMunicipio", "NomMunicipio");
 
             Helper.cargaCatalogoGenericCombo(DropOficinas, db.EjecutaSPCatalogos(DataBase.TipoAccion.Consulta, DataBase.TipoCatalogo.Oficinas, null).Tables[0].DataTableToList<Oficinas>(), "IdOficina", "DescOficina");
-            Helper.cargaCatalogoGenericCombo(DropUsuarios, db.EjecutaSPCatalogos(DataBase.TipoAccion.Consulta, DataBase.TipoCatalogo.Usuarios, null).Tables[0].DataTableToList<Usuario>(), "idusuario", "Nombre");
+            Helper.cargaCatalogoGenericCombo(DropUsuarios, db.EjecutaSPCatalogos(DataBase.TipoAccion.Consulta, DataBase.TipoCatalogo.Usuarios, null).Tables[0].DataTableToList<Usuario>(), "IdUsuario", "Nombre");
 
-            DropEstado.SelectedValue = ((HiddenField)(GridView1.Rows[e.NewEditIndex].Cells[3].Controls[1].FindControl("HiddenIdEstado"))).Value;
-            DropMunicipio.SelectedValue = ((HiddenField)(GridView1.Rows[e.NewEditIndex].Cells[4].Controls[1].FindControl("HiddenIdMunicipio"))).Value;
+            DropEstado.SelectedValue = ((HiddenField)(GridView1.Rows[e.NewEditIndex].Cells[4].Controls[1].FindControl("HiddenIdEstado"))).Value;
+            DropMunicipio.SelectedValue = ((HiddenField)(GridView1.Rows[e.NewEditIndex].Cells[5].Controls[1].FindControl("HiddenIdMunicipio"))).Value;
 
-            DropOficinas.SelectedValue = ((HiddenField)(GridView1.Rows[e.NewEditIndex].Cells[3].Controls[1].FindControl("HiddenIdOficina"))).Value;
-            DropUsuarios.SelectedValue = ((HiddenField)(GridView1.Rows[e.NewEditIndex].Cells[4].Controls[1].FindControl("HiddenIdUsuario"))).Value;
+            DropOficinas.SelectedValue = ((HiddenField)(GridView1.Rows[e.NewEditIndex].Cells[6].Controls[1].FindControl("HiddenIdOficina"))).Value;
+            DropUsuarios.SelectedValue = ((HiddenField)(GridView1.Rows[e.NewEditIndex].Cells[7].Controls[1].FindControl("HiddenIdUsuario"))).Value;
 
         }
 
@@ -122,19 +133,16 @@ public partial class Administrador_UserControl_ucCatCajeros : System.Web.UI.User
             //Para cuando agregas muchos parametros
             List<SqlParameter> parametros = new List<SqlParameter>();
                     
-            parametros.Add(new SqlParameter("@IdCaja", ((HiddenField)(row.Cells[1].Controls[1].FindControl("HiddenIdCajero"))).Value));
-           // parametros.Add(new SqlParameter("@Nombre", ((TextBox)(row.Cells[1].Controls[1])).Text));
+            parametros.Add(new SqlParameter("@IdCaja", ((HiddenField)(row.Cells[1].Controls[1].FindControl("HiddenIdCaja"))).Value));
+            parametros.Add(new SqlParameter("@FolioActual", ((TextBox)(row.Cells[1].Controls[1])).Text));
 
-            parametros.Add(new SqlParameter("@IdEstado", ((TextBox)(row.Cells[2].Controls[1])).Text));
-            parametros.Add(new SqlParameter("@FolioActual", ((TextBox)(row.Cells[3].Controls[1])).Text));
-            parametros.Add(new SqlParameter("@FolioInicial", ((TextBox)(row.Cells[4].Controls[1])).Text));
-
+            parametros.Add(new SqlParameter("@FolioInicial", ((TextBox)(row.Cells[2].Controls[1])).Text));
             parametros.Add(new SqlParameter("@FolioFinal", ((TextBox)(row.Cells[3].Controls[1])).Text));
-
-
-            parametros.Add(new SqlParameter("@idEstado", ((DropDownList)(row.Cells[5].Controls[1])).SelectedValue));
-            parametros.Add(new SqlParameter("@idMunicipio", ((DropDownList)(row.Cells[6].Controls[1])).SelectedValue));
-            parametros.Add(new SqlParameter("@estatusCaja", ((CheckBox)(row.Cells[7].Controls[1])).Checked));
+            parametros.Add(new SqlParameter("@idEstado", ((DropDownList)(row.Cells[4].Controls[1])).SelectedValue));
+            parametros.Add(new SqlParameter("@idMunicipio", ((DropDownList)(row.Cells[5].Controls[1])).SelectedValue));
+            parametros.Add(new SqlParameter("@idOficina", ((DropDownList)(row.Cells[6].Controls[1])).SelectedValue));
+            parametros.Add(new SqlParameter("@IdUsuario", ((DropDownList)(row.Cells[7].Controls[1])).SelectedValue));
+            parametros.Add(new SqlParameter("@Estatuscaja", ((CheckBox)(row.Cells[8].Controls[1])).Checked));
 
             db.EjecutaSPCatalogos(DataBase.TipoAccion.Modificar, DataBase.TipoCatalogo.Cajeros, parametros.ToArray());
 
@@ -226,21 +234,18 @@ public partial class Administrador_UserControl_ucCatCajeros : System.Web.UI.User
     }
 
 
-    protected void txtSearch_TextChanged(object sender, EventArgs e)
+    protected void DropEstados_SelectedIndexChanged(object sender, EventArgs e)
     {
-        string search = txtSearch.Text.ToLower();
-        if (search.Length > 0)
-        {
-            GridView1.DataSource = MPGlobalSessiones.Current.Cajeros.Where(x => x.Nombre.ToLower().Contains(search) || x.nomMunicipio.ToLower().Contains(search) || x.FolioActual.ToLower().Contains(search) || x.FolioInicial.ToLower().Contains(search) || x.FolioFinal.ToLower().Contains(search) || x.idUsuario.ToString().Contains(search) || x.idOficina.ToString().Contains(search)).ToList();
-            GridView1.DataBind();
-        }
-        else
-        {
-            GridView1.DataSource = MPGlobalSessiones.Current.Cajeros;
-            GridView1.DataBind();
-        }
-        txtSearch.Focus();
-        ScriptManager.RegisterStartupScript(UpdatePanel1, UpdatePanel1.GetType(), "regresaFocus", "regresaFocusSearch();", true);
+        cAltaMultas obj = new cAltaMultas();
+        DataTable dtcatMpo;
+        int cveEdo = int.Parse(DropEstados.SelectedValue);
+        dtcatMpo = obj.catMunicipiosXEdo(cveEdo);
+
+        DropMpos.DataSource = dtcatMpo;
+        DropMpos.DataValueField = "id";
+        DropMpos.DataTextField = "Nombre";
+        DropMpos.DataBind();
+
     }
 
 }

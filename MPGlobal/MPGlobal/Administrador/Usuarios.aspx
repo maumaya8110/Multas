@@ -58,17 +58,7 @@
                             </asp:LinkButton>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col-sm-9"></div>
-                        <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3">
-                            <div class="inputGroupContainer">
-                                <div class="input-group">
-                                    <span class="input-group-addon"><i class="glyphicon glyphicon-search"></i></span>
-                                    <asp:TextBox ID="txtSearch" runat="server" placeholder="Busqueda rápida..." AutoPostBack="true" CssClass="form-control search" Width="100%" Style="height: 40px;" OnTextChanged="txtSearch_TextChanged"></asp:TextBox>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    
                     <div class="row">
                         <div class="col-sm-12">
                             <br />

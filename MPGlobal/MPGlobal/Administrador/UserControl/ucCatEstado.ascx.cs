@@ -13,6 +13,7 @@ public partial class Administrador_UserControl_ucCatEstado : System.Web.UI.UserC
     //public string TipoCatalogo = "";
     //public string TipoMovimiento = "";
 
+    
     protected void Page_Load(object sender, EventArgs e)
     {
 
@@ -22,46 +23,32 @@ public partial class Administrador_UserControl_ucCatEstado : System.Web.UI.UserC
     public delegate void Habilita();
     public event Habilita BtnHabilita;
 
-
-
-    //protected void DropCatalogos_SelectedIndexChanged(object sender, EventArgs e)
-    //{
-    //    if (DropCatalogos.SelectedValue == "Selecciona el catalogo")
-    //    {
-    //        btnNew.Visible = false;
-    //        GridView1.DataBind();
-    //        UpdtAgregarEdo.Visible = false;
-    //    }
-    //    else
-    //    {
-
-    //        btnNew.Visible = true;
-    //        TipoMovimiento = "CONSULTAR";
-    //        LlenaGrid();
-
-    //    }
-    //}
-
+    public void habilitaReadOnly(bool readOnly)
+    {
+        GridView1.Columns[0].Visible = !readOnly;
+    }
 
     public void GridDatabind()
     {
         GridView1.DataBind();
-        //btnNew.Visible = false;
 
     }
 
     public void LlenaGrid()
     {
-        //DropCatalogos.SelectedItem.ToString()
 
-        //TipoCatalogo = "Sp_Cat_Estados";
-
-        //DataSet SqlDS13;
         using (DataBase db = new DataBase())
         {
 
-            GridView1.DataSource = db.EjecutaSPCatalogos(DataBase.TipoAccion.Consulta, DataBase.TipoCatalogo.Estados, null);
+            MPGlobalSessiones.Current.Estado = db.EjecutaSPCatalogos(DataBase.TipoAccion.Consulta, DataBase.TipoCatalogo.Estados, null).Tables[0].DataTableToList<Estado>();
+            IEnumerable<Estado> query = MPGlobalSessiones.Current.Estado;
+
+            GridView1.DataSource = query.ToList();
             GridView1.DataBind();
+
+            if (query.ToList().Count > 0)
+                GridView1.HeaderRow.TableSection = TableRowSection.TableHeader;
+
         }
 
 
@@ -75,7 +62,7 @@ public partial class Administrador_UserControl_ucCatEstado : System.Web.UI.UserC
     }
 
 
-    public void UpdtVisible() { UpdtAgregarEdo.Visible = true;}
+    public void UpdtVisible() { UpdtAgregarEdo.Visible = true; }
     public void UpdtInVisible() { UpdtAgregarEdo.Visible = false; }
 
 
@@ -98,10 +85,6 @@ public partial class Administrador_UserControl_ucCatEstado : System.Web.UI.UserC
     protected void GridView1_Rowupdating(object sender, GridViewUpdateEventArgs e)
     {
 
-        //TipoMovimiento = "Modificar";
-
-        //TipoCatalogo = "Sp_Cat_Estados";
-
         GridViewRow row = GridView1.Rows[e.RowIndex];
 
         using (DataBase db = new DataBase())
@@ -118,7 +101,7 @@ public partial class Administrador_UserControl_ucCatEstado : System.Web.UI.UserC
             parametros.Add(new SqlParameter("@Telefono", ((TextBox)(row.Cells[4].Controls[1])).Text));
             parametros.Add(new SqlParameter("@Correo", ((TextBox)(row.Cells[5].Controls[1])).Text));
             parametros.Add(new SqlParameter("@idLicencia", ((TextBox)(row.Cells[6].Controls[1])).Text));
-            parametros.Add(new SqlParameter("@estatusEstado", ((CheckBox)(row.Cells[7].Controls[1])).Checked));
+            parametros.Add(new SqlParameter("@EstatusEstado", ((CheckBox)(row.Cells[7].Controls[1])).Checked));
 
             db.EjecutaSPCatalogos(DataBase.TipoAccion.Modificar, DataBase.TipoCatalogo.Estados, parametros.ToArray());
 
@@ -221,7 +204,7 @@ public partial class Administrador_UserControl_ucCatEstado : System.Web.UI.UserC
             parametros.Add(new SqlParameter("@Telefono", txtTelefono.Text));
             parametros.Add(new SqlParameter("@Correo", txtCorreo.Text));
             parametros.Add(new SqlParameter("@idLicencia", txtLicencia.Text));
-            parametros.Add(new SqlParameter("@estatusEstado", 1));
+            parametros.Add(new SqlParameter("@EstatusEstado", 1));
             db.EjecutaSPCatalogos(DataBase.TipoAccion.Insertar, DataBase.TipoCatalogo.Estados, parametros.ToArray());
 
 
@@ -232,6 +215,11 @@ public partial class Administrador_UserControl_ucCatEstado : System.Web.UI.UserC
             LimpiaCampos();
             LlenaGrid();
         }
+
+    }
+
+    protected void GridView1_RowDataBound(object sender, GridViewRowEventArgs e)
+    {
 
     }
 }

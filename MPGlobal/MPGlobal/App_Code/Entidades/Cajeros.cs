@@ -23,5 +23,5 @@ public class Cajeros
     public string FolioFinal { get; set; }
     public string UltimoAcceso { get; set; }
 
-    public bool EstatusCaja { get; set; }
+    public bool Estatuscaja { get; set; }
 }

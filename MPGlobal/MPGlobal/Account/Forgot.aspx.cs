@@ -23,7 +23,7 @@ public partial class Account_Forgot : System.Web.UI.Page
             // Validate the user's email address
             var manager = Context.GetOwinContext().GetUserManager<ApplicationUserManager>();
             ApplicationUser user = manager.FindByName(txtEmail.Text);
-            if (user == null || !manager.IsEmailConfirmed(user.Id))
+            if (user == null)// || !manager.IsEmailConfirmed(user.Id))
             {
                 FailureText.Text = "El usuario no existe, favor de validar.";
                 ErrorMessage.Visible = true;
@@ -47,7 +47,7 @@ public partial class Account_Forgot : System.Web.UI.Page
 
             #endregion
 
-            Helper.EnviaEmail(txtEmail.Text, "Administración de Usuarios MPGlobal", body, null);
+            Helper.EnviaEmail(user.Email, "Administración de Usuarios MPGlobal", body, null);
 
             loginForm.Visible = false;
             DisplayEmail.Visible = true;

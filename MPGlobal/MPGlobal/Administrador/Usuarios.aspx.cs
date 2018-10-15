@@ -118,20 +118,7 @@ public partial class Administrador_Usuarios : System.Web.UI.Page
         }
     }
 
-    protected void txtSearch_TextChanged(object sender, EventArgs e)
-    {
-        string search = txtSearch.Text.ToLower();
-        if(search.Length > 0)
-        {
-            grdUsuarios.DataSource = MPGlobalSessiones.Current.UsuariosAdministrador.Where(x => x.NombreFull.ToLower().Contains(search) || x.NomEstado.ToLower().Contains(search) || x.NomMunicipio.ToLower().Contains(search) || x.Referencia.ToLower().Contains(search) || x.Area.ToLower().Contains(search) || x.Departamento.ToLower().Contains(search) || x.Telefono.ToLower().Contains(search) ).ToList();
-            grdUsuarios.DataBind();
-        }
-        else
-        {
-            grdUsuarios.DataSource = MPGlobalSessiones.Current.UsuariosAdministrador;
-            grdUsuarios.DataBind();
-        }
-        txtSearch.Focus();
-        ScriptManager.RegisterStartupScript(updUsuarios, updUsuarios.GetType(), "regresaFocus", "regresaFocusSearch();", true);
-    }
+
+
+
 }
