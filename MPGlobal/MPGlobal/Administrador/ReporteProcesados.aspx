@@ -65,7 +65,7 @@
                             <asp:TemplateField HeaderStyle-Width="10%" ItemStyle-HorizontalAlign="Center">
                                 <ItemTemplate>
 
-                                    <a class="btn btn-default btn-sm" onclick=' Var(<%# Eval("IdProcesado")%>,<%# Eval("MontoPagoMpoGenera")%>,<%# Eval("MontoPagoMpoCobra")%>,<%# Eval("MontoPagoEmpresa")%>)'>
+                                    <a class="btn btn-default btn-sm" onclick='Var(<%# Eval("IdProcesado")%>,<%# Eval("MontoPagoMpoGenera")%>,<%# Eval("MontoPagoMpoCobra")%>,<%# Eval("MontoPagoEmpresa")%>)'>
                                         <span class=""></span>Seleccionar
                                     </a>
 
@@ -302,7 +302,6 @@
     </script>
     <script type="text/javascript">
         function Var(IdP, M1, M2, M3) {
-
             $('span[id$="lblIdP"]').text(IdP);
             $('#hdnIdP').val(IdP);
 

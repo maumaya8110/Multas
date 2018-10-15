@@ -13,4 +13,5 @@ public class UsuarioVentana
     public string NomVentana { get; set; }
     public string URL { get; set; }
     public bool estatus { get; set; }
+    public bool soloLectura { get; set; }
 }

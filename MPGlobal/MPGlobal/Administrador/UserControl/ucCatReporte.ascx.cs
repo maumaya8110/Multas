@@ -11,12 +11,33 @@ using System.Xml.Linq;
 
 public partial class Administrador_UserControl_ucCatReporte : System.Web.UI.UserControl
 {
+    
+    public bool ReadOnly
+    {
+        get
+        {
+            if (Session["ReadOnlyReportes"] == null)
+                Session["ReadOnlyReportes"] = false;
 
+            return (bool)Session["ReadOnlyReportes"];
+        }
+        set
+        {
+            Session["ReadOnlyReportes"] = value;
+        }
+    }
 
     protected void Page_Load(object sender, EventArgs e)
     {
-
-
+        //valida Read only
+        try
+        {
+            //valida Read only
+            using (DataBase db = new DataBase())
+                ReadOnly = db.ObtieneDatos("sp_ObtieneVentanasUsuario", new SqlParameter[] { new SqlParameter("@idUsuario", Helper.GetIdUsuario(Helper.GetUserID())) }).Tables[0].DataTableToList<UsuarioVentana>().Where(x => x.URL.Contains(HttpContext.Current.Request.Url.LocalPath.Substring(1, HttpContext.Current.Request.Url.LocalPath.Length - 1))).FirstOrDefault().soloLectura;
+            pnlProcesar.Visible = !ReadOnly;
+        }
+        catch { }
     }
 
     public void habilitaReadOnly(bool readOnly)

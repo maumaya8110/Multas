@@ -17,4 +17,5 @@ public class Ventana
     public string URL { get; set; }
     public bool EstatusVentana { get; set; }
     public bool estatus { get; set; }
+    public bool soloLectura { get; set; }
 }
