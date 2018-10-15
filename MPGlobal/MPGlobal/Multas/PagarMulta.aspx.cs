@@ -6,6 +6,11 @@ using System.Web.UI;
 
 public partial class PagarMulta : System.Web.UI.Page
 {
+
+    protected void BtnAbrirCaja_Click(object sender, EventArgs e)
+    {
+
+    }
     protected void Page_Load(object sender, EventArgs e)
     {
         //if (MPGlobalSessiones.Current.UsuarioLogueado.Usuario == null)
@@ -19,7 +24,19 @@ public partial class PagarMulta : System.Web.UI.Page
 
         Session["idUsuario"] = "1";
 
-        cAltaMultas obj = new cAltaMultas();
+
+        //Valida Usuario y sesion abierta.
+        Session["Sesiones"] = "Abierto";
+
+        if (Session["Sesiones"] == "Abierto")
+        {
+            BtnAbrirCaja.Enabled = false;
+            BtnAbrirCaja.Text = "Sesion iniciada";
+        }
+
+
+
+            cAltaMultas obj = new cAltaMultas();
         if (!this.IsPostBack)
         {
             DataTable dtcatEdo;
@@ -111,53 +128,76 @@ public partial class PagarMulta : System.Web.UI.Page
 
     protected void btnConsultar_Click(object sender, EventArgs e)
     {
-        cPagarMultas obj = new cPagarMultas();
 
-        DataSet Ds = obj.ConsultaPlaca(txtPlaca.Text);
 
-        string Monto;
 
-        if (Ds.Tables.Count > 0)
+        
+
+        if (Session["Sesiones"] == "Abierto")
         {
+            //ShowAlertMessage("El usuario ya inicio una sesion.");
+            cPagarMultas obj = new cPagarMultas();
 
-            if (Ds.Tables[0].Rows.Count > 0)
+            DataSet Ds = obj.ConsultaPlaca(txtPlaca.Text);
+
+            string Monto;
+
+            if (Ds.Tables.Count > 0)
             {
-                DataTable av = Ds.Tables[1];
-                StringBuilder html = new StringBuilder();
 
-
-                foreach (DataRow row in av.Rows)
+                if (Ds.Tables[0].Rows.Count > 0)
                 {
-                    html.Append(" <tr>");
-                    html.Append("<td> " + row[0].ToString() + " </td>");
-                    html.Append("<td>" + row[1].ToString() + "</td> ");
-                    html.Append("<td>" + row[2].ToString() + "</td> ");
+                    DataTable av = Ds.Tables[1];
+                    StringBuilder html = new StringBuilder();
 
-                    html.Append("</tr>");
+
+                    foreach (DataRow row in av.Rows)
+                    {
+                        html.Append(" <tr>");
+                        html.Append("<td> " + row[0].ToString() + " </td>");
+                        html.Append("<td>" + row[1].ToString() + "</td> ");
+                        html.Append("<td>" + row[2].ToString() + "</td> ");
+
+                        html.Append("</tr>");
+                    }
+                    tbcapcitaciones.InnerHtml = html.ToString();
+
+
+
+
+
+                    lblMonto.Text = Ds.Tables[0].Rows[0][1].ToString();
+                    lblPlaca.Text = Ds.Tables[0].Rows[0][0].ToString().ToUpper();
+
+                    lblhoy.Text = Ds.Tables[0].Rows[0][2].ToString();
+                    //txtEdo.Text = html.ToString();
+                    // Response.Write(html.ToString());
+
                 }
-                tbcapcitaciones.InnerHtml = html.ToString();
-
-
-
-
-
-                lblMonto.Text = Ds.Tables[0].Rows[0][1].ToString();
-                lblPlaca.Text = Ds.Tables[0].Rows[0][0].ToString().ToUpper();
-
-                lblhoy.Text = Ds.Tables[0].Rows[0][2].ToString();
-                //txtEdo.Text = html.ToString();
-                // Response.Write(html.ToString());
-
+                else
+                {
+                    ShowAlertMessage("No hay datos para mostrar.");
+                }
             }
             else
             {
                 ShowAlertMessage("No hay datos para mostrar.");
             }
+
+
+
+
+
         }
         else
         {
-            ShowAlertMessage("No hay datos para mostrar.");
+            ShowAlertMessage("El usuario debe iniciar caja.");
+            return;
         }
+
+
+
+        
     }
 
     protected void cboEdo_SelectedIndexChanged(object sender, EventArgs e)
@@ -369,4 +409,6 @@ public partial class PagarMulta : System.Web.UI.Page
 
         }
     }
+
+  
 }

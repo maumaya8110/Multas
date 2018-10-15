@@ -31,8 +31,31 @@
 
     <asp:UpdatePanel ID="UpdatePanel1" runat="server">
         <ContentTemplate>
-            <div class="well form-horizontal" action=" " method="post" id="contact_form">
+            <div class="well form-horizontal" action="" method="post" id="Dvform">
                 <fieldset>
+
+
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-lg-1">
+                            </div>
+                            <div class="col-lg-3">
+                                <div class="input-group">
+                                    <label>Sesion:</label>
+                                    <asp:Button ID="BtnAbrirCaja" class="btn btn-instagram" runat="server" Text="Abrir Caja" OnClick="BtnAbrirCaja_Click" />
+                                </div>
+                            </div>
+
+                            <div class="col-lg-3">
+                                <div class="input-group">
+                                    <label>Sesion Abierta: </label>
+                                    <asp:Label ID="lblSesion" runat="server" Text="2018-10-15 12:33"></asp:Label>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
 
 
 
@@ -478,9 +501,11 @@
 
                                     <div class="col-lg-3">
                                         <div class="input-group">
-                                            <label>FECHA ACTUALIZACION:  <asp:Label ID="lblhoy"  runat="server" Text=""></asp:Label></label>
+                                            <label>
+                                                FECHA ACTUALIZACION: 
+                                                <asp:Label ID="lblhoy" runat="server" Text=""></asp:Label></label>
 
-                                          <%--  <div class="input-group date">
+                                            <%--  <div class="input-group date">
                                                
 
                                             </div>--%>
@@ -541,7 +566,7 @@
 
                   <asp:PostBackTrigger ControlID="txtdatepicker" />--%>
 
-               <asp:PostBackTrigger ControlID="txtImporte" />
+            <asp:PostBackTrigger ControlID="txtImporte" />
         </Triggers>
 
     </asp:UpdatePanel>
@@ -582,7 +607,18 @@
 
     <script>
         function myFunction() {
-            window.print();
+            //window.print();
+
+            
+            var placa = document.getElementById("MainContent_txtPlaca").value;
+            //alert(placa);
+
+            if (placa !="") {
+                window.open('Multas.aspx?Pl=' + placa + "&t=1", '_blank');
+            }
+            else { alert("Capture una Placa para revisar su Edo de Cuenta.");}
+            
+
         }
     </script>
 
