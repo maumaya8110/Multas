@@ -78,9 +78,18 @@ public partial class CapturaMultas : System.Web.UI.Page
     }
     protected void Page_Load(object sender, EventArgs e)
     {
+        //if (MPGlobalSessiones.Current.UsuarioLogueado.Usuario == null)
+        //{
+        //    Response.Redirect("../Account/login.aspx");
+        //}
+        //var x = MPGlobalSessiones.Current.UsuarioLogueado.Usuario;
+
+        //Session["idUsuario"] = MPGlobalSessiones.Current.UsuarioLogueado.Usuario.IdUsuario.ToString();
+        //Session["NombreUsuario"] = MPGlobalSessiones.Current.UsuarioLogueado.Usuario.NombreFull.ToString();
 
         Session["idUsuario"] = "1";
         Session["NombreUsuario"] = "Admin";
+
         cAltaMultas obj = new cAltaMultas();
         if (Session["idUsuario"].ToString() == "")
         {
@@ -169,7 +178,7 @@ public partial class CapturaMultas : System.Web.UI.Page
             cboTipoMulta.DataBind();
 
 
-            txtfolio.Text = obj.GeneraFolio(cveEdo, cveMpo);
+         //   txtfolio.Text = obj.GeneraFolio(cveEdo, cveMpo);
 
      //       ShowAlertMessage(txtfolio.Text);
 
@@ -351,7 +360,7 @@ public partial class CapturaMultas : System.Web.UI.Page
             string idMunicipio = cboMunicipio.SelectedValue;
             string idboleta = txtboleta.Text;
             string idplaca = txtPlaca.Text;
-            string FolioMulta = txtfolio.Text;
+            string FolioMulta = "";// txtfolio.Text;
 
             string dia = txtdatepicker.Text.Substring(3, 2);
             string mes = txtdatepicker.Text.Substring(0, 2);
@@ -406,9 +415,9 @@ public partial class CapturaMultas : System.Web.UI.Page
             fechaMulta, idAgente.ToUpper(), descripcion.ToUpper(), Nolicencia.ToUpper(), decimal.Parse(monto));
 
 
-            ShowAlertMessage(resul);
+           // ShowAlertMessage(resul);
 
-            Response.Redirect("CapturaMultas.aspx", false);
+            Response.Redirect("pagarmulta.aspx", false);
 
             //valida campos
 

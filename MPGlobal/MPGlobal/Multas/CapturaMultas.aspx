@@ -126,8 +126,24 @@
                                 </div>
                             </div>
 
+                              <div class="col-lg-3">
+                                <div class="input-group">
+                                    <label>LICENCIA:</label>
 
-                            <div class="col-lg-3">
+                                    <div class="input-group date">
+                                        <div class="input-group-addon">
+                                            <i class="fa fa-address-card"></i>
+                                        </div>
+
+                                        <asp:TextBox ID="txtlicencia" Style="text-transform: uppercase;" class="form-control pull-right" runat="server" placeholder="TECLEE NO LICENCIA"></asp:TextBox>
+                                    </div>
+                                </div>
+                                <!-- /.input group -->
+                            </div>
+
+
+
+<%--                            <div class="col-lg-3">
                                 <div class="input-group">
                                     <label>FOLIO:</label>
 
@@ -139,7 +155,7 @@
                                     </div>
                                     <!-- /.input group -->
                                 </div>
-                            </div>
+                            </div>--%>
 
 
                         </div>
@@ -418,34 +434,21 @@
 
 
 
-                            <div class="col-lg-3">
+                            <div class="col-lg-5">
                                 <div class="input-group">
                                     <label>DESCRIPCION:</label>
-                                    <div class="input-group date">
+                                    <div class="input-group">
                                         <div class="input-group-addon">
                                             <i class="fa fa-list"></i>
                                         </div>
 
-                                        <asp:TextBox ID="txtdescripcion"  Style="text-transform: uppercase;"  class="form-control pull-right" runat="server" placeholder="TECLEE DESCRIPCION"></asp:TextBox>
+                                        <asp:TextBox ID="txtdescripcion"  Style="text-transform: uppercase;" Width="600px"  class="form-control pull-right" runat="server" placeholder="TECLEE DESCRIPCION"></asp:TextBox>
                                     </div>
                                 </div>
                             </div>
 
 
-                            <div class="col-lg-3">
-                                <div class="input-group">
-                                    <label>LICENCIA:</label>
-
-                                    <div class="input-group date">
-                                        <div class="input-group-addon">
-                                            <i class="fa fa-address-card"></i>
-                                        </div>
-
-                                        <asp:TextBox ID="txtlicencia" Style="text-transform: uppercase;" class="form-control pull-right" runat="server" placeholder="TECLEE NO LICENCIA"></asp:TextBox>
-                                    </div>
-                                </div>
-                                <!-- /.input group -->
-                            </div>
+                          
 
 
                         </div>
@@ -515,7 +518,7 @@
 
 
 
-
+                    <br />
                     <div class="col-xs-12">
 
                         <div class="box">
