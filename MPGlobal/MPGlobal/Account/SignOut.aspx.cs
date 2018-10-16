@@ -11,6 +11,7 @@ public partial class Account_SignOut : System.Web.UI.Page
     protected void Page_Load(object sender, EventArgs e)
     {
         Context.GetOwinContext().Authentication.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
+        Session["loginId"] = null;
 
         Response.Redirect("~/Default.aspx");
     }
