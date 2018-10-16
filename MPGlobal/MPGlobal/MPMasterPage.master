@@ -58,6 +58,20 @@
     <asp:ContentPlaceHolder ID="head" runat="server">
     </asp:ContentPlaceHolder>
 
+    <style type="text/css">
+        #content-loading{
+            position:fixed;
+            top:0px;
+            left:0px;
+            width:100%;
+            z-index:9999;
+            background-color:rgba(10,10,10,0.8);
+            color:#FFF;
+            font-size:18px;
+            text-align:center;
+            padding-top:25%;
+        }
+    </style>
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
     <form id="form1" runat="server">
@@ -80,7 +94,7 @@
 
                     <div class="navbar-custom-menu">
                         <ul class="nav navbar-nav">
-                         
+
                             <!-- User Account: style can be found in dropdown.less -->
                             <li class="dropdown user user-menu">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
@@ -98,7 +112,6 @@
                                     <!-- Menu Footer-->
                                     <li class="user-footer">
                                         <div class="pull-left">
-                                          
                                         </div>
                                         <div class="pull-right">
                                             <asp:Button ID="btnSingOut" runat="server" Text="Cerrar sesión" CssClass="btn btn-default" OnClick="btnSingOut_Click" />
@@ -154,7 +167,7 @@
                 <!-- Content Header (Page header) -->
                 <section class="content-header">
                     <h1 id="titleHeader" runat="server">
-       
+
                         <small></small>
                     </h1>
                     <ol class="breadcrumb">
@@ -397,6 +410,9 @@
        immediately after the control sidebar -->
             <div class="control-sidebar-bg"></div>
         </div>
+        <div id="content-loading">
+            <p>espere por favor...</p>
+        </div>
         <!-- ./wrapper -->
 
         <!-- Morris.js charts -->
@@ -443,6 +459,17 @@
         <script src='<%= ResolveUrl("~/Scripts/sweetalert2.all.min.js") %>'></script>
 
         <script type="text/javascript">
+            Sys.WebForms.PageRequestManager.getInstance().add_beginRequest(beginReq);
+            Sys.WebForms.PageRequestManager.getInstance().add_endRequest(endReq);
+
+            function beginReq(sender, args) {
+                $('#content-loading').show();
+            }
+
+            function endReq(sender, args) {
+                $('#content-loading').hide();
+            }
+
             function muestraMensaje(tipo, titulo, mensaje) {
                 swal({
                     type: tipo,
@@ -459,17 +486,17 @@
                 SetCursorToTextEnd($('.search').attr('id'));
             }
 
-             function SetCursorToTextEnd(textControlID) {
-            var text = document.getElementById(textControlID);
-            if (text !== null && text.value.length > 0) {
-                if (text.createTextRange) {
-                    var FieldRange = text.createTextRange();
-                    FieldRange.moveStart('character', text.value.length);
-                    FieldRange.collapse();
-                    FieldRange.select();
+            function SetCursorToTextEnd(textControlID) {
+                var text = document.getElementById(textControlID);
+                if (text !== null && text.value.length > 0) {
+                    if (text.createTextRange) {
+                        var FieldRange = text.createTextRange();
+                        FieldRange.moveStart('character', text.value.length);
+                        FieldRange.collapse();
+                        FieldRange.select();
+                    }
                 }
             }
-        }
         </script>
 
     </form>
