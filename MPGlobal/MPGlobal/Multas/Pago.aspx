@@ -1,14 +1,12 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="Multas.aspx.cs" Inherits="Multas_Multas" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="Pago.aspx.cs" Inherits="Multas_Pago" %>
 
 <!DOCTYPE html>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
-
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-
-    <title>Estado de Cuenta</title>
-    <style>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+ <title>Recibo Pago</title>
+<style>
 @charset "UTF-8";
 /* CSS Document */
 
@@ -198,6 +196,9 @@ h4 {
 	margin: 10px 10px 0 10px;
 }
 
+
+
+
 .Powered {
 	width:100%;
 	float:left;
@@ -248,53 +249,131 @@ td, th {
 <body>
     <form id="form1" runat="server">
         <div>
+            <div class="whitepaper">
 
-          <div class="whitepaper">
+
+
+
+
+
 	<div class="Header">
     
-    <div style="text-align:center"> <h1>ESTADO DE CUENTA</h1></div>
+    <div style="text-align:center"> <h1>RECIBO PAGO</h1></div>
     
     	<img src="http://www.nl.gob.mx/sites/default/files/l3.png" width="250" alt="Logo"> 
         
-         
-        
-        <div class="Logo_paynet1">
+             <div class="Logo_paynet1">
     	 
-        <div>Usuario:</div>
-    	 <div>Administrador</div>
+        <div> </div>
+    	 <div> </div>
     </div>
 	 
     <div class="Logo_paynet">
     	 
-        <div>Fecha Impresion:</div>
-    	 <div>2018-10-16</div>
+        <div>Folio:</div>
+    	 <div>10-MTY123132123</div>
+    </div>
+        <BR />
+            <BR />
+                <BR />
+        <div class="Logo_paynet1">
+    	 
+        <div>Placa:</div>
+    	 <div>SKA3115</div>
+    </div>
+	 
+    <div class="Logo_paynet">
+    	 
+        <div>Usuario:</div>
+    	 <div>Administrador</div>
     </div>
     </div>
     
     
     
      
+     
+     
+     
+     
+     
+     
     
     
     
     
     <div class="Data">
-    	<div class="Big_Bullet">
+   	  <div class="Big_Bullet">
         	<span></span>
         </div>
     	<div class="col1">
         
-        	<h3>PLACA</h3>
-            <h1>SKA3140</h1>
-            
-
-           
-        	 
-        
+       	 
+          
+              <br />
+          
+            <div class="Logo_paynet1">
+    	 
+        <div>Nombre:</div>
+    	 <div>SKA3115</div>
+    </div>
+    
+    <br />
+        <div class="Logo_paynet1">
+    	 
+        <div></div>
+    	 <div></div>
+    </div>
+    
+        <br />
+    
+        <div class="Logo_paynet1">
+    	 
+        <div>Domicilio:</div>
+    	 <div>SKA3115</div>
+    </div>
+    
+      <br />
+        <div class="Logo_paynet1">
+    	 
+        <div></div>
+    	 <div></div>
+    </div>
+    
+        <br />
+    
+        <div class="Logo_paynet1">
+    	 
+        <div>Correo:</div>
+    	 <div>SKA3115</div>
+    </div>
+    
+    
+      <br />
+        <div class="Logo_paynet1">
+    	 
+        <div></div>
+    	 <div></div>
+    </div>
+    
+        <br />
+    
+        <div class="Logo_paynet1">
+    	 
+        <div>Telefono:</div>
+    	 <div>SKA3115</div>
+    </div>
+	 
+   
         </div>
-        <div class="col2">
-        	<h2>Total a pagar</h2>
-            <h1>$6,200<span>.00</span><small> MXN</small></h1>
+        
+        
+        
+       
+        
+        
+        <div class="col1">
+        	 
             
         </div>
     </div>
@@ -316,8 +395,8 @@ td, th {
             <th>EDO</th>
             <th>MUN</th>
                                     <th>DESCRIPCION</th>
-                        <th>CRUCERO</th>
-                                   
+                        <th>IMP</th>
+                                    <th>DESC</th>
                                                 <th>TOTAL</th>
                                                 
         </tr>
@@ -330,8 +409,8 @@ td, th {
             <td>SAN PEDRO</td>
             <td>EXCESO DE VELOCIDAD EN ZONA ESCOLAR</td>
             
-                        <td>PADRE MIER Y JUAREZ</td>
-     
+                        <td>751</td>
+            <td>350</td>
             <td>351</td>
         </tr>
         <tr>
@@ -340,8 +419,8 @@ td, th {
                       <td>NL</td>
             <td>SAN PEDRO</td>
             <td>EXCESO DE VELOCIDAD EN ZONA ESCOLAR</td>
-                                         <td>PADRE MIER Y JUAREZ</td>
-         
+                  <td>751</td>
+            <td>350</td>
             <td>351</td>
         </tr>
         <tr>
@@ -350,7 +429,8 @@ td, th {
                        <td>NL</td>
             <td>SAN PEDRO</td>
             <td>EXCESO DE VELOCIDAD EN ZONA ESCOLAR</td>
-                                        <td>PADRE MIER Y JUAREZ</td>
+                  <td>751</td>
+            <td>350</td>
             <td>351</td>
         </tr>
         <tr>
@@ -359,7 +439,8 @@ td, th {
                      <td>NL</td>
             <td>SAN PEDRO</td>
             <td>EXCESO DE VELOCIDAD EN ZONA ESCOLAR</td>
-                                       <td>PADRE MIER Y JUAREZ</td>
+                  <td>751</td>
+            <td>350</td>
             <td>351</td>
         </tr>
         <tr>
@@ -368,7 +449,8 @@ td, th {
             <td>NL</td>
             <td>SAN PEDRO</td>
             <td>EXCESO DE VELOCIDAD EN ZONA ESCOLAR</td>
-                                    <td>PADRE MIER Y JUAREZ</td>
+                  <td>751</td>
+            <td>350</td>
             <td>351</td>
         </tr>
         
@@ -376,20 +458,82 @@ td, th {
     
       <tbody >
         <tr style="background-color:transparent">
-            <td colspan="5" style="border-color:transparent"></td>
+            <td colspan="6" style="border-color:transparent"></td>
             
             <td style="border-color:transparent;font-size:14px; font-weight:bold">SUBTOTAL</td>
             <td style="border-color:transparent;font-size:14px; font-weight:bold">6200</td>
         </tr>
         
         
-   
+                <tr style="background-color:transparent">
+           <td colspan="6" style="border-color:transparent"></td>
+            <td style="border-color:transparent;font-size:14px; font-weight:bold">DES</td>
+            <td style="border-color:transparent;font-size:14px; font-weight:bold">1800</td>
+        </tr>
+        
+        
+        
+                <tr style="background-color:transparent">
+            <td colspan="6" style="border-color:transparent"></td>
+            <td style="border-color:transparent; font-size:14px; font-weight:bold ">TOTAL</td>
+            <td style="border-color:transparent;font-size:14px; font-weight:bold">6200</td>
+        </tr>
     
         
     </tbody>
     
 </table>
- 
+    
+   
+    
+   
+    
+    <div class="DT-margin"></div>
+    <div>
+        <div class="Big_Bullet">
+        	<span></span>
+        </div>
+    	<div class="col1">
+ <div class="Logo_paynet1">
+    	 
+        <div>FECHA:</div>
+    	 <div>2018-10-18 18:35</div>
+    </div>
+    
+      <br />
+        <div class="Logo_paynet1">
+    	 
+        <div></div>
+    	 <div></div>
+    </div>
+    
+        <br />
+    
+        <div class="Logo_paynet1">
+    	 
+        <div>CAJERO:</div>
+    	 <div>JUAN PEREZ</div>
+    </div>
+	 
+      
+      <br />
+        <div class="Logo_paynet1">
+    	 
+        <div></div>
+    	 <div></div>
+    </div>
+    
+        <br />
+    
+        <div class="Logo_paynet1">
+    	 
+        <div>NO. CAJA:</div>
+    	 <div>5</div>
+    </div>
+     
+    
+
+        	 </div>
 
         </div>
     </form>

@@ -89,7 +89,7 @@ public partial class CapturaMultas : System.Web.UI.Page
 
         Session["idUsuario"] = "1";
         Session["NombreUsuario"] = "Admin";
-
+        
         cAltaMultas obj = new cAltaMultas();
         if (Session["idUsuario"].ToString() == "")
         {

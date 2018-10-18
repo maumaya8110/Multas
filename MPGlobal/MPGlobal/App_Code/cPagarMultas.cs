@@ -11,6 +11,21 @@ public class cPagarMultas
         // TODO: Agregar aquí la lógica del constructor
         //
     }
+
+    public DataTable ValidaSesionCaja(int idusuario)
+    {
+        DataTable dt;
+
+
+        cStore sp = new cStore("spValidaSesion", 1);
+        sp.AddParameter("@idusuario", idusuario);
+        dt = sp.ObtenDatos().Tables[0];
+
+
+
+        return dt;
+    }
+
     public DataSet ConsultaPlaca(string Placa)
     {
         DataSet ds;

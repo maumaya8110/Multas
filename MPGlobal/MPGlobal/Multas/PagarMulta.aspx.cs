@@ -9,6 +9,13 @@ public partial class PagarMulta : System.Web.UI.Page
 
     protected void BtnAbrirCaja_Click(object sender, EventArgs e)
     {
+        cPagarMultas obj = new cPagarMultas();
+
+        DataTable dt = obj.ValidaSesionCaja(int.Parse(Session["idUsuario"].ToString()));
+
+        
+
+
 
     }
     protected void Page_Load(object sender, EventArgs e)

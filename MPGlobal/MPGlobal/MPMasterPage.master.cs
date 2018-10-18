@@ -24,7 +24,7 @@ public partial class MPMasterPage : System.Web.UI.MasterPage
                 using (DataBase db = new DataBase())
                 {
                     List<SqlParameter> param = new List<SqlParameter>();
-                    //param.Add(new SqlParameter("@id", "c7eee1b2-76c0-42e4-9926-ed4c840374bb"));// Helper.GetUserID()));
+                   // param.Add(new SqlParameter("@id", "c7eee1b2-76c0-42e4-9926-ed4c840374bb"));// Helper.GetUserID()));
                     param.Add(new SqlParameter("@id", Helper.GetUserID()));
                     DataTable dt = db.ObtieneDatos("Sp_ObtieneNombre", param.ToArray()).Tables[0];
                     lblInfoUsuario.Text = String.Format("{0} - {1}", dt.Rows[0]["nombre"].ToString(), dt.Rows[0]["rol"].ToString());
