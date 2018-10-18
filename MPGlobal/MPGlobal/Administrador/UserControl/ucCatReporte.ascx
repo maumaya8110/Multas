@@ -166,10 +166,12 @@
                             <asp:LinkButton ID="LinkBtnConsulta" runat="server" class="btn btn-default btn-sm" CommandName="LinkBtnConsulta" OnClick="LinkBtnConsulta_Click" type="button">
                                             <span class="glyphicon glyphicon-search"></span>Consultar
                             </asp:LinkButton>
-                            <a class="btn btn-default btn-sm" data-target="#modalCompletaInformacion" data-toggle="modal">
+                            <asp:Panel ID="pnlProcesar" runat="server" style="display: inline-block;">
+                                <a class="btn btn-default btn-sm" data-target="#modalCompletaInformacion" data-toggle="modal">
                                 <span class="glyphicon glyphicon-transfer"></span>Procesar
                             </a>
-
+                            </asp:Panel>
+                            
                         </div>
                     </div>
                 </div>

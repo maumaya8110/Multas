@@ -16,6 +16,11 @@ public partial class Administrador_Usuarios : System.Web.UI.Page
 
     private void UsuarioAgregado(string id)
     {
+        using(DataBase db = new DataBase())
+        {
+            MPGlobalSessiones.Current.UsuariosAdministrador = db.EjecutaSPCatalogos(DataBase.TipoAccion.Consulta, DataBase.TipoCatalogo.Usuarios, null).Tables[0].DataTableToList<Usuario>();
+        }
+        
         cargaUsuarios();
     }
 

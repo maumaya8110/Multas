@@ -14,7 +14,7 @@ public partial class MPMasterPage : System.Web.UI.MasterPage
     {
         try
         {
-            if (!HttpContext.Current.User.Identity.IsAuthenticated)
+            if (System.Web.HttpContext.Current.Session["loginId"] == null)
             {
                 Response.Redirect("~/Account/Login.aspx");
             }

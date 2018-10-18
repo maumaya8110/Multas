@@ -137,7 +137,8 @@ public partial class Administrador_UserControl_ucAltaUsuario : System.Web.UI.Use
             {
                 CheckBox chk = item.FindControl("chkPermiso") as CheckBox;
                 HiddenField hdn = item.FindControl("hdnIdVentana") as HiddenField;
-                xml += String.Format("<ventana><id>{0}</id><estatus>{1}</estatus></ventana>", hdn.Value, chk.Checked ? "1" :"0");
+                CheckBox chkReadOnly = item.FindControl("chkSoloLectura") as CheckBox;
+                xml += String.Format("<ventana><id>{0}</id><estatus>{1}</estatus><readOnly>{2}</readOnly></ventana>", hdn.Value, chk.Checked ? "1" :"0", chkReadOnly.Checked ? "1" : "0");
             }
             xml = "<permiso>" + xml + "</permiso>";
             XElement xel = XElement.Parse(xml);
@@ -211,7 +212,7 @@ public partial class Administrador_UserControl_ucAltaUsuario : System.Web.UI.Use
             Session["UserIdModificar"] = dr["userId"].ToString();
 
             //carga ventanas de los usuarios
-            List<UsuarioVentana> ventanas = db.ObtieneDatos("sp_ObtieneVentanasUsuario", new SqlParameter[] { new SqlParameter("@idUsuario", Helper.GetIdUsuario(Helper.GetUserID())) }).Tables[0].DataTableToList<UsuarioVentana>();
+            List<UsuarioVentana> ventanas = db.ObtieneDatos("sp_ObtieneVentanasUsuario", new SqlParameter[] { new SqlParameter("@idUsuario", Helper.GetIdUsuario(Session["UserIdModificar"].ToString())) }).Tables[0].DataTableToList<UsuarioVentana>();
             rptVentanas.DataSource = ventanas;
             rptVentanas.DataBind();
             pnlSinInfoVentanas.Visible = false;

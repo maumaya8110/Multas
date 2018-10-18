@@ -6,6 +6,7 @@ using System.Web;
 using System.Web.Security;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using System.Data.SqlClient;
 
 public partial class SiteMaster : MasterPage
 {
@@ -68,7 +69,15 @@ public partial class SiteMaster : MasterPage
     {
         if (!HttpContext.Current.User.Identity.IsAuthenticated)
         {
-            Response.Redirect("~/Account/Login.aspx");
+            using(DataBase db = new DataBase())
+            {
+                List<SqlParameter> p = new List<SqlParameter>();
+                p.Add(new SqlParameter("@error", "Sin auteticacion"));
+                p.Add(new SqlParameter("@user", "usuario"));
+
+                db.EjecutaProcedure("spErrores", p.ToArray());
+            }
+            Response.Redirect("~/Account/Login2.aspx");
         }
     }
 

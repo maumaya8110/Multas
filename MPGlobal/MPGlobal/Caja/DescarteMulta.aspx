@@ -56,7 +56,7 @@
                         </asp:TemplateField>
                         <asp:TemplateField HeaderStyle-Width="150px" HeaderText="BOLETA">
                             <ItemTemplate>
-                                <asp:Label ID="lblBoleta" runat="server"><%# Eval("IdBoleta")%></asp:Label>
+                                <asp:Label ID="lblMulta" runat="server"><%# Eval("IdMulta")%></asp:Label>
                                 <asp:HiddenField ID="HiddenIdBoleta" runat="server" Value='<%# Eval("IdBoleta") %>' />
                             </ItemTemplate>
 
@@ -86,7 +86,7 @@
 
             </div>
 
-            <div id="modalCompletaInformacion" class="modal fade modal-medium" role="dialog">
+            <div id="modalCompletaInformacion" class="modal fade modal-small" role="dialog">
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">

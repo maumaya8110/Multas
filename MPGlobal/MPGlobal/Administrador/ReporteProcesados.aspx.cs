@@ -35,8 +35,6 @@ public partial class ReporteProcesados : System.Web.UI.Page
 
                     MPGlobalSessiones.Current.ReporteMultasProcesadas = db.EjecutaSPCatalogos(DataBase.TipoAccion.Consulta, DataBase.TipoCatalogo.ReporteProcesadas, null).Tables[0].DataTableToList<ReporteMultasProcesadas>();
 
-
-
                     IEnumerable<ReporteMultasProcesadas> query = MPGlobalSessiones.Current.ReporteMultasProcesadas;
 
                     query = query.Where(x => x.FechaProcesado >= FechaIni && x.FechaProcesado <= FechaFin);

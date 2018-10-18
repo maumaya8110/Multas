@@ -38,7 +38,7 @@ public class Helper
     {
         try
         {
-            return Microsoft.AspNet.Identity.IdentityExtensions.GetUserId(HttpContext.Current.User.Identity);
+            return System.Web.HttpContext.Current.Session["loginId"].ToString(); //Microsoft.AspNet.Identity.IdentityExtensions.GetUserId(HttpContext.Current.User.Identity);
         }
         catch(Exception x)
         {

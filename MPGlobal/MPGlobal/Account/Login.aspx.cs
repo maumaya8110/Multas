@@ -27,9 +27,11 @@ public partial class Account_Login : Page
             ApplicationUser user = manager.Find(UserName.Text, Password.Text);
             if (user != null)
             {
+                Session["loginId"] = user.Id;
                 IdentityHelper.SignIn(manager, user, RememberMe.Checked);
                 ObtieneUsuario(UserName.Text);
-                IdentityHelper.RedirectToReturnUrl(Request.QueryString["ReturnUrl"], Response);
+                //IdentityHelper.RedirectToReturnUrl(Request.QueryString["ReturnUrl"], Response);
+                Response.Redirect("~/Default.aspx");
             }
             else
             {
