@@ -20,9 +20,42 @@
     </asp:UpdateProgress>
 
     <div class="box-header">
-        <h3 class="box-title">Consulta de Multas</h3>
+        <h3 class="box-title">Pagar Multas</h3>
         <br />
-        <div class="form-inline ">
+        <div  >
+
+            <div >
+                <div>
+
+                    <table>
+                        <tr style=" vertical-align:middle">
+                            <td style="width:50px; vertical-align:middle">
+                                <label>Sesion: </label>
+                            </td>
+                            <td style="width:250px; font-size:large; vertical-align:middle">
+                                <asp:Label ID="lblSesion" runat="server" Text=""></asp:Label></td>
+                            <td style="width:10px"></td>
+                            <td style="width:50px; vertical-align:middle">
+                                <label>Oficina:  </label>
+                            </td>
+                            <td style="width:110px;  color:red; font-size:large; vertical-align:middle">
+                                <asp:Label ID="lblOficina" runat="server" Text=""></asp:Label></td>
+                            <td style="width:10px"></td>
+                            <td>
+                                <label style="width:50px; vertical-align:middle">Caja:  </label>
+                            </td>
+                            <td style="width:110px;  color:red; font-size:large; vertical-align:middle">
+                                <asp:Label ID="lblCaja" runat="server" Text=""></asp:Label></td>
+                            <td style="width:10px"></td>
+                            <td style="width:110px; vertical-align:middle">
+                                <asp:Button ID="BtnAbrirCaja" class="btn btn-warning" runat="server" Text="Abrir Caja" OnClick="BtnAbrirCaja_Click" /></td>
+                        </tr>
+                    </table>
+
+                </div>
+
+            </div>
+
 
             <%--  <label class="control-label">Reporte de Multas Pagadas</label>--%>
         </div>
@@ -31,30 +64,14 @@
 
     <asp:UpdatePanel ID="UpdatePanel1" runat="server">
         <ContentTemplate>
+
+
+
+
             <div class="well form-horizontal" action="" method="post" id="Dvform">
                 <fieldset>
 
 
-                    <div class="form-group">
-                        <div class="row">
-                            <div class="col-lg-1">
-                            </div>
-                            <div class="col-lg-3">
-                                <div class="input-group">
-                                    <label>Sesion:</label>
-                                    <asp:Button ID="BtnAbrirCaja" class="btn btn-instagram" runat="server" Text="Abrir Caja" OnClick="BtnAbrirCaja_Click" />
-                                </div>
-                            </div>
-
-                            <div class="col-lg-3">
-                                <div class="input-group">
-                                    <label>Sesion Abierta: </label>
-                                    <asp:Label ID="lblSesion" runat="server" Text="2018-10-15 12:33"></asp:Label>
-
-                                </div>
-                            </div>
-                        </div>
-                    </div>
 
 
 
@@ -540,7 +557,6 @@
 
 
 
-
                                 <div class="form-group">
                                     <label class="col-md-4 control-label"></label>
                                     <div class="col-md-4">
@@ -570,54 +586,22 @@
         </Triggers>
 
     </asp:UpdatePanel>
-    <%-- <div id="modalCompletaInformacion" class="modal fade modal-small" role="dialog">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h4 class="modal-title">Completa la siguiente información</h4>
-                </div>
-                <div class="modal-body">
-                    <div class="container">
-                        <div class="row">
-                            <div class="col-sm-12">
-                                <div class="form-group">
-                                    <div class="inputGroupContainer">
-                                        <div class="input-group">
-                                            <span class="input-group-addon"><i class="glyphicon glyphicon-edit"></i></span>
-                                            <asp:TextBox ID="txtDescripcion" runat="server" CssClass="form-control campo_obligatorio" placeholder="DESCRIPCIÓN"></asp:TextBox>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
 
-                        <div class="row">
-                            <div class="col-sm-12 right">
-                                <br />
-                                <asp:LinkButton CssClass="btn btn-default btn-sm" ID="lnkContinuar" runat="server" OnClick="lnkContinuar_Click" data-target="#modalCompletaInformacion" OnClientClick="javascript:validaCampos(this,event);" Text="Continuar"></asp:LinkButton>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>--%>
 
 
     <script>
         function myFunction() {
             //window.print();
 
-            
+
             var placa = document.getElementById("MainContent_txtPlaca").value;
             //alert(placa);
 
-            if (placa !="") {
+            if (placa != "") {
                 window.open('Multas.aspx?Pl=' + placa + "&t=1", '_blank');
             }
-            else { alert("Capture una Placa para revisar su Edo de Cuenta.");}
-            
+            else { alert("Capture una Placa para revisar su Edo de Cuenta."); }
+
 
         }
     </script>

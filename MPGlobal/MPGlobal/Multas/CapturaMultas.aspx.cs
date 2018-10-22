@@ -84,11 +84,19 @@ public partial class CapturaMultas : System.Web.UI.Page
         //}
         //var x = MPGlobalSessiones.Current.UsuarioLogueado.Usuario;
 
-        //Session["idUsuario"] = MPGlobalSessiones.Current.UsuarioLogueado.Usuario.IdUsuario.ToString();
-        //Session["NombreUsuario"] = MPGlobalSessiones.Current.UsuarioLogueado.Usuario.NombreFull.ToString();
+        if (System.Web.HttpContext.Current.Session["loginId"] == null)
+        {
+            Response.Redirect("~/Account/Login.aspx");
+        }
 
-        Session["idUsuario"] = "1";
-        Session["NombreUsuario"] = "Admin";
+
+
+
+        Session["idUsuario"] = MPGlobalSessiones.Current.UsuarioLogueado.Usuario.IdUsuario.ToString();
+        Session["NombreUsuario"] = MPGlobalSessiones.Current.UsuarioLogueado.Usuario.NombreFull.ToString();
+
+        //Session["idUsuario"] = "1";
+        //Session["NombreUsuario"] = "Admin";
         
         cAltaMultas obj = new cAltaMultas();
         if (Session["idUsuario"].ToString() == "")
@@ -339,12 +347,24 @@ public partial class CapturaMultas : System.Web.UI.Page
                 return;
             }
 
+
+
+            if (txtCrucero.Text == "")
+            {
+                ShowAlertMessage("Capture Crucero.");
+                txtCrucero.Focus();
+                return;
+            }
+
             if (txtdescripcion.Text == "")
             {
                 ShowAlertMessage("Capture descripcion.");
                 txtdescripcion.Focus();
                 return;
             }
+
+
+            
 
 
             if (dtpub.Rows.Count == 0)
@@ -379,6 +399,7 @@ public partial class CapturaMultas : System.Web.UI.Page
             string fechaMulta = fecha + " " + cboHora.SelectedItem.Text + ":" + cboMinuto.SelectedItem.Text;
             string Calle1Multa = txtCalle1.Text;
             string Calle2Multa = txtCalle2.Text;
+            string crucero = txtCrucero.Text;
             string descripcion = txtdescripcion.Text;
             string idAgente = cboAgente.SelectedValue;
             string Nolicencia = txtlicencia.Text;
@@ -411,13 +432,16 @@ public partial class CapturaMultas : System.Web.UI.Page
 
             cAltaMultas obj = new cAltaMultas();
 
-            string resul = obj.GuardaMulta(dtpub, idEstado, idMunicipio, Capturista, idplaca.Replace("-", "").Replace(" ", ""), FolioMulta, Calle1Multa.ToUpper(), Calle2Multa.ToUpper(), txtCrucero.Text.ToUpper(), idboleta.ToUpper(),
-            fechaMulta, idAgente.ToUpper(), descripcion.ToUpper(), Nolicencia.ToUpper(), decimal.Parse(monto));
+            string resul = obj.GuardaMulta(
+                dtpub, idEstado, idMunicipio, Capturista, idplaca.Replace("-", "").Replace(" ", "").ToUpper().TrimEnd(), FolioMulta.ToUpper(),  Calle1Multa.ToUpper().TrimEnd(), Calle2Multa.ToUpper().TrimEnd(), crucero.ToUpper().TrimEnd(), idboleta.ToUpper().TrimEnd(),
+            fechaMulta, idAgente.ToUpper().TrimEnd(), descripcion.ToUpper().TrimEnd(), Nolicencia.ToUpper().TrimEnd(), decimal.Parse(monto));
 
 
-           // ShowAlertMessage(resul);
+            // ShowAlertMessage(resul);
 
-            Response.Redirect("pagarmulta.aspx", false);
+            //   Response.Redirect("pagarmulta.aspx", false);
+            Response.Redirect("CapturaMultas.aspx", false);
+
 
             //valida campos
 

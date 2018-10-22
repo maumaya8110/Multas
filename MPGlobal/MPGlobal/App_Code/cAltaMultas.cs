@@ -40,6 +40,7 @@ string fecha, string idagente, string descripcion, string licencia, decimal mont
             sp.AddParameter("@fechaMulta", fecha);
             sp.AddParameter("@Calle1Multa", calle1);
             sp.AddParameter("@Calle2Multa", calle2);
+            sp.AddParameter("@CRUCERO", crucero);
             sp.AddParameter("@Descripcion", descripcion);
             sp.AddParameter("@idAgente", idagente);
             sp.AddParameter("@Nolicencia", licencia);
