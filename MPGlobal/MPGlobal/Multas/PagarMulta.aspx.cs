@@ -22,6 +22,13 @@ public partial class PagarMulta : System.Web.UI.Page
             lblOficina.Text = "";
             lblSesion.Text = ""; dtx.Rows[0]["ultimoacceso"].ToString();
             BtnAbrirCaja.Text = "Abrir Caja";
+
+            btnConsultar.Enabled = false;
+            txtPlaca.Enabled = false;
+            txtImporte.Enabled = false;
+            btnPagar.Enabled = false;
+
+
         }
         else
         {
@@ -74,6 +81,12 @@ public partial class PagarMulta : System.Web.UI.Page
 
         if (estatuscaja == 0)
         {
+
+            btnConsultar.Enabled = false;
+            txtPlaca.Enabled = false;
+            txtImporte.Enabled = false;
+            btnPagar.Enabled = false;
+
             lblCaja.Text = "";
             lblOficina.Text = "";
             lblSesion.Text = ""; dtsesion.Rows[0]["ultimoacceso"].ToString();

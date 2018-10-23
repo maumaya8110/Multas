@@ -22,32 +22,32 @@
     <div class="box-header">
         <h3 class="box-title">Pagar Multas</h3>
         <br />
-        <div  >
+        <div>
 
-            <div >
+            <div>
                 <div>
 
                     <table>
-                        <tr style=" vertical-align:middle">
-                            <td style="width:50px; vertical-align:middle">
+                        <tr style="vertical-align: middle">
+                            <td style="width: 50px; vertical-align: middle">
                                 <label>Sesion: </label>
                             </td>
-                            <td style="width:250px; font-size:large; vertical-align:middle">
+                            <td style="width: 250px; font-size: large; vertical-align: middle">
                                 <asp:Label ID="lblSesion" runat="server" Text=""></asp:Label></td>
-                            <td style="width:10px"></td>
-                            <td style="width:50px; vertical-align:middle">
+                            <td style="width: 10px"></td>
+                            <td style="width: 50px; vertical-align: middle">
                                 <label>Oficina:  </label>
                             </td>
-                            <td style="width:110px;  color:red; font-size:large; vertical-align:middle">
+                            <td style="width: 110px; color: red; font-size: large; vertical-align: middle">
                                 <asp:Label ID="lblOficina" runat="server" Text=""></asp:Label></td>
-                            <td style="width:10px"></td>
+                            <td style="width: 10px"></td>
                             <td>
-                                <label style="width:50px; vertical-align:middle">Caja:  </label>
+                                <label style="width: 50px; vertical-align: middle">Caja:  </label>
                             </td>
-                            <td style="width:110px;  color:red; font-size:large; vertical-align:middle">
+                            <td style="width: 110px; color: red; font-size: large; vertical-align: middle">
                                 <asp:Label ID="lblCaja" runat="server" Text=""></asp:Label></td>
-                            <td style="width:10px"></td>
-                            <td style="width:110px; vertical-align:middle">
+                            <td style="width: 10px"></td>
+                            <td style="width: 110px; vertical-align: middle">
                                 <asp:Button ID="BtnAbrirCaja" class="btn btn-warning" runat="server" Text="Abrir Caja" OnClick="BtnAbrirCaja_Click" /></td>
                         </tr>
                     </table>
@@ -335,7 +335,7 @@
                                             <div class="input-group-addon">
                                                 <i class="fa fa-street-view"></i>
                                             </div>
-                                            <asp:TextBox ID="txtcelular" Style="text-transform: uppercase;" class="form-control pull-right" Width="250" runat="server" placeholder="TECLEE CELULAR"></asp:TextBox>
+                                            <asp:TextBox ID="txtcelular" Style="text-transform: uppercase;" class="form-control pull-right" MaxLength="12" onkeypress="return numbersonly(event);" Width="250" runat="server" placeholder="TECLEE CELULAR"></asp:TextBox>
 
 
                                         </div>
@@ -469,8 +469,7 @@
 
                                             <%--<input type="text" class="form-control" placeholder="Search" id="txtPlaca" runat="server">--%>
 
-                                            <asp:TextBox ID="txtImporte" Style="text-transform: uppercase;" class="form-control currency pull-right"
-                                                min="0" step="0.01" data-number-to-fixed="2" data-number-stepfactor="100"
+                                            <asp:TextBox onkeypress="return ValidarNumFloat(event,this);" ID="txtImporte" class="form-control  pull-right"
                                                 runat="server" placeholder="TECLEE IMPORTE"></asp:TextBox>
 
 
@@ -686,52 +685,83 @@
         });
 
 
-        $("#MainContent_txtImporte").maskMoney({
 
-            // The symbol to be displayed before the value entered by the user
-            prefix: 'MXN$ ',
-            //prefix: '',
 
-            // The suffix to be displayed after the value entered by the user(example: "1234.23 €"). 
-            suffix: "",
 
-            // Delay formatting of text field until focus leaves the field
-            formatOnBlur: false,
 
-            // Prevent users from inputing zero
-            allowZero: false,
+        //$("#MainContent_txtImporte").maskMoney({
 
-            // Prevent users from inputing negative values
-            allowNegative: true,
+        //    // The symbol to be displayed before the value entered by the user
+        //    prefix: 'MXN$ ',
+        //    //prefix: '',
 
-            // Allow empty input values, so that when you delete the number it doesn't reset to 0.00. 
-            allowEmpty: false,
+        //    // The suffix to be displayed after the value entered by the user(example: "1234.23 €"). 
+        //    suffix: "",
 
-            // Select text in the input on double click
-            doubleClickSelection: true,
+        //    // Delay formatting of text field until focus leaves the field
+        //    formatOnBlur: false,
 
-            // Select all text in the input when the element fires the focus event. 
-            selectAllOnFocus: false,
+        //    // Prevent users from inputing zero
+        //    allowZero: false,
 
-            // The thousands separator
-            thousands: ',',
+        //    // Prevent users from inputing negative values
+        //    allowNegative: true,
 
-            // The decimal separator
-            decimal: '.',
+        //    // Allow empty input values, so that when you delete the number it doesn't reset to 0.00. 
+        //    allowEmpty: false,
 
-            // How many decimal places are allowed
-            precision: 2,
+        //    // Select text in the input on double click
+        //    doubleClickSelection: true,
 
-            // Set if the symbol will stay in the field after the user exits the field. 
-            affixesStay: false,
+        //    // Select all text in the input when the element fires the focus event. 
+        //    selectAllOnFocus: false,
 
-            // Place caret at the end of the input on focus 
-            bringCaretAtEndOnFocus: true
+        //    // The thousands separator
+        //    thousands: ',',
 
-        });
+        //    // The decimal separator
+        //    decimal: '.',
+
+        //    // How many decimal places are allowed
+        //    precision: 2,
+
+        //    // Set if the symbol will stay in the field after the user exits the field. 
+        //    affixesStay: false,
+
+        //    // Place caret at the end of the input on focus 
+        //    bringCaretAtEndOnFocus: true
+
+        //});
     </script>
 
     <script type="text/javascript">
+
+
+        function ValidarNumFloat(e, obj) {
+            tecla = (document.all) ? e.keyCode : e.which;
+            if (tecla == 8) return true;
+
+            Punto = obj.value.split('.');
+            if (Punto.length >= 2) {
+                patron = /[0-9]/;
+            } else
+                patron = /[0-9.]/;
+            te = String.fromCharCode(tecla);
+
+            return patron.test(te);
+        }
+
+
+        function numbersonly(e) {
+            var unicode = e.charCode ? e.charCode : e.keyCode
+            if (unicode != 8 && unicode != 44) {
+                if (unicode < 48 || unicode > 57) //if not a number
+                { return false } //disable key press    
+            }
+        }
+
+
+
 
         function Success() {
 
