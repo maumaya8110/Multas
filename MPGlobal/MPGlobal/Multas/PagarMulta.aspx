@@ -24,37 +24,7 @@
         <br />
         <div>
 
-            <div>
-                <div>
 
-                    <table>
-                        <tr style="vertical-align: middle">
-                            <td style="width: 50px; vertical-align: middle">
-                                <label>Sesion: </label>
-                            </td>
-                            <td style="width: 250px; font-size: large; vertical-align: middle">
-                                <asp:Label ID="lblSesion" runat="server" Text=""></asp:Label></td>
-                            <td style="width: 10px"></td>
-                            <td style="width: 50px; vertical-align: middle">
-                                <label>Oficina:  </label>
-                            </td>
-                            <td style="width: 110px; color: red; font-size: large; vertical-align: middle">
-                                <asp:Label ID="lblOficina" runat="server" Text=""></asp:Label></td>
-                            <td style="width: 10px"></td>
-                            <td>
-                                <label style="width: 50px; vertical-align: middle">Caja:  </label>
-                            </td>
-                            <td style="width: 110px; color: red; font-size: large; vertical-align: middle">
-                                <asp:Label ID="lblCaja" runat="server" Text=""></asp:Label></td>
-                            <td style="width: 10px"></td>
-                            <td style="width: 110px; vertical-align: middle">
-                                <asp:Button ID="BtnAbrirCaja" class="btn btn-warning" runat="server" Text="Abrir Caja" OnClick="BtnAbrirCaja_Click" /></td>
-                        </tr>
-                    </table>
-
-                </div>
-
-            </div>
 
 
             <%--  <label class="control-label">Reporte de Multas Pagadas</label>--%>
@@ -64,16 +34,77 @@
 
     <asp:UpdatePanel ID="UpdatePanel1" runat="server">
         <ContentTemplate>
-
-
-
-
+             
             <div class="well form-horizontal" action="" method="post" id="Dvform">
                 <fieldset>
+                     
+
+                    <div class="form-group">
+                        <div class="row">
+
+                            <div class="col-lg-1">
+                            </div>
+
+                            <div class="col-lg-2">
+                                <div class="input-group">
+                                    <label>SESION:</label>
+
+                                    <div class="input-group date">
+                                        <div class="input-group-addon">
+                                            <i class="fa fa-car"></i>
+                                        </div>
+
+                                        <asp:Label ID="lblSesion" Width="200px" class="form-control" runat="server" Text=""></asp:Label></td>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-1">
+                            </div>
+
+                            <div class="col-lg-2">
+                                <div class="input-group">
+                                    <label>OFICINA:</label>
+
+                                    <div class="input-group date">
+                                        <div class="input-group-addon">
+                                            <i class="fa fa-car"></i>
+                                        </div>
+                                        <asp:Label ID="lblOficina" class="form-control" runat="server" Text=""></asp:Label></td>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div class="col-lg-2">
+                                <div class="input-group">
+                                    <label>CAJA:</label>
+
+                                    <div class="input-group date">
+                                        <div class="input-group-addon">
+                                            <i class="fa fa-car"></i>
+                                        </div>
+                                        <asp:Label ID="lblCaja" class="form-control" runat="server" Text=""></asp:Label></td>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-2">
+                                <div class="input-group">
+
+
+                                    <div class="input-group date">
+                                        <br />
+                                        <asp:Button ID="BtnAbrirCaja" class="btn btn-warning" runat="server" Text="Abrir Caja" OnClick="BtnAbrirCaja_Click" /></td>
+
+
+                                    </div>
+                                </div>
+                            </div>
 
 
 
-
+                        </div>
+                    </div>
 
 
 
@@ -417,7 +448,7 @@
                                 </div>
                                 <div class="col-lg-3">
                                     <div class="input-group">
-                                        <label>Pago de Multas de Transito:</label>
+                                        <label>PLACA:</label>
 
                                         <div class="input-group date">
                                             <div class="input-group-addon">
@@ -433,7 +464,7 @@
 
                                 <div class="col-lg-3">
                                     <div class="input-group">
-                                        <label>MONTO:</label>
+                                        <label>MONTO A PAGAR:</label>
 
                                         <div class="input-group date">
                                             <div class="input-group-addon">
@@ -460,7 +491,7 @@
 
                                 <div class="col-lg-3">
                                     <div class="input-group">
-                                        <label>PLACA:</label>
+                                        <label>IMPORTE A PAGAR:</label>
 
                                         <div class="input-group date">
                                             <div class="input-group-addon">
@@ -564,7 +595,7 @@
                                 </div>
                 </fieldset>
             </div>
-
+            <input id="hdnRecPago" name="hdnRecPago" type="hidden" runat="server" />
             <asp:Button ID="cmdBuscar" Style="display: none; visibility: hidden" runat="server" OnClick="cmdBuscar_Click" />
         </ContentTemplate>
 
@@ -576,6 +607,11 @@
             <asp:AsyncPostBackTrigger ControlID="cboEdo" EventName="SelectedIndexChanged" />
 
             <asp:AsyncPostBackTrigger ControlID="cboMunicipio" EventName="SelectedIndexChanged" />
+
+
+
+
+            <%--<asp:PostBackTrigger ControlID="BtnAbrirCaja" />--%>
 
             <%--                <asp:AsyncPostBackTrigger ControlID="cboTipoMulta" EventName="SelectedIndexChanged" />
 
@@ -603,6 +639,24 @@
 
 
         }
+
+
+        function myPago() {
+            //window.print();
+
+
+            var recp = document.getElementById("MainContent_hdnRecPago").value;
+            //alert(placa);
+
+            if (recp != "") {
+                window.open("Pago.aspx?Id=" + recp, '_blank');
+            }
+            else { alert("Error."); }
+
+
+        }
+
+
     </script>
 
 
@@ -622,7 +676,15 @@
         }
 
 
+           //function Pago() {
 
+           // // document.getElementById("MainContent_hndEliminar").value = renglon;
+
+           // if (document.getElementById("MainContent_hdnRecPago").value != "") { document.getElementById("MainContent_cmdBuscar").click(); }
+           // else {
+           //     alert("Favor de teclear numero de placa valido.");
+           // }
+        }
 
     </script>
 

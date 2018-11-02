@@ -126,7 +126,7 @@
                                 </div>
                             </div>
 
-                              <div class="col-lg-3">
+                            <div class="col-lg-3">
                                 <div class="input-group">
                                     <label>LICENCIA:</label>
 
@@ -143,7 +143,7 @@
 
 
 
-<%--                            <div class="col-lg-3">
+                            <%--                            <div class="col-lg-3">
                                 <div class="input-group">
                                     <label>FOLIO:</label>
 
@@ -156,8 +156,6 @@
                                     <!-- /.input group -->
                                 </div>
                             </div>--%>
-
-
                         </div>
 
                     </div>
@@ -233,7 +231,7 @@
                                         <div class="input-group-addon">
                                             <i class="fa fa-file-text"></i>
                                         </div>
-                                        <asp:TextBox ID="txtboleta" Style="text-transform: uppercase;" class="form-control pull-right" runat="server" placeholder="TECLEE NO BOLETA" MaxLength="12"></asp:TextBox>
+                                        <asp:TextBox ID="txtboleta" Style="text-transform: uppercase;" class="form-control pull-right" runat="server" placeholder="TECLEE NO BOLETA" onkeypress="return numbersonly(event);" MaxLength="12"></asp:TextBox>
                                     </div>
                                 </div>
                                 <!-- /.input group -->
@@ -442,13 +440,13 @@
                                             <i class="fa fa-list"></i>
                                         </div>
 
-                                        <asp:TextBox ID="txtdescripcion"  Style="text-transform: uppercase;" Width="600px"  class="form-control pull-right" runat="server" placeholder="TECLEE DESCRIPCION"></asp:TextBox>
+                                        <asp:TextBox ID="txtdescripcion" Style="text-transform: uppercase;" Width="600px" class="form-control pull-right" runat="server" placeholder="TECLEE DESCRIPCION"></asp:TextBox>
                                     </div>
                                 </div>
                             </div>
 
 
-                          
+
 
 
                         </div>
@@ -598,57 +596,23 @@
         <Triggers>
             <%--  cboAgente--%>
 
-            
-          <asp:AsyncPostBackTrigger ControlID="cboAgente" EventName="SelectedIndexChanged" />    
-  <asp:AsyncPostBackTrigger ControlID="cboEdo" EventName="SelectedIndexChanged" />
 
-                <asp:AsyncPostBackTrigger ControlID="cboMunicipio" EventName="SelectedIndexChanged" />
+            <asp:AsyncPostBackTrigger ControlID="cboAgente" EventName="SelectedIndexChanged" />
+            <asp:AsyncPostBackTrigger ControlID="cboEdo" EventName="SelectedIndexChanged" />
 
-                <asp:AsyncPostBackTrigger ControlID="cboTipoMulta" EventName="SelectedIndexChanged" />
+            <asp:AsyncPostBackTrigger ControlID="cboMunicipio" EventName="SelectedIndexChanged" />
 
-                  <asp:PostBackTrigger ControlID="txtdatepicker" />
+            <asp:AsyncPostBackTrigger ControlID="cboTipoMulta" EventName="SelectedIndexChanged" />
+
+            <asp:PostBackTrigger ControlID="txtdatepicker" />
         </Triggers>
     </asp:UpdatePanel>
-    <%-- <div id="modalCompletaInformacion" class="modal fade modal-small" role="dialog">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h4 class="modal-title">Completa la siguiente información</h4>
-                </div>
-                <div class="modal-body">
-                    <div class="container">
-                        <div class="row">
-                            <div class="col-sm-12">
-                                <div class="form-group">
-                                    <div class="inputGroupContainer">
-                                        <div class="input-group">
-                                            <span class="input-group-addon"><i class="glyphicon glyphicon-edit"></i></span>
-                                            <asp:TextBox ID="txtDescripcion" runat="server" CssClass="form-control campo_obligatorio" placeholder="DESCRIPCIÓN"></asp:TextBox>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="row">
-                            <div class="col-sm-12 right">
-                                <br />
-                                <asp:LinkButton CssClass="btn btn-default btn-sm" ID="lnkContinuar" runat="server" OnClick="lnkContinuar_Click" data-target="#modalCompletaInformacion" OnClientClick="javascript:validaCampos(this,event);" Text="Continuar"></asp:LinkButton>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>--%>
-
-
+    
     <style type="text/css">
-    .Titulo {
-        text-align: center;
-    }
-</style>
+        .Titulo {
+            text-align: center;
+        }
+    </style>
     <script src="../Scripts/sweetalert2.all.min.js"></script>
 
     <%--Para que funcione el datapicker--%>
@@ -664,60 +628,83 @@
 
 
     <script type="text/javascript">
-    Sys.WebForms.PageRequestManager.getInstance().add_beginRequest(beginReq);
-    Sys.WebForms.PageRequestManager.getInstance().add_endRequest(endReq);
 
-    function beginReq(sender, args) {
-    }
 
-    function endReq(sender, args) {
-        Datapicker();
-        if($('#GridView1').find('thead').size() > 0)
-            $('#GridView1').DataTable({
-                language: {
-                    search: 'Buscar: ',
-                    info: 'Mostrar _START_ a _END_ de _TOTAL_ registros',
-                    lengthMenu: 'Mostrar _MENU_ registros',
-                    zeroRecords: 'No se encontraron registros con esa coincidencia',
-                    infoEmpty: 'Mostrando 0 registros',
-                    infoFiltered: '(Filtrado de _MAX_ registros en total)',
-                    paginate: {first: "Primero", last:"Ultimo", next:"Siguiente",  previous:"Anterior"} 
-                       
-                }
-            });
-    }
+        function ValidarNumFloat(e, obj) {
+            tecla = (document.all) ? e.keyCode : e.which;
+            if (tecla == 8) return true;
 
-    function Datapicker() {
-        $('#datetimepicker1').datetimepicker({
-            format: 'DD/MM/YYYY'
+            Punto = obj.value.split('.');
+            if (Punto.length >= 2) {
+                patron = /[0-9]/;
+            } else
+                patron = /[0-9.]/;
+            te = String.fromCharCode(tecla);
+
+            return patron.test(te);
+        };
+
+
+        function numbersonly(e) {
+            var unicode = e.charCode ? e.charCode : e.keyCode
+            if (unicode != 8 && unicode != 44) {
+                if (unicode < 48 || unicode > 57) //if not a number
+                { return false } //disable key press    
+            }
+        };
+  </script>
+
+
+    <script type="text/javascript">
+   
+
+        //function Datapicker() {
+        //    $('#datetimepicker1').datetimepicker({
+        //        format: 'DD/MM/YYYY'
+        //    });
+
+        //    $('#datetimepicker2').datetimepicker({
+        //        format: 'DD/MM/YYYY'
+        //    });
+
+        //}
+        //$(function () {
+        //    Datapicker();
+
+        //});
+
+        function SetDatePicker() {
+
+             var dp = $('#<%=txtdatepicker.ClientID%>');
+             dp.datepicker({
+                 changeMonth: true,
+                 changeYear: true,
+                 format: "dd/mm/yyyy",
+                 language: "es"
+             }).on('changeDate', function (ev) {
+                 $(this).blur();
+                 $(this).datepicker('hide');
+             });
+        };
+       
+        $(document).ready(function () {
+            SetDatePicker();
         });
-
-        $('#datetimepicker2').datetimepicker({
-            format: 'DD/MM/YYYY'
-        });
-
-    }
-    $(function () {
-        Datapicker();
-
-    });
-
-
-
+         
     </script>
     <script type="text/javascript">
-          
-    function Success() {
 
-        swal({
-            position: 'top-end',
-            type: 'success',
-            title: 'Multas Procesadas exitosamente',
-            showConfirmButton: true
-            //timer: 1500
+        function Success() {
 
-        });
-    }
+            swal({
+                position: 'top-end',
+                type: 'success',
+                title: 'Multas Procesadas exitosamente',
+                showConfirmButton: true
+                //timer: 1500
+
+            });
+        }
 
     </script>
 
@@ -735,7 +722,7 @@
         function GUARDAR() {
 
             //document.getElementById("MainContent_hndEliminar").value = renglon;
-           // alert('Jigsaw is coming for you !');
+            // alert('Jigsaw is coming for you !');
             document.getElementById("MainContent_btnGrabar").click();
         }
 
@@ -743,84 +730,39 @@
 
     </script>
 
-    <script>
-        //$(function () {
+    
 
-        //    //Date picker
-        //    $('#MainContent_txtdatepicker').datepicker({
-        //        language: 'us' ,
-        //        dateFormat: 'yyyy-mm-dd'
-        //        //setStartDate: FechaActual,
-        //       , todayBtn: 1,
-        //        autoclose: 1,
-        //        todayHighlight: 1,
-        //        startView: 2,
-        //        minView: 2,
-        //        forceParse: 0,
-        //        autoclose: true
-        //    })
-        //})
+   <script type="text/javascript">
+        //On Page Load.
+        $(function () {
+            SetDatePicker();
+        });
 
-
-        //$(function () {
-
-        //    //Date picker
-        //    $('#MainContent_txtdatepicker').timepicker({
-                
-        //    })
-        //})
-
-        ////Timepicker
-        //$('.timepicker').timepicker({
+        //On UpdatePanel Refresh.
+        var prm = Sys.WebForms.PageRequestManager.getInstance();
+        if (prm != null) {
+            prm.add_endRequest(function (sender, e) {
+                if (sender._postBackSettings.panelsToUpdate != null) {
+                    SetDatePicker();
+                }
+            });
+        };
+        //function SetDatePicker() {
+        //    $("[id$=txtdatepicker]").datepicker({
+        //        //showOn: 'button',
+        //        //buttonImageOnly: true,
+        //        //buttonImage: 'calendar.png'
 
 
-        //})
-
-
-        //$('[data-mask]').inputmask()
-
-        //$('.select2').select2()
+        //    });
+        //}
 
 
 
-    </script>
 
-    <script type="text/javascript">
-    //On Page Load.
-    $(function () {
-        SetDatePicker();
-    });
+    </script> 
+
  
-    //On UpdatePanel Refresh.
-    var prm = Sys.WebForms.PageRequestManager.getInstance();
-    if (prm != null) {
-        prm.add_endRequest(function (sender, e) {
-            if (sender._postBackSettings.panelsToUpdate != null) {
-                SetDatePicker();
-            }
-        });
-    };
-    function SetDatePicker() {
-        $("[id$=txtdatepicker]").datepicker({
-            //showOn: 'button',
-            //buttonImageOnly: true,
-            //buttonImage: 'calendar.png'
-           
-           
-        });
-    }
-
-
-
-
-    </script>
-
-    <%--   <script type="text/javascript">
-          $('#txtdatepicker').datetimepicker({
-          format: 'YYYY-MM-DD'       
-      });
-          $('#txtdatepicker').data("DateTimePicker").show();
-   </script>--%>
 </asp:Content>
 
 

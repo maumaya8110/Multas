@@ -34,7 +34,7 @@ string fecha, string idagente, string descripcion, string licencia, decimal mont
 
             sp.AddParameter("@idEstado", cveEdo);
             sp.AddParameter("@idMunicipio", cveMpo);
-            sp.AddParameter("@idboleta", idusuario);
+            sp.AddParameter("@idboleta", boleta);
             sp.AddParameter("@idplaca", placa);
             sp.AddParameter("@FolioMulta", foliofinal);
             sp.AddParameter("@fechaMulta", fecha);

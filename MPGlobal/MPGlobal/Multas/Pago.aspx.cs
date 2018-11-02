@@ -35,7 +35,7 @@ public partial class Multas_Pago : System.Web.UI.Page
 
 
 
-        string placa = "ska222"; //Request.QueryString["Pl"].ToString();
+        string placa = Request.QueryString["Id"].ToString();
         //string tipo = "2";// Request.QueryString["t"].ToString();
 
         cMultas obj = new cMultas();
@@ -124,7 +124,7 @@ public partial class Multas_Pago : System.Web.UI.Page
 
 
 
-        // EjecuarJQ();
+       EjecuarJQ();
 
         //if (Request.QueryString["Pl"] != null)
         //{

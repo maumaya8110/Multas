@@ -460,9 +460,41 @@ using System.Text;
             sw = null;
         }
 
-      
 
-        public static string DameParteNombre(string nombre, int tipo)
+
+    public static void ExporttoExcell(GridView gv, string nombre)
+    {
+
+
+        HttpResponse response = HttpContext.Current.Response;
+        response.Clear();
+        response.Charset = " ";
+        response.ContentType = "application/vnd.ms-excel";
+        response.AddHeader("Content-Disposition", "attachment;filename=" + nombre + ".xls;");
+        StringWriter sw = new StringWriter();
+        HtmlTextWriter htw = new HtmlTextWriter(sw);
+
+        using (sw)
+        {
+            using (htw)
+            {
+
+                gv.RenderControl(htw);
+                response.Write(sw.ToString());
+                response.End();
+            }
+
+        }
+        htw.Dispose();
+        sw.Dispose();
+        htw = null;
+        sw = null;
+    }
+
+
+
+
+    public static string DameParteNombre(string nombre, int tipo)
         {
             string amaterno = "";
             string aparterno = "";

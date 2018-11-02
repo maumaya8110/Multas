@@ -1,11 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Data;
-using System.Linq;
 using System.Text;
 using System.Web;
 using System.Web.UI;
-using System.Web.UI.WebControls;
 
 public partial class CapturaMultas : System.Web.UI.Page
 {
@@ -78,16 +75,17 @@ public partial class CapturaMultas : System.Web.UI.Page
     }
     protected void Page_Load(object sender, EventArgs e)
     {
-        //if (MPGlobalSessiones.Current.UsuarioLogueado.Usuario == null)
-        //{
-        //    Response.Redirect("../Account/login.aspx");
-        //}
-        //var x = MPGlobalSessiones.Current.UsuarioLogueado.Usuario;
+        // var x = MPGlobalSessiones.Current.UsuarioLogueado.Usuario;
 
         if (System.Web.HttpContext.Current.Session["loginId"] == null)
         {
             Response.Redirect("~/Account/Login.aspx");
         }
+        //if (Session["idUsuario"].ToString() == "")
+        //{
+        //    // Response.Redirect("login.aspx", false);
+        //    Response.Redirect("~/Account/Login.aspx");
+        //}
 
 
 
@@ -95,14 +93,13 @@ public partial class CapturaMultas : System.Web.UI.Page
         Session["idUsuario"] = MPGlobalSessiones.Current.UsuarioLogueado.Usuario.IdUsuario.ToString();
         Session["NombreUsuario"] = MPGlobalSessiones.Current.UsuarioLogueado.Usuario.NombreFull.ToString();
 
+        Session["IdEdo"] = MPGlobalSessiones.Current.UsuarioLogueado.Usuario.IdEstado.ToString();
+        Session["IdMpo"] = MPGlobalSessiones.Current.UsuarioLogueado.Usuario.IdMunicipio.ToString();
+
         //Session["idUsuario"] = "1";
         //Session["NombreUsuario"] = "Admin";
-        
+
         cAltaMultas obj = new cAltaMultas();
-        if (Session["idUsuario"].ToString() == "")
-        {
-            Response.Redirect("login.aspx", false);
-        }
 
 
         txtusuario.Text = Session["NombreUsuario"].ToString();
@@ -119,6 +116,12 @@ public partial class CapturaMultas : System.Web.UI.Page
             cboEdo.DataTextField = "Nombre";
             cboEdo.DataValueField = "id";
             cboEdo.DataBind();
+
+
+            cboEdo.SelectedValue = Session["IdEdo"].ToString();
+            ConsultaMunicipios();
+
+            //cboEdo.Items.IndexOf(cboEdo.Items.FindByValue(Session["IdEdo"].ToString()));
 
             dtpub = new DataTable();
 
@@ -141,8 +144,63 @@ public partial class CapturaMultas : System.Web.UI.Page
 
     }
 
+
+    private void ConsultaMunicipios()
+    {
+        cAltaMultas obj = new cAltaMultas();
+        DataTable dtcatMpo;
+        int cveEdo = int.Parse(Session["IdEdo"].ToString());//cboEdo.SelectedValue);
+        dtcatMpo = obj.catMunicipiosXEdo(cveEdo);
+
+        cboMunicipio.DataSource = dtcatMpo;
+        cboMunicipio.DataValueField = "id";
+        cboMunicipio.DataTextField = "Nombre";
+        cboMunicipio.DataBind();
+
+
+        cboMunicipio.SelectedValue = Session["IdMpo"].ToString();
+
+
+        cboEdo.Attributes["disabled"] = "disabled";
+        cboMunicipio.Attributes["disabled"] = "disabled";
+        //cboEdo.Enabled = false;
+        //cboMunicipio.Enabled = false;
+
+
+
+
+
+        DataTable dtcatAgente;
+        DataTable dtcatTipoMulta;
+
+
+
+        //  int cveEdo = int.Parse(cboEdo.SelectedValue);
+        int cveMpo = int.Parse(Session["IdMpo"].ToString());
+        dtcatAgente = obj.catAgentes(cveEdo, cveMpo);
+
+        dtcatTipoMulta = obj.catTipoMulta(cveEdo, cveMpo);
+
+
+        cboAgente.DataSource = dtcatAgente;
+        cboAgente.DataTextField = "Nombre";
+        cboAgente.DataValueField = "id";
+        cboAgente.DataBind();
+
+
+        cboTipoMulta.DataSource = dtcatTipoMulta;
+        cboTipoMulta.DataTextField = "Nombre";
+        cboTipoMulta.DataValueField = "id";
+        cboTipoMulta.DataBind();
+
+
+
+
+    }
+
     protected void cboEdo_SelectedIndexChanged1(object sender, EventArgs e)
     {
+
         cAltaMultas obj = new cAltaMultas();
         DataTable dtcatMpo;
         int cveEdo = int.Parse(cboEdo.SelectedValue);
@@ -152,6 +210,7 @@ public partial class CapturaMultas : System.Web.UI.Page
         cboMunicipio.DataValueField = "id";
         cboMunicipio.DataTextField = "Nombre";
         cboMunicipio.DataBind();
+
 
     }
 
@@ -186,9 +245,9 @@ public partial class CapturaMultas : System.Web.UI.Page
             cboTipoMulta.DataBind();
 
 
-         //   txtfolio.Text = obj.GeneraFolio(cveEdo, cveMpo);
+            //   txtfolio.Text = obj.GeneraFolio(cveEdo, cveMpo);
 
-     //       ShowAlertMessage(txtfolio.Text);
+            //       ShowAlertMessage(txtfolio.Text);
 
         }
         catch (Exception ex)
@@ -196,7 +255,7 @@ public partial class CapturaMultas : System.Web.UI.Page
             ShowAlertMessage(ex.ToString());
 
         }
-        
+
 
     }
 
@@ -364,7 +423,7 @@ public partial class CapturaMultas : System.Web.UI.Page
             }
 
 
-            
+
 
 
             if (dtpub.Rows.Count == 0)
@@ -382,8 +441,8 @@ public partial class CapturaMultas : System.Web.UI.Page
             string idplaca = txtPlaca.Text;
             string FolioMulta = "";// txtfolio.Text;
 
-            string dia = txtdatepicker.Text.Substring(3, 2);
-            string mes = txtdatepicker.Text.Substring(0, 2);
+            string mes = txtdatepicker.Text.Substring(3, 2);
+            string dia = txtdatepicker.Text.Substring(0, 2);
             string anio = txtdatepicker.Text.Substring(6, 4);
             string fecha = anio + "" + mes + "" + dia;
 
@@ -404,7 +463,7 @@ public partial class CapturaMultas : System.Web.UI.Page
             string idAgente = cboAgente.SelectedValue;
             string Nolicencia = txtlicencia.Text;
             //Dim EstatusMulta As String
-            string Capturista = "1";
+            string Capturista = Session["idUsuario"].ToString();
             // txtusuario.Text
             //Dim TarjetaCirculacion As String
             //Dim Procesado As String
@@ -433,17 +492,48 @@ public partial class CapturaMultas : System.Web.UI.Page
             cAltaMultas obj = new cAltaMultas();
 
             string resul = obj.GuardaMulta(
-                dtpub, idEstado, idMunicipio, Capturista, idplaca.Replace("-", "").Replace(" ", "").ToUpper().TrimEnd(), FolioMulta.ToUpper(),  Calle1Multa.ToUpper().TrimEnd(), Calle2Multa.ToUpper().TrimEnd(), crucero.ToUpper().TrimEnd(), idboleta.ToUpper().TrimEnd(),
+                dtpub, idEstado, idMunicipio, Capturista, idplaca.Replace("-", "").Replace(" ", "").ToUpper().TrimEnd(), FolioMulta.ToUpper(), Calle1Multa.ToUpper().TrimEnd(),
+                Calle2Multa.ToUpper().TrimEnd(), crucero.ToUpper().TrimEnd(), idboleta.ToUpper().TrimEnd(),
             fechaMulta, idAgente.ToUpper().TrimEnd(), descripcion.ToUpper().TrimEnd(), Nolicencia.ToUpper().TrimEnd(), decimal.Parse(monto));
 
 
-            // ShowAlertMessage(resul);
+            ShowAlertMessage(resul);
 
             //   Response.Redirect("pagarmulta.aspx", false);
-            Response.Redirect("CapturaMultas.aspx", false);
+            ///  Response.Redirect("CapturaMultas.aspx", false);
 
 
             //valida campos
+
+
+            txtboleta.Text = "";
+            txtCalle1.Text = "";
+            txtCalle2.Text = "";
+            txtPlaca.Text = "";
+            txtCrucero.Text = "";
+            txtdatepicker.Text = "";
+            txtdescripcion.Text = "";
+            txtlicencia.Text = "";
+            txtPlaca.Focus();
+
+            dtpub.Rows.Clear();
+
+
+            StringBuilder html = new StringBuilder();
+
+
+            html.Append(" <tr>");
+            html.Append("<td></td>");
+            html.Append("<td></td> ");
+            html.Append("<td></td> ");
+            html.Append("<td></td>");
+            html.Append("</tr>");
+
+            tbcapcitaciones.InnerHtml = html.ToString();
+
+
+
+
 
         }
         catch (Exception ex)
