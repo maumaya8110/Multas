@@ -43,7 +43,7 @@ public class cPagarMultas
 
 
     public DataSet PagoMultas(string montosolicitado, string montopagado, string idusuario, string placa, string folios, string nombre, string paterno, string materno, string calle,
-        string colonia, string rfc, string celular, string correo, string idedo, string idmpo)
+        string colonia, string rfc, string celular, string correo, string idedo, string idmpo,int idsesion )
     {
         DataSet ds;
 
@@ -64,6 +64,8 @@ public class cPagarMultas
         sp.AddParameter("@correo", correo);
         sp.AddParameter("@idEdo", idedo);
         sp.AddParameter("@idMpo", idmpo);
+        sp.AddParameter("@idsesion", idsesion);
+        
 
         ds = sp.ObtenDatos();
 

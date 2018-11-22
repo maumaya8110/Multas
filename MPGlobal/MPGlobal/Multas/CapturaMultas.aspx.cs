@@ -118,6 +118,13 @@ public partial class CapturaMultas : System.Web.UI.Page
             cboEdo.DataBind();
 
 
+
+            cboEdoPlaca.DataSource = dtcatEdo;
+            cboEdoPlaca.DataTextField = "Nombre";
+            cboEdoPlaca.DataValueField = "id";
+            cboEdoPlaca.DataBind();
+
+
             cboEdo.SelectedValue = Session["IdEdo"].ToString();
             ConsultaMunicipios();
 
@@ -272,7 +279,8 @@ public partial class CapturaMultas : System.Web.UI.Page
     }
 
 
-    protected void cboTipoMulta_SelectedIndexChanged(object sender, EventArgs e)
+
+    private void DescTipoMultaMonto()
     {
         cAltaMultas obj = new cAltaMultas();
         DataTable dtMontoMulta;
@@ -292,6 +300,11 @@ public partial class CapturaMultas : System.Web.UI.Page
         {
             btnAgregar.Visible = false;
         }
+    }
+
+    protected void cboTipoMulta_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        DescTipoMultaMonto();
     }
 
     protected void btnAgregar_Click(object sender, EventArgs e)
@@ -353,6 +366,15 @@ public partial class CapturaMultas : System.Web.UI.Page
                 cboEdo.Focus();
                 return;
             }
+
+
+            if (cboEdoPlaca.SelectedIndex == 0)
+            {
+                ShowAlertMessage("Seleccione un Estado de Origen Placa.");
+                cboEdoPlaca.Focus();
+                return;
+            }
+
 
             if (cboMunicipio.SelectedIndex == 0)
             {
@@ -435,6 +457,8 @@ public partial class CapturaMultas : System.Web.UI.Page
 
             //---Encabezado
 
+            string edoPlaca = cboEdoPlaca.SelectedValue;
+
             string idEstado = cboEdo.SelectedValue;
             string idMunicipio = cboMunicipio.SelectedValue;
             string idboleta = txtboleta.Text;
@@ -494,7 +518,7 @@ public partial class CapturaMultas : System.Web.UI.Page
             string resul = obj.GuardaMulta(
                 dtpub, idEstado, idMunicipio, Capturista, idplaca.Replace("-", "").Replace(" ", "").ToUpper().TrimEnd(), FolioMulta.ToUpper(), Calle1Multa.ToUpper().TrimEnd(),
                 Calle2Multa.ToUpper().TrimEnd(), crucero.ToUpper().TrimEnd(), idboleta.ToUpper().TrimEnd(),
-            fechaMulta, idAgente.ToUpper().TrimEnd(), descripcion.ToUpper().TrimEnd(), Nolicencia.ToUpper().TrimEnd(), decimal.Parse(monto));
+            fechaMulta, idAgente.ToUpper().TrimEnd(), descripcion.ToUpper().TrimEnd(), Nolicencia.ToUpper().TrimEnd(), decimal.Parse(monto), edoPlaca);
 
 
             ShowAlertMessage(resul);
@@ -542,4 +566,41 @@ public partial class CapturaMultas : System.Web.UI.Page
         }
 
     }
+
+    //protected void txtdescripcion_TextChanged(object sender, EventArgs e)
+    //{
+    //    cboTipoMulta.SelectedValue = txtIdMulta.Text;
+
+    //    //cboMunicipio.SelectedValue = Session["IdMpo"].ToString();
+    //}
+
+    protected void txtIdMulta_TextChanged(object sender, EventArgs e)
+    {
+        IdMulta();
+    }
+
+    private void IdMulta()
+    {
+
+        try
+        {
+            cboTipoMulta.SelectedValue = txtIdMulta.Text;
+
+
+            DescTipoMultaMonto();
+        }
+        catch (Exception ex)
+        {
+
+            ShowAlertMessage("El Id de Multa No Existe.");
+            btnAgregar.Visible = false;
+            txtIdMulta.Focus();
+            return;
+          
+
+        }
+
+       
+    }
+
 }

@@ -14,4 +14,6 @@ public class UsuarioVentana
     public string URL { get; set; }
     public bool estatus { get; set; }
     public bool soloLectura { get; set; }
+
+    public string Menu_Icon { get; set; }
 }

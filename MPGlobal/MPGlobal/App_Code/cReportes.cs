@@ -93,6 +93,81 @@ public class cReportes
     }
 
 
+    public DataTable ReportesGeneradas(int cveEdo, int cveMpo, int tipomulta, string fechaini, string fechafin, string placa)
+    {
+        DataTable dt;
+        cStore sp = new cStore("spReportesGeneradas", 1);
+        sp.AddParameter("@cveEdo", cveEdo);
+        sp.AddParameter("@cveMpo", cveMpo);
+        sp.AddParameter("@TipoM", tipomulta);
+        sp.AddParameter("@FechaIni", fechaini);
+        sp.AddParameter("@FechaFin", fechafin);
+        sp.AddParameter("@Placa", placa);
+        
+        dt = sp.ObtenDatos().Tables[0];
+
+        return dt;
+    }
+
+    public DataTable ReportesPagadas(int cveEdo, int cveMpo, int tipomulta, string fechaini, string fechafin, string placa)
+    {
+        DataTable dt;
+        cStore sp = new cStore("spReportesPagadas", 1);
+        sp.AddParameter("@cveEdo", cveEdo);
+        sp.AddParameter("@cveMpo", cveMpo);
+        sp.AddParameter("@TipoM", tipomulta);
+        sp.AddParameter("@FechaIni", fechaini);
+        sp.AddParameter("@FechaFin", fechafin);
+        sp.AddParameter("@Placa", placa);
+
+        dt = sp.ObtenDatos().Tables[0];
+
+        return dt;
+    }
+
+    
+    public DataTable ReportesProcesadas(int cveEdo, int cveMpo, int tipomulta, string fechaini, string fechafin, string placa)
+    {
+        DataTable dt;
+        cStore sp = new cStore("spReportesPagadas", 1);
+        sp.AddParameter("@cveEdo", cveEdo);
+        sp.AddParameter("@cveMpo", cveMpo);
+        sp.AddParameter("@TipoM", tipomulta);
+        sp.AddParameter("@FechaIni", fechaini);
+        sp.AddParameter("@FechaFin", fechafin);
+        sp.AddParameter("@Placa", placa);
+
+        dt = sp.ObtenDatos().Tables[0];
+
+        return dt;
+    }
+
+
+    public DataTable ReportesSesionCobro(int cveEdo, int cveMpo,  string fechaini, string fechafin)
+    {
+        DataTable dt;
+        cStore sp = new cStore("spReportesSesionCobro", 1);
+        sp.AddParameter("@cveEdo", cveEdo);
+        sp.AddParameter("@cveMpo", cveMpo);
+   
+        sp.AddParameter("@FechaIni", fechaini);
+        sp.AddParameter("@FechaFin", fechafin);
+    
+        dt = sp.ObtenDatos().Tables[0];
+
+        return dt;
+    }
+ 
+
+
+
+
+
+
+
+
+
+
 
 
     public DataTable ReportesMultas(int cveEdo, int cveMpo,int tipomulta,string fechaini,string fechafin,int tiporpt,int nivel)

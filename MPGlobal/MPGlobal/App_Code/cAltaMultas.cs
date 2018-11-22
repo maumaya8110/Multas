@@ -18,7 +18,7 @@ public class cAltaMultas
 
 
     public string GuardaMulta(DataTable dtMultaDetalle, string cveEdo, string cveMpo, string idusuario, string placa, string folio, string calle1, string calle2, string crucero, string boleta,
-string fecha, string idagente, string descripcion, string licencia, decimal monto)
+string fecha, string idagente, string descripcion, string licencia, decimal monto, string edoPlaca)
     {
 
 
@@ -46,12 +46,9 @@ string fecha, string idagente, string descripcion, string licencia, decimal mont
             sp.AddParameter("@Nolicencia", licencia);
             sp.AddParameter("@Capturista", idusuario);
             sp.AddParameter("@Monto", monto.ToString());
+            sp.AddParameter("@idEstadoPlaca", edoPlaca);
             // sp.Ejecuta(idfolioE)
             string F = sp.ObtenDatos().Tables[0].Rows[0][0].ToString();
-
-
-
-
 
 
             if (Int32.Parse(F) > 0)

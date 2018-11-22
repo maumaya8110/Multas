@@ -4,6 +4,7 @@ using System;
 using System.Web;
 using System.Web.UI;
 using MPGlobal;
+using System.Data;
 
 public partial class Account_Login : Page
 {
@@ -23,13 +24,16 @@ public partial class Account_Login : Page
         if (IsValid)
         {
             // Validate the user password
+              
             var manager = new UserManager();
             ApplicationUser user = manager.Find(UserName.Text, Password.Text);
             if (user != null)
-            {
+            { 
                 Session["loginId"] = user.Id;
                 IdentityHelper.SignIn(manager, user, RememberMe.Checked);
                 ObtieneUsuario(UserName.Text);
+
+
                 //IdentityHelper.RedirectToReturnUrl(Request.QueryString["ReturnUrl"], Response);
                 Response.Redirect("~/Default.aspx");
             }
@@ -38,6 +42,10 @@ public partial class Account_Login : Page
                 FailureText.Text = "Usuario o contraseña incorrectos.";
                 ErrorMessage.Visible = true;
             }
+
+
+
+
         }
     }
 

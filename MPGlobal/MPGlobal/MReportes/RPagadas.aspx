@@ -1,5 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MPMasterPage.master" AutoEventWireup="true" CodeFile="ConsultaE.aspx.cs" Inherits="ConsultaE" %>
-
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MPMasterPage.master" AutoEventWireup="true" CodeFile="RPagadas.aspx.cs" Inherits="RPagadas" %>
 
 
 
@@ -24,7 +23,7 @@
     </asp:UpdateProgress>
 
     <div class="box-header">
-        <h3 class="box-title">Cancelar Multas</h3>
+        <h3 class="box-title">MULTAS GENERADAS</h3>
         <br />
         <div>
 
@@ -128,24 +127,7 @@
 
 
 
-                            <div class="col-lg-2">
-                                <div class="input-group">
-                                    <label>ESTATUS:</label>
-
-                                    <div class="input-group date">
-                                        <div class="input-group-addon">
-                                            <i class="fa fa-gear"></i>
-                                        </div>
-                                        <asp:DropDownList ID="cboEstatus" Width="120" class="form-control" runat="server"></asp:DropDownList>
-
-
-                                    </div>
-
-
-
-                                </div>
-
-                            </div>
+                          
 
 
 
@@ -199,8 +181,28 @@
 
                             </div>
 
+                              <div class="col-lg-2">
+                                <div class="input-group">
+                                    <label>PLACA:</label>
 
-                            <div class="col-lg-2">
+                                    <div class="input-group date">
+                                        <div class="input-group-addon">
+                                            <i class="fa fa-gear"></i>
+                                        </div>
+
+                                          <asp:TextBox ID="txtPlaca" Style="text-transform: uppercase;" Width="100" class="form-control pull-right" runat="server"></asp:TextBox>
+
+                                      <%--  <asp:DropDownList ID="cboEstatus" Width="120" class="form-control" runat="server"></asp:DropDownList>--%>
+
+
+                                    </div>
+
+
+
+                                </div>
+
+                            </div>
+                           <%-- <div class="col-lg-2">
                                 <div class="input-group">
                                     <label>ESTATUS:</label>
 
@@ -217,7 +219,7 @@
 
                                 </div>
 
-                            </div>
+                            </div>--%>
 
 
 
@@ -350,13 +352,16 @@
     <script src="../Scripts/sweetalert2.all.min.js"></script>
 
     <%--Para que funcione el datapicker--%>
-    <link href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.css" rel="stylesheet" />
+<%--    <link href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.css" rel="stylesheet" />
     <link href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/css/bootstrap-datetimepicker.css" rel="stylesheet" />
 
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.15.2/moment.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/js/bootstrap-datetimepicker.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/js/bootstrap-datetimepicker.min.js"></script>--%>
+
+    <script src="../master/jquery213.js"></script>
+
     <%--Fin--%>
     <script src="../Scripts/jquery.maskMoney.js"></script>
 

@@ -10,55 +10,137 @@ public partial class PagarMulta : System.Web.UI.Page
 
     protected void BtnAbrirCaja_Click(object sender, EventArgs e)
     {
-
-        cValidaSesionCaja obx = new cValidaSesionCaja();
-        string usuario = Session["idUsuario"].ToString();
-        DataTable dtx = obx.CierraSesionCaja(int.Parse(usuario));
-        int estatuscaja = int.Parse(dtx.Rows[0]["estatus_caja"].ToString());
-
-
         lblCaja.Text = "";
         lblOficina.Text = "";
         lblSesion.Text = "";
+        //int estatussesion = int.Parse(Session["SesionesID"].ToString());
 
-        if (estatuscaja == 0)
+        cSesiones obs = new cSesiones();
+        string usuario = Session["idUsuario"].ToString();
+        DataSet ds = obs.AbrirCerrarCaja(int.Parse(usuario));
+
+        string sesion = ds.Tables[0].Rows[0]["id_sesion"].ToString();
+        string idcaja = ds.Tables[0].Rows[0]["idcaja"].ToString();
+        string idoficina = ds.Tables[0].Rows[0]["idOficina"].ToString();
+        string fechasesion = ds.Tables[0].Rows[0]["fechainiciosesion"].ToString();
+
+        Session["SesionesID"] = sesion;
+
+
+        if (sesion != "0")
         {
             lblCaja.Text = "";
             lblOficina.Text = "";
             lblSesion.Text = "";// dtx.Rows[0]["ultimoacceso"].ToString();
             BtnAbrirCaja.Text = "Abrir Caja";
-
-            Session["Sesiones"] = "Cerrado";
-            //Response.Redirect("pagarmulta.aspx", false);
+             
 
             btnConsultar.Attributes.Add("disabled", "disabled");
             txtPlaca.Attributes.Add("disabled", "disabled");
             txtImporte.Attributes.Add("disabled", "disabled");
             btnPagar.Attributes.Add("disabled", "disabled");
-
-
-
-
         }
-        else
-        {
-            lblCaja.Text = dtx.Rows[0]["idoficina"].ToString();
-            lblOficina.Text = dtx.Rows[0]["idcaja"].ToString();
+        else {
+            lblCaja.Text = idcaja;
+            lblOficina.Text = idoficina;
 
-            lblSesion.Text = dtx.Rows[0]["ultimoacceso"].ToString();
+            lblSesion.Text = fechasesion;
             BtnAbrirCaja.Text = "Cerrar Caja";
 
-
-            Session["Sesiones"] = "Abierto";
-
-            //Response.Redirect("pagarmulta.aspx", false);
-
+              
             btnConsultar.Attributes.Remove("disabled");
             txtPlaca.Attributes.Remove("disabled");
             txtImporte.Attributes.Remove("disabled");
             btnPagar.Attributes.Remove("disabled");
 
+
         }
+
+        Response.Redirect("pagarmulta.aspx", false);
+
+        //if (estatussesion == 0)
+        //{
+
+
+
+        //}
+        //else
+        //{
+
+
+        //}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        // cValidaSesionCaja obx = new cValidaSesionCaja();
+        //// string usuario = Session["idUsuario"].ToString();
+        // DataTable dtx = obx.CierraSesionCaja(int.Parse(usuario));
+        // int estatuscaja = int.Parse(dtx.Rows[0]["estatus_caja"].ToString());
+
+
+        //lblCaja.Text = "";
+        //lblOficina.Text = "";
+        //lblSesion.Text = "";
+
+        //if (estatuscaja == 0)
+        //{
+        //    lblCaja.Text = "";
+        //    lblOficina.Text = "";
+        //    lblSesion.Text = "";// dtx.Rows[0]["ultimoacceso"].ToString();
+        //    BtnAbrirCaja.Text = "Abrir Caja";
+
+        //    Session["Sesiones"] = "Cerrado";
+        //    //Response.Redirect("pagarmulta.aspx", false);
+
+        //    btnConsultar.Attributes.Add("disabled", "disabled");
+        //    txtPlaca.Attributes.Add("disabled", "disabled");
+        //    txtImporte.Attributes.Add("disabled", "disabled");
+        //    btnPagar.Attributes.Add("disabled", "disabled");
+
+
+
+
+        //}
+        //else
+        //{
+        //    lblCaja.Text = dtx.Rows[0]["idoficina"].ToString();
+        //    lblOficina.Text = dtx.Rows[0]["idcaja"].ToString();
+
+        //    lblSesion.Text = dtx.Rows[0]["ultimoacceso"].ToString();
+        //    BtnAbrirCaja.Text = "Cerrar Caja";
+
+
+        //    Session["Sesiones"] = "Abierto";
+
+        //    //Response.Redirect("pagarmulta.aspx", false);
+
+        //    btnConsultar.Attributes.Remove("disabled");
+        //    txtPlaca.Attributes.Remove("disabled");
+        //    txtImporte.Attributes.Remove("disabled");
+        //    btnPagar.Attributes.Remove("disabled");
+
+        //}
         //Response.Redirect("pagarmulta.aspx", false);
         //cPagarMultas obj = new cPagarMultas();
 
@@ -93,19 +175,15 @@ public partial class PagarMulta : System.Web.UI.Page
         string usuario = Session["idUsuario"].ToString();
 
 
-        cValidaSesionCaja objses = new cValidaSesionCaja();
-
-        DataTable dtsesion = objses.ValidaSesionCaja(int.Parse(usuario));
-
-
-
-        int estatuscaja = int.Parse(dtsesion.Rows[0]["estatus_caja"].ToString());
+        cSesiones objses = new cSesiones();
+        
+        int estatussesion = int.Parse(Session["SesionesID"].ToString());  // int.Parse(dtsesion.Rows[0]["estatus_caja"].ToString());
 
 
 
         string fechaSesion = "";
 
-        if (estatuscaja == 0)
+        if (estatussesion == 0)
         {
 
             //btnConsultar.Enabled = false;
@@ -119,8 +197,8 @@ public partial class PagarMulta : System.Web.UI.Page
             txtImporte.Attributes.Add("disabled", "disabled");
             btnPagar.Attributes.Add("disabled", "disabled");
 
-            Session["Sesiones"] = "Cerrado";
-           /// Response.Redirect("pagarmulta.aspx", false);
+            // Session["Sesiones"] = "Cerrado";
+            /// Response.Redirect("pagarmulta.aspx", false);
             lblCaja.Text = "";
             lblOficina.Text = "";
             lblSesion.Text = ""; //dtsesion.Rows[0]["ultimoacceso"].ToString();
@@ -128,13 +206,16 @@ public partial class PagarMulta : System.Web.UI.Page
         }
         else
         {
-            lblCaja.Text = dtsesion.Rows[0]["idoficina"].ToString();
-            lblOficina.Text = dtsesion.Rows[0]["idcaja"].ToString();
 
-            lblSesion.Text = dtsesion.Rows[0]["ultimoacceso"].ToString();
+            DataSet dtsesion = objses.ConsultaCajero(int.Parse(usuario));
+
+            lblCaja.Text = dtsesion.Tables[0].Rows[0]["idcaja"].ToString();
+            lblOficina.Text = dtsesion.Tables[0].Rows[0]["idoficina"].ToString();
+
+            lblSesion.Text = dtsesion.Tables[0].Rows[0]["fechainiciosesion"].ToString();
             BtnAbrirCaja.Text = "Cerrar Caja";
 
-            Session["Sesiones"] = "Abierto";
+            // Session["Sesiones"] = "Abierto";
             // Response.Redirect("pagarmulta.aspx", false);
             btnConsultar.Attributes.Remove("disabled");
             txtPlaca.Attributes.Remove("disabled");
@@ -144,7 +225,11 @@ public partial class PagarMulta : System.Web.UI.Page
         }
 
 
-         
+
+
+
+
+
 
         cAltaMultas obj = new cAltaMultas();
         if (!this.IsPostBack)
@@ -157,6 +242,14 @@ public partial class PagarMulta : System.Web.UI.Page
             cboEdo.DataValueField = "id";
             cboEdo.DataBind();
 
+
+
+
+         
+
+
+
+
             //dtpub = new DataTable();
 
             //crearTabla();
@@ -165,6 +258,8 @@ public partial class PagarMulta : System.Web.UI.Page
         else
         {
             //dtpub = (DataTable)ViewState["DataTable"];
+
+             
             return;
 
         }
@@ -257,9 +352,9 @@ public partial class PagarMulta : System.Web.UI.Page
 
 
 
+        int estatussesion = int.Parse(Session["SesionesID"].ToString());
 
-
-        if (Session["Sesiones"] == "Abierto")
+        if (estatussesion != 0)
         {
             //ShowAlertMessage("El usuario ya inicio una sesion.");
             cPagarMultas obj = new cPagarMultas();
@@ -369,6 +464,14 @@ public partial class PagarMulta : System.Web.UI.Page
     protected void btnPagar_Click(object sender, EventArgs e)
     {
         hdnRecPago.Value = "";
+
+
+        if (txtPlaca.Text == "")
+        {
+            ShowAlertMessage("Favor de Completar el Formulario.");
+            txtPlaca.Focus();
+            return;
+        }
 
 
         if (txtnombre.Text == "")
@@ -552,46 +655,59 @@ public partial class PagarMulta : System.Web.UI.Page
                 string correo = txtemail.Text.ToUpper();
                 string idedo = cboEdo.SelectedValue;
                 string idmpo = cboMunicipio.SelectedValue;
-
-                DataSet dsx = pagar.PagoMultas(montosolicitado, montopagado, idusuario, placa, folios, nombre, appaterno, apmaterno, calle, colonia, rfc, celular, correo, idedo, idmpo);
-
-                hdnRecPago.Value = dsx.Tables[0].Rows[0][0].ToString();
-
-               
-                
+                int sesion = int.Parse(Session["SesionesID"].ToString());
 
 
-                txtPlaca.Text = "";
-                txtnombre.Text = "";
-                txtapellidom.Text = "";
-                txtapellidop.Text = "";
-                txtcolonia.Text = "";
-                txtcalle.Text = "";
-                txtemail.Text = "";
+                if (sesion != 0)
+                {
+                    DataSet dsx = pagar.PagoMultas(montosolicitado, montopagado, idusuario, placa, folios, nombre, appaterno, apmaterno, calle, colonia, rfc, celular, correo, idedo, idmpo, sesion);
 
-                txtRFC.Text = "";
-                txtImporte.Text = "";
-                lblMonto.Text = "";
-                lblPlaca.Text = "";
-                txtcelular.Text = "";
-                
+                    hdnRecPago.Value = dsx.Tables[0].Rows[0][0].ToString();
 
 
-                StringBuilder html = new StringBuilder();
-
-                html.Append(" <tr>");
-                html.Append("<td></td>");
-                html.Append("<td></td> ");
-                html.Append("<td></td> ");
-
-                html.Append("</tr>");
-             
-            tbcapcitaciones.InnerHtml = html.ToString();
 
 
-                EjecuarJQ();
-                 
 
+                    txtPlaca.Text = "";
+                    txtnombre.Text = "";
+                    txtapellidom.Text = "";
+                    txtapellidop.Text = "";
+                    txtcolonia.Text = "";
+                    txtcalle.Text = "";
+                    txtemail.Text = "";
+
+                    txtRFC.Text = "";
+                    txtImporte.Text = "";
+                    lblMonto.Text = "";
+                    lblPlaca.Text = "";
+                    txtcelular.Text = "";
+
+
+
+                    StringBuilder html = new StringBuilder();
+
+                    html.Append(" <tr>");
+                    html.Append("<td></td>");
+                    html.Append("<td></td> ");
+                    html.Append("<td></td> ");
+
+                    html.Append("</tr>");
+
+                    tbcapcitaciones.InnerHtml = html.ToString();
+
+
+                    EjecuarJQ();
+                }
+
+
+
+
+            }
+            else
+            {
+                ShowAlertMessage("Verifique su sesion de caja este iniciada para cobrar.");
+                return;
+            
             }
 
 

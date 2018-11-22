@@ -106,9 +106,9 @@
                                     <div class="input-group">
                                         <label>MOTIVO:</label>
 
-                                        <div class="input-group date">
+                                        <div class="input-group">
                                             
-                                            <asp:TextBox ID="txtMotivoCancelacion" Style="text-transform: uppercase;" class="form-control pull-right" Width="600"  runat="server" placeholder="TECLEE MOTIVOS"></asp:TextBox>
+                                            <asp:TextBox ID="txtMotivoCancelacion" Style="text-transform: uppercase;" class="form-control pull-right"   TextMode="MultiLine" Height="80px" Width="300px" runat="server" placeholder="TECLEE MOTIVOS"></asp:TextBox>
 
 
                                         </div>
@@ -182,7 +182,7 @@
         <Triggers>
             <%--  cboAgente--%>
 
-
+            <%--btnConsultar--%> 
             <%--<asp:AsyncPostBackTrigger ControlID="cboAgente" EventName="SelectedIndexChanged" />    --%>
             <%--<asp:AsyncPostBackTrigger ControlID="cboEdo" EventName="SelectedIndexChanged" />--%>
 
@@ -192,7 +192,7 @@
 
                   <asp:PostBackTrigger ControlID="txtdatepicker" />--%>
 
-            <%--<asp:PostBackTrigger ControlID="txtImporte" />--%>
+            <asp:PostBackTrigger ControlID="btnConsultar" />
         </Triggers>
 
     </asp:UpdatePanel>
@@ -271,13 +271,13 @@
     <script src="../Scripts/sweetalert2.all.min.js"></script>
 
     <%--Para que funcione el datapicker--%>
-    <link href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.css" rel="stylesheet" />
-    <link href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/css/bootstrap-datetimepicker.css" rel="stylesheet" />
+  <%--  <link href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.css" rel="stylesheet" />--%>
+   <%-- <link href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/css/bootstrap-datetimepicker.css" rel="stylesheet" />--%>
 
-    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.15.2/moment.min.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/js/bootstrap-datetimepicker.min.js"></script>
+   <%-- <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.js"></script>--%>
+    <%--<script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.15.2/moment.min.js"></script>--%>
+   <%-- <script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/js/bootstrap-datetimepicker.min.js"></script>--%>
     <%--Fin--%>
     <script src="../Scripts/jquery.maskMoney.js"></script>
 

@@ -298,8 +298,8 @@
                         <h1>RECIBO PAGO</h1>
                     </div>
 
-                    <img src="http://www.nl.gob.mx/sites/default/files/l3.png" width="250" alt="Logo">
-
+                    <%--<img src="http://www.nl.gob.mx/sites/default/files/l3.png" width="250" alt="Logo">--%>
+                    <img src="../Logo/nl.png"  width="250" alt="Logo" />
                     <div class="Logo_paynet1">
 
                         <div></div>
@@ -327,12 +327,12 @@
 
                     <div class="Logo_paynet">
 
-                        <div>Usuario:</div>
+                      <%--  <div>Usuario:</div>
                         <div>
                             <asp:Label ID="lblUsuario" runat="server" Text=""></asp:Label>
 
 
-                        </div>
+                        </div>--%>
                     </div>
                 </div>
 
@@ -521,6 +521,7 @@
 
                             <div>CAJERO:</div>
                             <div>
+                                  <asp:Label ID="lblUsuario" runat="server" Text=""></asp:Label>
                                 <asp:Label ID="lblCajero" runat="server" Text=""></asp:Label></div>
                         </div>
 

@@ -9,7 +9,7 @@
 <asp:Content ID="Content3" ContentPlaceHolderID="MainContent" runat="Server">
     <asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager>
 
-    <asp:UpdateProgress ID="updateProgress" runat="server">
+  <%--  <asp:UpdateProgress ID="updateProgress" runat="server">
         <ProgressTemplate>
             <div style="position: fixed; text-align: center; height: 100%; width: 100%; top: 0; right: 0; left: 0; z-index: 9999999; background-color: White; opacity: 0.7; filter: alpha(Opacity=70)}">
                 <span style="border-width: 0px; position: fixed; padding: 10px; background-color: #FFFFFF; font-size: 20px; left: 40%; top: 40%;">Espere un momento...
@@ -17,7 +17,7 @@
                 </span>
             </div>
         </ProgressTemplate>
-    </asp:UpdateProgress>
+    </asp:UpdateProgress>--%>
 
     <div class="box-header">
         <h3 class="box-title">Pagar Multas</h3>
@@ -32,7 +32,7 @@
 
     </div>
 
-    <asp:UpdatePanel ID="UpdatePanel1" runat="server">
+  <%--  <asp:UpdatePanel ID="UpdatePanel1" runat="server">--%>
         <ContentTemplate>
              
             <div class="well form-horizontal" action="" method="post" id="Dvform">
@@ -389,17 +389,7 @@
                                 </div>
 
                                 <div class="col-lg-3">
-                                    <%-- <div class="input-group">
-                                    <label>RFC:</label>
-                                    <div class="input-group date">
-                                        <div class="input-group-addon">
-                                            <i class="fa fa-crosshairs"></i>
-                                        </div>
-                                        <asp:TextBox ID="TextBox10" Style="text-transform: uppercase;" class="form-control pull-right" Width="250" runat="server" placeholder="TECLEE RFC"></asp:TextBox>
-                                    </div>
-
-                                </div>--%>
-                                    <!-- /.input group -->
+                                   
                                 </div>
 
 
@@ -422,7 +412,7 @@
                                                 <th style="text-align: center">FOLIO</th>
                                                 <th style="text-align: center">CONCEPTO MULTA</th>
                                                 <th style="text-align: center">MONTO MULTA</th>
-                                                <%--<th style="text-align: center">ELIMINAR</th>--%>
+                                               
                                             </tr>
                                         </thead>
                                         <tbody id="tbcapcitaciones" runat="server">
@@ -475,19 +465,7 @@
                                         </div>
                                     </div>
                                 </div>
-
-                                <%-- <div class="col-lg-2">
-                                    <div class="input-group">
-                                        <label>IMPORTE:</label>
-                                        <div class="input-group date">
-                                            <div class="input-group-addon">
-                                                <i class="fa fa-crosshairs"></i>
-                                            </div>
-                                            <asp:TextBox ID="txtImporte" Style="text-transform: uppercase;" class="form-control pull-right" runat="server" placeholder="TECLEE IMPORTE"></asp:TextBox>
-                                        </div>
-
-                                    </div>
-                                </div>--%>
+  
 
                                 <div class="col-lg-3">
                                     <div class="input-group">
@@ -559,17 +537,7 @@
                                         </div>
                                     </div>
 
-
-
-
-
-
-
-
-
-
-
-
+                                     
 
                                     <div class="col-lg-2">
                                         <div class="input-group">
@@ -597,30 +565,34 @@
             </div>
             <input id="hdnRecPago" name="hdnRecPago" type="hidden" runat="server" />
             <asp:Button ID="cmdBuscar" Style="display: none; visibility: hidden" runat="server" OnClick="cmdBuscar_Click" />
-        </ContentTemplate>
+  </ContentTemplate>
 
-        <Triggers>
+         <%--     <Triggers>--%>
             <%--  cboAgente--%>
 
 
             <%--<asp:AsyncPostBackTrigger ControlID="cboAgente" EventName="SelectedIndexChanged" />    --%>
-            <asp:AsyncPostBackTrigger ControlID="cboEdo" EventName="SelectedIndexChanged" />
+          
+           
+                                
 
-            <asp:AsyncPostBackTrigger ControlID="cboMunicipio" EventName="SelectedIndexChanged" />
+<%--            <asp:PostBackTrigger ControlID="btnConsultar" />--%>
 
 
+              <%--<asp:AsyncPostBackTrigger ControlID="cboEdo" EventName="SelectedIndexChanged" />--%>
 
-
+            <%--<asp:AsyncPostBackTrigger ControlID="cboMunicipio" EventName="SelectedIndexChanged" />--%>
+            
             <%--<asp:PostBackTrigger ControlID="BtnAbrirCaja" />--%>
 
             <%--                <asp:AsyncPostBackTrigger ControlID="cboTipoMulta" EventName="SelectedIndexChanged" />
 
                   <asp:PostBackTrigger ControlID="txtdatepicker" />--%>
-
+ <%--  <asp:asyncpostbacktrigger controlid="cboEdo" eventname="SelectedIndexChanged" />
             <asp:PostBackTrigger ControlID="txtImporte" />
         </Triggers>
 
-    </asp:UpdatePanel>
+    </asp:UpdatePanel>--%>
 
 
 
@@ -696,13 +668,16 @@
     <script src="../Scripts/sweetalert2.all.min.js"></script>
 
     <%--Para que funcione el datapicker--%>
-    <link href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.css" rel="stylesheet" />
+  <%--  <link href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.css" rel="stylesheet" />
     <link href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/css/bootstrap-datetimepicker.css" rel="stylesheet" />
 
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.15.2/moment.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/js/bootstrap-datetimepicker.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/js/bootstrap-datetimepicker.min.js"></script>--%>
+
+    <script src="../master/jquery213.js"></script>
+
     <%--Fin--%>
     <script src="../Scripts/jquery.maskMoney.js"></script>
 

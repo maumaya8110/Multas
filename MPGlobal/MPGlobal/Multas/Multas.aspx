@@ -292,8 +292,8 @@
                         <h1>ESTADO DE CUENTA</h1>
                     </div>
 
-                    <img src="http://www.nl.gob.mx/sites/default/files/l3.png" width="250" alt="Logo">
-
+                    
+                    <img src="../Logo/nl.png" width="250" alt="Logo" />
 
 
                     <div class="Logo_paynet1">

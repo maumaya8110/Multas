@@ -119,6 +119,24 @@
 
 
 
+                            <div class="col-lg-3">
+                                <div class="input-group">
+                                    <label>ESTADO:</label>
+
+                                    <div class="input-group date">
+                                        <div class="input-group-addon">
+                                            <i class="fa fa-map"></i>
+                                        </div>
+                                         
+                                        <asp:DropDownList ID="cboEdoPlaca" class="form-control" runat="server"></asp:DropDownList>
+
+                                    </div>
+                                </div>
+                                <!-- /.input group -->
+                            </div>
+
+
+
 
 
                             <div class="col-lg-3">
@@ -440,7 +458,7 @@
                                             <i class="fa fa-list"></i>
                                         </div>
 
-                                        <asp:TextBox ID="txtdescripcion" Style="text-transform: uppercase;" Width="600px" class="form-control pull-right" runat="server" placeholder="TECLEE DESCRIPCION"></asp:TextBox>
+                                        <asp:TextBox ID="txtdescripcion" Style="text-transform: uppercase;" Width="600px" class="form-control pull-right" runat="server" placeholder="TECLEE DESCRIPCION" ></asp:TextBox>
                                     </div>
                                 </div>
                             </div>
@@ -465,6 +483,21 @@
                         <div class="row">
                             <div class="col-lg-1">
                             </div>
+                             <div class="col-lg-2">
+                                <div class="input-group">
+                                    <label>ID MULTA:</label>
+
+                                    <div class="input-group date">
+                                        <div class="input-group-addon">
+                                            <i class="fa fa-file-text"></i>
+                                        </div>
+                                        <asp:TextBox ID="txtIdMulta" Style="text-transform: uppercase;" class="form-control pull-right" runat="server" placeholder="ID MULTA" onkeypress="return numbersonly(event);" MaxLength="12" AutoPostBack="true" OnTextChanged="txtIdMulta_TextChanged"></asp:TextBox>
+                                    </div>
+                                </div>
+                                <!-- /.input group -->
+                            </div>
+
+
                             <div class="col-lg-3">
                                 <div class="input-group">
                                     <label>TIPO INFRACCION:</label>
@@ -483,7 +516,7 @@
                                 <!-- /.input group -->
                             </div>
 
-                            <div class="col-lg-3">
+                            <div class="col-lg-2">
                                 <div class="input-group">
                                     <label>MONTO:</label>
 
@@ -502,7 +535,7 @@
 
 
 
-                            <div class="col-lg-3">
+                            <div class="col-lg-2">
                                 <div class="input-group">
                                     <br>
                                     <asp:Button ID="btnAgregar" Visible="false" class="btn btn-success" runat="server" Text="Agregar" OnClick="btnAgregar_Click" />
@@ -605,6 +638,9 @@
             <asp:AsyncPostBackTrigger ControlID="cboTipoMulta" EventName="SelectedIndexChanged" />
 
             <asp:PostBackTrigger ControlID="txtdatepicker" />
+
+            <asp:AsyncPostBackTrigger ControlID="txtIdMulta" EventName="TextChanged" />
+            
         </Triggers>
     </asp:UpdatePanel>
     
@@ -616,16 +652,16 @@
     <script src="../Scripts/sweetalert2.all.min.js"></script>
 
     <%--Para que funcione el datapicker--%>
-    <link href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.css" rel="stylesheet" />
-    <link href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/css/bootstrap-datetimepicker.css" rel="stylesheet" />
+<%--    <link href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.css" rel="stylesheet" />
+    <link href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/css/bootstrap-datetimepicker.css" rel="stylesheet" />--%>
 
-    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.15.2/moment.min.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/js/bootstrap-datetimepicker.min.js"></script>
+    <%--<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.js"></script>--%>
+  <%--  <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.15.2/moment.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.js"></script>--%>
+    <%--<script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/js/bootstrap-datetimepicker.min.js"></script>--%>
     <%--Fin--%>
 
-
+    <script src="../master/jquery213.js"></script>
 
     <script type="text/javascript">
 
@@ -709,7 +745,7 @@
     </script>
 
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js" type="text/javascript"></script>
+    <%--<script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js" type="text/javascript"></script>--%>
     <script type="text/javascript">
 
         function eliminar(renglon) {

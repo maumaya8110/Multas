@@ -56,13 +56,17 @@
         </asp:ScriptManager>
         <div class="login-box">
             <div class="login-logo">
-                <a href="../../index2.html"><b>MP</b>Global</a>
+                <%-- <a href="../../index2.html"><b>MP</b>Global</a>--%>
             </div>
             <div id="box-inbox" class="container">
                 <div class="row">
                     <div class="col-md-12">
                         <section id="loginForm">
                             <div class="form-horizontal">
+                                <div style="text-align: center;">
+                                    <img src="../Logos/LogoFinal.PNG" />
+                                </div>
+
                                 <br />
                                 <h5 class="text-center">Usa tu cuenta para iniciar sesión.</h5>
                                 <br />
