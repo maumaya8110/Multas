@@ -5,3 +5,4 @@ MPGlobal/.vs/MPGlobal/v15/Server/sqlite3/storage.ide-wal
 MPGlobal/.vs/MPGlobal/v15/.suo
 MPGlobal/MPGlobal/Web.config
 *.config
+/MPGlobal/.vs/MPGlobal.sln (2)/v15/Server/sqlite3/db.lock

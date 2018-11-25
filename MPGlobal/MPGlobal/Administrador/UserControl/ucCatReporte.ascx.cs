@@ -60,6 +60,9 @@ public partial class Administrador_UserControl_ucCatReporte : System.Web.UI.User
                     DateTime FechaIni = DateTime.Parse(txtFechaIni.Text);
                     DateTime FechaFin = DateTime.Parse(txtFechaFin.Text);
 
+                   
+
+
                     //
                     MPGlobalSessiones.Current.ReporteMultasPago = db.EjecutaSPCatalogos(DataBase.TipoAccion.Consulta, DataBase.TipoCatalogo.ReporteMultasPagadas, null).Tables[0].DataTableToList<ReporteMultasPagadas>();//.Where(x => x.idEstado == idEstado && x.idMunicipio == idMunicipio);
 

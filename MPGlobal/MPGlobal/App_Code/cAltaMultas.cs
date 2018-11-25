@@ -172,5 +172,18 @@ string fecha, string idagente, string descripcion, string licencia, decimal mont
         return dt;
     }
 
+    public DataTable DameIdAgente(string PlacaAgente,int edo, int mpo)
+    {
+        DataTable dt;
 
+        cStore sp = new cStore("spDameAgenteID", 1);
+
+        sp.AddParameter("@CveAgente", PlacaAgente);
+        sp.AddParameter("@cveEdo", edo);
+        sp.AddParameter("@cveMpo", mpo);
+
+        dt = sp.ObtenDatos().Tables[0];
+
+        return dt;
+    }
 }

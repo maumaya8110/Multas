@@ -80,7 +80,7 @@ public partial class Multas_Pago : System.Web.UI.Page
                 html.Append("<td  style=\"background-color:transparent\">" + row[2].ToString() + "</td> ");
                 html.Append("<td  style=\"background-color:transparent\"> " + row[3].ToString() + " </td>");
                 html.Append("<td  style=\"background-color:transparent\">" + row[4].ToString() + "</td> ");
-                html.Append("<td  style=\"background-color:transparent\">" + row[6].ToString() + "</td> ");
+                //html.Append("<td  style=\"background-color:transparent\">" + row[6].ToString() + "</td> ");
                 html.Append("<td  style=\"background-color:transparent\">" + row[7].ToString() + "</td> ");
                 html.Append("<td  style=\"background-color:transparent\">" + row[8].ToString() + "</td> ");
                 html.Append("</tr>");
@@ -96,16 +96,16 @@ public partial class Multas_Pago : System.Web.UI.Page
 
             foreach (DataRow row2 in av2.Rows)
             {
+                //html2.Append(" <tr style=\"background - color:transparent\">");
+                //html2.Append("<td colspan=\"6\" style=\"border - color:transparent\">  </td>");
+                //html2.Append("<td  style=\"border - color:transparent; font - size:14px; font - weight:bold\">DESCUENTO:</td> ");
+                //html2.Append("<td  style=\"border - color:transparent; font - size:14px; font - weight:bold\">" + row2[0].ToString() + "</td> ");
+
+
+                //html2.Append("</tr>");
+
                 html2.Append(" <tr style=\"background - color:transparent\">");
-                html2.Append("<td colspan=\"6\" style=\"border - color:transparent\">  </td>");
-                html2.Append("<td  style=\"border - color:transparent; font - size:14px; font - weight:bold\">DESCUENTO:</td> ");
-                html2.Append("<td  style=\"border - color:transparent; font - size:14px; font - weight:bold\">" + row2[0].ToString() + "</td> ");
-
-
-                html2.Append("</tr>");
-
-                html2.Append(" <tr style=\"background - color:transparent\">");
-                html2.Append("<td colspan=\"6\" style=\"border - color:transparent\">  </td>");
+                html2.Append("<td colspan=\"5\" style=\"border - color:transparent\">  </td>");
                 html2.Append("<td  style=\"border - color:transparent; font - size:14px; font - weight:bold\">SUBTOTAL:</td> ");
                 html2.Append("<td  style=\"border - color:transparent; font - size:14px; font - weight:bold\">" + row2[1].ToString() + "</td> ");
 
@@ -114,7 +114,7 @@ public partial class Multas_Pago : System.Web.UI.Page
 
 
                 html2.Append(" <tr style=\"background - color:transparent\">");
-                html2.Append("<td colspan=\"6\" style=\"border - color:transparent\">  </td>");
+                html2.Append("<td colspan=\"5\" style=\"border - color:transparent\">  </td>");
                 html2.Append("<td  style=\"border - color:transparent; font - size:14px; font - weight:bold\">TOTAL:</td> ");
                 html2.Append("<td  style=\"border - color:transparent; font - size:14px; font - weight:bold\">" + row2[2].ToString() + "</td> ");
 

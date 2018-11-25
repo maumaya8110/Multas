@@ -86,6 +86,16 @@
     }
 
 
+
+
+    function numbersonly(e) {
+        var unicode = e.charCode ? e.charCode : e.keyCode
+        if (unicode != 8 && unicode != 44) {
+            if (unicode < 48 || unicode > 57) //if not a number
+            { return false } //disable key press    
+        }
+    };
+
 </script>
 
 <asp:HiddenField ID="HiddenField1AutEli" runat="server" />
@@ -107,11 +117,11 @@
                                     <%--DropEstado--%>
 
 
-                                    <asp:TextBox ID="txtAgente" runat="server" placeholder="Nombre" CssClass="form-control campo_obligatorio"></asp:TextBox>
-                                    <asp:TextBox ID="txtApat" runat="server" placeholder="Ap. Paterno" CssClass="form-control campo_obligatorio"></asp:TextBox>
+                                    <asp:TextBox ID="txtAgente" Style="text-transform: uppercase;"  runat="server" placeholder="Nombre" CssClass="form-control campo_obligatorio"></asp:TextBox>
+                                    <asp:TextBox ID="txtApat" Style="text-transform: uppercase;"  runat="server" placeholder="Ap. Paterno" CssClass="form-control campo_obligatorio"></asp:TextBox>
 
-                                    <asp:TextBox ID="txtAmat" runat="server" placeholder="Ap. Materno" CssClass="form-control campo_obligatorio"></asp:TextBox>
-                                    <asp:TextBox ID="txtReferencia" runat="server" placeholder="Referencia" CssClass="form-control campo_obligatorio"></asp:TextBox>
+                                    <asp:TextBox ID="txtAmat" Style="text-transform: uppercase;"  runat="server" placeholder="Ap. Materno" CssClass="form-control campo_obligatorio"></asp:TextBox>
+                                    <asp:TextBox ID="txtReferencia" onkeypress="return numbersonly(event);" runat="server" placeholder="Referencia" CssClass="form-control campo_obligatorio"></asp:TextBox>
 
                                     <div class="form-group">
                                         <div class="inputGroupContainer">

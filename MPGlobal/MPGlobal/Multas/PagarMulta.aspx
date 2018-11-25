@@ -258,7 +258,7 @@
                                         <div class="input-group-addon">
                                             <i class="fa fa-street-view"></i>
                                         </div>
-                                        <asp:TextBox ID="txtnombre" Style="text-transform: uppercase;" class="form-control pull-right" Width="250" runat="server" placeholder="TECLEE NOMBRE(S)"></asp:TextBox>
+                                        <asp:TextBox ID="txtnombre" Style="text-transform: uppercase;" class="form-control pull-right" Width="220" runat="server" placeholder="TECLEE NOMBRE(S)"></asp:TextBox>
 
 
                                     </div>
@@ -273,7 +273,7 @@
                                         <div class="input-group-addon">
                                             <i class="fa fa-street-view"></i>
                                         </div>
-                                        <asp:TextBox ID="txtapellidop" Style="text-transform: uppercase;" class="form-control pull-right" Width="250" runat="server" placeholder="TECLEE APELLIDO PATERNO"></asp:TextBox>
+                                        <asp:TextBox ID="txtapellidop" Style="text-transform: uppercase;" class="form-control pull-right" Width="220" runat="server" placeholder="TECLEE APELLIDO PATERNO"></asp:TextBox>
                                     </div>
 
                                 </div>
@@ -287,7 +287,7 @@
                                         <div class="input-group-addon">
                                             <i class="fa fa-crosshairs"></i>
                                         </div>
-                                        <asp:TextBox ID="txtapellidom" Style="text-transform: uppercase;" class="form-control pull-right" Width="250" runat="server" placeholder="TECLEE APELLIDO MATERNO"></asp:TextBox>
+                                        <asp:TextBox ID="txtapellidom" Style="text-transform: uppercase;" class="form-control pull-right" Width="220" runat="server" placeholder="TECLEE APELLIDO MATERNO"></asp:TextBox>
                                     </div>
 
                                 </div>
@@ -312,7 +312,7 @@
                                         <div class="input-group-addon">
                                             <i class="fa fa-street-view"></i>
                                         </div>
-                                        <asp:TextBox ID="txtcalle" Style="text-transform: uppercase;" class="form-control pull-right" Width="250" runat="server" placeholder="TECLEE CALLE Y NUMERO"></asp:TextBox>
+                                        <asp:TextBox ID="txtcalle" Style="text-transform: uppercase;" class="form-control pull-right" Width="220" runat="server" placeholder="TECLEE CALLE Y NUMERO"></asp:TextBox>
 
 
                                     </div>
@@ -327,7 +327,7 @@
                                         <div class="input-group-addon">
                                             <i class="fa fa-street-view"></i>
                                         </div>
-                                        <asp:TextBox ID="txtcolonia" Style="text-transform: uppercase;" class="form-control pull-right" Width="250" runat="server" placeholder="TECLEE COLONIA"></asp:TextBox>
+                                        <asp:TextBox ID="txtcolonia" Style="text-transform: uppercase;" class="form-control pull-right" Width="220" runat="server" placeholder="TECLEE COLONIA"></asp:TextBox>
                                     </div>
 
                                 </div>
@@ -342,7 +342,7 @@
                                         <div class="input-group-addon">
                                             <i class="fa fa-crosshairs"></i>
                                         </div>
-                                        <asp:TextBox ID="txtRFC" Style="text-transform: uppercase;" class="form-control pull-right" Width="250" runat="server" placeholder="TECLEE RFC"></asp:TextBox>
+                                        <asp:TextBox ID="txtRFC" Style="text-transform: uppercase;" class="form-control pull-right" Width="220" runat="server" placeholder="TECLEE RFC"></asp:TextBox>
                                     </div>
 
                                 </div>
@@ -366,7 +366,7 @@
                                             <div class="input-group-addon">
                                                 <i class="fa fa-street-view"></i>
                                             </div>
-                                            <asp:TextBox ID="txtcelular" Style="text-transform: uppercase;" class="form-control pull-right" MaxLength="12" onkeypress="return numbersonly(event);" Width="250" runat="server" placeholder="TECLEE CELULAR"></asp:TextBox>
+                                            <asp:TextBox ID="txtcelular" Style="text-transform: uppercase;" class="form-control pull-right" MaxLength="12" onkeypress="return numbersonly(event);" Width="220" runat="server" placeholder="TECLEE CELULAR"></asp:TextBox>
 
 
                                         </div>
@@ -381,7 +381,7 @@
                                             <div class="input-group-addon">
                                                 <i class="fa fa-street-view"></i>
                                             </div>
-                                            <asp:TextBox ID="txtemail" Style="text-transform: uppercase;" class="form-control pull-right" Width="250" runat="server" placeholder="TECLEE CORREO ELECTRONICO"></asp:TextBox>
+                                            <asp:TextBox ID="txtemail" Style="text-transform: uppercase;" class="form-control pull-right" Width="220" runat="server" placeholder="TECLEE CORREO ELECTRONICO"></asp:TextBox>
                                         </div>
 
                                     </div>

@@ -28,7 +28,7 @@ public partial class Caja_DescarteMulta : System.Web.UI.Page
                 grdDetalleMultas.DataSource = query.ToList();
                 grdDetalleMultas.DataBind();
 
-                lnkModalInfoDescartar.Visible = query.ToList().Count > 0;
+                //lnkModalInfoDescartar.Visible = query.ToList().Count > 0;
 
                 if (query.ToList().Count > 0)
                     grdDetalleMultas.HeaderRow.TableSection = TableRowSection.TableHeader;
@@ -38,6 +38,32 @@ public partial class Caja_DescarteMulta : System.Web.UI.Page
         {
         }
     }
+
+
+    protected void grdDetalleMultas_RowCommand(object sender, GridViewCommandEventArgs e)
+    {
+        
+        if (e.CommandName == "Select")
+        {
+            //Determine the RowIndex of the Row whose Button was clicked.
+            int rowIndex = Convert.ToInt32(e.CommandArgument);
+
+            //Reference the GridView Row.
+            GridViewRow row = grdDetalleMultas.Rows[rowIndex];
+
+            //Fetch value of Name.
+            string name = (row.FindControl("txtName") as TextBox).Text;
+
+            //Fetch value of Country
+            string country = row.Cells[1].Text;
+
+            ClientScript.RegisterStartupScript(this.GetType(), "alert", "alert('Name: " + name + "\\nCountry: " + country + "');", true);
+        }
+    }
+
+
+
+
 
     protected void lnkDescartar_Click(object sender, EventArgs e)
     {

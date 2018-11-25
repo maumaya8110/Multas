@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MPMasterPage.master" AutoEventWireup="true" CodeFile="CorteCaja.aspx.cs" Inherits="CorteCaja" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MPMasterPage.master" AutoEventWireup="true" CodeFile="consultaproceso.aspx.cs" Inherits="consultaproceso" %>
 
 
 
@@ -22,7 +22,7 @@
     </asp:UpdateProgress>
 
     <div class="box-header">
-        <h3 class="box-title">Corte Caja Multas</h3>
+        <h3 class="box-title">Cancelar Multas</h3>
         <br />
         <div>
 
@@ -182,7 +182,7 @@
         <Triggers>
             <%--  cboAgente--%>
 
-
+            <%--btnConsultar--%> 
             <%--<asp:AsyncPostBackTrigger ControlID="cboAgente" EventName="SelectedIndexChanged" />    --%>
             <%--<asp:AsyncPostBackTrigger ControlID="cboEdo" EventName="SelectedIndexChanged" />--%>
 
@@ -192,7 +192,7 @@
 
                   <asp:PostBackTrigger ControlID="txtdatepicker" />--%>
 
-            <%--<asp:PostBackTrigger ControlID="txtImporte" />--%>
+            <asp:PostBackTrigger ControlID="btnConsultar" />
         </Triggers>
 
     </asp:UpdatePanel>

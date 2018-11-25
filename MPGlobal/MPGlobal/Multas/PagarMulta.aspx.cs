@@ -70,27 +70,7 @@ public partial class PagarMulta : System.Web.UI.Page
 
         //}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+         
 
 
         // cValidaSesionCaja obx = new cValidaSesionCaja();

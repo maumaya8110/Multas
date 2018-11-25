@@ -20,67 +20,102 @@
                         <asp:LinkButton ID="lnkBuscaMulta" runat="server" CssClass="btn btn-default btn-sm" OnClick="btnBuscarMulta_Click">
                       <span class="glyphicon glyphicon-search"></span>Consultar
                         </asp:LinkButton>
-                        <a id="lnkModalInfoDescartar" runat="server" class="btn btn-default btn-sm" onclick="javascript:abreModalDescartar();" visible="false">
+                        <%-- <a id="lnkModalInfoDescartar" runat="server" class="btn btn-default btn-sm" onclick="javascript:abreModalDescartar();" visible="false">
                             <span class="glyphicon glyphicon-transfer"></span>Descartar
-                        </a>
+                        </a>--%>
                     </div>
                 </div>
             </div>
             <br />
             <div class="box-body">
-
-                <asp:GridView ID="grdDetalleMultas" runat="server" Width="100%" EmptyDataText="No hay registros que mostrar" AllowPaging="true" PageSize="8" ClientIDMode="Static" AutoGenerateColumns="false" CssClass="table table-hover table-bordered table-striped">
+                <div style="display: none;">
+                    <asp:CheckBox ID="CheckBoxMulta" Checked="true" runat="server" />
+                </div>
+                <%--CssClass="table table-hover table-bordered table-striped"--%>
+                <asp:GridView ID="grdDetalleMultas" CssClass="table table-bordered bs-table" runat="server" Width="100%" EmptyDataText="No hay registros que mostrar" AllowPaging="True" PageSize="8" ClientIDMode="Static" AutoGenerateColumns="False">
                     <Columns>
                         <%--botones de acción sobre los registros...--%>
-                        <asp:TemplateField HeaderStyle-Width="16%" ItemStyle-HorizontalAlign="Center">
-                            <ItemTemplate>
-                                <%--CheckBox para seleccionar registros...--%>
-                                <asp:CheckBox ID="CheckBoxMulta" Checked="true" runat="server" />
-
-                            </ItemTemplate>
-                        </asp:TemplateField>
                         <asp:TemplateField HeaderStyle-Width="150px" HeaderText="ESTADO">
                             <ItemTemplate>
                                 <asp:Label ID="lblEstado" runat="server"><%# Eval("nomEstado")%></asp:Label>
                                 <asp:HiddenField ID="HiddenIdEstado" runat="server" Value='<%# Eval("IdEstado") %>' />
 
-                            </ItemTemplate>
 
+
+
+                            </ItemTemplate>
+                            <HeaderStyle Width="150px" />
                         </asp:TemplateField>
                         <asp:TemplateField HeaderStyle-Width="150px" HeaderText="MUNICIPIO">
                             <ItemTemplate>
-                                <asp:Label ID="lblMunicipio" runat="server"><%# Eval("nomMunicipio")%></asp:Label>
-                                <asp:HiddenField ID="HiddenIdMunicipio" runat="server" Value='<%# Eval("IdMunicipio") %>' />
-                            </ItemTemplate>
-
-                        </asp:TemplateField>
-                        <asp:TemplateField HeaderStyle-Width="150px" HeaderText="BOLETA">
-                            <ItemTemplate>
-                                <asp:Label ID="lblMulta" runat="server"><%# Eval("IdMulta")%></asp:Label>
+                                <asp:Label ID="lblMulta" runat="server"><%# Eval("nomMunicipio")%></asp:Label>
                                 <asp:HiddenField ID="HiddenIdBoleta" runat="server" Value='<%# Eval("IdBoleta") %>' />
                             </ItemTemplate>
 
+                            <HeaderStyle Width="150px" />
+
+                        </asp:TemplateField>
+                        <asp:BoundField DataField="idplaca" HeaderText="PLACA" />
+                        <asp:TemplateField HeaderStyle-Width="150px" HeaderText="BOLETA">
+                            <ItemTemplate>
+                                <asp:Label ID="lblMunicipio" runat="server"><%# Eval("idplaca")%></asp:Label>
+                                <asp:HiddenField ID="HiddenIdMunicipio" runat="server" Value='<%# Eval("IdMunicipio") %>' />
+
+                            </ItemTemplate>
+
+                            <HeaderStyle Width="150px" />
+
                         </asp:TemplateField>
 
-                        <asp:TemplateField HeaderStyle-Width="150px" HeaderText="TIPO MULTA">
+
+                         <asp:TemplateField HeaderStyle-Width="150px" HeaderText="FECHA MULTA">
                             <ItemTemplate>
-                                <asp:Label ID="lblTipoMulta" runat="server"><%# Eval("Descripcion")%></asp:Label>
-                                <asp:HiddenField ID="HiddenIdMulta" runat="server" Value='<%# Eval("IdMulta") %>' />
+                                <asp:Label ID="lblfecha" runat="server"><%# Eval("FECHAMULTA")%></asp:Label>
                             </ItemTemplate>
+
+                            <HeaderStyle Width="150px" />
+
+                        </asp:TemplateField>
+
+                        <asp:TemplateField HeaderStyle-Width="150px" HeaderText="DESCRIPCION">
+                            <ItemTemplate>
+                                <asp:Label ID="lblIMPORTE" runat="server"><%# Eval("Descripcion")%></asp:Label>
+                            </ItemTemplate>
+
+                            <HeaderStyle Width="150px" />
 
                         </asp:TemplateField>
                         <asp:TemplateField HeaderStyle-Width="150px" HeaderText="IMPORTE">
                             <ItemTemplate>
-                                <asp:Label ID="lblIMPORTE" runat="server"><%# Eval("TotalPago")%></asp:Label>
+                                <asp:Label ID="lblTipoMulta" runat="server"><%# Eval("TotalPago")%></asp:Label>
+                                <asp:HiddenField ID="HiddenIdMulta" runat="server" Value='<%# Eval("TotalPago") %>' />
                             </ItemTemplate>
 
+                            <HeaderStyle Width="150px" />
+
                         </asp:TemplateField>
-                        <asp:TemplateField HeaderStyle-Width="150px" HeaderText="DESCUENTO">
+
+                        <asp:TemplateField HeaderStyle-Width="150px" HeaderText="DESCUENTO" Visible="False">
                             <ItemTemplate>
-                                <asp:Label ID="lblDescuento" runat="server"><%# Eval("AplicaDesc")%></asp:Label>
+                                <asp:Label ID="lblDescuento" runat="server"><%# Eval("TotalPago")%></asp:Label>
                             </ItemTemplate>
 
+                            <HeaderStyle Width="150px" />
+
                         </asp:TemplateField>
+
+                        <asp:TemplateField HeaderStyle-Width="150px" HeaderText="EDO CTA" Visible="true">
+                            <ItemTemplate>
+                                <%--  <asp:Button Text="EDO CTA" runat="server" CommandName="Select" CommandArgument="<%# Container.DataItemIndex %>" />--%>
+
+                                <button type="button" onclick="myFunction('<%# Eval("idplaca")%>')" class="btn btn-success">IMPRIMIR</button>
+                            </ItemTemplate>
+
+                            <HeaderStyle Width="150px" />
+
+                        </asp:TemplateField>
+
+
                     </Columns>
                 </asp:GridView>
 
@@ -202,12 +237,30 @@
 
             });
         }
-    </script>
-      <%--Para que funcione el datapicker--%>
 
-    
+
+        function myFunction(plate) {
+            //window.print();
+
+
+            var placa = plate;//document.getElementById("MainContent_txtPlaca").value;
+            //alert(placa);
+
+            if (placa != "") {
+                window.open('../Multas/Multas.aspx?Pl=' + placa + "&t=1", '_blank');
+            }
+            else { alert("Capture una Placa para revisar su Edo de Cuenta."); }
+
+
+        }
+
+
+    </script>
+    <%--Para que funcione el datapicker--%>
+
+
     <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.15.2/moment.min.js"></script>
-    
+
     <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/js/bootstrap-datetimepicker.min.js"></script>
     <%--Fin--%>
 </asp:Content>

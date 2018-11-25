@@ -30,7 +30,7 @@
         .whitepaper {
             background-color: #FFF;
             width: 812px;
-            height: 950px;
+            height: auto;
             margin: 0 auto;
             border: #D8D8D8 1px solid;
         }

@@ -280,6 +280,36 @@ public partial class CapturaMultas : System.Web.UI.Page
 
 
 
+    private void DescTipoMultaMontoID()
+    {
+        cAltaMultas obj = new cAltaMultas();
+        DataTable dtMontoMulta;
+        int cveEdo = int.Parse(cboEdo.SelectedValue);
+        int cveMpo = int.Parse(cboMunicipio.SelectedValue);
+        int cveMulta = int.Parse(cboTipoMulta.SelectedValue);
+        dtMontoMulta = obj.catTipoMultaMonto(cveEdo, cveMpo, cveMulta);
+
+
+        lblMonto.Text = "";
+        if (dtMontoMulta.Rows.Count > 0)
+        {
+            lblMonto.Text = dtMontoMulta.Rows[0][0].ToString();
+
+            AgregaMulta();
+            //btnAgregar.Visible = true;
+
+            txtIdMulta.Text = "";
+            txtIdMulta.Focus();
+
+        }
+        else
+        {
+            //btnAgregar.Visible = false;
+            txtIdMulta.Text = "";
+            txtIdMulta.Focus();
+        }
+    }
+
     private void DescTipoMultaMonto()
     {
         cAltaMultas obj = new cAltaMultas();
@@ -307,8 +337,10 @@ public partial class CapturaMultas : System.Web.UI.Page
         DescTipoMultaMonto();
     }
 
-    protected void btnAgregar_Click(object sender, EventArgs e)
+
+    private void AgregaMulta()
     {
+
         int idporagregar = int.Parse(cboTipoMulta.SelectedValue);
 
         for (int x = 0; x <= dtpub.Rows.Count - 1; x++)
@@ -324,6 +356,29 @@ public partial class CapturaMultas : System.Web.UI.Page
 
         AddDatosTabla();
         BindGrid();
+
+    }
+
+
+    protected void btnAgregar_Click(object sender, EventArgs e)
+    {
+
+        AgregaMulta();
+        //int idporagregar = int.Parse(cboTipoMulta.SelectedValue);
+
+        //for (int x = 0; x <= dtpub.Rows.Count - 1; x++)
+        //{
+        //    if (idporagregar.ToString() == dtpub.Rows[x][0].ToString())
+        //    {
+        //        ShowAlertMessage("Ese concepto de multa ya fue agregado.");
+        //        return;
+        //    }
+        //}
+
+
+
+        //AddDatosTabla();
+        //BindGrid();
     }
 
     protected void cmdEliminar_Click(object sender, EventArgs e)
@@ -587,7 +642,7 @@ public partial class CapturaMultas : System.Web.UI.Page
             cboTipoMulta.SelectedValue = txtIdMulta.Text;
 
 
-            DescTipoMultaMonto();
+            DescTipoMultaMontoID();
         }
         catch (Exception ex)
         {
@@ -596,11 +651,43 @@ public partial class CapturaMultas : System.Web.UI.Page
             btnAgregar.Visible = false;
             txtIdMulta.Focus();
             return;
-          
+
 
         }
 
-       
+
     }
 
+
+    protected void txtAgenteID_TextChanged(object sender, EventArgs e)
+    {
+        cAltaMultas obj = new cAltaMultas();
+        try
+        {
+            DataTable dt = obj.DameIdAgente(txtAgenteID.Text, int.Parse(cboEdo.SelectedValue), int.Parse(cboMunicipio.SelectedValue));
+
+            string idAgente = "0";
+            if (dt.Rows.Count > 0)
+            {
+                idAgente = dt.Rows[0][0].ToString();
+            }
+
+            if (idAgente == "0")
+            {
+                ShowAlertMessage("El Id de Agente No Existe.");
+            }
+             
+            cboAgente.SelectedValue = idAgente;
+
+        }
+        catch (Exception ex)
+        {
+            ShowAlertMessage("El Id de Agente No Existe.");
+            txtAgenteID.Focus();
+
+            return;
+        }
+
+
+    }
 }

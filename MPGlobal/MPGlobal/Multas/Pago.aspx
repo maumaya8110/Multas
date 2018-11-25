@@ -28,7 +28,7 @@
         .whitepaper {
             background-color: #FFF;
             width: 812px;
-            height: 950px;
+            height: auto;
             margin: 0 auto;
             border: #D8D8D8 1px solid;
         }
@@ -449,7 +449,7 @@
                             <th>MUN</th>
                             <th>DESCRIPCION</th>
                             <th>IMP</th>
-                            <th>DESC</th>
+                          <%--  <th>DESC</th>--%>
                             <th>TOTAL</th>
 
                         </tr>
@@ -463,30 +463,30 @@
                             <td></td>
                             <td style="text-align: center"></td>
                             <td style="text-align: center"></td>
-                            <td style="text-align: center"></td>
+                          <%--  <td style="text-align: center"></td>--%>
 
                         </tr>
                     </tbody>
 
                     <tbody id="tdetSubtotal" runat="server">
                         <tr style="background-color: transparent">
-                            <td colspan="6" style="border-color: transparent"></td>
+                            <td colspan="5" style="border-color: transparent"></td>
 
                             <td style="border-color: transparent; font-size: 14px; font-weight: bold"></td>
                             <td style="border-color: transparent; font-size: 14px; font-weight: bold"></td>
                         </tr>
                         <tr style="background-color: transparent">
-                            <td colspan="6" style="border-color: transparent"></td>
+                            <td colspan="5" style="border-color: transparent"></td>
 
                             <td style="border-color: transparent; font-size: 14px; font-weight: bold"></td>
                             <td style="border-color: transparent; font-size: 14px; font-weight: bold"></td>
                         </tr>
-                        <tr style="background-color: transparent">
-                            <td colspan="6" style="border-color: transparent"></td>
+                       <%-- <tr style="background-color: transparent">
+                            <td colspan="5" style="border-color: transparent"></td>
 
                             <td style="border-color: transparent; font-size: 14px; font-weight: bold"></td>
                             <td style="border-color: transparent; font-size: 14px; font-weight: bold"></td>
-                        </tr>
+                        </tr>--%>
                     </tbody>
 
                 </table>

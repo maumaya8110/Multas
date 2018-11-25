@@ -187,7 +187,7 @@
                         <asp:TemplateField HeaderStyle-Width="16%" ItemStyle-HorizontalAlign="Center">
                             <ItemTemplate>
                                 <%--CheckBox para seleccionar registros...--%>
-                                <asp:CheckBox ID="CheckBoxMulta" Checked="true" runat="server" />
+                                <asp:CheckBox ID="CheckBoxMulta"  Checked="true" runat="server" />
 
                             </ItemTemplate>
                         </asp:TemplateField>
@@ -213,6 +213,38 @@
                             </ItemTemplate>
 
                         </asp:TemplateField>
+
+
+
+
+                            <asp:TemplateField HeaderStyle-Width="150px" HeaderText="FECHA PAGO">
+                            <ItemTemplate>
+                                <asp:Label ID="lblFechaPago" runat="server"><%# Eval("FechaPAgo")%></asp:Label>
+                                <asp:HiddenField ID="HiddenIdFechaPAgo" runat="server" Value='<%# Eval("IdMulta") %>' />
+                            </ItemTemplate>
+
+                        </asp:TemplateField>
+
+
+
+                            <asp:TemplateField HeaderStyle-Width="150px" HeaderText="FOLIO MULTA">
+                            <ItemTemplate>
+                                <asp:Label ID="lblFolioMulta" runat="server"><%# Eval("FOLIOMULTA")%></asp:Label>
+                                <asp:HiddenField ID="HiddenIdFOLIOMULTA" runat="server" Value='<%# Eval("IdMulta") %>' />
+                            </ItemTemplate>
+
+                        </asp:TemplateField>
+
+
+
+
+
+
+
+
+
+
+
 
                         <asp:TemplateField HeaderStyle-Width="150px" HeaderText="TIPO MULTA">
                             <ItemTemplate>

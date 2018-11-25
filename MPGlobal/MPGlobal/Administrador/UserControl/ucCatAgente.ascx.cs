@@ -196,10 +196,10 @@ public partial class Administrador_UserControl_ucCatAgente : System.Web.UI.UserC
             //Para cuando agregas muchos parametros
             List<SqlParameter> parametros = new List<SqlParameter>();
             parametros.Add(new SqlParameter("@IdAgente", ""));
-            parametros.Add(new SqlParameter("@Nombre", txtAgente.Text));
+            parametros.Add(new SqlParameter("@Nombre", txtAgente.Text.ToUpper()));
 
-            parametros.Add(new SqlParameter("@Apaterno", txtApat.Text));
-            parametros.Add(new SqlParameter("@Amaterno", txtAmat.Text));
+            parametros.Add(new SqlParameter("@Apaterno", txtApat.Text.ToUpper()));
+            parametros.Add(new SqlParameter("@Amaterno", txtAmat.Text.ToUpper()));
             parametros.Add(new SqlParameter("@Referencia", txtReferencia.Text));
             parametros.Add(new SqlParameter("@idEstado", DropEstados.SelectedValue));
             parametros.Add(new SqlParameter("@idMunicipio", DropMpos.SelectedValue));

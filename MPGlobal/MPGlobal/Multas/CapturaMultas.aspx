@@ -38,7 +38,7 @@
                         <div class="row">
                             <div class="col-lg-1">
                             </div>
-                            <div class="col-lg-3">
+                            <div class="col-lg-3" style="display: none">
                                 <div class="input-group">
                                     <label>ESTADO:</label>
 
@@ -76,7 +76,7 @@
                             </div>
 
 
-                            <div class="col-lg-3">
+                            <div class="col-lg-3" style="display: none">
                                 <div class="input-group">
                                     <label>USUARIO:</label>
 
@@ -121,13 +121,13 @@
 
                             <div class="col-lg-3">
                                 <div class="input-group">
-                                    <label>ESTADO:</label>
+                                    <label>ESTADO PLACA:</label>
 
                                     <div class="input-group date">
                                         <div class="input-group-addon">
                                             <i class="fa fa-map"></i>
                                         </div>
-                                         
+
                                         <asp:DropDownList ID="cboEdoPlaca" class="form-control" runat="server"></asp:DropDownList>
 
                                     </div>
@@ -192,7 +192,7 @@
                                         <div class="input-group-addon">
                                             <i class="fa fa-street-view"></i>
                                         </div>
-                                        <asp:TextBox ID="txtCalle1" Style="text-transform: uppercase;" class="form-control pull-right" Width="250" runat="server" placeholder="TECLEE CALLE 1" MaxLength="50"></asp:TextBox>
+                                        <asp:TextBox ID="txtCalle1" Style="text-transform: uppercase;" class="form-control pull-right" Width="220" runat="server" placeholder="TECLEE CALLE 1" MaxLength="50"></asp:TextBox>
 
 
                                     </div>
@@ -207,7 +207,7 @@
                                         <div class="input-group-addon">
                                             <i class="fa fa-street-view"></i>
                                         </div>
-                                        <asp:TextBox ID="txtCalle2" Style="text-transform: uppercase;" class="form-control pull-right" Width="250" runat="server" placeholder="TECLEE CALLE 2" MaxLength="50"></asp:TextBox>
+                                        <asp:TextBox ID="txtCalle2" Style="text-transform: uppercase;" class="form-control pull-right" Width="220" runat="server" placeholder="TECLEE CALLE 2" MaxLength="50"></asp:TextBox>
                                     </div>
 
                                 </div>
@@ -221,7 +221,7 @@
                                         <div class="input-group-addon">
                                             <i class="fa fa-crosshairs"></i>
                                         </div>
-                                        <asp:TextBox ID="txtCrucero" Style="text-transform: uppercase;" class="form-control pull-right" Width="250" runat="server" placeholder="TECLEE CRUCERO" MaxLength="50"></asp:TextBox>
+                                        <asp:TextBox ID="txtCrucero" Style="text-transform: uppercase;" class="form-control pull-right" Width="220" runat="server" placeholder="TECLEE CRUCERO" MaxLength="50"></asp:TextBox>
                                     </div>
 
                                 </div>
@@ -429,6 +429,25 @@
                         <div class="row">
                             <div class="col-lg-1">
                             </div>
+
+                            <div class="col-lg-2">
+                                <div class="input-group">
+                                    <label>AGENTE ID:</label>
+
+                                    <div class="input-group date">
+                                        <div class="input-group-addon">
+                                            <i class="fa fa-users"></i>
+                                        </div>
+                                        <asp:TextBox ID="txtAgenteID" Style="text-transform: uppercase;" class="form-control pull-right" runat="server" placeholder="ID AGENTE" onkeypress="return numbersonly(event);" MaxLength="12" AutoPostBack="true" OnTextChanged="txtAgenteID_TextChanged"></asp:TextBox>
+
+
+                                    </div>
+                                </div>
+
+                                <!-- /.input group -->
+                            </div>
+
+
                             <div class="col-lg-3">
                                 <div class="input-group">
                                     <label>AGENTE:</label>
@@ -458,7 +477,7 @@
                                             <i class="fa fa-list"></i>
                                         </div>
 
-                                        <asp:TextBox ID="txtdescripcion" Style="text-transform: uppercase;" Width="600px" class="form-control pull-right" runat="server" placeholder="TECLEE DESCRIPCION" ></asp:TextBox>
+                                        <asp:TextBox ID="txtdescripcion" Style="text-transform: uppercase;" Width="600px" class="form-control pull-right" runat="server" placeholder="TECLEE DESCRIPCION"></asp:TextBox>
                                     </div>
                                 </div>
                             </div>
@@ -483,7 +502,7 @@
                         <div class="row">
                             <div class="col-lg-1">
                             </div>
-                             <div class="col-lg-2">
+                            <div class="col-lg-2">
                                 <div class="input-group">
                                     <label>ID MULTA:</label>
 
@@ -640,10 +659,10 @@
             <asp:PostBackTrigger ControlID="txtdatepicker" />
 
             <asp:AsyncPostBackTrigger ControlID="txtIdMulta" EventName="TextChanged" />
-            
+
         </Triggers>
     </asp:UpdatePanel>
-    
+
     <style type="text/css">
         .Titulo {
             text-align: center;
@@ -652,11 +671,11 @@
     <script src="../Scripts/sweetalert2.all.min.js"></script>
 
     <%--Para que funcione el datapicker--%>
-<%--    <link href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.css" rel="stylesheet" />
+    <%--    <link href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.css" rel="stylesheet" />
     <link href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/css/bootstrap-datetimepicker.css" rel="stylesheet" />--%>
 
     <%--<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.js"></script>--%>
-  <%--  <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.15.2/moment.min.js"></script>
+    <%--  <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.15.2/moment.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.js"></script>--%>
     <%--<script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/js/bootstrap-datetimepicker.min.js"></script>--%>
     <%--Fin--%>
@@ -688,11 +707,11 @@
                 { return false } //disable key press    
             }
         };
-  </script>
+    </script>
 
 
     <script type="text/javascript">
-   
+
 
         //function Datapicker() {
         //    $('#datetimepicker1').datetimepicker({
@@ -711,22 +730,22 @@
 
         function SetDatePicker() {
 
-             var dp = $('#<%=txtdatepicker.ClientID%>');
-             dp.datepicker({
-                 changeMonth: true,
-                 changeYear: true,
-                 format: "dd/mm/yyyy",
-                 language: "es"
-             }).on('changeDate', function (ev) {
-                 $(this).blur();
-                 $(this).datepicker('hide');
-             });
+            var dp = $('#<%=txtdatepicker.ClientID%>');
+            dp.datepicker({
+                changeMonth: true,
+                changeYear: true,
+                format: "dd/mm/yyyy",
+                language: "es"
+            }).on('changeDate', function (ev) {
+                $(this).blur();
+                $(this).datepicker('hide');
+            });
         };
-       
+
         $(document).ready(function () {
             SetDatePicker();
         });
-         
+
     </script>
     <script type="text/javascript">
 
@@ -766,9 +785,9 @@
 
     </script>
 
-    
 
-   <script type="text/javascript">
+
+    <script type="text/javascript">
         //On Page Load.
         $(function () {
             SetDatePicker();
@@ -796,9 +815,9 @@
 
 
 
-    </script> 
+    </script>
 
- 
+
 </asp:Content>
 
 

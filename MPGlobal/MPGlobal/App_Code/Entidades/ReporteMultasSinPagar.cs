@@ -20,5 +20,7 @@ public class ReporteMultasSinPagar
     public DateTime FechaPago { get; set; }
     public string IdPlaca { get; set; }
     public string ReciboPago { get; set; }
-    public decimal TotalPago { get; set; }
+    public string TotalPago { get; set; }
+
+    public string FechaMulta { get; set; }
 }
